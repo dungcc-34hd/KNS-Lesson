@@ -19,8 +19,8 @@ class CreateLsClassTable extends Migration
             $table->integer('grade_level_id');
             $table->integer('school_id');
             $table->integer('quantity_student');
-            $table->dateTime('deleted_at');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -16,8 +16,8 @@ class CreateLsGradeLevelsTable extends Migration
         Schema::create('ls_grade_levels', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->dateTime('deleted_at');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -17,8 +17,8 @@ class CreateLsAreaTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
-            $table->dateTime('deleted_at');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

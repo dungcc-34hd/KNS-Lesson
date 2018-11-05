@@ -17,8 +17,8 @@ class CreateLsDistrictsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('provincial_id');
-            $table->dateTime('deleted_at');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -17,8 +17,8 @@ class CreateLsProvincialsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('area_id');
-            $table->dateTime('deleted_at');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
