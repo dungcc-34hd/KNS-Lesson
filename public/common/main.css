@@ -1,0 +1,9 @@
+.text-overflow{
+    max-width: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.require-input, .help-block {
+    color:#dd4b39;
+}

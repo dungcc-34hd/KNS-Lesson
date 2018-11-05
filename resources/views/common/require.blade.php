@@ -1,0 +1,1 @@
+<span class="require-input">*</span>

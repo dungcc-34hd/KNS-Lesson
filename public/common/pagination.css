@@ -1,0 +1,56 @@
+select#show-records {
+    width: 75px;
+    display: inline-block;
+}
+.view-by
+{
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+}
+.pagination-responsive {
+    margin: 0;
+}
+.current
+{
+    z-index: 3 !important;
+    color: #fff !important;
+    cursor: default !important;
+    background-color: #337ab7 !important;
+    border-color: #337ab7 !important;
+}
+.widget-spin i.fa-spinner
+{
+    color: #0b93d5;
+    margin: 0 auto;
+}
+.bigger-500 {
+    font-size: 500%;
+}
+
+#spiner-load-ajax .widget-spin {
+    margin-top: 20%;
+}
+
+#spiner-load-ajax {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+table th.order-number{
+    width: 40px;
+}
+table th.item-action-5{
+    width: 182px;
+}
+table th.item-action-4{
+    width: 152px;
+}
+table th.item-action-3{
+    width: 118px;
+}
+table th.item-action-2{
+    width: 97px;
+}
