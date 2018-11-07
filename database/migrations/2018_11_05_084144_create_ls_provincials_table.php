@@ -16,7 +16,7 @@ class CreateLsProvincialsTable extends Migration
         Schema::create('ls_provincials', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('area_id');
+            $table->integer('area_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

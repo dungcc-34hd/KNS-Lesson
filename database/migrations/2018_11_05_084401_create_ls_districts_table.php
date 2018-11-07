@@ -16,7 +16,7 @@ class CreateLsDistrictsTable extends Migration
         Schema::create('ls_districts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('provincial_id');
+            $table->integer('provincial_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

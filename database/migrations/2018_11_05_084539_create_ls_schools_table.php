@@ -16,9 +16,9 @@ class CreateLsSchoolsTable extends Migration
         Schema::create('ls_schools', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('school_level_id');
-            $table->integer('district_id');
-            $table->integer('quantity_student');
+            $table->integer('school_level_id')->nullable();
+            $table->integer('district_id')->nullable();
+            $table->integer('quantity_student')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
