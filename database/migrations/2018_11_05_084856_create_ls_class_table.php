@@ -16,9 +16,9 @@ class CreateLsClassTable extends Migration
         Schema::create('ls_class', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('grade_level_id');
-            $table->integer('school_id');
-            $table->integer('quantity_student');
+            $table->integer('grade_level_id')->nullable();
+            $table->integer('school_id')->nullable();
+            $table->integer('quantity_student')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
