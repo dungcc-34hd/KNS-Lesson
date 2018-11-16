@@ -14,6 +14,7 @@ class School extends Model
     {
         return $this->belongsTo(SchoolLevel::class);
     }
+
     public function district()
     {
         return $this->belongsTo(District::class);

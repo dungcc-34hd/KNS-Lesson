@@ -97,6 +97,8 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Module
         Route::post('/update/{id}', 'SchoolController@update')->name('admin.school.update');
         Route::get('/delete/{id}', 'SchoolController@delete')->name('admin.school.delete');
         Route::get('/pagination/{records}/{search?}', 'SchoolController@pagination')->name('admin.school.pagination');
+        Route::get('/treeView','SchoolController@treeView')->name('admin.school.treeView');
+
     });
 
     // Class
@@ -109,5 +111,28 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Module
         Route::post('/update/{id}', 'ClassController@update')->name('admin.class.update');
         Route::get('/delete/{id}', 'ClassController@delete')->name('admin.class.delete');
         Route::get('/pagination/{records}/{search?}', 'ClassController@pagination')->name('admin.class.pagination');
+    });
+
+    // Lesson
+    Route::group(['prefix' => 'lesson'], function () {
+        Route::get('/index', 'LessonController@index')->name('admin.lesson.index');
+        Route::get('/create', 'LessonController@create')->name('admin.lesson.create');
+        Route::post('/store', 'LessonController@store')->name('admin.lesson.store');
+        Route::get('/show/{id}', 'LessonController@show')->name('admin.lesson.show');
+        Route::get('/edit/{id}', 'LessonController@edit')->name('admin.lesson.edit');
+        Route::post('/update/{id}', 'LessonController@update')->name('admin.lesson.update');
+        Route::get('/delete/{id}', 'LessonController@delete')->name('admin.lesson.delete');
+        Route::get('/pagination/{records}/{search?}', 'LessonController@pagination')->name('admin.lesson.pagination');
+    });
+    // Titile lesson
+    Route::group(['prefix' => 'title-lesson'], function () {
+        Route::get('/index', 'TitleLessonController@index')->name('admin.title-lesson.index');
+        Route::get('/create', 'TitleLessonController@create')->name('admin.title-lesson.create');
+        Route::post('/store', 'TitleLessonController@store')->name('admin.title-lesson.store');
+        Route::get('/show/{id}', 'TitleLessonController@show')->name('admin.title-lesson.show');
+        Route::get('/edit/{id}', 'TitleLessonController@edit')->name('admin.title-lesson.edit');
+        Route::post('/update/{id}', 'TitleLessonController@update')->name('admin.title-lesson.update');
+        Route::get('/delete/{id}', 'TitleLessonController@delete')->name('admin.title-lesson.delete');
+        Route::get('/pagination/{records}/{search?}', 'TitleLessonController@pagination')->name('admin.title-lesson.pagination');
     });
 });

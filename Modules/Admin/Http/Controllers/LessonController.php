@@ -3,20 +3,23 @@
 namespace Modules\admin\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\DetailLesson;
 use App\Models\District;
+use App\Models\GradeLevel;
 use App\Models\School;
 use App\Models\SchoolLevel;
-use App\Repositories\School\SchoolEloquentRepository;
+use App\Repositories\ChoiceEvalua\LessonEloquentRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
 
-class SchoolController extends Controller
+class LessonController extends Controller
 {
     protected $repository;
-    public function __construct(SchoolEloquentRepository $repository)
+
+    public function __construct(LessonEloquentRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -28,8 +31,8 @@ class SchoolController extends Controller
         return view('admin::user.pagination',
             [
                 'users' => $this->repository->getObjects($per_page, $search),
-                'pages'       => $this->repository->getPages($per_page, $search),
-                'records'     => $per_page,
+                'pages' => $this->repository->getPages($per_page, $search),
+                'records' => $per_page,
                 'currentPage' => $request->page
             ]);
     }
@@ -39,12 +42,16 @@ class SchoolController extends Controller
      *
      * @return Response
      */
+
     public function index()
     {
         $records = 10;
-        $schools =  School::all();
+        $gradeLevels = GradeLevel::all();
+
+        $a = DetailLesson::with('titleLesson')->get();
+        dd($a);
         $pages = $this->repository->getPages($records);
-        return view('admin::schools.index', compact('schools','pages'));
+        return view('admin::lesson.index', compact('gradeLevels', 'pages'));
     }
 
     /**
@@ -54,8 +61,8 @@ class SchoolController extends Controller
      */
     public function show($id)
     {
-        $school = School::findOrFail ($id);
-        return view('admin::schools.show',compact('school'));
+        $school = School::findOrFail($id);
+        return view('admin::schools.show', compact('school'));
     }
 
     /**
@@ -65,24 +72,24 @@ class SchoolController extends Controller
      */
     public function edit($id)
     {
-        $school =  School::findOrFail($id);
-        $districts =  District::all();
-        $schoolLevels =  SchoolLevel::all();
-        return view ('admin::schools.edit', compact('school','districts','schoolLevels'));
+        $school = School::findOrFail($id);
+        $districts = District::all();
+        $schoolLevels = SchoolLevel::all();
+        return view('admin::schools.edit', compact('school', 'districts', 'schoolLevels'));
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request ,$id)
+    public function update(Request $request, $id)
     {
         $school = School::findOrFail($id);
 
-        $school->name               = $request->name;
-        $school->school_level_id     = $request->input('select-school-level');
-        $school->district_id        = $request->input('select-district');
-        $school->quantity_student   = $request->quantity;
+        $school->name = $request->name;
+        $school->school_level_id = $request->input('select-school-level');
+        $school->district_id = $request->input('select-district');
+        $school->quantity_student = $request->quantity;
         $school->save();
 
         Session::flash('message', 'Successfully updated provincial!');
@@ -95,9 +102,9 @@ class SchoolController extends Controller
      */
     public function create()
     {
-        $districts    =  District::all();
-        $schoolLevels =  SchoolLevel::all();
-        return view('admin::schools.create',compact('districts','schoolLevels'));
+        $districts = District::all();
+        $schoolLevels = SchoolLevel::all();
+        return view('admin::schools.create', compact('districts', 'schoolLevels'));
     }
 
     /**
@@ -109,10 +116,10 @@ class SchoolController extends Controller
     {
         $school = new School();
 
-        $school->name               = $request->name;
-        $school->school_level_id     = $request->input('select-school-level');
-        $school->district_id        = $request->input('select-district');
-        $school->quantity_student   = $request->quantity;
+        $school->name = $request->name;
+        $school->school_level_id = $request->input('select-school-level');
+        $school->district_id = $request->input('select-district');
+        $school->quantity_student = $request->quantity;
         $school->save();
 
         Session::flash('message', 'Successfully created provicial!');
