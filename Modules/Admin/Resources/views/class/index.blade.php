@@ -12,12 +12,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                School
+                Lớp
                 <small>Control panel</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="{{route('admin.index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Class</li>
+                <li><a href="{{route('admin.index')}}"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+                <li class="active">Lớp</li>
             </ol>
         </section>
 
@@ -25,7 +25,7 @@
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{route('admin.class.create')}}" class="btn btn-primary">Create</a>
+                    <a href="{{route('admin.class.create')}}" class="btn btn-primary">Tạo lớp</a>
                 </div>
             </div>
             <div class="row">
@@ -36,7 +36,7 @@
                     <!-- TO DO List -->
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">Class Lists</h3>
+                            <h3 class="box-title">Danh sách lớp</h3>
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -52,12 +52,12 @@
                             <table class="table table-hover results-table">
                                 <tbody>
                                 <tr>
-                                    <th class="order-number">No.</th>
-                                    <th>Name</th>
-                                    <th>Grade Level</th>
-                                    <th>School</th>
-                                    <th>Quantity Student</th>
-                                    <th class="item-action-3"></th>
+                                    <th class="order-number">Id.</th>
+                                    <th>Tên lớp</th>
+                                    <th>Khối</th>
+                                    <th>Trường học</th>
+                                    <th>Số lượng học sinh</th>
+                                    <th class="item-action-3">Trạng thái</th>
                                 </tr>
                                 @if(!empty($class))
                                     @foreach($class as $key => $item)
