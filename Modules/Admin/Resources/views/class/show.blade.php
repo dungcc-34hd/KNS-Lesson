@@ -6,8 +6,8 @@
 
     <div class="content-wrapper">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
-            <li class="breadcrumb-item active">School</li>
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Trạng thái</a></li>
+            <li class="breadcrumb-item active">Lớp</li>
         </ol>
         <section class="content">
             <div class="row">
@@ -16,7 +16,7 @@
                         <div class="box-header with-border">
                             <i class="fa fa-check-square-o text-black"></i>
 
-                            <h3 class="box-title">Information</h3>
+                            <h3 class="box-title">Thông tin</h3>
                         </div>
                         <div class="box-body">
 
@@ -32,31 +32,31 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Name</td>
+                                            <td>Tên lớp</td>
                                             <td>
                                                 {{$class->name}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Grade Level</td>
+                                            <td>Khối</td>
                                             <td>
                                                 {{!empty($class->gradeLevel) ? $class->gradeLevel->name : ''}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>School</td>
+                                            <td>Trường</td>
                                             <td>
                                                 {{!empty($class->school) ? $class->school->name : ''}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Quantity</td>
+                                            <td>Số lượng học sinh</td>
                                             <td>
                                                 {{ $class->quantity_student}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Status</td>
+                                            <td>Trạng thái</td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-info"

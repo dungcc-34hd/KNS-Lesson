@@ -5,15 +5,15 @@
 @section('content')
     <div class="content-wrapper">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
-            <li class="breadcrumb-item active">School</li>
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Trang chủ</a></li>
+            <li class="breadcrumb-item active">Lớp</li>
         </ol>
         <form action="{{route('admin.class.store')}}" method="post" class="validation-form">
             {{csrf_field()}}
             <section class="content">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">School</h3>
+                        <h3 class="box-title">Lớp</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -21,14 +21,14 @@
                             <div class="col-md-6">
 
                                 <div class="form-group">
-                                    <label>Name @include('common.require')</label>
+                                    <label>Tên lớp @include('common.require')</label>
                                     <div class="clearfix">
                                         <input type="text" class="form-control" name="name">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Grade Level @include('common.require')</label>
+                                    <label>Khối @include('common.require')</label>
                                     <select  class="form-control" name="select-grade-level">
                                         <option value="">Select Grade Level</option>
                                         @foreach ($gradeLevels as $key => $gradeLevel)
@@ -38,7 +38,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>School @include('common.require')</label>
+                                    <label>Trường @include('common.require')</label>
                                     <select  class="form-control" name="select-school">
                                         <option value="">Select School</option>
                                         @foreach ($schools as $key => $school)
@@ -48,7 +48,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Quantity Student @include('common.require')</label>
+                                    <label>Số lượng học sinh @include('common.require')</label>
                                     <div class="clearfix">
                                         <input type="number" class="form-control" name="quantity">
                                     </div>
@@ -59,8 +59,8 @@
                         <!-- /.box-body -->
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Create</button>
-                        <a href="{{route('admin.class.index')}}" type="button" class="btn btn-default">Go Back</a>
+                        <button type="submit" class="btn btn-primary">Tạo lớp</button>
+                        <a href="{{route('admin.class.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>
             </section>

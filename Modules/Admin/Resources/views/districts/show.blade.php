@@ -6,8 +6,8 @@
 
     <div class="content-wrapper">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
-            <li class="breadcrumb-item active">District</li>
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Trang chủ</a></li>
+            <li class="breadcrumb-item active">Quận/Huyện</li>
         </ol>
         <section class="content">
             <div class="row">
@@ -16,7 +16,7 @@
                         <div class="box-header with-border">
                             <i class="fa fa-check-square-o text-black"></i>
 
-                            <h3 class="box-title">Information</h3>
+                            <h3 class="box-title">Thông tin</h3>
                         </div>
                         <div class="box-body">
 
@@ -32,19 +32,19 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Name</td>
+                                            <td>Quận/Huyện</td>
                                             <td>
                                                 {{$district->name}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Area</td>
+                                            <td>Tỉnh/Thành phố</td>
                                             <td>
                                                 {{!empty($district->provincial) ? $district->provincial->name : ''}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Status</td>
+                                            <td>Trạng thái</td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-info"

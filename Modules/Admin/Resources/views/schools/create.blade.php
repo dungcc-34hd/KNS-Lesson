@@ -5,7 +5,7 @@
 @section('content')
     <div class="content-wrapper">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Trang chủ</a></li>
             <li class="breadcrumb-item active">School</li>
         </ol>
         <form action="{{route('admin.school.store')}}" method="post" class="validation-form">
@@ -13,7 +13,7 @@
             <section class="content">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">School</h3>
+                        <h3 class="box-title">Trường học</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -21,14 +21,14 @@
                             <div class="col-md-6">
 
                                 <div class="form-group">
-                                    <label>Name @include('common.require')</label>
+                                    <label>Tên trường @include('common.require')</label>
                                     <div class="clearfix">
                                         <input type="text" class="form-control" name="name">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>School Level @include('common.require')</label>
+                                    <label>Cấp @include('common.require')</label>
                                     <select  class="form-control" name="select-school-level">
                                         <option value="">Select School</option>
                                         @foreach ($schoolLevels as $key => $schoolLevel)
@@ -38,7 +38,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>District @include('common.require')</label>
+                                    <label>Quận/Huyện/Thành phố @include('common.require')</label>
                                     <select  class="form-control" name="select-district">
                                         <option value="">Select District</option>
                                         @foreach ($districts as $key => $district)
@@ -48,7 +48,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Quantity Student @include('common.require')</label>
+                                    <label>Số lượng học sinh @include('common.require')</label>
                                     <div class="clearfix">
                                         <input type="number" class="form-control" name="quantity">
                                     </div>

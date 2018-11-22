@@ -12,12 +12,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                School
+                Trường học
                 <small>Control panel</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="{{route('admin.index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">School</li>
+                <li><a href="{{route('admin.index')}}"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+                <li class="active">Trường học</li>
             </ol>
         </section>
 
@@ -25,7 +25,7 @@
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{route('admin.school.create')}}" class="btn btn-primary">Create</a>
+                    <a href="{{route('admin.school.create')}}" class="btn btn-primary">Tạo</a>
                 </div>
             </div>
             <div class="row">
@@ -36,11 +36,11 @@
                     <!-- TO DO List -->
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">School Lists</h3>
+                            <h3 class="box-title">Danh sách trường</h3>
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" id="nav-search-input" name="table_search" class="form-control pull-right" placeholder="Search">
+                                    <input type="text" id="nav-search-input" name="table_search" class="form-control pull-right" placeholder="Tìm kiếm">
                                     <div class="input-group-btn">
                                         <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                                     </div>
@@ -52,11 +52,11 @@
                             <table class="table table-hover results-table">
                                 <tbody>
                                 <tr>
-                                    <th class="order-number">No.</th>
-                                    <th>Name</th>
-                                    <th>School Level</th>
-                                    <th>District</th>
-                                    <th>Quantity Student</th>
+                                    <th class="order-number">Id.</th>
+                                    <th>Tên</th>
+                                    <th>Cấp</th>
+                                    <th>Quận/Huyện/Thành phố</th>
+                                    <th>Số lượng học sinh</th>
                                     <th class="item-action-3"></th>
                                 </tr>
                                 @if(!empty($schools))
@@ -92,7 +92,7 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td colspan="5">No Records</td>
+                                        <td colspan="5">Không có bản ghi nào</td>
                                     </tr>
                                 @endif
                                 </tbody>
@@ -107,7 +107,7 @@
                                 <div class="col-md-6 pull-right">
                                     <div class="form-group pull-right">
                                         <label class="view-by">
-                                            View By
+                                            Xem với
                                             <select id="show-records" class="form-control input-sm">
                                                 <option value="10">10</option>
                                                 <option value="25">25</option>
