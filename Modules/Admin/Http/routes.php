@@ -172,4 +172,4 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Module
 
     //Logout
     Route::get('/logout', 'LoginController@logout')->name('admin.logout');
-});
+}); 
