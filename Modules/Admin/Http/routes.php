@@ -1,17 +1,7 @@
 <?php
 
-Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Modules\Admin\Http\Controllers'], function()
-{
+Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' => 'Modules\Admin\Http\Controllers'], function () {
     Route::get('/', 'AdminController@index')->name('admin.index');
-
-    //Login
-    Route::group(['prefix' => 'login'], function () {
-        Route::get('/', 'LoginController@index')->name('admin.login.index');
-        Route::post('/', 'LoginController@login')->name('admin.login.process');
-    });
-
-    //Logout
-    Route::get('/logout', 'LoginController@logout')->name('admin.logout');
 
     //Role
     Route::group(['prefix' => 'role'], function () {
@@ -135,4 +125,51 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Module
         Route::get('/delete/{id}', 'TitleLessonController@delete')->name('admin.title-lesson.delete');
         Route::get('/pagination/{records}/{search?}', 'TitleLessonController@pagination')->name('admin.title-lesson.pagination');
     });
+
+    // manager contenr
+    Route::group(['prefix' => 'manager'], function () {
+        Route::get('/index', 'ManagerContentController@index')->name('admin.manager.index');
+//        Route::get('/create', 'TitleLessonController@create')->name('admin.title-lesson.create');
+//        Route::post('/store', 'TitleLessonController@store')->name('admin.title-lesson.store');
+//        Route::get('/show/{id}', 'TitleLessonController@show')->name('admin.title-lesson.show');
+//        Route::get('/edit/{id}', 'TitleLessonController@edit')->name('admin.title-lesson.edit');
+//        Route::post('/update/{id}', 'TitleLessonController@update')->name('admin.title-lesson.update');
+//        Route::get('/delete/{id}', 'TitleLessonController@delete')->name('admin.title-lesson.delete');
+//        Route::get('/pagination/{records}/{search?}', 'TitleLessonController@pagination')->name('admin.title-lesson.pagination');
+    });
+
+    // manager audio
+    Route::group(['prefix' => 'audio'], function () {
+        Route::get('/index', 'ManagerAudioController@index')->name('admin.managerAudio.index');
+        Route::get('/create', 'ManagerAudioController@create')->name('admin.managerAudio.create');
+        Route::post('/store', 'ManagerAudioController@store')->name('admin.managerAudio.store');
+//        Route::get('/show/{id}', 'TitleLessonController@show')->name('admin.title-lesson.show');
+//        Route::get('/edit/{id}', 'TitleLessonController@edit')->name('admin.title-lesson.edit');
+//        Route::post('/update/{id}', 'TitleLessonController@update')->name('admin.title-lesson.update');
+//        Route::get('/delete/{id}', 'TitleLessonController@delete')->name('admin.title-lesson.delete');
+//        Route::get('/pagination/{records}/{search?}', 'TitleLessonController@pagination')->name('admin.title-lesson.pagination');
+    });
+
+    // title lesson
+    Route::group(['prefix' => 'title-lesson'], function () {
+        Route::get('/index', 'TitleLessonController@index')->name('admin.titleLesson.index');
+        Route::get('/create', 'TitleLessonController@create')->name('admin.titleLesson.create');
+        Route::post('/store', 'TitleLessonController@store')->name('admin.titleLesson.store');
+//        Route::get('/show/{id}', 'TitleLessonController@show')->name('admin.title-lesson.show');
+//        Route::get('/edit/{id}', 'TitleLessonController@edit')->name('admin.title-lesson.edit');
+//        Route::post('/update/{id}', 'TitleLessonController@update')->name('admin.title-lesson.update');
+//        Route::get('/delete/{id}', 'TitleLessonController@delete')->name('admin.title-lesson.delete');
+//        Route::get('/pagination/{records}/{search?}', 'TitleLessonController@pagination')->name('admin.title-lesson.pagination');
+    });
+});
+//Login
+Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Modules\Admin\Http\Controllers'], function () {
+    //Login
+    Route::group(['prefix' => 'login'], function () {
+        Route::get('/', 'LoginController@index')->name('admin.login.index');
+        Route::post('/', 'LoginController@login')->name('admin.login.process');
+    });
+
+    //Logout
+    Route::get('/logout', 'LoginController@logout')->name('admin.logout');
 });
