@@ -164,6 +164,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
 });
 //Login
 Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Modules\Admin\Http\Controllers'], function () {
+    
     //Login
     Route::group(['prefix' => 'login'], function () {
         Route::get('/', 'LoginController@index')->name('admin.login.index');
@@ -172,4 +173,4 @@ Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Module
 
     //Logout
     Route::get('/logout', 'LoginController@logout')->name('admin.logout');
-}); 
+});
