@@ -114,6 +114,16 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete/{id}', 'LessonController@delete')->name('admin.lesson.delete');
         Route::get('/pagination/{records}/{search?}', 'LessonController@pagination')->name('admin.lesson.pagination');
     });
+    Route::group(['prefix' => 'grade'], function () {
+        Route::get('/index', 'GradeController@index')->name('admin.grade.index');
+        Route::get('/create', 'GradeController@create')->name('admin.grade.create');
+        Route::post('/store', 'GradeController@store')->name('admin.grade.store');
+        Route::get('/show/{id}', 'GradeController@show')->name('admin.grade.show');
+        Route::get('/edit/{id}', 'GradeController@edit')->name('admin.grade.edit');
+        Route::post('/update/{id}', 'GradeController@update')->name('admin.grade.update');
+        Route::get('/delete/{id}', 'GradeController@delete')->name('admin.grade.delete');
+        Route::get('/pagination/{records}/{search?}', 'GradeController@pagination')->name('admin.grade.pagination');
+    });
     // Titile lesson
     Route::group(['prefix' => 'title-lesson'], function () {
         Route::get('/index', 'TitleLessonController@index')->name('admin.title-lesson.index');

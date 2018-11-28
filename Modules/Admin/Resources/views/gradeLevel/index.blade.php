@@ -1,6 +1,6 @@
 @extends('admin::layouts.master')
 @section('title')
-    Class
+    Khối
 @endsection
 @push('style')
     <link rel="stylesheet" href="{{asset('common/pagination.css')}}" xmlns:v-on="http://www.w3.org/1999/xhtml"
@@ -12,12 +12,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Lớp
+                Khối
                 <small>Control panel</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{route('admin.index')}}"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
-                <li class="active">Lớp</li>
+                <li class="active">Khối</li>
             </ol>
         </section>
 
@@ -25,7 +25,7 @@
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{route('admin.class.create')}}" class="btn btn-primary">Tạo lớp</a>
+                    <a href="{{route('admin.grade.create')}}" class="btn btn-primary">Tạo lớp</a>
                 </div>
             </div>
             <div class="row">
@@ -53,22 +53,16 @@
                                 <tbody>
                                 <tr>
                                     <th class="order-number">Id.</th>
-                                    <th>Tên lớp</th>
-                                    <th>User</th>
-                                    <th>Khối</th>
-                                    <th>Trường học</th>
-                                    <th>Số lượng học sinh</th>
+                                    <th>Tên khối</th>
+                                   
                                     <th class="item-action-3">Trạng thái</th>
                                 </tr>
-                                @if(!empty($class))
-                                    @foreach($class as $key => $item)
+                                @if(!empty($grades))
+                                    @foreach($grades as $key => $item)
                                         <tr>
                                             <td class="text-center">{{$key + 1}}</td>
                                             <td>{{$item->name}}</td>
-                                            <td>{{!empty($item->user) ? $item->user->name:''}}</td>
-                                            <td class="green">{{!empty($item->gradeLevel) ? $item->gradeLevel->name: ''}}</td>
-                                            <td class="green">{{!empty($item->school) ? $item->school->name: ''}}</td>
-                                            <td>{{$item->quantity_student}}</td>
+                                         
                                             <td>
                                                 <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-success"
@@ -137,5 +131,5 @@
 @push('scripts')
     {{--    <script src="{{ asset('assets/admin/plugins/iCheck/icheck.min.js') }}"></script>--}}
     <script src="{{ asset('common/pagination-search.js') }}"></script>
-    <script src="{{ asset('modules/admin/class/class.js') }}"></script>
+    <script src="{{ asset('modules/admin/gradeLevel/gradeLevel.js') }}"></script>
 @endpush

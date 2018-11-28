@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repositories\LsClass;
+namespace App\Repositories\GradeLevel;
 
-use App\Models\LsClass;
-use App\User;
+// use App\
+use App\Models\GradeLevel;
 use App\Repositories\EloquentRepository;
 
-class LsClassEloquentRepository extends EloquentRepository implements LsClassRepositoryInterface
+class GradeLevelEloquentRepository extends EloquentRepository implements GradeLevelRepositoryInterface
 {
 
     /**
@@ -15,7 +15,7 @@ class LsClassEloquentRepository extends EloquentRepository implements LsClassRep
      */
     public function getModel()
     {
-        return LsClass::class;
+        return GradeLevel::class;
     }
 
     /**
@@ -28,8 +28,7 @@ class LsClassEloquentRepository extends EloquentRepository implements LsClassRep
     {
         $total = !is_null($search) ? count($this->_model->where(function ($q) use ($search) {
             $q->where('name', 'like', '%' . $search . '%');
-            
-            // $q->orWhere('description', 'like', '%' . $search . '%');
+//            $q->orWhere('description', 'like', '%' . $search . '%');
         })->get()) : count($this->_model->get());
         return ceil($total / $records);
     }
@@ -44,9 +43,7 @@ class LsClassEloquentRepository extends EloquentRepository implements LsClassRep
     {
         return is_null($search) ? $this->_model->paginate($records)->items() : $this->_model->where(function ($q) use ($search) {
             $q->where('name', 'like', '%' . $search . '%');
-         
-            
-            // $q->orWhere('description', 'like', '%' . $search . '%');
+//           $q->orWhere('description', 'like', '%' . $search . '%');
         })->paginate($records)->items();
     }
 }
