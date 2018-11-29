@@ -82,7 +82,6 @@ class SchoolController extends Controller
         $school->name               = $request->name;
         $school->school_level_id     = $request->input('select-school-level');
         $school->district_id        = $request->input('select-district');
-        $school->quantity_student   = $request->quantity;
         $school->save();
 
         Session::flash('message', 'Successfully updated provincial!');
@@ -112,7 +111,6 @@ class SchoolController extends Controller
         $school->name               = $request->name;
         $school->school_level_id     = $request->input('select-school-level');
         $school->district_id        = $request->input('select-district');
-        $school->quantity_student   = $request->quantity;
         $school->save();
 
         Session::flash('message', 'Successfully created provicial!');

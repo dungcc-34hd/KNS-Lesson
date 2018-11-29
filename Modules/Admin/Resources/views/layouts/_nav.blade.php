@@ -18,14 +18,12 @@
             {{--<li class="permission"><a href="{{route('admin.permission.index')}}"><i class="fa fa-lock"></i> <span>Permission</span></a></li>--}}
             <li class="user"><a href="{{route('admin.user.index')}}"><i class="fa fa-users"></i> <span>User</span></a></li>
             <li class="area"><a href="{{route('admin.area.index')}}"><i class="fa fa-users"></i> <span>Khu vực</span></a></li>
-            <li class="provincial"><a href="{{route('admin.provincial.index')}}"><i class="fa fa-users"></i> <span>Tỉnh</span></a></li>
+            <li class="provincial"><a href="{{route('admin.province.index')}}"><i class="fa fa-users"></i> <span>Tỉnh</span></a></li>
             <li class="district"><a href="{{route('admin.district.index')}}"><i class="fa fa-users"></i> <span>Quận /Huyện</span></a></li>
             <li class="school"><a href="{{route('admin.school.index')}}"><i class="fa fa-users"></i> <span>Trường</span></a></li>
             <li class="class"><a href="{{route('admin.class.index')}}"><i class="fa fa-users"></i> <span>Lớp</span></a></li>
-            {{--<li class="class"><a href="{{route('admin.titleLesson.index')}}"><i class="fa fa-users"></i> <span>Tiêu đề bài học</span></a></li>--}}
+            {{--<li class="class"><a href="{{route('admin.titleLesson.create')}}"><i class="fa fa-users"></i> <span>Tiêu đề bài học</span></a></li>--}}
             {{--<li class="grade-level"><a href="{{route('admin.lesson.index')}}"><i class="fa fa-users"></i> <span>Khối</span></a></li>--}}
-            {{--<li class="manager"><a href="{{route('admin.manager.index')}}"><i class="fa fa-users"></i> <span>Quản lí chung</span></a></li>--}}
-            {{--<li class="manager"><a href="{{route('admin.managerAudio.index')}}"><i class="fa fa-users"></i> <span>Quản lí audio</span></a></li>--}}
 
 
         </ul>

@@ -49,7 +49,7 @@ class LessonController extends Controller
         $gradeLevels = GradeLevel::all();
 
         $a = DetailLesson::with('titleLesson')->get();
-        dd($a);
+
         $pages = $this->repository->getPages($records);
         return view('admin::lesson.index', compact('gradeLevels', 'pages'));
     }

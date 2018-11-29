@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class School extends Model
 {
-    public $table = 'ls_schools';
-
     public $fillable = ['name','school_level_id','district_id','quantity_student'] ;
 
     public function schoolLevel()

@@ -47,13 +47,6 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group">
-                                    <label>Số lượng học sinh @include('common.require')</label>
-                                    <div class="clearfix">
-                                        <input type="number" class="form-control" name="quantity">
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                         <!-- /.box-body -->

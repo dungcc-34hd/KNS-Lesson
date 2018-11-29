@@ -45,14 +45,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
-                                <div class="form-group">
-                                    <label>Số lượng học sinh @include('common.require')</label>
-                                    <div class="clearfix">
-                                        <input type="text" class="form-control" name="quantity"
-                                               value="@isset($school){{$school->quantity_student}}@endisset">
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <!-- /.box-body -->
