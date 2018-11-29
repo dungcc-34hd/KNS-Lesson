@@ -95,6 +95,7 @@ class ClassController extends Controller
         // Session::flash('message', 'Successfully updated provincial!');
         Session::flash('flash_level', 'success');
         Session::flash('flash_message', 'Xoá thành công');
+        
 
         return redirect('admin/class/index');
     }
