@@ -28,52 +28,29 @@
                                         <tr>
                                             <td>ID</td>
                                             <td>
-                                                {{$class->id}}
+                                                {{$grade->id}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Tên lớp</td>
+                                            <td>Tên Khối</td>
                                             <td>
-                                                {{$class->name}}
+                                                {{$grade->name}}
                                             </td>
                                         </tr>
-                                        <tr>
-                                                <td>Tên user</td>
-                                                <td>
-                                                    {{isset($class->user) ? $class->user->name : ""}}
-                                                </td>
-                                            </tr>
-                                        <tr>
-                                            <td>Khối</td>
-                                            <td>
-                                                {{!empty($class->gradeLevel) ? $class->gradeLevel->name : ''}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Trường</td>
-                                            <td>
-                                                {{!empty($class->school) ? $class->school->name : ''}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Số lượng học sinh</td>
-                                            <td>
-                                                {{ $class->quantity_student}}
-                                            </td>
-                                        </tr>
+                                       
                                         <tr>
                                             <td>Trạng thái</td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-info"
-                                                       href="{{route('admin.class.edit',['id' => $class->id])}}"
+                                                       href="{{route('admin.grade.edit',['id' => $grade->id])}}"
                                                        title="Edit">
                                                         <i class="ace-icon fa fa-pencil"></i>
                                                     </a>
                                                     <a href="#" class="btn btn-danger delete-object"
                                                        title="Delete"
-                                                       object_id="{{$class->id}}" 
-                                                       object_name="{{$class->name}}">
+                                                       object_id="{{$grade->id}}" 
+                                                       object_name="{{$grade->name}}">
                                                         <i class="fa fa-trash-o"></i>
                                                     </a>
 

@@ -1,19 +1,16 @@
 <tr>
     <th class="order-number">Id.</th>
-    <th>Tên lớp</th>
-    <th>Khối</th>
-    <th>Trường học</th>
-    <th>Số lượng học sinh</th>
+    <th>Tên khối</th>
+   
     <th class="item-action-3">Trạng thái</th>
 </tr>
-@if(!empty($class))
-    @foreach($class as $key => $item)
+@if(!empty($grades))
+    @foreach($grades as $key => $item)
         <tr>
             <td class="text-center">{{$key + 1}}</td>
             <td>{{$item->name}}</td>
-            <td class="green">{{!empty($item->gradeLevel) ? $item->gradeLevel->name: ''}}</td>
-            <td class="green">{{!empty($item->school) ? $item->school->name: ''}}</td>
-            <td>{{$item->quantity_student}}</td>
+            <th class="item-action-3">Trạng thái</th>
+         
             <td>
                 <div class="btn-group btn-group-sm">
                     <a class="btn btn-success"

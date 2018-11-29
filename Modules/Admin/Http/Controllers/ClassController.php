@@ -45,7 +45,7 @@ class ClassController extends Controller
     public function index()
     {
         $records = 10;
-        $class =  LsClass::all();
+        $class =  $this->repository->getObjects($records);
         // $user  = User::all();
         $pages = $this->repository->getPages($records);
         return view('admin::class.index', compact('class','pages'));

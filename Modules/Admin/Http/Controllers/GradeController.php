@@ -26,7 +26,7 @@ class GradeController extends Controller
 
         return view('admin::GradeLevel.pagination',
             [
-                'class'       => $this->repository->getObjects($per_page, $search),
+                'grades'       => $this->repository->getObjects($per_page, $search),
                 'pages'       => $this->repository->getPages($per_page, $search),
                 'records'     => $per_page,
                 'currentPage' => $request->page
@@ -43,7 +43,7 @@ class GradeController extends Controller
 
 
         $records = 10;
-        $grades =  GradeLevel::all();
+        $grades =  $this->repository->getObjects($records);
         // $user  = User::all();
         $pages = $this->repository->getPages($records);
         return view('admin::gradeLevel.index', compact('grades','pages'));
@@ -86,18 +86,20 @@ class GradeController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('admin::show');
+        $grade = GradeLevel::findOrFail($id);
+        return view('admin::gradeLevel.show',compact('grade'));
     }
 
     /**
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('admin::edit');
+        $grade = Gradelevel::findOrFail($id);
+        return view('admin::gradeLevel.edit',compact('grade'));
     }
 
     /**
@@ -105,8 +107,18 @@ class GradeController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
+        $grade = Gradelevel::findOrFail($id);
+
+        $grade->name = $request->name;
+        $grade->save();
+
+        Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
+
+        return redirect('admin/grade/index');
+
     }
 
     /**
@@ -115,5 +127,14 @@ class GradeController extends Controller
      */
     public function destroy()
     {
+    }
+    public function delete($id)
+    {
+        $class = GradeLevel::findOrFail($id);
+
+        Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
+
+        $class->delete();
     }
 }
