@@ -3,7 +3,7 @@
 namespace App\Repositories\GradeLevel;
 
 // use App\
-use App\Models\GradeLevel;
+use App\Models\Grade;
 use App\Repositories\EloquentRepository;
 
 class GradeLevelEloquentRepository extends EloquentRepository implements GradeLevelRepositoryInterface
@@ -15,7 +15,7 @@ class GradeLevelEloquentRepository extends EloquentRepository implements GradeLe
      */
     public function getModel()
     {
-        return GradeLevel::class;
+        return Grade::class;
     }
 
     /**

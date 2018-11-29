@@ -66,7 +66,6 @@
                                             <td>{{$school->name}}</td>
                                             <td class="green">{{!empty($school->schoolLevel) ? $school->schoolLevel->name: ''}}</td>
                                             <td class="green">{{!empty($school->district) ? $school->district->name: ''}}</td>
-                                            <td>{{$school->quantity_student}}</td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-success"

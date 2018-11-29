@@ -4,7 +4,7 @@ namespace Modules\admin\Http\Controllers;
 
 use App\Models\Area;
 use App\Models\District;
-use App\Models\Provincial;
+use App\Models\Province;
 use App\Repositories\District\DistrictEloquentRepository;
 use App\User;
 use Illuminate\Http\Request;
@@ -65,7 +65,7 @@ class DistrictController extends Controller
     public function edit($id)
     {
         $district =  District::findOrFail($id);
-        $provincials =  Provincial::all();
+        $provincials =  Province::all();
         return view ('admin::districts.edit', compact('district','provincials'));
     }
 
@@ -90,7 +90,7 @@ class DistrictController extends Controller
      */
     public function create()
     {
-        $provincials= Provincial::all();
+        $provincials= Province::all();
         return view('admin::districts.create',compact('provincials'));
     }
 
@@ -103,7 +103,7 @@ class DistrictController extends Controller
     {
         $district = new District();
         $district->name        = $request->name;
-        $district->provincial_id	 = $request->input('select-provincial');
+        $district->province_id	 = $request->input('select-provincial');
         $district->save();
 
         Session::flash('message', 'Successfully created provicial!');

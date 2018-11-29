@@ -301,6 +301,9 @@
 <script src="{{asset('assets/admin/plugins/jquery-confirm/jquery-confirm.min.js')}}"></script>
 <!-- Main js -->
 <script src="{{asset('common/main.js')}}"></script>
+<script src="{{asset('common/pagination-search.js')}}"></script>
+<script src="{{asset('common/modal-validate-ptm.js')}}"></script>
+<script src="{{asset('js/axios.min.js')}}"></script>
 <!-- Jquery Validation-->
 <script src="{{asset('assets/admin/plugins/jquery-validation-1.17.0/dist/jquery.validate.js')}}"></script>
 <!-- import js from blade-->

@@ -2,7 +2,7 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use App\Models\GradeLevel;
+use App\Models\Grade;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -26,7 +26,7 @@ class GradeController extends Controller
 
         return view('admin::GradeLevel.pagination',
             [
-                'grades'       => $this->repository->getObjects($per_page, $search),
+                'grades'      => $this->repository->getObjects($per_page, $search),
                 'pages'       => $this->repository->getPages($per_page, $search),
                 'records'     => $per_page,
                 'currentPage' => $request->page
@@ -67,7 +67,7 @@ class GradeController extends Controller
     public function store(Request $request)
     {
 
-        $gradeLevel = new GradeLevel;
+        $gradeLevel = new Grade;
         
         $gradeLevel->name = $request->name;
         $gradeLevel->save();
@@ -88,7 +88,7 @@ class GradeController extends Controller
      */
     public function show($id)
     {
-        $grade = GradeLevel::findOrFail($id);
+        $grade = Grade::findOrFail($id);
         return view('admin::gradeLevel.show',compact('grade'));
     }
 
@@ -98,7 +98,7 @@ class GradeController extends Controller
      */
     public function edit($id)
     {
-        $grade = Gradelevel::findOrFail($id);
+        $grade = Grade::findOrFail($id);
         return view('admin::gradeLevel.edit',compact('grade'));
     }
 
@@ -109,7 +109,7 @@ class GradeController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $grade = Gradelevel::findOrFail($id);
+        $grade = Grade::findOrFail($id);
 
         $grade->name = $request->name;
         $grade->save();
@@ -130,7 +130,7 @@ class GradeController extends Controller
     }
     public function delete($id)
     {
-        $class = GradeLevel::findOrFail($id);
+        $class = Grade::findOrFail($id);
 
         Session::flash('flash_level', 'success');
         Session::flash('flash_message', 'Xoá thành công');

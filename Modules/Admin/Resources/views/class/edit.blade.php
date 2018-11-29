@@ -45,7 +45,7 @@
                                     <div class="clearfix">
                                             <select class="form-control" name="select-grade-level">
                                                     @foreach ($gradeLevels as $key => $gradeLevel)
-                                                        <option value="{{$gradeLevel->id}}" {{ $gradeLevel->id == $class->grade_level_id ? "selected" : '' }}>{{$gradeLevel->name}}</option>
+                                                        <option value="{{$gradeLevel->id}}" {{ $gradeLevel->id == $class->grade_id ? "selected" : '' }}>{{$gradeLevel->name}}</option>
                                                     @endforeach
                                             </select>
                                     </div>
@@ -69,7 +69,7 @@
                                     <label>Số lượng học sinh @include('common.require')</label>
                                     <div class="clearfix">
                                         <input type="text" class="form-control" name="quantity"
-                                               value="@isset($class){{$class->quantity_student}}@endisset">
+                                               value="@isset($class){{$class->quantity_student}}@endisset" min="1" >
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Cập nhật</button>
-                        <a href="{{route('admin.school.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
+                        <a href="{{route('admin.class.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>
             </section>

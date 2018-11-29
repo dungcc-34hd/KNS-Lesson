@@ -40,7 +40,7 @@
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Cập nhật</button>
-                        <a href="{{route('admin.school.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
+                        <a href="{{route('admin.grade.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>
             </section>

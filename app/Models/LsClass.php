@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class LsClass extends Model
 {
-    public $table='ls_class';
+    public $table='class';
 
-    public function gradeLevel()
+    public function grade()
     {
-        return $this->belongsTo(GradeLevel::class);
+        return $this->belongsTo(Grade::class);
     }
 
     public function school()

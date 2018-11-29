@@ -6,11 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class District extends Model
 {
-    public $table = 'ls_districts';
-
     public $fillable =['name','provincial_id'];
 
-    public function provincial()
+    public function province()
     {
         return $this->belongsTo(Provincial::class);
     }

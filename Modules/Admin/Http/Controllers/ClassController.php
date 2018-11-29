@@ -5,7 +5,7 @@ namespace Modules\admin\Http\Controllers;
 use App\Models\Area;
 use App\User;
 use App\Models\District;
-use App\Models\GradeLevel;
+use App\Models\Grade;
 use App\Models\LsClass;
 use App\Models\School;
 use App\Models\SchoolLevel;
@@ -46,7 +46,6 @@ class ClassController extends Controller
     {
         $records = 10;
         $class =  $this->repository->getObjects($records);
-        // $user  = User::all();
         $pages = $this->repository->getPages($records);
         return view('admin::class.index', compact('class','pages'));
     }
@@ -58,8 +57,9 @@ class ClassController extends Controller
      */
     public function show($id)
     {
-        $class = LsClass::findOrFail ($id);
-        return view('admin::class.show',compact('class'));
+        $class          = LsClass::findOrFail ($id);
+        $user          = User::all();
+        return view('admin::class.show',compact('class','user'));
     }
 
     /**
@@ -69,11 +69,13 @@ class ClassController extends Controller
      */
     public function edit($id)
     {
-        $class          =  LsClass::findOrFail($id);
-        $gradeLevels    =  GradeLevel::all();
-        $schools        = School::all();
+
         $users          = User::all();
-        return view ('admin::class.edit', compact('class','gradeLevels','schools'));
+        $class          =  LsClass::findOrFail($id);
+        $gradeLevels    =  Grade::all();
+        $schools        = School::all();
+
+        return view ('admin::class.edit', compact('class','gradeLevels','schools','users'));
     }
 
     /**
@@ -87,8 +89,8 @@ class ClassController extends Controller
         $class = LsClass::findOrFail($id);
 
         $class->name               = $request->name;
-        $class->grade_level_id     = $request->input('select-grade-level');
-        $class->school_id        = $request->input('select-school');
+        $class->grade_id           = $request->input('select-grade-level');
+        $class->school_id          = $request->input('select-school');
         $class->quantity_student   = $request->quantity;
         $class->save();
 
@@ -106,13 +108,18 @@ class ClassController extends Controller
      */
     public function create()
     {
+
         $schools      =  School::all();
-        $gradeLevels  =  GradeLevel::all();
+        $gradeLevels  =  Grade::all();
         $users        =  User::all();
 
       
 
         return view('admin::class.create',compact('schools','gradeLevels','users'));
+        // $schools    =  School::all();
+        // $gradeLevels =  Grade::all();
+        // return view('admin::class.create',compact('schools','gradeLevels'));
+
     }
 
     /**
@@ -127,9 +134,11 @@ class ClassController extends Controller
         $class = new LsClass();
 
         $class->name               = $request->name;
+
         $class->user_id            = $request->input('select-user');
-        $class->grade_level_id     = $request->input('select-grade-level');
+        $class->grade_id            = $request->input('select-grade-level');
         $class->school_id          = $request->input('select-school');
+
         $class->quantity_student   = $request->quantity;
         $class->save();
 
