@@ -1,7 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: PC
- * Date: 11/26/2018
- * Time: 3:00 PM
- */
+
+
+namespace App\Repositories\TitleLesson;
+
+
+use App\Repository\RepositoryInterface;
+
+interface TitleLessonEloquentInterface extends RepositoryInterface
+{
+    public function getPages($records, $search = null);
+    public function getObjects($records, $search = null);
+}

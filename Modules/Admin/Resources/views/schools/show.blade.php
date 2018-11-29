@@ -50,12 +50,6 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Số lượng học sinh</td>
-                                            <td>
-                                                {{ $school->quantity_student}}
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td>Trạng thái</td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">

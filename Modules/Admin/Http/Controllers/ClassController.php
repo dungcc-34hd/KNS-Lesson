@@ -4,7 +4,7 @@ namespace Modules\admin\Http\Controllers;
 
 use App\Models\Area;
 use App\Models\District;
-use App\Models\GradeLevel;
+use App\Models\Grade;
 use App\Models\LsClass;
 use App\Models\School;
 use App\Models\SchoolLevel;
@@ -68,7 +68,7 @@ class ClassController extends Controller
     public function edit($id)
     {
         $class      =  LsClass::findOrFail($id);
-        $gradeLevels =  GradeLevel::all();
+        $gradeLevels =  Grade::all();
         $schools    = School::all();
         return view ('admin::class.edit', compact('class','gradeLevels','schools'));
     }
@@ -98,7 +98,7 @@ class ClassController extends Controller
     public function create()
     {
         $schools    =  School::all();
-        $gradeLevels =  GradeLevel::all();
+        $gradeLevels =  Grade::all();
         return view('admin::class.create',compact('schools','gradeLevels'));
     }
 
@@ -112,7 +112,7 @@ class ClassController extends Controller
         $class = new LsClass();
 
         $class->name               = $request->name;
-        $class->grade_level_id     = $request->input('select-grade-level');
+        $class->grade_id     = $request->input('select-grade-level');
         $class->school_id        = $request->input('select-school');
         $class->quantity_student   = $request->quantity;
         $class->save();
