@@ -9,7 +9,7 @@
             <li class="breadcrumb-item active">Users</li>
         </ol>
         <form action="{{route('admin.user.store')}}" method="post" class="validation-form">
-            {{csrf_field()}}
+            {{csrf_field()}} 
             <section class="content">
                 <div class="box box-primary">
                     <div class="box-header with-border">

@@ -26,7 +26,7 @@ $('.validation-form').validate({
             required: "Please specify a valid email."
         }
     },
-
+ 
 
     highlight: function (e) {
         $(e).closest('.form-group').removeClass('has-info').addClass('has-error');

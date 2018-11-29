@@ -1,5 +1,5 @@
 $(function () {
-    activeMenu('class', null, false);
+    activeMenu('grade-level', null, false);
     $(document).on('click', '.delete-object', function (e) {
         e.preventDefault();
         var object_name = $(this).attr('object_name');
@@ -14,7 +14,7 @@ $(function () {
                     // alert('ahihi');
                     $.ajax({
                         type: 'GET',
-                        url: '/admin/class/delete/' + object_id,
+                        url: '/admin/grade/delete/' + object_id,
                         success: function (result) {
                             if (result['status']) {
                                 $('.alert-success').show();
@@ -27,7 +27,7 @@ $(function () {
                                 
                                 $('.alert-success').hide();
                                 $('.alert-danger').show();
-                                window.location.href = '/admin/class/index';
+                                window.location.href = '/admin/grade/index';
                             }
                         }
                     });

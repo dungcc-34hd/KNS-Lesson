@@ -43,3 +43,4 @@
     <script src="{{ asset('modules/admin/user/user-validation.js') }}"></script>
     <script src="{{ asset('assets/admin/bower_components/select2/dist/js/select2.full.js') }}"></script>
 @endpush
+ 
