@@ -50,6 +50,12 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td>Key</td>
+                                            <td>
+                                                {{$school->license_key}}
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td>Trạng thái</td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">

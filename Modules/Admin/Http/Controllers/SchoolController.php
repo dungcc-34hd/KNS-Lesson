@@ -25,9 +25,9 @@ class SchoolController extends Controller
     {
         $per_page = is_null($records) ? 10 : $records;
 
-        return view('admin::user.pagination',
+        return view('admin::schools.pagination',
             [
-                'users' => $this->repository->getObjects($per_page, $search),
+                'schools' => $this->repository->getObjects($per_page, $search),
                 'pages'       => $this->repository->getPages($per_page, $search),
                 'records'     => $per_page,
                 'currentPage' => $request->page
@@ -42,7 +42,7 @@ class SchoolController extends Controller
     public function index()
     {
         $records = 10;
-        $schools =  School::all();
+        $schools =  $this->repository->getObjects($records);
         $pages = $this->repository->getPages($records);
         return view('admin::schools.index', compact('schools','pages'));
     }
@@ -82,9 +82,13 @@ class SchoolController extends Controller
         $school->name               = $request->name;
         $school->school_level_id     = $request->input('select-school-level');
         $school->district_id        = $request->input('select-district');
+        $school->quantity_account    = 90; 
+        $school->expired_at          = "2100-11-14 00:00:00"; 
         $school->save();
 
-        Session::flash('message', 'Successfully updated provincial!');
+        Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Tạo mới thành công');
+
         return redirect('admin/school/index');
     }
 
@@ -92,8 +96,11 @@ class SchoolController extends Controller
      * creat a provincial
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
+    
     public function create()
     {
+        
+    
         $districts    =  District::all();
         $schoolLevels =  SchoolLevel::all();
         return view('admin::schools.create',compact('districts','schoolLevels'));
@@ -106,14 +113,19 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-        $school = new School();
 
-        $school->name               = $request->name;
+        $school = new School();
+        $school->name                = $request->name;
         $school->school_level_id     = $request->input('select-school-level');
-        $school->district_id        = $request->input('select-district');
+        $school->district_id         = $request->input('select-district');
+        $school->license_key         = $this->SimpleRandString();
+        $school->quantity_account    = 90; 
+        $school->expired_at          = "2100-11-14 00:00:00"; 
         $school->save();
 
-        Session::flash('message', 'Successfully created provicial!');
+        Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Thêm mới mới thành công');
+
         return redirect('admin/school/index');
     }
 
@@ -121,5 +133,27 @@ class SchoolController extends Controller
     {
         $school = School::findOrFail($id);
         $school->delete();
+
+        Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
+        
     }
+
+    public function SimpleRandString($length=32, $list="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"){
+
+        mt_srand((double)microtime()*1000000);
+        $newstring="";
+
+        if($length>0){
+
+            while(strlen($newstring)<$length){
+                $newstring.=$list[mt_rand(0, strlen($list)-1)];
+            }
+        }
+
+        return $newstring;
+
+    }
+
+   
 }
