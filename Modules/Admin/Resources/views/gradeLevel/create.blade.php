@@ -43,6 +43,6 @@
 
 @push('scripts')
     {{--    <script src="{{ asset('assets/admin/plugins/iCheck/icheck.min.js') }}"></script>--}}
-    <script src="{{ asset('modules/admin/class/class-validation.js')}}"></script>
+    <script src="{{ asset('modules/admin/gradeLevel/gradeLevel-validation.js')}}"></script>
     <script src="{{ asset('modules/admin/gradeLevel/gradeLevel.js') }}"></script>
 @endpush

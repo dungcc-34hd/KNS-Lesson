@@ -24,7 +24,7 @@ class GradeController extends Controller
         
         $per_page = is_null($records) ? 10 : $records;
 
-        return view('admin::GradeLevel.pagination',
+        return view('admin::gradeLevel.pagination',
             [
                 'grades'      => $this->repository->getObjects($per_page, $search),
                 'pages'       => $this->repository->getPages($per_page, $search),

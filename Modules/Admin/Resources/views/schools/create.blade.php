@@ -29,22 +29,28 @@
 
                                 <div class="form-group">
                                     <label>Cấp @include('common.require')</label>
-                                    <select  class="form-control" name="select-school-level">
-                                        <option value="">Select School</option>
-                                        @foreach ($schoolLevels as $key => $schoolLevel)
-                                            <option value="{{$schoolLevel->id}}">{{$schoolLevel->name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="clearfix">
+                                        <select  class="form-control" name="select-school-level">
+                                            <option value="">Select School</option>
+                                            @foreach ($schoolLevels as $key => $schoolLevel)
+                                                <option value="{{$schoolLevel->id}}">{{$schoolLevel->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    
                                 </div>
 
                                 <div class="form-group">
                                     <label>Quận/Huyện/Thành phố @include('common.require')</label>
-                                    <select  class="form-control" name="select-district">
-                                        <option value="">Select District</option>
-                                        @foreach ($districts as $key => $district)
-                                            <option value="{{$district->id}}">{{$district->name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="clearfix">
+                                        <select  class="form-control" name="select-district">
+                                            <option value="">Select District</option>
+                                            @foreach ($districts as $key => $district)
+                                                <option value="{{$district->id}}">{{$district->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    
                                 </div>
 
                             </div>
@@ -61,3 +67,7 @@
 
     </div>
 @endsection
+@push('scripts')
+    <script src="{{ asset('modules/admin/school/school-validation.js')}}"></script>
+    <script src="{{ asset('modules/admin/school/school.js') }}"></script>
+@endpush
