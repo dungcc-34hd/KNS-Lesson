@@ -1,6 +1,6 @@
 <div class="modal fade" id="modalAddGrade" role="dialog">
     <div class="modal-dialog">
-        <form action="{{route('admin.titleLesson.storeGrade')}}" method="post" class="validation-form"
+        <form action="{{route('admin.titleLesson.storeLesson')}}" method="post" class="validation-form"
               enctype="multipart/form-data">
             {{csrf_field()}}
 

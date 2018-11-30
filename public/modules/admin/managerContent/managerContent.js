@@ -63,10 +63,10 @@ $('#tree3').treed({openedClass: 'glyphicon-chevron-right', closedClass: 'glyphic
 
 $(document).ready(function() {
     $('#create-grade').click(function () {
-        var gradeId = $('#grade').val();
-        var name  = $('#name').val();
-        var backgroundAudio = $('#background-audio').val();
-        var backgroundImage = $('#background-image').val();
+        // var gradeId = $('#grade').val();
+        // var name  = $('#name').val();
+        // var backgroundAudio = $('#background-audio').val();
+        // var backgroundImage = $('#background-image').val();
         var formData = new FormData();
         var $form = $(this).closest('form');
         var url = $form.attr('action')
@@ -121,41 +121,82 @@ $(document).ready(function() {
                 'Content-Type': 'multipart/form-data'
             }
         }).then( function (response) {
-                switch (response.data.status) {
-                    case -1:
-                        $('#spiner-load-ajax').modal('hide');
-                        associate_errors(response.data, $form);
-                        break;
-                    case 0:
-                        alertShow(false, response.data.info);
-                        $('#modal-content').modal('hide');
-                        break;
-                    default:
-                        alertShow(true, response.data.info);
-                        $('#modal-action').modal('hide');
-                        // ajaxLoadData($('#show-records').val(), $('#pages-current').val(), $('#nav-search-input').val());
-                        break;
 
-                }
             }
         );
     });
 
-    $('#create-detail-lesson').click(function () {
-        var grade = $('#modalDetailLesson').val();
-        var detailLesson = $('#detail-lesson').val();
-        $.ajax({
-            type: "POST",
-            url: '/admin/title-lesson/store-lesson-detail',
-            data: {
-                'grade': grade,
-                'detailLesson' : detailLesson,
-            },
-            success: function( msg ) {
-                console.log(msg);
-            }
+    $('.modalDetailLesson').on('click',function () {
+       var id = $(this).data('value');
+       var text = $(this).text();
+        $('#create-detail-lesson').on('click',function () {
+            var formData = new FormData();
+            var $form = $(this).closest('form');
+            var url = $form.attr('action')
+            var params = $('#formAdđetailLesson').serializeArray()
+            params.push(({name: "lesson-id", value:id}));
+            params.push(({name: "lesson-name", value:text}));
+            var fileSelect = $('form input:file');
+            $.each(params, function (i, field) {
+                var name = field.name;
+                var value = field.value;
+                if(name.indexOf('[]') !== -1)
+                {
+                    var intputType = $("input[name='" + name + "']").attr('type');
+                    switch (intputType) {
+                        case 'checkbox':
+                            value = $("input[name='" + name + "']:checked")
+                                .map(function () {
+                                    return $(this).data('value');
+                                }).get();
+                            break;
+                        case undefined:
+                            value = $("textarea[name='" + name + "']")
+                                .map(function () {
+                                    return $(this).val();
+                                }).get();
+
+                            break;
+                        default:
+                            value = $("input[name='" + name + "']").map(function () {
+                                return $(this).val();
+                            }).get();
+                            break;
+                    }
+                }
+                if(name.indexOf('CKEditor') !== -1)
+                {
+                    name = name.substr(0, name.indexOf('CKEditor'))
+                    value = CKEDITOR.instances[name].getData();
+                }
+                formData.append(name, value);
+            });
+            $.each(fileSelect, function (i, value) {
+                var files = value.files;
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+
+                    // Add the file to the request.
+                    formData.append(value.name + '[]', file, file.name);
+                }
+            });
+
+            axios.post(url, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then( function (response) {
+                    switch (response.data.status) {
+
+                    }
+                }
+            );
         });
     });
 
+    function detailLesson()
+    {
+
+    }
 
 });

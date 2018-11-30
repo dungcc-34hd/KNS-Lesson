@@ -104,22 +104,23 @@ class TitleLessonController extends Controller
     /**
      * show Popup add khối (tạo folder + db)
      */
-    public function storeGrade(Request $request)
+    public function storeLesson(Request $request)
     {
         $lesson = new Lesson();
         $lesson->name = $request->name;
-        $lesson->grade_id = $request->gradeId;
-        if (!File::exists(public_path() . "/modules/managerContent/" . $lesson->name)) {
-            $directory = public_path() . "/modules/managerContent/" . $lesson->name;
+        $lesson->grade_id = $request->grade;
+        $directory = public_path() . "/modules/managerContent/" . $lesson->name;
+
+        if (!File::exists($directory)) {
             $backgroundAudio = public_path() . "/modules/managerContent/" . $request->backgroundAudio;
             $backgroundImage = public_path() . "/modules/managerContent/" . $request->backgroundImage;
             File::makeDirectory($directory);
         }
-        $destinationPath = public_path() . "/modules/managerContent/" . $lesson->name;
+
         $backgroundAudio = $request['background-audio'][0]->getClientOriginalName();
         $backgroundImage = $request['background-image'][0]->getClientOriginalName();
-        $request->file('background-audio')[0]->move($destinationPath, $backgroundAudio);
-        $request->file('background-image')[0]->move($destinationPath, $backgroundImage);
+        $request->file('background-audio')[0]->move($directory, $backgroundAudio);
+        $request->file('background-image')[0]->move($directory, $backgroundImage);
         $lesson->background_audio = $backgroundAudio;
         $lesson->background_image = $backgroundImage;
         $lesson->save();
@@ -132,15 +133,45 @@ class TitleLessonController extends Controller
      */
     public function storeLessonDetail(Request $request)
     {
-        if ($request->ajax()) {
-            $detailLesson = new LessonDetail();
-            $detailLesson->name = $request->detailLesson;
-            $detailLesson->save();
-            if (!File::exists(public_path() . "/modules/managerContent/" . $request->grade . '/' . $detailLesson->name)) {
-                $directory = public_path() . "/modules/managerContent/" . $request->grade . '/' . $detailLesson->name;
-                File::makeDirectory($directory);
-            }
+
+        $detailLesson = new LessonDetail();
+        $detailLesson->name = $request['detail-lesson'];
+        $detailLesson->lesson_id = $request['lesson-id'];
+        $directory = public_path() . "/modules/managerContent/" . $request['lesson-name'] . '/' . $detailLesson->name;
+        if (!File::exists(public_path() . $directory)) {
+            File::makeDirectory($directory);
         }
+
+        $backgroundAudio = $request['background-audio'][0]->getClientOriginalName();
+        $backgroundImage = $request['background-image'][0]->getClientOriginalName();
+        $request->file('background-audio')[0]->move($directory, $backgroundAudio);
+        $request->file('background-image')[0]->move($directory, $backgroundImage);
+        $detailLesson->background_audio = $backgroundAudio;
+        $detailLesson->background_image = $backgroundImage;
+        $detailLesson->save();
+    }
+
+    public function storeLessonContent(Request $request)
+    {
+        $detailLesson = new LessonDetail();
+        $detailLesson->name = $request['detail-lesson'];
+        $detailLesson->lesson_id = $request['lesson-id'];
+        $directory = public_path() . "/modules/managerContent/" . $request['lesson'] . '/' . $detailLesson->name;
+        if (!File::exists(public_path() . $directory)) {
+            File::makeDirectory($directory);
+        }
+        $backgroundAudio = $request['background-audio'][0]->getClientOriginalName();
+        $request->file('background-audio')[0]->move($directory, $backgroundAudio);
+
+        foreach ( $request['background-image'] as $item)
+        {
+            $backgroundAudio =  basename($item[0]->getClientOriginalName());
+            move_uploaded_file($item[0], $directory . '/' . $backgroundAudio);
+        }
+
+        $detailLesson->background_audio = $backgroundAudio;
+//        $detailLesson->background_image = $backgroundImage;
+        $detailLesson->save();
     }
 
     public function delete($id)

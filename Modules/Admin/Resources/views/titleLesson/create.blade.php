@@ -27,23 +27,23 @@
                                             data-target="#modalAddGrade"> Tạo bài học
                                     </button>
                                 </div>
-                                @include('admin::titleLesson.addGrade')
+                                @include('admin::titleLesson.addLesson')
                             </div>
 
                             <div class="form-group">
                                 @foreach($lessons as $lesson)
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    <button type="button" class="btn btn-primary modalDetailLesson" data-toggle="modal"
                                             data-target="#modalAddDetailLesson" id="modalDetailLesson"
-                                            value="{{$lesson->name}}">{{$lesson->name}}</button>
+                                            data-value="{{$lesson->id}}">{{$lesson->name}}</button>
                                 @endforeach
                             </div>
                             @include('admin::titleLesson.addDetailLesson')
 
                             <div class="form-group">
                                 @foreach($lessonDetails as $lessonDetail)
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    <button type="button" class="btn btn-primary modalLessonContent" data-toggle="modal"
                                             data-target="#modalAddLessonContent" id="modalLessonContent"
-                                            value="{{$lessonDetail->name}}">{{$lessonDetail->name}}</button>
+                                            value="{{$lessonDetail->id}}">{{$lessonDetail->name}}</button>
                                 @endforeach
                             </div>
                             @include('admin::titleLesson.addLessonContent')
