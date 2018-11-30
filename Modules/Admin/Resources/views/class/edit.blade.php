@@ -88,4 +88,5 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('modules/admin/class/class-validation.js')}}"></script>
+    <script src="{{ asset('modules/admin/class/class.js') }}"></script>
 @endpush

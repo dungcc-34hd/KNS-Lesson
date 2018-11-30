@@ -26,7 +26,7 @@
                                         <input type="text" class="form-control" name="name">
                                     </div>
                                 </div>
-
+                                
                                 <div class="form-group">
                                     <label>User @include('common.require')</label>
                                     <div class="clearfix">
@@ -88,4 +88,5 @@
 
 @push('scripts')
     <script src="{{ asset('modules/admin/class/class-validation.js')}}"></script>
+    <script src="{{ asset('modules/admin/class/class.js') }}"></script>
 @endpush
