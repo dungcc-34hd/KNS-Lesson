@@ -119,7 +119,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
     Route::group(['prefix' => 'title-lesson'], function () {
         Route::get('/index', 'TitleLessonController@index')->name('admin.titleLesson.index');
         Route::get('/create', 'TitleLessonController@create')->name('admin.titleLesson.create');
-        Route::post('/store-grade', 'TitleLessonController@storeGrade')->name('admin.titleLesson.storeGrade');
+        Route::post('/store-lesson', 'TitleLessonController@storeLesson')->name('admin.titleLesson.storeLesson');
         Route::post('/store-lesson-detail', 'TitleLessonController@storeLessonDetail')->name('admin.titleLesson.storeLessonDetail');
         Route::post('/store-lesson-content', 'TitleLessonController@storeLessonContent')->name('admin.titleLesson.storeLessonContent');
         Route::get('/show/{id}', 'TitleLessonController@show')->name('admin.titleLesson.show');

@@ -45,4 +45,14 @@ class TitleLessonEloquentRepository extends EloquentRepository implements TitleL
 //            $q->orWhere('description', 'like', '%' . $search . '%');
         })->paginate($records)->items();
     }
+
+    public function getImage($image)
+    {
+        $images = null;
+        foreach ($images as $image)
+        {
+            $image->getClientOriginalName();
+        }
+        return $image;
+    }
 }
