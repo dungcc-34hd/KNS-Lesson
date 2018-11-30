@@ -19,7 +19,7 @@ class StatisticEloquentRepository extends EloquentRepository implements Statisti
     {
          return LsClass::class;
     }
-     public $properties = 'ls_districts.name as name_district';
+     // public $properties = 'ls_districts.name as name_district';
      // public $properties = 'ls_districts.name as name_district,count(users.id) as a';
 
     /**

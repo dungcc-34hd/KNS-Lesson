@@ -36,7 +36,7 @@ class StatisticController extends Controller
         $districtId=count($districts) > 0 ? $districts->first()->id : 0;
        // foreach ($districts as $key => $district) {
        //     $districtId=$district->id;
-        $as=$this->repository->getObjects($records,$districtId, $search = null);
+        // $as=$this->repository->getObjects($records,$districtId, $search = null);
      
         $array=$this->repository->getStatistic($districtId);
 

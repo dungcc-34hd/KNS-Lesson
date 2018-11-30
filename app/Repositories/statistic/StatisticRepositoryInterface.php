@@ -11,4 +11,5 @@ interface StatisticRepositoryInterface
 	public function getDistricts($provinceId);
 	 public function getStatistic($districtId);
 	 public function getAccount($schoolId);
+	  public function getSchool();
 }
