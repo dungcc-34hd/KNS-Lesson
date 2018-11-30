@@ -175,6 +175,14 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete/{id}', 'TitleLessonController@delete')->name('admin.titleLesson.delete');
         Route::get('/pagination/{records}/{search?}', 'TitleLessonController@pagination')->name('admin.titleLesson.pagination');
     });
+    // statistic
+    Route::group(['prefix'=>'statistic'],function(){
+        Route::get('/','StatisticController@index')->name('admin.statistic.index');
+        Route::get('/change-province/{provinceId}','StatisticController@changeProvince')->name('admin.statistic.changeProvince');
+        Route::get('/change-district/{districtId}','StatisticController@changeDistrict')->name('admin.statistic.changeDistrict');
+        Route::get('/change-school/{schoolId}','StatisticController@changeSchool')->name('admin.statistic.changeSchool');
+        
+    });
 });
 //Login
 Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Modules\Admin\Http\Controllers'], function () {
