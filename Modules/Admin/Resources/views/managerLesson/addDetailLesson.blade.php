@@ -1,7 +1,7 @@
 <div class="modal fade" id="modalAddDetailLesson" role="dialog">
     <div class="modal-dialog">
-        <form action="{{route('admin.titleLesson.storeLessonDetail')}}" method="post" class="validation-form"
-              enctype="multipart/form-data" id="formAdđetailLesson">
+        <form action="{{route('admin.managerLesson.storeLessonDetail')}}" method="post" class="validation-form"
+              enctype="multipart/form-data" id="formAddDetailLesson">
         {{csrf_field()}}
             <input type="hidden" class="addDetailLesson" value="#" name="#" />
         <!-- Modal content-->
@@ -19,7 +19,7 @@
                 <div class="modal-body">
                     <label>Kiểu định dạng @include('common.require')</label>
                     <div class="clearfix">
-                        <select class="form-control" name="select-type">
+                        <select class="form-control" name="type" id="type">
                             <option value="">Chọn kiểu </option>
                             <option value="1">PhotoSlide</option>
                             <option value="2">Video</option>
@@ -30,7 +30,7 @@
                 <div class="modal-body">
                     <label>Outline @include('common.require')</label>
                     <div class="clearfix">
-                        <input type="text" class="form-control" name="onutline" id="onutline">
+                        <input type="text" class="form-control" name="outline" id="outline">
                     </div>
                 </div>
                 <div class="modal-body">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="create-detail-lesson">Tạo tiêu đề</button>
+                    <button type="button" class="btn btn-primary create-detail-lesson" id="create-detail-lesson">Tạo tiêu đề</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
             </div>

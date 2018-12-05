@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Repositories\TitleLesson;
+namespace App\Repositories\ManagerLesson;
 
+use App\Models\LessonDetail;
 use App\Models\School;
 use App\Repositories\EloquentRepository;
 
-class TitleLessonEloquentRepository extends EloquentRepository implements TitleLessonEloquentInterface
+class ManagerLessonEloquentRepository extends EloquentRepository implements ManagerLessonEloquentInterface
 {
 
     /**
@@ -54,5 +55,15 @@ class TitleLessonEloquentRepository extends EloquentRepository implements TitleL
             $image->getClientOriginalName();
         }
         return $image;
+    }
+
+    public function getTypeById($id)
+    {
+        return LessonDetail::where('id',$id)->first()->type;
+    }
+
+    public function getLessonIdById($id)
+    {
+        return LessonDetail::where('id',$id)->first()->title;
     }
 }

@@ -259,7 +259,15 @@
     </div>
 </div>
 <!-- ./wrapper -->
-
+<div class="modal fade" id="modal-action">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 <!-- jQuery 3 -->
 <script src="{{asset('assets/admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
