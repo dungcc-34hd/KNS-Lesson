@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Repositories\TitleLesson;
+namespace App\Repositories\ManagerLesson;
 
 
 use App\Repository\RepositoryInterface;
 
-interface TitleLessonEloquentInterface extends RepositoryInterface
+interface ManagerLessonEloquentInterface extends RepositoryInterface
 {
     public function getPages($records, $search = null);
     public function getObjects($records, $search = null);

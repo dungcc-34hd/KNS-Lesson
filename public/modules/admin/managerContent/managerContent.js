@@ -62,11 +62,8 @@ $('#tree2').treed({openedClass: 'glyphicon-folder-open', closedClass: 'glyphicon
 $('#tree3').treed({openedClass: 'glyphicon-chevron-right', closedClass: 'glyphicon-chevron-down'});
 
 $(document).ready(function() {
+
     $('#create-grade').click(function () {
-        // var gradeId = $('#grade').val();
-        // var name  = $('#name').val();
-        // var backgroundAudio = $('#background-audio').val();
-        // var backgroundImage = $('#background-image').val();
         var formData = new FormData();
         var $form = $(this).closest('form');
         var url = $form.attr('action')
@@ -121,9 +118,9 @@ $(document).ready(function() {
                 'Content-Type': 'multipart/form-data'
             }
         }).then( function (response) {
-
             }
         );
+        window.location.reload();
     });
 
     $('.modalDetailLesson').on('click',function () {
@@ -133,9 +130,10 @@ $(document).ready(function() {
             var formData = new FormData();
             var $form = $(this).closest('form');
             var url = $form.attr('action')
-            var params = $('#formAdđetailLesson').serializeArray()
+            var params = $('#formAddDetailLesson').serializeArray()
             params.push(({name: "lesson-id", value:id}));
             params.push(({name: "lesson-name", value:text}));
+            params.push(({name: "type", value:$('#type').val()}));
             var fileSelect = $('form input:file');
             $.each(params, function (i, field) {
                 var name = field.name;
@@ -186,17 +184,10 @@ $(document).ready(function() {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then( function (response) {
-                    switch (response.data.status) {
-
-                    }
+                    console.log(response);
                 }
             );
+            window.location.reload();
         });
     });
-
-    function detailLesson()
-    {
-
-    }
-
 });

@@ -5,19 +5,21 @@ namespace Modules\admin\Http\Controllers;
 
 use App\Models\Grade;
 use App\Models\Lesson;
+use App\Models\LessonAnswer;
+use App\Models\LessonContent;
 use App\Models\LessonDetail;
 use App\Models\School;
-use App\Repositories\TitleLesson\TitleLessonEloquentRepository;
+use App\Repositories\ManagerLesson\ManagerLessonEloquentRepository;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Routing\Controller;
 
-class TitleLessonController extends Controller
+class ManagerLessonController extends Controller
 {
     protected $repository;
 
-    public function __construct(TitleLessonEloquentRepository $repository)
+    public function __construct(ManagerLessonEloquentRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -47,7 +49,7 @@ class TitleLessonController extends Controller
         $lessons = Lesson::all();
         $lessonDetails = LessonDetail::all();
         $pages = $this->repository->getPages($records);
-        return view('admin::titleLesson.create', compact('lessons', 'pages', 'lessonDetails', 'grades'));
+        return view('admin::managerLesson.index', compact('lessons', 'pages', 'lessonDetails', 'grades'));
     }
 
     /**
@@ -57,7 +59,7 @@ class TitleLessonController extends Controller
      */
     public function show($id)
     {
-        return view('admin::schools.show', compact('school'));
+        return view('admin::managerLesson.show', compact('school'));
     }
 
     /**
@@ -67,7 +69,7 @@ class TitleLessonController extends Controller
      */
     public function edit($id)
     {
-        return view('admin::schools.edit', compact('school', 'districts', 'schoolLevels'));
+        return view('admin::managerLesson.edit', compact('school', 'districts', 'schoolLevels'));
     }
 
     /**
@@ -76,7 +78,7 @@ class TitleLessonController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return redirect('admin/school/index');
+        return redirect('admin/managerLesson/index');
     }
 
     /**
@@ -88,7 +90,8 @@ class TitleLessonController extends Controller
         $lessons = Lesson::all();
         $grades = Grade::all();
         $lessonDetails = LessonDetail::all();
-        return view('admin::titleLesson.create', compact('lessonDetails', 'lessons', 'grades', 'lessonDetails'));
+
+        return view('admin::managerLesson.create', compact('lessonDetails', 'lessons', 'grades', 'lessonDetails'));
     }
 
     /**
@@ -98,7 +101,7 @@ class TitleLessonController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect('admin/title-lesson/index');
+        return redirect('admin/managerLesson/index');
     }
 
     /**
@@ -133,11 +136,12 @@ class TitleLessonController extends Controller
      */
     public function storeLessonDetail(Request $request)
     {
-
         $detailLesson = new LessonDetail();
-        $detailLesson->name = $request['detail-lesson'];
+        $detailLesson->title = $request['detail-lesson'];
         $detailLesson->lesson_id = $request['lesson-id'];
-        $directory = public_path() . "/modules/managerContent/" . $request['lesson-name'] . '/' . $detailLesson->name;
+        $detailLesson->type = $request['type'];
+        $detailLesson->outline = $request['outline'];
+        $directory = public_path() . "/modules/managerContent/" . $request['lesson-name'] . '/' . $detailLesson->title;
         if (!File::exists(public_path() . $directory)) {
             File::makeDirectory($directory);
         }
@@ -151,27 +155,48 @@ class TitleLessonController extends Controller
         $detailLesson->save();
     }
 
+    /**
+     * @param $id , type , title
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getValueType($id)
+    {
+        $typeId = $this->repository->getTypeById($id);
+        $title = $this->repository->getLessonIdById($id);
+        $array = ['type'=>$typeId,'title'=>$title,'id'=>$id];
+        return view ('admin::managerLesson.addLessonContent',compact('typeId','title','id'));
+    }
+
     public function storeLessonContent(Request $request)
     {
-        $detailLesson = new LessonDetail();
-        $detailLesson->name = $request['detail-lesson'];
-        $detailLesson->lesson_id = $request['lesson-id'];
-        $directory = public_path() . "/modules/managerContent/" . $request['lesson'] . '/' . $detailLesson->name;
-        if (!File::exists(public_path() . $directory)) {
-            File::makeDirectory($directory);
-        }
-        $backgroundAudio = $request['background-audio'][0]->getClientOriginalName();
-        $request->file('background-audio')[0]->move($directory, $backgroundAudio);
-
-        foreach ( $request['background-image'] as $item)
+        $contentLesson = new LessonContent();
+        $contentLesson->content = $request['content'];
+        $contentLesson->lesson_detail_id = $request['id'];
+        $contentLesson->order_by = $request['order-by'];
+        $contentLesson->save();
+        if($request['type'] == 3)
         {
-            $backgroundAudio =  basename($item[0]->getClientOriginalName());
-            move_uploaded_file($item[0], $directory . '/' . $backgroundAudio);
+            $lessonAnswer = new LessonAnswer();
+            $lessonAnswer->lesson_content_id = $contentLesson->id;
+
         }
 
-        $detailLesson->background_audio = $backgroundAudio;
+//        $directory = public_path() . "/modules/managerContent/" . $request['lesson'] . '/' . $contentLesson->name;
+//        if (!File::exists(public_path() . $directory)) {
+//            File::makeDirectory($directory);
+//        }
+//        $backgroundAudio = $request['background-audio'][0]->getClientOriginalName();
+//        $request->file('background-audio')[0]->move($directory, $backgroundAudio);
+
+//        foreach ( $request['background-image'] as $item)
+//        {
+//            $backgroundAudio =  basename($item[0]->getClientOriginalName());
+//            move_uploaded_file($item[0], $directory . '/' . $backgroundAudio);
+//        }
+
+//        $contentLesson->background_audio = $backgroundAudio;
 //        $detailLesson->background_image = $backgroundImage;
-        $detailLesson->save();
+
     }
 
     public function delete($id)
