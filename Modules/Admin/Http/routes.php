@@ -20,12 +20,14 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
     Route::group(['prefix' => 'permission'], function () {
         Route::get('/', 'PermissionController@index')->name('admin.permission.index');
         Route::get('/pagination/{records}/{search?}', 'PermissionController@pagination')->name('admin.permission.pagination');
-        Route::get('/show/{id}', 'PermissionController@show')->name('admin.permission.show');
+        // Route::get('/show/{id}', 'PermissionController@show')->name('admin.permission.show');
         Route::get('/edit/{id}', 'PermissionController@edit')->name('admin.permission.edit');
         Route::post('/edit/{id}', 'PermissionController@update')->name('admin.permission.update');
         Route::get('/create', 'PermissionController@create')->name('admin.permission.create');
         Route::post('/store', 'PermissionController@store')->name('admin.permission.store');
         Route::get('/delete/{id}', 'PermissionController@destroy')->name('admin.permission.delete');
+        Route::get('/change-radio/{id}/{value}', 'PermissionController@changeRadio')->name('admin.permission.changeRadio');
+
     });
     
     //User

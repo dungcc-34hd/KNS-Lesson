@@ -58,8 +58,9 @@ class ClassController extends Controller
     public function show($id)
     {
         $class          = LsClass::findOrFail ($id);
-        $user          = User::all();
-        return view('admin::class.show',compact('class','user'));
+        $grade_id=$class->grade_id;
+        $grade    = Grade::find($grade_id);
+        return view('admin::class.show',compact('class','grade'));
     }
 
     /**
@@ -70,12 +71,9 @@ class ClassController extends Controller
     public function edit($id)
     {
 
-        $users          = User::all();
         $class          =  LsClass::findOrFail($id);
         $gradeLevels    =  Grade::all();
-        $schools        = School::all();
-
-        return view ('admin::class.edit', compact('class','gradeLevels','schools','users'));
+        return view ('admin::class.edit', compact('class','gradeLevels'));
     }
 
     /**
@@ -84,19 +82,10 @@ class ClassController extends Controller
      */
     public function update(Request $request ,$id)
     {
-        
-
-        $class = LsClass::findOrFail($id);
-
-        $class->name               = $request->name;
-        $class->grade_id           = $request->input('select-grade-level');
-        $class->school_id          = $request->input('select-school');
-        $class->quantity_student   = $request->quantity;
-        $class->save();
-
-        // Session::flash('message', 'Successfully updated provincial!');
+        $array = $request->all();
+        $this->repository->update($id,$array);   
         Session::flash('flash_level', 'success');
-        Session::flash('flash_message', 'Xoá thành công');
+        Session::flash('flash_message', 'Cập nhật thành công');
         
 
         return redirect('admin/class/index');
@@ -108,18 +97,8 @@ class ClassController extends Controller
      */
     public function create()
     {
-
-        $schools      =  School::all();
         $gradeLevels  =  Grade::all();
-        $users        =  User::all();
-
-      
-
-        return view('admin::class.create',compact('schools','gradeLevels','users'));
-        // $schools    =  School::all();
-        // $gradeLevels =  Grade::all();
-        // return view('admin::class.create',compact('schools','gradeLevels'));
-
+        return view('admin::class.create',compact('gradeLevels'));
     }
 
     /**
@@ -129,18 +108,8 @@ class ClassController extends Controller
      */
     public function store(Request $request)
     {
-
-
-        $class = new LsClass();
-
-        $class->name               = $request->name;
-
-        $class->user_id            = $request->input('select-user');
-        $class->grade_id            = $request->input('select-grade-level');
-        $class->school_id          = $request->input('select-school');
-
-        $class->quantity_student   = $request->quantity;
-        $class->save();
+        $array=$request->all();
+        $this->repository->create($array);
 
         Session::flash('flash_level', 'success');
         Session::flash('flash_message', 'Tạo mới thành công');

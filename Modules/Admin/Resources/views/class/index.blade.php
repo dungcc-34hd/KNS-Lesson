@@ -52,12 +52,9 @@
                             <table class="table table-hover results-table">
                                 <tbody>
                                 <tr>
-                                    <th class="order-number">Id.</th>
+                                    <th class="order-number">STT</th>
                                     <th>Tên lớp</th>
-                                    <th>User</th>
                                     <th>Khối</th>
-                                    <th>Trường học</th>
-                                    <th>Số lượng học sinh</th>
                                     <th class="item-action-3">Trạng thái</th>
                                 </tr>
                                 @if(!empty($class))
@@ -65,11 +62,8 @@
                                         <tr>
                                             <td class="text-center">{{$key + 1}}</td>
                                             <td>{{$item->name}}</td>
-                                            <td>{{!empty($item->user) ? $item->user->name:''}}</td>
-                                            {{-- <td class="green">{{!empty($item->gradeLevel) ? $item->gradeLevel->name: ''}}</td> --}}
+                                            
                                             <td>{{!empty($item->grade) ? $item->grade->name : ''}}</td>
-                                            <td class="green">{{!empty($item->school) ? $item->school->name: ''}}</td>
-                                            <td>{{$item->quantity_student}}</td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-success"
