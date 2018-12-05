@@ -125,55 +125,20 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete/{id}', 'GradeController@delete')->name('admin.grade.delete');
         Route::get('/pagination/{records}/{search?}', 'GradeController@pagination')->name('admin.grade.pagination');
     });
-    // Titile lesson
-    Route::group(['prefix' => 'title-lesson'], function () {
-        Route::get('/index', 'TitleLessonController@index')->name('admin.title-lesson.index');
-        Route::get('/create', 'TitleLessonController@create')->name('admin.title-lesson.create');
-        Route::post('/store', 'TitleLessonController@store')->name('admin.title-lesson.store');
-        Route::get('/show/{id}', 'TitleLessonController@show')->name('admin.title-lesson.show');
-        Route::get('/edit/{id}', 'TitleLessonController@edit')->name('admin.title-lesson.edit');
-        Route::post('/update/{id}', 'TitleLessonController@update')->name('admin.title-lesson.update');
-        Route::get('/delete/{id}', 'TitleLessonController@delete')->name('admin.title-lesson.delete');
-        Route::get('/pagination/{records}/{search?}', 'TitleLessonController@pagination')->name('admin.title-lesson.pagination');
-    });
 
-    // manager contenr
-    Route::group(['prefix' => 'manager'], function () {
-        Route::get('/index', 'ManagerContentController@index')->name('admin.manager.index');
-//        Route::get('/create', 'TitleLessonController@create')->name('admin.title-lesson.create');
-//        Route::post('/store', 'TitleLessonController@store')->name('admin.title-lesson.store');
-//        Route::get('/show/{id}', 'TitleLessonController@show')->name('admin.title-lesson.show');
-//        Route::get('/edit/{id}', 'TitleLessonController@edit')->name('admin.title-lesson.edit');
-//        Route::post('/update/{id}', 'TitleLessonController@update')->name('admin.title-lesson.update');
-//        Route::get('/delete/{id}', 'TitleLessonController@delete')->name('admin.title-lesson.delete');
-//        Route::get('/pagination/{records}/{search?}', 'TitleLessonController@pagination')->name('admin.title-lesson.pagination');
-    });
-
-    // manager audio
-    Route::group(['prefix' => 'audio'], function () {
-        Route::get('/index', 'ManagerAudioController@index')->name('admin.managerAudio.index');
-        Route::get('/create', 'ManagerAudioController@create')->name('admin.managerAudio.create');
-        Route::post('/store', 'ManagerAudioController@store')->name('admin.managerAudio.store');
-//        Route::get('/show/{id}', 'TitleLessonController@show')->name('admin.title-lesson.show');
-//        Route::get('/edit/{id}', 'TitleLessonController@edit')->name('admin.title-lesson.edit');
-//        Route::post('/update/{id}', 'TitleLessonController@update')->name('admin.title-lesson.update');
-//        Route::get('/delete/{id}', 'TitleLessonController@delete')->name('admin.title-lesson.delete');
-//        Route::get('/pagination/{records}/{search?}', 'TitleLessonController@pagination')->name('admin.title-lesson.pagination');
-    });
-
-
-    // title lesson
-    Route::group(['prefix' => 'title-lesson'], function () {
-        Route::get('/index', 'TitleLessonController@index')->name('admin.titleLesson.index');
-        Route::get('/create', 'TitleLessonController@create')->name('admin.titleLesson.create');
-        Route::post('/store-lesson', 'TitleLessonController@storeLesson')->name('admin.titleLesson.storeLesson');
-        Route::post('/store-lesson-detail', 'TitleLessonController@storeLessonDetail')->name('admin.titleLesson.storeLessonDetail');
-        Route::post('/store-lesson-content', 'TitleLessonController@storeLessonContent')->name('admin.titleLesson.storeLessonContent');
-        Route::get('/show/{id}', 'TitleLessonController@show')->name('admin.titleLesson.show');
-        Route::get('/edit/{id}', 'TitleLessonController@edit')->name('admin.titleLesson.edit');
-        Route::post('/update/{id}', 'TitleLessonController@update')->name('admin.titleLesson.update');
-        Route::get('/delete/{id}', 'TitleLessonController@delete')->name('admin.titleLesson.delete');
-        Route::get('/pagination/{records}/{search?}', 'TitleLessonController@pagination')->name('admin.titleLesson.pagination');
+    // manager lesson
+    Route::group(['prefix' => 'manager-lesson'], function () {
+        Route::get('/index', 'ManagerLessonController@index')->name('admin.managerLesson.index');
+        Route::get('/create', 'ManagerLessonController@create')->name('admin.managerLesson.create');
+        Route::post('/store-lesson', 'ManagerLessonController@storeLesson')->name('admin.managerLesson.storeLesson');
+        Route::post('/store-lesson-detail', 'ManagerLessonController@storeLessonDetail')->name('admin.managerLesson.storeLessonDetail');
+        Route::post('/store-lesson-content', 'ManagerLessonController@storeLessonContent')->name('admin.managerLesson.storeLessonContent');
+        Route::get('/get-value-type/{id}', 'ManagerLessonController@getValueType')->name('admin.managerLesson.getValueType');
+        Route::get('/show/{id}', 'ManagerLessonController@show')->name('admin.managerLesson.show');
+        Route::get('/edit/{id}', 'ManagerLessonController@edit')->name('admin.managerLesson.edit');
+        Route::post('/update/{id}', 'ManagerLessonController@update')->name('admin.managerLesson.update');
+        Route::get('/delete/{id}', 'ManagerLessonController@delete')->name('admin.managerLesson.delete');
+        Route::get('/pagination/{records}/{search?}', 'ManagerLessonController@pagination')->name('admin.managerLesson.pagination');
     });
 });
 //Login

@@ -1,6 +1,6 @@
 @extends('admin::layouts.master')
 @section('title')
-    Title lesson
+    Lesson
 @endsection
 @push('style')
     <link rel="stylesheet" href="{{asset('common/pagination.css')}}" xmlns:v-on="http://www.w3.org/1999/xhtml"
@@ -12,12 +12,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-               Tiêu đề bài học
+                Quản lí bài học
                 <small>Control panel</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{route('admin.index')}}"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
-                <li class="active">Tiêu đề bài học</li>
+                <li class="active"> Quản lí bài học</li>
             </ol>
         </section>
 
@@ -25,7 +25,7 @@
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{route('admin.titleLesson.create')}}" class="btn btn-primary">Tạo</a>
+                    <a href="{{route('admin.managerLesson.create')}}" class="btn btn-primary">Tạo</a>
                 </div>
             </div>
             <div class="row">
@@ -36,7 +36,7 @@
                     <!-- TO DO List -->
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">Danh sách tiêu đề bài học</h3>
+                            <h3 class="box-title">Danh sách bài học</h3>
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -53,32 +53,36 @@
                                 <tbody>
                                 <tr>
                                     <th class="order-number">Id.</th>
-                                    <th>Quận/Huyện</th>
-                                    <th>Tỉnh/Thành phố</th>
-                                    <th class="item-action-3">Trạng thái</th>
+                                    <th>Khối</th>
+                                    <th>Bài học</th>
+                                    <th>Tiêu đề bài học</th>
+                                    <th>Public</th>
+                                    <th class="item-action-3">Status</th>
                                 </tr>
-                                @if(!empty($districts))
-                                    @foreach($districts as $key => $district)
+                                @if(!empty($lessonDetails))
+                                    @foreach($lessonDetails as $key => $lessonDetail)
                                         <tr>
                                             <td class="text-center">{{$key + 1}}</td>
-                                            <td>{{$district->name}}</td>
-                                            <td class="green">{{!empty($district->provincial) ? $district->provincial->name: ''}}</td>
+                                            <td>{{!empty($lessonDetail->lesson->grade) ? $lessonDetail->lesson->grade->name: ''}}</td>
+                                            <td class="green">{{!empty($lessonDetail->lesson) ? $lessonDetail->lesson->name: ''}}</td>
+                                            <td class="green">{{$lessonDetail->title}}</td>
+                                            <td class="green"><input type="checkbox" class="checkbox-primary"></td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-success"
-                                                       href="{{route('admin.district.show',['id' => $district->id])}}"
+                                                       href="{{route('admin.managerLesson.show',['id' => $lessonDetail->id])}}"
                                                        title="Detail">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
                                                     <a class="btn btn-info"
-                                                       href="{{route('admin.district.edit',['id' => $district->id])}}"
+                                                       href="{{route('admin.managerLesson.edit',['id' => $lessonDetail->id])}}"
                                                        title="Edit">
                                                         <i class="ace-icon fa fa-pencil"></i>
                                                     </a>
                                                     <a href="#" class="btn btn-danger delete-object"
                                                        title="Delete"
-                                                       object_id="{{$district->id}}"
-                                                       object_name="{{$district->name}}">
+                                                       object_id="{{$lessonDetail->id}}"
+                                                       object_name="{{$lessonDetail->name}}">
                                                         <i class="fa fa-trash-o"></i>
                                                     </a>
 
