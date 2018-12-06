@@ -1,33 +1,39 @@
 <tr>
-    <th class="order-number">No.</th>
-    <th>Name</th>
-    <th>Display Name</th>
-    <th>Description</th>
+    <th class="order-number">STT</th>
+    <th>Tên</th>
+    <th>Email</th>
+    <th>Trường</th>
+    <th>Lớp</th>
+    <th>Sĩ số</th>
+    <th>Quyền</th>
     <th class="item-action-3"></th>
 </tr>
-@if(!empty($permissions))
-    @foreach($permissions as $key => $permission)
+@if(!empty($users))
+    @foreach($users as $key => $user)
         <tr>
             <td class="text-center">{{$key + 1}}</td>
-            <td>{{$permission->name}}</td>
-            <td class="green">{{$permission->display_name}}</td>
-            <td>{{$permission->description}}</td>
+            <td>{{$user->name}}</td>
+            <td class="green">{{$user->email}}</td>
+            <td>{{$user->name_school}}</td>
+            <td>{{$user->name_class}}</td>
+            <td>{{$user->quantity_student}}</td>
+            <td>{{$user->name_role}}</td>
             <td>
                 <div class="btn-group btn-group-sm">
                     <a class="btn btn-success"
-                       href="{{route('admin.permission.view',['id' => $permission->id])}}"
+                       href="{{route('admin.user.show',['id' => $user->id])}}"
                        title="Detail">
                         <i class="fa fa-eye"></i>
                     </a>
                     <a class="btn btn-info"
-                       href="{{route('admin.permission.edit',['id' => $permission->id])}}"
+                       href="{{route('admin.user.edit',['id' => $user->id])}}"
                        title="Edit">
                         <i class="ace-icon fa fa-pencil"></i>
                     </a>
-                    <a class="btn btn-danger delete-role"
-                       href="#" title="Delete"
-                       role_id="{{$permission->id}}"
-                       role_name="{{$permission->display_name}}">
+                    <a href="#" class="btn btn-danger delete-object"
+                       title="Delete"
+                       object_id="{{$user->id}}"
+                       object_name="{{$user->name}}">
                         <i class="fa fa-trash-o"></i>
                     </a>
 

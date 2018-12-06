@@ -17,25 +17,28 @@ class RolesTableSeeder extends Seeder
 
             //Supper Admin
             $role = new Role([
-                'name'         => 'super-admin',
-                'display_name' => 'Supper Administrator',
-                'description'  => 'Full controller',
+                'name'         => 'HieuTruong',
+                'display_name' => 'Hiệu trưởng',
+                'description'  => 'Hieu truong',
+
             ]);
             $role->save();
             //End Supper Admin
 
             //Admin
             $role = new Role([
-                'name'         => 'admin',
-                'display_name' => 'Administrator',
+                'name' => 'GiaoVien',
+                'display_name' => 'Giáo viên',
+                'description' => 'Giáo viên',
             ]);
             $role->save();
             //End Admin
 
             //Manager
             $role = new Role([
-                'name'         => 'manager',
-                'display_name' => 'Manager',
+                 'name' => 'Test(Beta)',
+                'display_name' => 'Test(Beta)',
+                'description' => ' Test(Beta)',
             ]);
             $role->save();
             //End Manager

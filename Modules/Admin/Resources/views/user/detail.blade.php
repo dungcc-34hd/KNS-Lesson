@@ -32,17 +32,72 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Name</td>
+                                            <td>Tên</td>
                                             <td>
                                                 {{$user->name}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Display Name</td>
+                                            <td>Email</td>
                                             <td>
                                                 {{$user->email}}
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>SĐT</td>
+                                            <td>
+                                                {{$user->tel}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Khu vực</td>
+                                            <td>
+                                                {{$user->name_area}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tỉnh</td>
+                                            <td>
+                                                {{$user->name_province}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Quận/huyện</td>
+                                            <td>
+                                                {{$user->name_district}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Trường</td>
+                                            <td>
+                                                {{$user->name_school}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Khối</td>
+                                            <td>
+                                                {{$user->name_grade}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lớp</td>
+                                            <td>
+                                                {{$user->name_class}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sĩ số</td>
+                                            <td>
+                                                {{$user->quantity_student}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Quyền</td>
+                                            <td>
+                                                {{$user->name_role}}
+                                            </td>
+                                        </tr>
+
                                         <tr>
                                             <td>Created At</td>
                                             <td>

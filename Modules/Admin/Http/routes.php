@@ -20,12 +20,13 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
     Route::group(['prefix' => 'permission'], function () {
         Route::get('/', 'PermissionController@index')->name('admin.permission.index');
         Route::get('/pagination/{records}/{search?}', 'PermissionController@pagination')->name('admin.permission.pagination');
-        Route::get('/show/{id}', 'PermissionController@show')->name('admin.permission.show');
         Route::get('/edit/{id}', 'PermissionController@edit')->name('admin.permission.edit');
         Route::post('/edit/{id}', 'PermissionController@update')->name('admin.permission.update');
         Route::get('/create', 'PermissionController@create')->name('admin.permission.create');
         Route::post('/store', 'PermissionController@store')->name('admin.permission.store');
         Route::get('/delete/{id}', 'PermissionController@destroy')->name('admin.permission.delete');
+        Route::get('/change-radio/{id}/{value}', 'PermissionController@changeRadio')->name('admin.permission.changeRadio');
+
     });
     
     //User
@@ -38,7 +39,10 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/create', 'UserController@create')->name('admin.user.create');
         Route::post('/store', 'UserController@store')->name('admin.user.store');
         Route::get('/delete/{id}', 'UserController@destroy')->name('admin.user.delete');
-        Route::get('/get-roles/{id}', 'UserController@getRolesByUserID')->name('admin.user.get-roles');
+        Route::get('change-select/{areaId}','UserController@changeSelect')->name('admin.user.change-select');
+        Route::get('change-province/{provinceId}','UserController@changeProvince')->name('admin.user.change-province');
+        Route::get('change-district/{districtId}','UserController@changeDistrict')->name('admin.user.change-district');
+        Route::get('change-grade/{gradeId}','UserController@changeGrade')->name('admin.user.change-grade');
     });
 
     // Area
@@ -143,9 +147,12 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
     // statistic
     Route::group(['prefix'=>'statistic'],function(){
         Route::get('/','StatisticController@index')->name('admin.statistic.index');
+        Route::get('/pagination/{records}/{search?}', 'StatisticController@pagination')->name('admin.statistic.pagination');
+        Route::get('/change-area/{areaId}','StatisticController@changeArea')->name('admin.statistic.changeArea');
         Route::get('/change-province/{provinceId}','StatisticController@changeProvince')->name('admin.statistic.changeProvince');
         Route::get('/change-district/{districtId}','StatisticController@changeDistrict')->name('admin.statistic.changeDistrict');
         Route::get('/change-school/{schoolId}','StatisticController@changeSchool')->name('admin.statistic.changeSchool');
+        Route::get('/change-select/{areaId}/{provinceId}','StatisticController@changeSelect')->name('admin.statistic.changeSelect');
         
     });
 });
