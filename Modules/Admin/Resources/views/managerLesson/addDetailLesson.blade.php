@@ -33,18 +33,18 @@
                         <input type="text" class="form-control" name="outline" id="outline">
                     </div>
                 </div>
-                <div class="modal-body">
-                    <label>Nhạc nền @include('common.require')</label>
-                    <div class="clearfix">
-                        <input type="file" class="form-control" name="background-audio" id="background-audio">
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <label>Ảnh nền @include('common.require')</label>
-                    <div class="clearfix">
-                        <input type="file" class="form-control" name="background-image" id="background-image">
-                    </div>
-                </div>
+                {{--<div class="modal-body">--}}
+                    {{--<label>Nhạc nền @include('common.require')</label>--}}
+                    {{--<div class="clearfix">--}}
+                        {{--<input type="file" class="form-control" name="background-audio" id="background-audio">--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="modal-body">--}}
+                    {{--<label>Ảnh nền @include('common.require')</label>--}}
+                    {{--<div class="clearfix">--}}
+                        {{--<input type="file" class="form-control" name="background-image" id="background-image">--}}
+                    {{--</div>--}}
+                {{--</div>--}}
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary create-detail-lesson" id="create-detail-lesson">Tạo tiêu đề</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>

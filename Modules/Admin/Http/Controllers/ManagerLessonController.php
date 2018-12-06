@@ -95,16 +95,6 @@ class ManagerLessonController extends Controller
     }
 
     /**
-     * store a provincial
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function store(Request $request)
-    {
-        return redirect('admin/managerLesson/index');
-    }
-
-    /**
      * show Popup add khối (tạo folder + db)
      */
     public function storeLesson(Request $request)
@@ -112,22 +102,26 @@ class ManagerLessonController extends Controller
         $lesson = new Lesson();
         $lesson->name = $request->name;
         $lesson->grade_id = $request->grade;
-        $directory = public_path() . "/modules/managerContent/" . $lesson->name;
 
+        //make directory
+        $directory = public_path() . "/modules/managerContent/" . $lesson->name;
         if (!File::exists($directory)) {
-            $backgroundAudio = public_path() . "/modules/managerContent/" . $request->backgroundAudio;
-            $backgroundImage = public_path() . "/modules/managerContent/" . $request->backgroundImage;
             File::makeDirectory($directory);
         }
-
-        $backgroundAudio = $request['background-audio'][0]->getClientOriginalName();
-        $backgroundImage = $request['background-image'][0]->getClientOriginalName();
-        $request->file('background-audio')[0]->move($directory, $backgroundAudio);
-        $request->file('background-image')[0]->move($directory, $backgroundImage);
-        $lesson->background_audio = $backgroundAudio;
-        $lesson->background_image = $backgroundImage;
+//        if (!File::exists($directory)) {
+//            $backgroundAudio = public_path() . "/modules/managerContent/" . $request->backgroundAudio;
+//            $backgroundImage = public_path() . "/modules/managerContent/" . $request->backgroundImage;
+//            File::makeDirectory($directory);
+//        }
+//
+//        $backgroundAudio = $request['background-audio'][0]->getClientOriginalName();
+//        $backgroundImage = $request['background-image'][0]->getClientOriginalName();
+//        $request->file('background-audio')[0]->move($directory, $backgroundAudio);
+//        $request->file('background-image')[0]->move($directory, $backgroundImage);
+//        $lesson->background_audio = $backgroundAudio;
+//        $lesson->background_image = $backgroundImage;
         $lesson->save();
-
+        return redirect('admin/manager-lesson/create');
     }
 
     /**
@@ -141,18 +135,21 @@ class ManagerLessonController extends Controller
         $detailLesson->lesson_id = $request['lesson-id'];
         $detailLesson->type = $request['type'];
         $detailLesson->outline = $request['outline'];
+
+        //make directory
         $directory = public_path() . "/modules/managerContent/" . $request['lesson-name'] . '/' . $detailLesson->title;
         if (!File::exists(public_path() . $directory)) {
             File::makeDirectory($directory);
         }
 
-        $backgroundAudio = $request['background-audio'][0]->getClientOriginalName();
-        $backgroundImage = $request['background-image'][0]->getClientOriginalName();
-        $request->file('background-audio')[0]->move($directory, $backgroundAudio);
-        $request->file('background-image')[0]->move($directory, $backgroundImage);
-        $detailLesson->background_audio = $backgroundAudio;
-        $detailLesson->background_image = $backgroundImage;
+//        $backgroundAudio = $request['background-audio'][0]->getClientOriginalName();
+//        $backgroundImage = $request['background-image'][0]->getClientOriginalName();
+//        $request->file('background-audio')[0]->move($directory, $backgroundAudio);
+//        $request->file('background-image')[0]->move($directory, $backgroundImage);
+//        $detailLesson->background_audio = $backgroundAudio;
+//        $detailLesson->background_image = $backgroundImage;
         $detailLesson->save();
+        return redirect('admin/manager-lesson/create');
     }
 
     /**
@@ -162,41 +159,54 @@ class ManagerLessonController extends Controller
     public function getValueType($id)
     {
         $typeId = $this->repository->getTypeById($id);
-        $title = $this->repository->getLessonIdById($id);
-        $array = ['type'=>$typeId,'title'=>$title,'id'=>$id];
-        return view ('admin::managerLesson.addLessonContent',compact('typeId','title','id'));
+        $lessonDetail = $this->repository->getTitleById($id);
+        $lesson = $this->repository->getLessonNameById($id);
+        return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson','lessonDetail'));
     }
 
+    /**
+     * get request store
+     * lesson content , lesson answer
+     * @param Request $request
+     */
     public function storeLessonContent(Request $request)
     {
         $contentLesson = new LessonContent();
+        $contentLesson->title = $request['title'];
         $contentLesson->content = $request['content'];
-        $contentLesson->lesson_detail_id = $request['id'];
-        $contentLesson->order_by = $request['order-by'];
+        $contentLesson->lesson_detail_id = $request['lesson-detail-id'];
+        $contentLesson->question = $request['question'];
+
+        //make directory
+        $directory = public_path() . "/modules/managerContent/" .$request['lesson'].'/'. $request['lesson-detail'] ;
+        $contentLesson->path = $directory;
+        $names = [];
+        foreach ( $request['background-image'] as $item)
+        {
+            $filename = $item->getClientOriginalName();
+            $item->move($directory, $filename);
+            $contentLesson->path = $directory .'/'.$filename;
+            array_push($names, $filename);
+        }
+        $contentLesson->audio = json_encode($names);
         $contentLesson->save();
         if($request['type'] == 3)
         {
-            $lessonAnswer = new LessonAnswer();
-            $lessonAnswer->lesson_content_id = $contentLesson->id;
 
+            $is_correct = isset($request['is-correct']) ?  $request['is-correct'][0] : null;
+            foreach ($request['answer'] as $key => $item)
+            {
+                $lessonAnswer = new LessonAnswer();
+                $lessonAnswer->lesson_content_id = $contentLesson->id;
+                $lessonAnswer->answer = $item;
+                $lessonAnswer->is_correct =false;
+                if($key == $is_correct)
+                {
+                    $lessonAnswer->is_correct = true;
+                }
+                $lessonAnswer->save();
+            }
         }
-
-//        $directory = public_path() . "/modules/managerContent/" . $request['lesson'] . '/' . $contentLesson->name;
-//        if (!File::exists(public_path() . $directory)) {
-//            File::makeDirectory($directory);
-//        }
-//        $backgroundAudio = $request['background-audio'][0]->getClientOriginalName();
-//        $request->file('background-audio')[0]->move($directory, $backgroundAudio);
-
-//        foreach ( $request['background-image'] as $item)
-//        {
-//            $backgroundAudio =  basename($item[0]->getClientOriginalName());
-//            move_uploaded_file($item[0], $directory . '/' . $backgroundAudio);
-//        }
-
-//        $contentLesson->background_audio = $backgroundAudio;
-//        $detailLesson->background_image = $backgroundImage;
-
     }
 
     public function delete($id)
