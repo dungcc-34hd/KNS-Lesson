@@ -27,39 +27,44 @@ class StatisticController extends Controller
     public function index()
     {
          $records=10;
-        $provinces=$this->repository->getProvince();    
-        $provinceId = 0;
-        if(count($provinces)>0)
-            $provinceId = $provinces[0]->id;
+        // $provinces=$this->repository->getProvince();    
+        // $provinceId = 0;
+        // if(count($provinces)>0)
+        //     $provinceId = $provinces[0]->id;
 
-        $districts=$this->repository->getDistricts($provinceId);
-        $districtId=count($districts) > 0 ? $districts->first()->id : 0;
-       // foreach ($districts as $key => $district) {
-       //     $districtId=$district->id;
-        // $as=$this->repository->getObjects($records,$districtId, $search = null);
+        // $districts=$this->repository->getDistricts($provinceId);
+        // $districtId=count($districts) > 0 ? $districts->first()->id : 0;
+   
      
-        $array=$this->repository->getStatistic($districtId);
+        // $array=$this->repository->getStatistic($districtId);
 
-        $schools=$this->repository->getSchool();
-        $schoolId=0;
-        if(count($schools)>0)
-            $schoolId = $schools[0]->id;
-        $accounts=$this->repository->getAccount($schoolId);
-        // dd($accounts);
+        // $schools=$this->repository->getSchool();
+        // $schoolId=0;
+        // if(count($schools)>0)
+        //     $schoolId = $schools[0]->id;
+        // $accounts=$this->repository->getAccount($schoolId);
+        // // dd($accounts);
         
-        $sum_teacher=$array['sum_teacher'];
-        $sum_student=$array['sum_student'];
+        // $sum_teacher=$array['sum_teacher'];
+        // $sum_student=$array['sum_student'];
         
-        session([$this->districtId => $districtId]);
+        // session([$this->districtId => $districtId]);
+        $areas=$this->repository->area();
+          if(count($areas)>0)
+            $areaId = $areas[0]->id;
+        $array=$this->repository->select($areaId,$provinceId = null);
 
         return view('admin::statistic.index',
         [
-            'provinces'=>$provinces,
-            'districts' =>  $districts,
-            'schools'   => $this->repository->getSchool(),
-            'sum_teacher'=> $sum_teacher,
-            'sum_student'=> $sum_student,
-            'accounts'=>$accounts,
+            'areas'=>$areas,
+            'provinces'=>$array['provinces'],
+            'districts'=>$array['districts'],
+            // 'provinces'=>$provinces,
+            // 'districts' =>  $districts,
+            // 'schools'   => $this->repository->getSchool(),
+            // 'sum_teacher'=> $sum_teacher,
+            // 'sum_student'=> $sum_student,
+            // 'accounts'=>$accounts,
 
         ]);
         // $provincial_id=1;
