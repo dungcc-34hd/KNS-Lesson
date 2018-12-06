@@ -9,7 +9,7 @@
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
             <li class="breadcrumb-item active">Permissions</li>
         </ol>
-        <form action="{{route('admin.permission.edit', ['id' => 1])}}" method="post" class="validation-form">
+        <form action="{{route('admin.permission.edit',['id' => $role->role_id])}}" method="post" class="validation-form">
             {{csrf_field()}}
             <section class="content">
                 <div class="box box-primary">
@@ -32,7 +32,3 @@
         </form>
     </div>
 @endsection
-@push('scripts')
-    {{--<script src="{{ asset('modules/js/backend/role/role-vailidate.js') }}"></script>--}}
-    {{--<script src="{{ asset('modules/js/backend/role/role.js') }}"></script>--}}
-@endpush

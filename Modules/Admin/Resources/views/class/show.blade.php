@@ -38,27 +38,9 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                                <td>Tên user</td>
-                                                <td>
-                                                    {{isset($class->user) ? $class->user->name : ""}}
-                                                </td>
-                                            </tr>
-                                        <tr>
                                             <td>Khối</td>
                                             <td>
-                                                {{!empty($class->gradeLevel) ? $class->gradeLevel->name : ''}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Trường</td>
-                                            <td>
-                                                {{!empty($class->school) ? $class->school->name : ''}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Số lượng học sinh</td>
-                                            <td>
-                                                {{ $class->quantity_student}}
+                                                {{$grade->name}}
                                             </td>
                                         </tr>
                                         <tr>

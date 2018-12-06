@@ -56,7 +56,8 @@
                                     <th>Tên</th>
                                     <th>Cấp</th>
                                     <th>Quận/Huyện/Thành phố</th>
-                                    <th>Số lượng học sinh</th>
+                                    <th>Key</th>
+                                    {{-- <th>Số lượng học sinh</th> --}}
                                     <th class="item-action-3"></th>
                                 </tr>
                                 @if(!empty($schools))
@@ -64,8 +65,9 @@
                                         <tr>
                                             <td class="text-center">{{$key + 1}}</td>
                                             <td>{{$school->name}}</td>
-                                            <td class="green">{{!empty($school->schoolLevel) ? $school->schoolLevel->name: ''}}</td>
-                                            <td class="green">{{!empty($school->district) ? $school->district->name: ''}}</td>
+                                            <td>{{!empty($school->schoolLevel) ? $school->schoolLevel->name: ''}}</td>
+                                            <td>{{!empty($school->district) ? $school->district->name: ''}}</td>
+                                            <td> {{$school->license_key}}</td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-success"
@@ -87,7 +89,7 @@
 
                                                 </div>
                                             </td>
-                                        </tr>
+                                        </tr> 
                                     @endforeach
                                 @else
                                     <tr>

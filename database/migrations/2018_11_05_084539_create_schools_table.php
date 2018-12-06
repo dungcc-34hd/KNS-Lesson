@@ -19,7 +19,8 @@ class CreateSchoolsTable extends Migration
             $table->integer('school_level_id')->nullable();
             $table->integer('district_id')->nullable();
             $table->string('license_key')->nullable();
-            $table->dateTime('expried_at')->nullable();
+            $table->integer('quantity_account')->nullable();
+            $table->dateTime('expired_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -9,7 +9,8 @@ $('.validation-form').validate({
             // minlength: 3
         },
         quantity: {
-            required: true,
+            required: true, 
+            min:0,
         },
         'select-grade-level': {
             required: true

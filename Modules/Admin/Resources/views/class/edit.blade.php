@@ -27,23 +27,11 @@
                                                value="@isset($class){{$class->name}}@endisset">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                        <label>User @include('common.require')</label>
-                                        <div class="clearfix">
-                                            <select  class="form-control" name="select-user">
-                                                {{-- <option value="">Chọn User </option> --}}
-                                                @foreach ($users as $key => $user)
-                                                    <option value="{{$user->id}}">{{$user->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        
-                                    </div>
-
+                              
                                 <div class="form-group">
                                     <label>Khối @include('common.require')</label>
                                     <div class="clearfix">
-                                            <select class="form-control" name="select-grade-level">
+                                            <select class="form-control" name="grade_id">
                                                     @foreach ($gradeLevels as $key => $gradeLevel)
                                                         <option value="{{$gradeLevel->id}}" {{ $gradeLevel->id == $class->grade_id ? "selected" : '' }}>{{$gradeLevel->name}}</option>
                                                     @endforeach
@@ -52,26 +40,7 @@
                                     
                                 </div>
 
-                                <div class="form-group">
-                                    <label>Tên trường @include('common.require')</label>
-                                    <div class="clearfix">
-                                        <select class="form-control" name="select-school">
-                                        @foreach ($schools as $key => $school)
-                                            <option value="{{$school->id}}" {{ $school->id == $class->school_id ? "selected" : '' }}>{{$school->name}}</option>
-                                        @endforeach
-                                        </select>
-                                    </div>
-                                    
-                                </div>
-
-                                <div class="form-group">
-
-                                    <label>Số lượng học sinh @include('common.require')</label>
-                                    <div class="clearfix">
-                                        <input type="text" class="form-control" name="quantity"
-                                               value="@isset($class){{$class->quantity_student}}@endisset" min="1" >
-                                    </div>
-                                </div>
+                                
                             </div>
 
                         </div>
@@ -88,4 +57,5 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('modules/admin/class/class-validation.js')}}"></script>
+    <script src="{{ asset('modules/admin/class/class.js') }}"></script>
 @endpush
