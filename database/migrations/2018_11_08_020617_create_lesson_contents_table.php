@@ -18,7 +18,8 @@ class CreateLessonContentsTable extends Migration
             $table->string('content')->nullable();
             $table->string('question')->nullable();
             $table->integer('lesson_detail_id')->nullable();
-            $table->integer('path')->nullable();
+            $table->string('path')->nullable();
+            $table->string('audio')->nullable();
             $table->integer('order_by')->nullable();
             $table->timestamps();
             $table->softDeletes();

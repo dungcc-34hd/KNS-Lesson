@@ -1,9 +1,7 @@
 <div class="modal fade" id="modalAddGrade" role="dialog">
     <div class="modal-dialog">
-        <form action="{{route('admin.managerLesson.storeLesson')}}" method="post" class="validation-form"
-              enctype="multipart/form-data">
+        <form action="{{route('admin.managerLesson.storeLesson')}}" method="post" class="validation-form">
             {{csrf_field()}}
-
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -24,20 +22,20 @@
                         <input type="text" class="form-control" name="name" id="name">
                     </div>
                 </div>
-                <div class="modal-body">
-                    <label>Nhạc nền @include('common.require')</label>
-                    <div class="clearfix">
-                        <input type="file" class="form-control" name="background-audio" id="background-audio">
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <label>Ảnh nền @include('common.require')</label>
-                    <div class="clearfix">
-                        <input type="file" class="form-control" name="background-image" id="background-image">
-                    </div>
-                </div>
+                {{--<div class="modal-body">--}}
+                    {{--<label>Nhạc nền @include('common.require')</label>--}}
+                    {{--<div class="clearfix">--}}
+                        {{--<input type="file" class="form-control" name="background-audio" id="background-audio">--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="modal-body">--}}
+                    {{--<label>Ảnh nền @include('common.require')</label>--}}
+                    {{--<div class="clearfix">--}}
+                        {{--<input type="file" class="form-control" name="background-image" id="background-image">--}}
+                    {{--</div>--}}
+                {{--</div>--}}
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="create-grade">Tạo bài học
+                    <button type="submit" class="btn btn-primary" id="create-grade">Tạo bài học
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>

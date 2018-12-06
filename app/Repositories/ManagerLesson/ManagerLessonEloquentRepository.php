@@ -2,6 +2,7 @@
 
 namespace App\Repositories\ManagerLesson;
 
+use App\Models\Lesson;
 use App\Models\LessonDetail;
 use App\Models\School;
 use App\Repositories\EloquentRepository;
@@ -62,8 +63,16 @@ class ManagerLessonEloquentRepository extends EloquentRepository implements Mana
         return LessonDetail::where('id',$id)->first()->type;
     }
 
-    public function getLessonIdById($id)
+    public function getTitleById($id)
     {
         return LessonDetail::where('id',$id)->first()->title;
+    }
+    public function getLessonIdById($id)
+    {
+        return LessonDetail::where('id',$id)->first()->lesson_id;
+    }
+    public function getLessonNameById($lesson_id)
+    {
+        return Lesson::where('id',$this->getLessonIdById($lesson_id))->first()->name;
     }
 }
