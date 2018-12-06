@@ -110,19 +110,7 @@
 
     <!-- /.form-group -->
 </div>
-{{-- <div class="col-md-6">
-    <div class="form-group">
-        <label>Roles @include('common.require')</label>
-        <div class="clearfix">
-            <select class="form-control select2" multiple="multiple" data-placeholder="Select a Role" name="roles[]"
-                    style="width: 100%;">
-                @foreach($roles as $role)
-                    <option value="{{$role->id}}">{{$role->display_name}}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-</div> --}}
+
 <!-- /.col -->
 @push('scripts')
     <script src="{{ asset('modules/admin/user/user.js') }}"></script>

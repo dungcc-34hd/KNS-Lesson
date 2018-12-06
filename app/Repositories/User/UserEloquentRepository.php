@@ -71,31 +71,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         return Role::all();
     }
 
-    /**
-     * Get role all by user id
-     * @author Minhpt
-     * @date 17/04/2018
-     * @return mixed
-     */
-    // public function getRoleByUserID($id)
-    // {
-    //     return $this->_model->find($id)->roles;
-    // }
-
-    /**
-     * Get role all by user id
-     * @author Minhpt
-     * @date 17/04/2018
-     * @return mixed
-     */
-    // public function assignRoleForUser($id, $roles)
-    // {
-    //     RoleUser::where('user_id', '=', $id)->delete();
-    //     foreach ($roles as $role)
-    //     {
-    //         RoleUser::create(['user_id' => $id, 'role_id' => $role, 'user_type' => 'App\User']);
-    //     }
-    // }
+  
 
     public function Area(){
         return \App\Models\Area::all();

@@ -43,9 +43,7 @@ class PermissionEloquentRepository extends EloquentRepository implements Permiss
      */
     public function getObjects($records, $search = null)
     {
-        // $results= is_null($search) ? ->paginate($records)->items() : $this->_model->where('display_name', 'like', '%' . $search . '%')
-        //     ->orWhere('description', 'like', '%' . $search . '%')
-        //     ->paginate($records)->items();
+      
             if( is_null($search)){
                 $results= Permission::Join('permission_role','permissions.id','=','permission_role.permission_id')->JOIN('roles','permission_role.role_id','=','roles.id')->selectRaw($this->properties)->paginate($records)->items();
             }else{

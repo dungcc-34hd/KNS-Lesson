@@ -33,11 +33,6 @@
                 </td>
                 <td>
                     <div class="btn-group btn-group-sm">
-                        {{-- <a class="btn btn-success"
-                           href="{{route('admin.permission.show',['id' => $permission->id])}}"
-                           title="Detail">
-                            <i class="fa fa-eye"></i>
-                        </a> --}}
                         <a class="btn btn-info"
                            href="{{route('admin.permission.edit',['id' => $permission->role_id])}}"
                            title="Edit">

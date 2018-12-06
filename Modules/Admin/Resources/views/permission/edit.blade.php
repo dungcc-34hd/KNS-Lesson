@@ -32,7 +32,3 @@
         </form>
     </div>
 @endsection
-@push('scripts')
-    {{--<script src="{{ asset('modules/js/backend/role/role-vailidate.js') }}"></script>--}}
-    {{--<script src="{{ asset('modules/js/backend/role/role.js') }}"></script>--}}
-@endpush

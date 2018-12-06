@@ -32,7 +32,4 @@
 
     </div>
 @endsection
-@push('scripts')
-    {{--<script src="{{ asset('modules/js/backend/Permission/Permission-vailidate.js') }}"></script>--}}
-    {{--<script src="{{ asset('modules/js/backend/Permission/Permission.js') }}"></script>--}}
-@endpush
+

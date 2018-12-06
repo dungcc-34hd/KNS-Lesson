@@ -62,6 +62,23 @@ function process(areaId) {
           
         
         }
+        $('#selectSchool').empty();
+        if($.isEmptyObject(data['schools']))
+        {
+            
+            var option = '<option>Không có dữ liệu</option>'
+            $('#selectSchool').append(option)
+            
+        }
+        else
+        {
+           
+            $.each(data['schools'], function (i, value) {
+                var option = '<option value='+value.id+'>'+value.name+'</option>'
+
+                $('#selectSchool').append(option)
+            });
+        }
 
     });
 }
