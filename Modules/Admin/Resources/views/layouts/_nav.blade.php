@@ -24,8 +24,6 @@
             <li class="class"><a href="{{route('admin.class.index')}}"><i class="fa fa-users"></i> <span>Lớp</span></a></li>
             <li class="class"><a href="{{route('admin.managerLesson.index')}}"><i class="fa fa-users"></i> <span>Quản lý bài học</span></a></li>
             <li class="grade-level"><a href="{{route('admin.grade.index')}}"><i class="fa fa-users"></i> <span>Khối</span></a></li>
-            {{--<li class="manager"><a href="{{route('admin.manager.index')}}"><i class="fa fa-users"></i> <span>Quản lí chung</span></a></li>--}}
-            {{--<li class="manager"><a href="{{route('admin.managerAudio.index')}}"><i class="fa fa-users"></i> <span>Quản lí audio</span></a></li>--}}
         </ul>
     </section>
     <!-- /.sidebar -->
