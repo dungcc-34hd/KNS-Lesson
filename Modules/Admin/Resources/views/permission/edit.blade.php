@@ -9,7 +9,7 @@
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
             <li class="breadcrumb-item active">Permissions</li>
         </ol>
-        <form action="{{route('admin.permission.edit', ['id' => $role->id])}}" method="post" class="validation-form">
+        <form action="{{route('admin.permission.edit',['id' => $role->role_id])}}" method="post" class="validation-form">
             {{csrf_field()}}
             <section class="content">
                 <div class="box box-primary">

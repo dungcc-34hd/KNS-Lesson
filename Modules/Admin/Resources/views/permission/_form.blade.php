@@ -1,5 +1,5 @@
 @isset($role)
-    <input type="hidden" name="id" value="{{$role->id}}">
+    <input type="hidden" name="id" value="{{$role->role_id}}">
 @endisset
 <div class="col-md-6">
     <div class="form-group">

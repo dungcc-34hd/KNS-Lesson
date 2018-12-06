@@ -40,7 +40,11 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/create', 'UserController@create')->name('admin.user.create');
         Route::post('/store', 'UserController@store')->name('admin.user.store');
         Route::get('/delete/{id}', 'UserController@destroy')->name('admin.user.delete');
-        Route::get('/get-roles/{id}', 'UserController@getRolesByUserID')->name('admin.user.get-roles');
+        // Route::get('/get-roles/{id}', 'UserController@getRolesByUserID')->name('admin.user.get-roles');
+        Route::get('change-select/{areaId}','UserController@changeSelect')->name('admin.user.change-select');
+        Route::get('change-province/{provinceId}','UserController@changeProvince')->name('admin.user.change-province');
+        Route::get('change-district/{districtId}','UserController@changeDistrict')->name('admin.user.change-district');
+        Route::get('change-grade/{gradeId}','UserController@changeGrade')->name('admin.user.change-grade');
     });
 
     // Area

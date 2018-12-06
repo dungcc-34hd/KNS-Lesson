@@ -53,9 +53,13 @@
                             <table class="table table-hover results-table">
                                 <tbody>
                                 <tr>
-                                    <th class="order-number">No.</th>
-                                    <th>Name</th>
+                                    <th class="order-number">STT</th>
+                                    <th>Tên</th>
                                     <th>Email</th>
+                                    <th>Trường</th>
+                                    <th>Lớp</th>
+                                    <th>Sĩ số</th>
+                                    <th>Quyền</th>
                                     <th class="item-action-3"></th>
                                 </tr>
                                 @if(!empty($users))
@@ -64,6 +68,10 @@
                                             <td class="text-center">{{$key + 1}}</td>
                                             <td>{{$user->name}}</td>
                                             <td class="green">{{$user->email}}</td>
+                                            <td>{{$user->name_school}}</td>
+                                            <td>{{$user->name_class}}</td>
+                                            <td>{{$user->quantity_student}}</td>
+                                            <td>{{$user->name_role}}</td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-success"
@@ -76,13 +84,13 @@
                                                        title="Edit">
                                                         <i class="ace-icon fa fa-pencil"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-danger delete-object"
+                                                    <a href="#" class="btn btn-danger delete-object" 
                                                        title="Delete"
                                                        object_id="{{$user->id}}"
                                                        object_name="{{$user->name}}">
                                                         <i class="fa fa-trash-o"></i>
                                                     </a>
-
+            
                                                 </div>
                                             </td>
                                         </tr>
@@ -126,11 +134,12 @@
 
 
     </div>
-    <input type="hidden" id="url-ajax" value="/admin/User/pagination/">
+    <input type="hidden" id="url-ajax" value="/admin/user/pagination/">
 @endsection
 
 @push('scripts')
 {{--    <script src="{{ asset('assets/admin/plugins/iCheck/icheck.min.js') }}"></script>--}}
     <script src="{{ asset('common/pagination-search.js') }}"></script>
     <script src="{{ asset('modules/admin/user/user.js') }}"></script>
+
 @endpush

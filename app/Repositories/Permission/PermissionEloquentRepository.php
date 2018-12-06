@@ -17,7 +17,7 @@ class PermissionEloquentRepository extends EloquentRepository implements Permiss
     {
         return \App\Permission::class;
     }
-    public $properties = 'permissions.name as name_permission,  permission_role.permission_id as permission_id,  permission_role.role_id as role_id, roles.name as name_role,  roles.display_name as display_role,  roles.description as description_role';
+    public $properties = 'permissions.name as name_permission,  permission_role.permission_id as permission_id,  permission_role.role_id as role_id, roles.name as name_role,  roles.display_name as display_role,  roles.description as description_role, roles.id as role_id';
     /**
      * Get pages
      * @author Minhpt
