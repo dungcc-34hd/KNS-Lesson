@@ -7,7 +7,6 @@ $('.validation-form').validate({
         name: {
             required: true,
             minlength: 3,
-            unique('roles')->ignore($this->id),
         },
         display_name: {
             required: true,

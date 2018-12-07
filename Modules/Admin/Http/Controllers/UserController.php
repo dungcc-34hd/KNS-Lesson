@@ -124,6 +124,7 @@ class UserController extends Controller
         $array=$this->repository->select($areaId);
         $grades=$this->repository->grade();
         count($grades) >0 ? $gradeId=$grades[0]->id : $gradeId=0;
+
         return view('admin::user.create',[
             'areas' => $areas,
             'provinces'=> $array['provinces'],

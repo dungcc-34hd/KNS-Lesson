@@ -10,6 +10,7 @@
             <li class="breadcrumb-item active">Permissions</li>
         </ol>
         <form action="{{route('admin.permission.edit',['id' => $permission->id])}}" method="post" class="validation-form">
+
             {{csrf_field()}}
             <section class="content">
                 <div class="box box-primary">

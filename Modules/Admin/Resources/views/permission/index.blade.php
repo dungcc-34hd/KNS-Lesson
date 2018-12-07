@@ -57,6 +57,7 @@
                                     <th>Tên</th>
                                     <th>Tên hiển thị</th>
                                     <th>Mô tả</th>
+
                                     <th class="item-action-3"></th>
                                 </tr>
                                 @if(!empty($permissions))
@@ -67,17 +68,16 @@
                                             <td>{{$permission->display_name}}</td>
                                             <td>{{$permission->description}}</td>
 
-                                            
                                             <td>
                                                 <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-info"
-                                                       href="{{route('admin.permission.edit',['id' => $permission->id])}}"
+                                                       href="{{route('admin.permission.edit',['id' => $permission->role_id])}}"
                                                        title="Edit">
                                                         <i class="ace-icon fa fa-pencil"></i>
                                                     </a>
                                                     <a href="#" class="btn btn-danger delete-object"
                                                        title="Delete"
-                                                       object_id="{{$permission->id}}"
+                                                       object_id="{{$permission->role_id}}"
                                                        object_name="{{$permission->display_name}}">
                                                         <i class="fa fa-trash-o"></i>
                                                     </a>

@@ -151,6 +151,7 @@
                                     @include('pagination.index',['current_page' => 1,'total_page' => $pages])
                                 </div>
                                 <div class="col-md-6 pull-right">
+
                                     <label class="view-by">
                                             View By
                                             <select id="show-records" class="form-control input-sm">
@@ -160,6 +161,7 @@
                                                 <option value="100">100</option>
                                             </select>
                                         </label>
+
                                 </div>
                             </div>
                         </div>

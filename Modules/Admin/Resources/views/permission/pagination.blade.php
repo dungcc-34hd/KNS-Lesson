@@ -33,6 +33,7 @@
                                         </tr>
                                     @endforeach
                                 @else
+
     <tr>
         <td colspan="5">No Records</td>
     </tr>

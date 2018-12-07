@@ -73,6 +73,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
 
   
 
+
     public function Area(){
         return \App\Models\Area::all();
     }
@@ -95,28 +96,15 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
            $provinces=\App\Models\Province::where('area_id','=',$areaId)->get();
 
           count($provinces)>0 ? $provinceId=$provinces[0]->id : $provinceId=0;
-           // if(count($provinces)>0){
-           //      $provinceId=$provinces[0]->id;
-           //  }else{
-           //      $provinceId=0;
-           //  }
 
             $districts=\App\Models\District::where('province_id','=',$provinceId)->get();
             count($districts)>0 ? $districtId=$districts[0]->id :  $districtId=0;
-            //  if(count($districts)>0){
-            //     $districtId=$districts[0]->id;
-            // }
-            // else{
-            //     $districtId=0;
-            // }
             $schools=\App\Models\School::where('district_id','=',$districtId)->get();
             $array['provinces']=$provinces;
             $array['districts']=$districts;
             $array['schools']=$schools;
             return $array;
-        }
-    }
-   
+
      public function grade(){
         return \App\Models\Grade::all();
     }

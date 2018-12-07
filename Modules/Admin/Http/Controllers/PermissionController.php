@@ -73,6 +73,7 @@ class PermissionController extends Controller
          
          $permission=$this->repository->find($id);
         return view('admin::permission.edit', compact('permission'));
+
     }
 
     /**
@@ -89,6 +90,7 @@ class PermissionController extends Controller
             $array = $request->all();
             $this->repository->update($request->id,$array);
             message($request, 'success', 'Cập nhật thành công.');
+
         }
         catch (QueryException $exception)
         {
@@ -109,9 +111,9 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        // $permissions=$this->repository->getPermission();
-        // dd($permissions);
+
         return view('admin::permission.create');
+
     }
 
     /**
@@ -128,9 +130,11 @@ class PermissionController extends Controller
             $array = $request->all();
             $this->repository->create($array);
 
+
            
             // array_shift($array);
             // $this->repository->createPermission($permission);
+
             message($request, 'success', 'Tạo mới thành công.');
         }
         catch (QueryException $exception)
@@ -151,6 +155,7 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
+
     
         try
         {
@@ -165,5 +170,3 @@ class PermissionController extends Controller
         }
 
     }
- 
-}
