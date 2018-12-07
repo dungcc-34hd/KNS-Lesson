@@ -70,9 +70,9 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-         $role=$this->repository->getRole($id)->first();
-         $permissions=$this->repository->getPermission();
-        return view('admin::permission.edit', compact('permissions','role'));
+         
+         $permission=$this->repository->find($id);
+        return view('admin::permission.edit', compact('permission'));
     }
 
     /**
@@ -87,18 +87,8 @@ class PermissionController extends Controller
         try {
             
             $array = $request->all();
-            $name=$request->name;
-            $display_name=$request->display_name;
-            $description=$request->description;
-          
-            $permission_id=$request->permission_id;
-      
-            $role_id=Role::where('id', $request->id)->update(['name'=>$name,'display_name'=>$display_name,'description'=>$description]);
-            
-             PermissionRole::where('role_id',$request->id)->update(['permission_id'=>$permission_id]);
-
-           
-            message($request, 'success', 'Updated Complete');
+            $this->repository->update($request->id,$array);
+            message($request, 'success', 'Cập nhật thành công.');
         }
         catch (QueryException $exception)
         {
@@ -119,9 +109,9 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        $permissions=$this->repository->getPermission();
+        // $permissions=$this->repository->getPermission();
         // dd($permissions);
-        return view('admin::permission.create',compact('permissions'));
+        return view('admin::permission.create');
     }
 
     /**
@@ -136,19 +126,12 @@ class PermissionController extends Controller
         try
         {
             $array = $request->all();
-            $name=$request->name;
-            $display_name=$request->display_name;
-            $description=$request->description;
-            $permission_id=$request->permission_id;
-
-            $role_id=Role::create(['name'=>$name,'display_name'=>$display_name,'description'=>$description])->id;
-            
-             PermissionRole::create(['permission_id'=>$permission_id,'role_id'=>$role_id]);
+            $this->repository->create($array);
 
            
             // array_shift($array);
             // $this->repository->createPermission($permission);
-            message($request, 'success', 'Created Complete');
+            message($request, 'success', 'Tạo mới thành công.');
         }
         catch (QueryException $exception)
         {
@@ -168,11 +151,11 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        // dd($id);
+    
         try
         {
-            Role::where('id', '=', $id)->delete();
-            PermissionRole::where('role_id','=',$id)->delete();
+            
+            $this->repository->delete($id);
             return response()->json(['status' => true]);
         }
         catch (QueryException $exception)
@@ -182,32 +165,5 @@ class PermissionController extends Controller
         }
 
     }
-    public function changeRadio($id,$value){
-        try
-        { 
-              $permissionRole= PermissionRole::where('role_id','=',$id)->update(['permission_id'=>$value]);
-             
-            return response()->json(['status' => true]);
-        }
-        catch (QueryException $exception)
-        {
-            Log::error($exception->getMessage());
-            return response()->json(['status' => false]);
-        }
-        // $role = Role::find($id); 
-        // dd($role);
-    }
-
-    /**
-     * Show the specified resource.
-     * @author minhpt
-     * @date 18/04/2018
-     * @param  Request $request
-     * @return view
-     */
-    // public function show($id)
-    // {
-    //     $permission = $this->repository->find($id);
-    //     return view('admin::permission.detail', compact('permission'));
-    // }
+ 
 }

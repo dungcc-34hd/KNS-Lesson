@@ -90,7 +90,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label>Sĩ số @include('common.require')</label>
+        <label>Sĩ số</label>
         <div class="clearfix">
             <input type="number" class="form-control" name="quantity_student"
                    value="@isset($user){{$user->quantity_student}}@endisset">
