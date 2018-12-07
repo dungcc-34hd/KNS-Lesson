@@ -59,7 +59,8 @@ class ManagerLessonController extends Controller
      */
     public function show($id)
     {
-        return view('admin::managerLesson.show', compact('school'));
+        $lessonDetail = LessonDetail::findorFail($id);
+        return view('admin::managerLesson.show', compact('lessonDetail'));
     }
 
     /**
@@ -137,7 +138,8 @@ class ManagerLessonController extends Controller
         $detailLesson->outline = $request['outline'];
 
         //make directory
-        $directory = public_path() . "/modules/managerContent/" . $request['lesson-name'] . '/' . $detailLesson->title;
+        $directory = public_path() . "/modules/managerContent/" . $request['lesson-detail'] . '/' . $request['detail-lesson'];
+//        dd($request->all(),$directory);
         if (!File::exists(public_path() . $directory)) {
             File::makeDirectory($directory);
         }
@@ -152,6 +154,14 @@ class ManagerLessonController extends Controller
         return redirect('admin/manager-lesson/create');
     }
 
+    public function getValueLessonDetail($id)
+    {
+        $lesson = Lesson::find($id);
+        $lessonId = $id;
+        $lessonName = $lesson->name;
+        return view('admin::managerLesson.addDetailLesson', compact('lessonId', 'lessonName' ));
+    }
+
     /**
      * @param $id , type , title
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -161,7 +171,7 @@ class ManagerLessonController extends Controller
         $typeId = $this->repository->getTypeById($id);
         $lessonDetail = $this->repository->getTitleById($id);
         $lesson = $this->repository->getLessonNameById($id);
-        return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson','lessonDetail'));
+        return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail'));
     }
 
     /**
@@ -178,40 +188,39 @@ class ManagerLessonController extends Controller
         $contentLesson->question = $request['question'];
 
         //make directory
-        $directory = public_path() . "/modules/managerContent/" .$request['lesson'].'/'. $request['lesson-detail'] ;
+        $directory = public_path() . "/modules/managerContent/" . $request['lesson'] . '/' . $request['lesson-detail'];
         $contentLesson->path = $directory;
         $names = [];
-        foreach ( $request['background-image'] as $item)
-        {
+        foreach ($request['background-image'] as $item) {
             $filename = $item->getClientOriginalName();
             $item->move($directory, $filename);
-            $contentLesson->path = $directory .'/'.$filename;
+            $contentLesson->path = $directory . '/' . $filename;
             array_push($names, $filename);
         }
         $contentLesson->audio = json_encode($names);
         $contentLesson->save();
-        if($request['type'] == 3)
-        {
 
-            $is_correct = isset($request['is-correct']) ?  $request['is-correct'][0] : null;
-            foreach ($request['answer'] as $key => $item)
-            {
+        //nếu là trắc nghiệm
+        if ($request['type'] == 3) {
+
+            $is_correct = isset($request['is-correct']) ? $request['is-correct'][0] : null;
+            foreach ($request['answer'] as $key => $item) {
                 $lessonAnswer = new LessonAnswer();
                 $lessonAnswer->lesson_content_id = $contentLesson->id;
                 $lessonAnswer->answer = $item;
-                $lessonAnswer->is_correct =false;
-                if($key == $is_correct)
-                {
+                $lessonAnswer->is_correct = false;
+                if ($key == $is_correct) {
                     $lessonAnswer->is_correct = true;
                 }
                 $lessonAnswer->save();
             }
         }
+        return redirect('admin/manager-lesson/create');
     }
 
     public function delete($id)
     {
-        $school = School::findOrFail($id);
-        $school->delete();
+//        $school = School::findOrFail($id);
+//        $school->delete();
     }
 }

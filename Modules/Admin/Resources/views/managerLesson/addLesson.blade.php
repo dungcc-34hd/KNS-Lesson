@@ -8,31 +8,35 @@
                     <h4 class="modal-title">Tạo bài học</h4>
                 </div>
                 <div class="modal-body">
-                    <label>Chọn khối @include('common.require')</label>
-                    <select class="form-control" name="grade" id="grade">
-                        <option value="">Chọn khối</option>
-                        @foreach ($grades as $key => $grade)
-                            <option value="{{$grade->id}}">{{$grade->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="modal-body">
-                    <label>Tên bài học @include('common.require')</label>
-                    <div class="clearfix">
-                        <input type="text" class="form-control" name="name" id="name">
+                    <div class="form-group">
+                        <label>Chọn khối @include('common.require')</label>
+                        <div class="clearfix">
+                            <select class="form-control" name="grade" id="grade">
+                                <option value="">Chọn khối</option>
+                                @foreach ($grades as $key => $grade)
+                                    <option value="{{$grade->id}}">{{$grade->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tên bài học @include('common.require')</label>
+                        <div class="clearfix">
+                            <input type="text" class="form-control" name="name" id="name">
+                        </div>
                     </div>
                 </div>
                 {{--<div class="modal-body">--}}
-                    {{--<label>Nhạc nền @include('common.require')</label>--}}
-                    {{--<div class="clearfix">--}}
-                        {{--<input type="file" class="form-control" name="background-audio" id="background-audio">--}}
-                    {{--</div>--}}
+                {{--<label>Nhạc nền @include('common.require')</label>--}}
+                {{--<div class="clearfix">--}}
+                {{--<input type="file" class="form-control" name="background-audio" id="background-audio">--}}
+                {{--</div>--}}
                 {{--</div>--}}
                 {{--<div class="modal-body">--}}
-                    {{--<label>Ảnh nền @include('common.require')</label>--}}
-                    {{--<div class="clearfix">--}}
-                        {{--<input type="file" class="form-control" name="background-image" id="background-image">--}}
-                    {{--</div>--}}
+                {{--<label>Ảnh nền @include('common.require')</label>--}}
+                {{--<div class="clearfix">--}}
+                {{--<input type="file" class="form-control" name="background-image" id="background-image">--}}
+                {{--</div>--}}
                 {{--</div>--}}
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="create-grade">Tạo bài học
@@ -45,3 +49,6 @@
 
 </div>
 </div>
+@push('scripts')
+    <script src="{{ asset('modules/admin/managerContent/lesson-validation.js')}}"></script>
+@endpush
