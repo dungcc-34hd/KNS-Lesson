@@ -92,7 +92,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         return \App\Models\School::where('district_id','=',$districtId)->get();;
     }
     public function select($areaId){
-        if(isset($areaId)){
+       
            $provinces=\App\Models\Province::where('area_id','=',$areaId)->get();
 
           count($provinces)>0 ? $provinceId=$provinces[0]->id : $provinceId=0;
@@ -104,7 +104,8 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             $array['districts']=$districts;
             $array['schools']=$schools;
             return $array;
-
+       
+    }
      public function grade(){
         return \App\Models\Grade::all();
     }

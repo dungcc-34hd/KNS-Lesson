@@ -129,12 +129,6 @@ class PermissionController extends Controller
         {
             $array = $request->all();
             $this->repository->create($array);
-
-
-           
-            // array_shift($array);
-            // $this->repository->createPermission($permission);
-
             message($request, 'success', 'Tạo mới thành công.');
         }
         catch (QueryException $exception)
@@ -154,9 +148,7 @@ class PermissionController extends Controller
      * @return view
      */
     public function destroy($id)
-    {
-
-    
+    {  
         try
         {
             
@@ -170,3 +162,4 @@ class PermissionController extends Controller
         }
 
     }
+}

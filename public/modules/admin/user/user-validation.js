@@ -58,7 +58,7 @@ $('.validation-form').validate({
             required: "Xin vui lòng nhập số điện thoại."
         },
         role_id:{
-            required: "Xin vui lòng chọn quyển ."
+            required: "Xin vui lòng chọn quyền ."
         },
         area_id:{
             required: "Xin vui lòng chọn khu vực ."
@@ -78,27 +78,7 @@ $('.validation-form').validate({
         class_id:{
             required: "Xin vui lòng chọn lớp."
         },
-        role_id:{
-            required: "Xin vui lòng nhập quyển ."
-        },
-        area_id:{
-            required: "Xin vui lòng nhập khu vực ."
-        },
-        province_id:{
-            required: "Xin vui lòng nhập tỉnh."
-        },
-        district_id:{
-            required: "Xin vui lòng nhập quận/huyện."
-        },
-        school_id:{
-            required: "Xin vui lòng nhập trường."
-        },
-        grade_id:{
-            required: "Xin vui lòng nhập khối."
-        },
-        class_id:{
-            required: "Xin vui lòng nhập lớp."
-        },
+        
 
     },
 
