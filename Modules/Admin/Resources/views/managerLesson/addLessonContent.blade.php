@@ -2,11 +2,9 @@
     .hidden {
         display: none;
     }
-
     .formfield {
         float: left;
     }
-
     .example-template {
         clear: left;
     }
@@ -19,7 +17,7 @@
     </div>
 
     <form action="{{route('admin.managerLesson.storeLessonContent')}}" method="post" class="validation-form"
-          enctype="multipart/form-data">
+          enctype="multipart/form-data" id="addLessonContent">
         {{csrf_field()}}
         @isset($typeId)
             <input type="hidden" value="{{$typeId}}" name="type">
@@ -35,13 +33,18 @@
         @endisset
 
         <div class="modal-body">
-            <label>Tiêu đề@include('common.require')</label>
-            <div class="md-form">
-                <input type="text" id="title" class="form-control" name="title">
+            <div class="form-group">
+                <label>Tiêu đề@include('common.require')</label>
+                <div class="">
+                    <input type="text" id="title" class="form-control" name="title" required>
+                </div>
             </div>
-            <label>Nội dung @include('common.require')</label>
-            <div class="md-form">
-                <textarea type="text" id="content" class="md-textarea form-control" rows="3" name="content"></textarea>
+            <div class="form-group">
+                <label>Nội dung @include('common.require')</label>
+                <div class="clearfix">
+                    <textarea type="text" id="content" class="md-textarea form-control" rows="3"
+                              name="content"></textarea>
+                </div>
             </div>
             <br>
             <div class="col-md-12">
@@ -50,9 +53,9 @@
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="action_id">Slide </label>
-                            <div class="col-md-5">
+                            <div class="col-md-5 clearfix">
                                 <input type="file" class="form-control add_field_button" name="background-image[]"
-                                       id="background-image">
+                                       id="background-image" required>
                                 {{--<input type="number" class="form-control" name="order-by[]" id="order-by" value="">--}}
                             </div>
                         </div>
@@ -62,38 +65,44 @@
             </div>
             @if($typeId == 3)
                 <div class="show-request-answer">
-                    <label>Câu hỏi @include('common.require')</label>
-                    <div class="md-form">
-                <textarea type="text" id="question" class="md-textarea form-control" rows="3"
-                          name="question"></textarea>
+                    <div class="form-group">
+                        <label>Câu hỏi @include('common.require')</label>
+                        <div class="clearfix">
+                            <textarea type="text" id="question" class="md-textarea form-control" rows="3"
+                                      name="question" required></textarea>
+                        </div>
                     </div>
                     <label>Câu trả lời @include('common.require') </label>
-                    <div class="pull-right">Câu trả lời đúng <input type="radio" class="is-correct" style="width:15px" name="is-correct[]" value="0"></div>
+                    <div class="pull-right">Câu trả lời đúng <input type="radio" class="is-correct" style="width:15px"
+                                                                    name="is-correct[]" value="0"></div>
 
                     <div class="md-form">
                     <textarea type="text" id="answer" class="md-textarea form-control" rows="3"
-                              name="answer[]"></textarea>
+                              name="answer[]" required></textarea>
 
                     </div>
                     <label>Câu trả lời @include('common.require')</label>
-                    <div class="pull-right">Câu trả lời đúng <input type="radio" class="is-correct" style="width:15px" name="is-correct[]" value="1"></div>
+                    <div class="pull-right">Câu trả lời đúng <input type="radio" class="is-correct" style="width:15px"
+                                                                    name="is-correct[]" value="1"></div>
                     <div class="md-form">
                     <textarea type="text" id="answer" class="md-textarea form-control" rows="3"
-                              name="answer[]"></textarea>
+                              name="answer[]" required></textarea>
 
                     </div>
                     <label>Câu trả lời @include('common.require')</label>
-                    <div class="pull-right">Câu trả lời đúng <input type="radio" class="is-correct" style="width:15px" name="is-correct[]" value="2"></div>
+                    <div class="pull-right">Câu trả lời đúng <input type="radio" class="is-correct" style="width:15px"
+                                                                    name="is-correct[]" value="2"></div>
                     <div class="md-form">
                 <textarea type="text" id="answer" class="md-textarea form-control answer" rows="3"
-                          name="answer[]"></textarea>
+                          name="answer[]" required></textarea>
 
                     </div>
                     <label>Câu trả lời @include('common.require')</label>
-                    <div class="pull-right">Câu trả lời đúng <input type="radio" class="is-correct" style="width:15px" name="is-correct[]" value="3"></div>
+                    <div class="pull-right">Câu trả lời đúng <input type="radio" class="is-correct" style="width:15px"
+                                                                    name="is-correct[]" value="3"></div>
                     <div class="md-form">
                     <textarea type="text" id="answer" class="md-textarea form-control " rows="3"
-                              name="answer[]"></textarea>
+                              name="answer[]" required></textarea>
                     </div>
                     <br>
                 </div>
@@ -101,10 +110,8 @@
         </div>
 
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary create-content-lesson button-request"
-                    id="create-content-lesson">Tạo nội dung
-            </button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modalAddLessonContent">Close</button>
+            <button type="submit" class="btn btn-primary create-content-lesson " id="create-content-lesson">Tạo nội dung</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
         </div>
     </form>
 </div>
@@ -123,7 +130,7 @@
                 '<label class="col-md-4 control-label" for="action_id">Slide</label> ' +
                 '<div class="col-md-5"> ' +
                 '<input type="file" class="form-control add_field_button" name="background-image[]"\n' +
-                '                               id="background-image"> ' +
+                '                               id="background-image" required> ' +
                 // ' <input type="number" class="form-control" name="order-by[]" id="order-by" value="">' +
                 '</div>' +
                 '</div></div>' +
@@ -162,4 +169,8 @@
         }
     });
 </script>
+@push('scripts')
+    <script src="{{ asset('modules/admin/managerContent/lessonContent-validation.js')}}"></script>
+@endpush
+
 
