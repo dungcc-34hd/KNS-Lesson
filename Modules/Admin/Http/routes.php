@@ -161,19 +161,23 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
 //        Route::get('/pagination/{records}/{search?}', 'TitleLessonController@pagination')->name('admin.title-lesson.pagination');
     });
 
+    // statistic
+    Route::group(['prefix'=>'statistic'],function(){
+        Route::get('/','StatisticController@index')->name('admin.statistic.index');
+        Route::get('/pagination/{records}/{search?}', 'StatisticController@pagination')->name('admin.statistic.pagination');
+        Route::get('/change-area/{areaId}','StatisticController@changeArea')->name('admin.statistic.changeArea');
+        Route::get('/change-province/{provinceId}','StatisticController@changeProvince')->name('admin.statistic.changeProvince');
+        Route::get('/change-district/{districtId}','StatisticController@changeDistrict')->name('admin.statistic.changeDistrict');
+        Route::get('/change-school/{schoolId}','StatisticController@changeSchool')->name('admin.statistic.changeSchool');
+        Route::get('/change-select/{areaId}/{provinceId}','StatisticController@changeSelect')->name('admin.statistic.changeSelect');
 
-    // title lesson
-    Route::group(['prefix' => 'title-lesson'], function () {
-        Route::get('/index', 'TitleLessonController@index')->name('admin.titleLesson.index');
-        Route::get('/create', 'TitleLessonController@create')->name('admin.titleLesson.create');
-        Route::post('/store-grade', 'TitleLessonController@storeGrade')->name('admin.titleLesson.storeGrade');
-        Route::post('/store-lesson-detail', 'TitleLessonController@storeLessonDetail')->name('admin.titleLesson.storeLessonDetail');
-        Route::post('/store-lesson-content', 'TitleLessonController@storeLessonContent')->name('admin.titleLesson.storeLessonContent');
-        Route::get('/show/{id}', 'TitleLessonController@show')->name('admin.titleLesson.show');
-        Route::get('/edit/{id}', 'TitleLessonController@edit')->name('admin.titleLesson.edit');
-        Route::post('/update/{id}', 'TitleLessonController@update')->name('admin.titleLesson.update');
-        Route::get('/delete/{id}', 'TitleLessonController@delete')->name('admin.titleLesson.delete');
-        Route::get('/pagination/{records}/{search?}', 'TitleLessonController@pagination')->name('admin.titleLesson.pagination');
+        // ajax
+        Route::get('/hanlding-area','StatisticController@hanldingArea')->name('admin.statistic.hanldingArea');
+        Route::get('/hanlding-province','StatisticController@hanldingProvince')->name('admin.statistic.hanldingProvince');
+        Route::get('/hanlding-district','StatisticController@hanldingDistrict')->name('admin.statistic.hanldingDistrict');
+        Route::get('/hanlding-school','StatisticController@hanldingSchool')->name('admin.statistic.hanldingSchool');
+        
+
     });
 });
 //Login

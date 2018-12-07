@@ -111,7 +111,7 @@ $(function () {
             success: function () {
                 var records = $('#show-records').val();
                 ajaxLoadData(records,1,$('#nav-search-input').val());
-            }
+            } 
         });
     });
 

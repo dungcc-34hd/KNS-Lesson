@@ -1,3 +1,4 @@
+
 $(function () {
    activeMenu('user', null, false);
     $('.select2').select2();
@@ -45,5 +46,7 @@ $(function () {
             }
         });
     });
+
 });
+
 

@@ -28,7 +28,7 @@ class ClassController extends Controller
     {
         $per_page = is_null($records) ? 10 : $records;
 
-        return view('admin::class.pagination',
+        return view('admin::class.pagination', 
             [
                 'class' => $this->repository->getObjects($per_page, $search),
                 'pages'       => $this->repository->getPages($per_page, $search),
