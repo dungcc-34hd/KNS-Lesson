@@ -98,7 +98,7 @@ class UserController extends Controller
             $array = $request->all();
             $array['password'] = Hash::make('123456');
             $this->repository->update($request->id, $array);
-            message($request, 'success', 'Updated Complete');
+            message($request, 'success', 'Cập nhật thành công.');
         }
         catch (QueryException $exception)
         {
@@ -120,14 +120,11 @@ class UserController extends Controller
     public function create()
     {
         $areas=$this->repository->Area();
-        if(count($areas) >0 ){
-            $areaId=$areas[0]->id;
-        }
+        count($areas) >0 ? $areaId=$areas[0]->id : $areaId=0;
         $array=$this->repository->select($areaId);
-         $grades=$this->repository->grade();
-         if(count($grades) >0 ){
-            $gradeId=$grades[0]->id;
-        }
+        $grades=$this->repository->grade();
+        count($grades) >0 ? $gradeId=$grades[0]->id : $gradeId=0;
+
         return view('admin::user.create',[
             'areas' => $areas,
             'provinces'=> $array['provinces'],
@@ -168,8 +165,8 @@ class UserController extends Controller
         {
             $array = $request->all();
             $array['password'] = Hash::make('123456');
-            $id = $this->repository->create($array)->id;
-            message($request, 'success', 'Created Complete');
+            $this->repository->create($array);
+            message($request, 'success', 'Thêm mới thành công.');
         }
         catch (QueryException $exception)
         {
@@ -215,21 +212,4 @@ class UserController extends Controller
         return view('admin::user.detail', compact('user'));
     }
 
-    /**
-     * Get roles by user id
-     * @author minhpt
-     * @date 18/04/2018
-     * @param  Request $request
-     * @return view
-     */
-    // public function getRolesByUserID($id)
-    // {
-    //     $roles = $this->repository->getRoleByUserID($id);
-    //     $array = [];
-    //     foreach ($roles as $role)
-    //     {
-    //         array_push($array, $role->id);
-    //     }
-    //     return response()->json($array);
-    // }
 }

@@ -54,218 +54,106 @@ class RoleController extends Controller
      * Description: edit role
      */
 
-    public function view($id)
-    {
-//        canPermissions(Permissions::Role());
-        self::nullProperty($id);
-        $arrays = self::hasPermissions((int)$id);
-        $permissionType = Permission::getPermissionsByType();
-
-        return view('admin::role.view',
-            [
-                'role'             => Role::find($id),
-                'permissions'      => $arrays,
-                'permissionByType' => $permissionType,
-                'view'             => true
-            ]);
-
-    }
-
+    
     /*
          * Author: minhpt
          * Create: 08/09/2017
          * Description: edit role
          */
-    public function create(Request $request)
+    public function create()
     {
-//        canPermissions(Permissions::Role());
-        try {
-            if ($request->isMethod('get')) {
-                $arrays = self::hasPermissions();
-                $permissionType = Permission::getPermissionsByType();
-
-                return view('admin::role.create',
-                    [
-                        'permissions'      => $arrays,
-                        'permissionByType' => $permissionType,
-                        'create'           => true
-                    ]);
-            }
-            $name = $request->input('name');
-            $display_name = $request->input('display_name');
-            $description = $request->input('description');
-            $permissions = $request->permission;
-
-            $role_id = Role::createRole($name, $display_name, $description);
-
-            if (isset($permissions)) {
-                foreach ($permissions as $key => $permission) {
-                    PermissionRole::addPermissionRole($key, $role_id);
-                }
-            }
-            $request->session()->flash('flash_level', 'success');
-            $request->session()->flash('flash_message', 'Complete update infomation for role has id is ' . $role_id);
-
-        } catch (QueryException $exception) {
-            Log::error('RoleController->edit: ' . $exception);
-
-            $request->session()->flash('flash_level', 'danger');
-            $request->session()->flash('flash_message', 'The system is faulty to contact administrator');
-        }
-
-        return redirect('role/view/' . $role_id);
+        $permissions=$this->roleRepository->getPermission();
+        return view('admin::role.create',compact('permissions'));
     }
 
-    /*
-     * Author: minhpt
-     * Create: 08/09/2017
-     * Description: edit role
+    /**
+     * Store a newly created resource in storage.
+     * @author minhpt
+     * @date 18/04/2018
+     * @param  Request $request
+     * @return view
      */
-    public function edit(Request $request, $id = null)
+    public function store(Request $request)
     {
-//        canPermissions(Permissions::Role());
-        self::nullProperty($id);
-        try {
-            self::notActionGlobalAdmin($id);
-            if ($request->isMethod('get')) {
-                $arrays = self::hasPermissions($id);
-                $permissionType = Permission::getPermissionsByType();
+        try
+        {
+            $array = $request->all();
+            $name=$request->name;
+            $display_name=$request->display_name;
+            $description=$request->description;
+            $permission_id=$request->permission_id;
 
-                return view('admin::role.edit',
-                    [
-                        'role'             => Role::find($id),
-                        'permissions'      => $arrays,
-                        'permissionByType' => $permissionType,
-                        'edit'             => true
-                    ]);
-            }
-            $role_id = $request->input('id');
-            $name = $request->input('name');
-            $display_name = $request->input('display_name');
-            $description = $request->input('description');
-            $permissions = $request->permission;
+            $role_id=Role::create(['name'=>$name,'display_name'=>$display_name,'description'=>$description])->id;
+            
+             PermissionRole::create(['permission_id'=>$permission_id,'role_id'=>$role_id]);
 
-            Role::updateRole($role_id, $name, $display_name, $description);
-            PermissionRole::deleteAll($role_id);
-            if (isset($permissions)) {
-                foreach ($permissions as $key => $permission) {
-                    PermissionRole::addPermissionRole($key, $role_id);
-                }
-            }
-            $request->session()->flash('flash_level', 'success');
-            $request->session()->flash('flash_message', 'Complete update infomation for role has id is ' . $role_id);
-
-        } catch (QueryException $exception) {
-            Log::error('RoleController->edit: ' . $exception);
-            $request->session()->flash('flash_level', 'danger');
-            $request->session()->flash('flash_message', 'The system is faulty to contact administrator');
-
+            message($request, 'success', 'Tạo mới thành công.');
         }
-
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            message($request, 'danger', ERROR_SYSTEM);
+        }
         return redirect()->route('admin.role.index');
+
+    }
+     public function edit($id)
+    {
+         $role=$this->roleRepository->getRole($id)->first();
+         $permissions=$this->roleRepository->getPermission();
+        return view('admin::role.edit', compact('permissions','role'));
     }
 
-    /*
-     * author: minhpt
-     * create: 08/09/2017
-     * description: delete role
+    /**
+     * Update the specified resource in storage.
+     * @author minhpt
+     * @date 18/04/2018
+     * @param  Request $request
+     * @return view
      */
+    public function update(Request $request)
+    {
+        try {
+            
+            $array = $request->all();
+            $name=$request->name;
+            $display_name=$request->display_name;
+            $description=$request->description;
+          
+            $permission_id=$request->permission_id;
+      
+            $role_id=Role::where('id', $request->id)->update(['name'=>$name,'display_name'=>$display_name,'description'=>$description]);
+            
+             PermissionRole::where('role_id',$request->id)->update(['permission_id'=>$permission_id]);
+
+           
+            message($request, 'success', 'Cập nhật thành công.');
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            message($request, 'danger', ERROR_SYSTEM);
+        }
+        return redirect()->route('admin.role.index');
+
+    }
+  
 
     public function delete($id)
     {
-//        canPermissions(Permissions::Role());
-        try {
-            self::processDelete($id);
-
+        try
+        {
+            Role::where('id', '=', $id)->delete();
+            PermissionRole::where('role_id','=',$id)->delete();
             return response()->json(['status' => true]);
-        } catch (\QueryException $exception) {
-            Log::error('RoleController->delete: ' . $exception);
-
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
             return response()->json(['status' => false]);
         }
     }
 
-    public function deleteViewDetail(Request $request, $id)
-    {
-//        canPermissions(Permissions::Role());
-        self::nullProperty($id);
-        try {
-            self::processDelete($id);
-            $request->session()->flash('flash_level', 'success');
-            $request->session()->flash('flash_message', 'Complete deleted');
-        } catch (\QueryException $exception) {
-            Log::error('RoleController->deleteViewDetail: ' . $exception);
-            $request->session()->flash('flash_level', 'danger');
-            $request->session()->flash('flash_message', 'The system is faulty to contact administrator');
-        }
+ }
+   
 
-        return \redirect()->route('admin.role.index');
-    }
-
-    /*
-     * author: minhpt
-     * create: 08/09/2017
-     * description: get all permissions and role has permissions
-     */
-    public function hasPermissions($id = null)
-    {
-        $permissionArrays = Permission::getPermissions();
-        if ($id != null)
-            $roleArrays = Role::getPermissionRole($id);
-        $arrays = [];
-        if (count($permissionArrays) > 0) {
-            foreach ($permissionArrays as $permissionArray) {
-                $array = [
-                    'name' => $permissionArray['display_name'],
-                    'has'  => 0,
-                    'id'   => $permissionArray['id'],
-                    'type' => $permissionArray['type']
-                ];
-                if ($id != null) {
-                    if (count($roleArrays) > 0) {
-                        $ok = false;
-                        foreach ($roleArrays as $roleArray) {
-                            if ($roleArray->permissions_id == $permissionArray['id']) {
-                                $ok = true;
-                                break;
-                            }
-                        }
-                        if ($ok) {
-                            $array = [
-                                'name' => $permissionArray['display_name'],
-                                'has'  => 1,
-                                'id'   => $permissionArray['id'],
-                                'type' => $permissionArray['type']
-                            ];
-                        }
-
-                    }
-                }
-                array_push($arrays, $array);
-            }
-        }
-
-        return $arrays;
-    }
-
-    public function notActionGlobalAdmin($id)
-    {
-        if ($id == 1) {
-            return abort(404);
-        }
-    }
-
-    public function processDelete($id)
-    {
-        self::notActionGlobalAdmin($id);
-//        PermissionRole::deleteAll($id);
-//        RoleUser::deleteByRoleId($id);
-        Role::deleteRole($id);
-    }
-
-    public function nullProperty($id)
-    {
-        if (is_null(Role::find($id)))
-            return abort(404);
-    }
-}

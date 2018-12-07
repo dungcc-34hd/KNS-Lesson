@@ -16,8 +16,8 @@ $('.validation-form').validate({
         tel: {
 
             required: true,
-            phoneUS: true
 
+            maxlength:11,
         },
         role_id:{
             required: true
@@ -34,7 +34,7 @@ $('.validation-form').validate({
         school_id:{
             required: true,
         },
-        grades_id:{
+        grade_id:{
             required: true,
         },
         class_id:{
@@ -54,30 +54,31 @@ $('.validation-form').validate({
             email:"Email không đúng định dạng ."
         },
         tel:{
-            phoneUS: "Số điện thoại không đúng định dạng .",
+            maxlength: "Số điện thoại không quá 11 kí tự .",
             required: "Xin vui lòng nhập số điện thoại."
         },
         role_id:{
-            required: "Xin vui lòng nhập quyển ."
+            required: "Xin vui lòng chọn quyền ."
         },
         area_id:{
-            required: "Xin vui lòng nhập khu vực ."
+            required: "Xin vui lòng chọn khu vực ."
         },
         province_id:{
-            required: "Xin vui lòng nhập tỉnh."
+            required: "Xin vui lòng chọn tỉnh."
         },
         district_id:{
-            required: "Xin vui lòng nhập quận/huyện."
+            required: "Xin vui lòng chọn quận/huyện."
         },
         school_id:{
-            required: "Xin vui lòng nhập trường."
+            required: "Xin vui lòng chọn trường."
         },
         grade_id:{
-            required: "Xin vui lòng nhập khối."
+            required: "Xin vui lòng chọn khối."
         },
         class_id:{
-            required: "Xin vui lòng nhập lớp."
+            required: "Xin vui lòng chọn lớp."
         },
+        
 
     },
 

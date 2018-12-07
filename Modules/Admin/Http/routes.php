@@ -9,11 +9,11 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/pagination/{records}/{search?}', 'RoleController@pagination')->name('admin.role.pagination');
         Route::get('/view/{id}', 'RoleController@view')->name('admin.role.view');
         Route::get('/edit/{id}', 'RoleController@edit')->name('admin.role.edit');
-        Route::post('/edit/{id}', 'RoleController@edit')->name('admin.role.edit');
+        Route::post('/edit/{id}', 'RoleController@update')->name('admin.role.update');
         Route::get('/create', 'RoleController@create')->name('admin.role.create');
-        Route::post('/create', 'RoleController@create')->name('admin.role.create');
+        Route::post('/store', 'RoleController@store')->name('admin.role.store');
         Route::get('/delete/{id}', 'RoleController@delete')->name('admin.role.delete');
-        Route::get('/delete-view-detail/{id}', 'RoleController@deleteViewDetail')->name('admin.role.deleteViewDetail');
+       
     }); 
     
     //Permission

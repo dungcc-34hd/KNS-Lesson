@@ -151,7 +151,17 @@
                                     @include('pagination.index',['current_page' => 1,'total_page' => $pages])
                                 </div>
                                 <div class="col-md-6 pull-right">
-                                    {{-- @include('admin::layouts._viewBy') --}}
+
+                                    <label class="view-by">
+                                            View By
+                                            <select id="show-records" class="form-control input-sm">
+                                                <option value="10">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+                                        </label>
+
                                 </div>
                             </div>
                         </div>

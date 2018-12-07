@@ -1,6 +1,6 @@
 @extends('admin::layouts.master')
 @section('title')
-    Create School
+    Tạo Lớp
 @endsection 
 @section('content')
     <div class="content-wrapper">

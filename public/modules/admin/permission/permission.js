@@ -7,7 +7,7 @@ $(function () {
         var row = $(this).closest('tr');
         $.confirm({
             title: 'Confirm!',
-            content: 'Are you delete object: ' + object_name + '?',
+            content: 'Bạn có muốn xóa: ' + object_name + '?',
             buttons: {
                 confirm: function () {
                     $.ajax({
