@@ -21,9 +21,6 @@ class StatisticController extends Controller
      * @return Response
      */
     protected $repository;
-
-
-
     public function __construct(StatisticEloquentRepository $repository)
     {
         $this->repository = $repository;
