@@ -24,8 +24,6 @@ class StatisticEloquentRepository extends EloquentRepository implements Statisti
          return User::class;
     }
 
-   
-
    public function getPages($records, $search = null)
     {
         $total = !is_null($search) ? count($this->_model->where(function ($q) use ($search) {
