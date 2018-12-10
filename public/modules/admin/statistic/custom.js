@@ -1,88 +1,81 @@
 
 $(function ()
 {
-    activeMenu('statistic', null, false);
-    $('#selectArea').change(function () {
-        Area();
-   });
-   $('#selectProvince').change(function () {
+
+activeMenu('statistic', null, false);
+});
+$(document).ready(function(){
+    
+    // select areas
+    $("#areas").change(function(){
+        var area = $(this).val();
+
+        $.ajax({
+            type:'GET',
+            url:'/admin/statistic/hanlding-area/',
+            'data': {
+                'area' : area,
+            },
+            success:function(data) {
+                $('#provinces').html(data.select);
+                $('#tbody').html(data.user);
+                $("#districts").html('<option>Chọn Quận/Huyện</option>');
+                $("#schools").html('<option>Chọn Trường </option>');
+                // var records = $('#tbody').val();
+                // ajaxLoadData(records,1,$('#nav-search-input').val());
+            }
+         });
+    });
+
+    // select provinces
+    $("#provinces").change(function(){
+        var province = $(this).val();
+      
+        $.ajax({
+            type:'GET',
+            url:'/admin/statistic/hanlding-province',
+            'data': {
+                'province' : province,
+            },
+            success:function(data) {
+                $('#districts').html(data.select);
+                $('#tbody').html(data.user);
+                $("#schools").html('<option>Chọn Trường </option>');
+                // ajaxLoadData(records,1,$('#nav-search-input').val());
+            }
+         });
+    });
+
+    // select districts
+    $("#districts").change(function(){
+        var district = $(this).val();
        
-   });
-   $('#selectDistrict').change(function ()
-    {
-        
-   });
-   $('#selectSchool').change(function ()
-    {
-     
-   });
+        $.ajax({
+            type:'GET',
+            url:'/admin/statistic/hanlding-district',
+            'data': {
+                'district' : district,
+            },
+            success:function(data) {
+                $('#tbody').html(data.user);
+                $('#schools').html(data.select);
+            }
+         });
+    });
+    $("#schools").change(function(){
+        var school = $(this).val();
+       
+        $.ajax({
+            type:'GET',
+            url:'/admin/statistic/hanlding-school',
+            'data': {
+                'school' : school,
+            },
+            success:function(data) {
+                $('#tbody').html(data.user);
+            }
+         });
+    });
 
 });
 
-
-function Area(){
-         var url = $('#selectArea').data('url');        
-         console.log(url);
-        var indexOf = url.indexOf('change-area') + 11;    
-        var length = url.length;
-        var processUrl =  url.substr(0, indexOf) + '/' + $('#selectArea').val();
-        axios.get(processUrl).then(function (result) {
-        var data = result.data;
-        console.log(data);
-        // $('#selectProvince').empty();
-        // if($.isEmptyObject(data['provinces']))
-        // {
-        //     var option = '<option>Không có dữ liệu</option>'
-        //     $('#selectProvince').append(option)
-             
-        // }
-        // else
-        // {
-           
-        //     $.each(data['provinces'], function (i, value) {
-        //         var option = '<option value='+value.id+'>'+value.name+'</option>'
-        //         $('#selectProvince').append(option)
-        //     });
-              
-        // }
-        //  $('#selectDistrict').empty();
-        // if($.isEmptyObject(data['districts']))
-        // {
-            
-        //     var option = '<option>Không có dữ liệu</option>'
-        //     $('#selectDistrict').append(option)
-            
-        // }
-        // else
-        // {
-           
-        //     $.each(data['districts'], function (i, value) {
-        //         var option = '<option value='+value.id+'>'+value.name+'</option>'
-
-        //         $('#selectDistrict').append(option)
-        //     });
-             
-          
-        
-        // }
-        // $('#selectSchool').empty();
-        // if($.isEmptyObject(data['schools']))
-        // {
-            
-        //     var option = '<option>Không có dữ liệu</option>'
-        //     $('#selectSchool').append(option)
-            
-        // }
-        // else
-        // {
-           
-        //     $.each(data['schools'], function (i, value) {
-        //         var option = '<option value='+value.id+'>'+value.name+'</option>'
-
-        //         $('#selectSchool').append(option)
-        //     });
-        // }
-            ajaxLoadData($('#show-records').val(), $('#pages-current').val(), $('#nav-search-input').val());
-    });
-        
-}

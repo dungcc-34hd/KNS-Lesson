@@ -1,4 +1,3 @@
-@php $current = 10 * ($currentPage - 1) + 1@endphp
 
 <tr>
     <th>STT</th>
@@ -9,25 +8,31 @@
     <th>Trường</th>
     <th>Khối</th>
     <th>Lớp</th>
-    <th>Sĩ số</th>      
+
+    <th>Sĩ số</th>  
 </tr>
+
+</thead>
+<tbody id="tbody">
 @if(!empty($users))
-@foreach($users as $key => $user)
-    <tr>
-        <td class="text-center">{{$key + 1}}</td>
-        <td>{{$user->name}}</td>
-        <td>{{$user->name_area}}</td>
-        <td>{{$user->name_province}}</td>
-        <td>{{$user->name_district}}</td>
-        <td>{{$user->name_school}}</td>
-        <td>{{$user->name_grade}}</td>
-        <td>{{$user->name_class}}</td>
-        <td>{{$user->quantity_student}}</td>
-    </tr>
-@endforeach
+    @foreach($users as $key => $user)
+        <tr>
+            <td >{{$key+1}}</td>
+            <td>{{$user->name}}</td>
+            <td>{{$user->area['name']}}</td>
+            <td>{{$user->province['name']}}</td>
+            <td>{{$user->district['name']}}</td>
+            <td>{{$user->school['name']}}</td>
+            <td>{{$user->grade['name']}}</td>
+            <td>{{$user->lsClass['name']}}</td>
+            <td>{{$user->quantity_student}}</td>
+        </tr>
+       
+    @endforeach
 @else
     <tr>
-        <td colspan="5">Không có bản ghi nào</td>
+        <td colspan="9">No Records</td>
+
     </tr>
 @endif
 <input id="total-pages-current" type="hidden" value="{{ isset($pages) ? $pages : 0 }}">
