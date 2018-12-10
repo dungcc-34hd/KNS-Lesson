@@ -1,18 +1,7 @@
 
 $(function () {
    activeMenu('user', null, false);
-    $('.select2').select2();
-    var userID = $('#user-id').val();
-    if(userID !== undefined)
-    {
-        $.ajax({
-            type: 'GET',
-            url: '/admin/user/get-roles/' + userID,
-            success: function (result) {
-                $('.select2').val(result).change();
-            }
-        });
-    }
+
     $(document).on('click', '.delete-object', function (e) {
         e.preventDefault();
         var object_name = $(this).attr('object_name');
@@ -25,7 +14,7 @@ $(function () {
                 confirm: function () {
                     $.ajax({
                         type: 'GET',
-                        url: '/admin/permission/delete/' + object_id,
+                        url: '/admin/user/delete/' + object_id,
                         success: function (result) {
                             if (result['status']) {
                                 $('.alert-success').show();
@@ -47,6 +36,8 @@ $(function () {
         });
     });
 
+
 });
+
 
 

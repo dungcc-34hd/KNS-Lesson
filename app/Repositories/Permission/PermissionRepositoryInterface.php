@@ -5,4 +5,5 @@ namespace App\Repositories\Permission;
 interface PermissionRepositoryInterface
 {
 
+
 }

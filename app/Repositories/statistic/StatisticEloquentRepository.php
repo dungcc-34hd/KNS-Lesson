@@ -7,8 +7,10 @@ use App\Repositories\EloquentRepository;
 use App\Models\LsClass;
 use App\Models\District;
 use App\Models\School;
+
 use App\Models\Area;
 use App\Models\Province;
+
 use App\User;
 class StatisticEloquentRepository extends EloquentRepository implements StatisticRepositoryInterface
 {
@@ -21,6 +23,7 @@ class StatisticEloquentRepository extends EloquentRepository implements Statisti
     {
          return User::class;
     }
+
    
 
    public function getPages($records, $search = null)
@@ -31,6 +34,7 @@ class StatisticEloquentRepository extends EloquentRepository implements Statisti
         })->get()) : count($this->_model->get());
         return ceil($total / $records);
         
+
     }
 
     /**
@@ -39,6 +43,7 @@ class StatisticEloquentRepository extends EloquentRepository implements Statisti
      * @date 17/04/2018
      * @return mixed
      */
+
     public function getObjects($records, $search = null)
     {
         return is_null($search) ? $this->_model->paginate($records)->items() : $this->_model->where(function ($q) use ($search) {
@@ -46,10 +51,12 @@ class StatisticEloquentRepository extends EloquentRepository implements Statisti
 //          $q->orWhere('description', 'like', '%' . $search . '%');
         })->paginate($records)->items();
        
+
     }
     public function area(){
         return \App\Models\Area::all();
     }
+
 
 
 

@@ -1,3 +1,4 @@
+
 <tr>
     <th>STT</th>
     <th>Giáo viên</th>
@@ -7,6 +8,7 @@
     <th>Trường</th>
     <th>Khối</th>
     <th>Lớp</th>
+
     <th>Sĩ số</th>  
 </tr>
 
@@ -30,6 +32,7 @@
 @else
     <tr>
         <td colspan="9">No Records</td>
+
     </tr>
 @endif
 <input id="total-pages-current" type="hidden" value="{{ isset($pages) ? $pages : 0 }}">

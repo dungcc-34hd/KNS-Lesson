@@ -23,21 +23,21 @@ class PermissionRoleTableSeeder extends Seeder
 
             $p_role = new PermissionRole([
                 'permission_id' => 2,
-                'role_id' => 1,
+                'role_id' => 2,
             ]);
             $p_role->save();
 
             $p_role = new PermissionRole([
                 'permission_id' => 3,
-                'role_id' => 1,
+                'role_id' => 3,
             ]);
             $p_role->save();
 
-            $p_role = new PermissionRole([
-                'permission_id' => 4,
-                'role_id' => 1,
-            ]);
-            $p_role->save();
+            // $p_role = new PermissionRole([
+            //     'permission_id' => 4,
+            //     'role_id' => 1,
+            // ]);
+            // $p_role->save();
         }
     }
 }

@@ -2,11 +2,13 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+
 use App\Models\Area;
 use App\Models\LsClass;
 use App\Models\District;
 use App\Models\School;
 use App\Models\Province;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -19,16 +21,18 @@ class StatisticController extends Controller
      * @return Response
      */
     protected $repository;
-   
+
+
 
     public function __construct(StatisticEloquentRepository $repository)
     {
         $this->repository = $repository;
-       
+
 
     }
     public function pagination(Request $request, $records, $search = null)
     {
+
         $per_page   = is_null($records) ? 10 : $records;
         $areas      = Area::all();
 
@@ -42,10 +46,12 @@ class StatisticController extends Controller
             ]);
     }
 
+
     public function index()
     {
          $records=10;
         
+
     
           
         $areas = Area::all();
@@ -54,9 +60,11 @@ class StatisticController extends Controller
             'users'             => $this->repository->getObjects($records),
             'pages'             => $this->repository->getPages($records),
             'areas'             => $areas    
+
         ]);
         
     }
+
 
   
      /**
@@ -183,4 +191,5 @@ class StatisticController extends Controller
     }
     
     
+
 }

@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
+use App\Role;
+use App\Models\PermissionRole;
 
 class PermissionController extends Controller
 {
@@ -68,8 +70,10 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $permission = $this->repository->find($id);
+         
+         $permission=$this->repository->find($id);
         return view('admin::permission.edit', compact('permission'));
+
     }
 
     /**
@@ -82,10 +86,11 @@ class PermissionController extends Controller
     public function update(Request $request)
     {
         try {
+            
             $array = $request->all();
-            array_shift($array);
-            $this->repository->update($request->id, $array);
-            message($request, 'success', 'Updated Complete');
+            $this->repository->update($request->id,$array);
+            message($request, 'success', 'Cập nhật thành công.');
+
         }
         catch (QueryException $exception)
         {
@@ -106,7 +111,9 @@ class PermissionController extends Controller
      */
     public function create()
     {
+
         return view('admin::permission.create');
+
     }
 
     /**
@@ -121,9 +128,8 @@ class PermissionController extends Controller
         try
         {
             $array = $request->all();
-            array_shift($array);
             $this->repository->create($array);
-            message($request, 'success', 'Created Complete');
+            message($request, 'success', 'Tạo mới thành công.');
         }
         catch (QueryException $exception)
         {
@@ -142,9 +148,10 @@ class PermissionController extends Controller
      * @return view
      */
     public function destroy($id)
-    {
+    {  
         try
         {
+            
             $this->repository->delete($id);
             return response()->json(['status' => true]);
         }
@@ -154,18 +161,5 @@ class PermissionController extends Controller
             return response()->json(['status' => false]);
         }
 
-    }
-
-    /**
-     * Show the specified resource.
-     * @author minhpt
-     * @date 18/04/2018
-     * @param  Request $request
-     * @return view
-     */
-    public function show($id)
-    {
-        $permission = $this->repository->find($id);
-        return view('admin::permission.detail', compact('permission'));
     }
 }

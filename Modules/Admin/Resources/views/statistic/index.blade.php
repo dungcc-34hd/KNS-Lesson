@@ -10,6 +10,7 @@
     <div class="content-wrapper" id="app">
         <!-- bank Header (Page header) -->
         <section class="content-header">
+<<<<<<< HEAD
             <div class="row container">
                 <div class="">
                     <h4 class="pull-left uppercase">
@@ -17,6 +18,12 @@
                         <strong>
                             Thống kê
                         </strong>
+=======
+            <div class="row">
+                <div class="">
+                    <h4 class="pull-left uppercase">
+                        Thống kê
+>>>>>>> 94c1364d662f45eecbe0a0a1120898bb80dd92dc
                     </h4>            
                 </div>
             </div>
@@ -24,11 +31,16 @@
                         <div class="col-md-6 form-group">
                             <div class="form-inline">
                                 <label for="">Khu vực:</label>
+<<<<<<< HEAD
                                 <select class="select-option form-control"  name="areas" id="areas"style="width: 200px;"
                                   >
                                   <option value="">Chọn Khu Vực</option>
                                     @if(count($areas) > 0)  
                                              
+=======
+                                <select class="select-option form-control" id="selectArea" style="width: 200px;"  data-url="{{route('admin.statistic.changeArea',['areaId'=> count($areas) > 0 ? $areas[0]->id : 0])}}">
+                                    @if(count($areas) > 0)       
+>>>>>>> 94c1364d662f45eecbe0a0a1120898bb80dd92dc
                                         @foreach($areas as $area)
                                             <option value="{{$area->id}}">{{$area->name}}</option>
                                         @endforeach
@@ -41,40 +53,49 @@
                         <div class="col-md-6 form-group">
                             <div class="form-inline">
                                 <label for="">Tỉnh:</label>
+
                                 <select class="select-option form-control"  name="provinces" id="provinces"
                                  style="width: 200px;" data-url="">
                                  <option value="">Chọn Tỉnh</option>
                                     {{-- @if(count($provinces) > 0)       
+
                                         @foreach($provinces as $province)
                                             <option value="{{$province->id}}">{{$province->name}}</option>
                                         @endforeach
                                     @else
                                          <option>{{trans('system.noData')}}</option>
+
                                     @endif --}}
+
                                 </select>
                             </div>                
                         </div>
                         <div class="col-md-6 form-group ">
                             <div class="form-inline">
                                 <label for="">Quận/Huyện:</label>
+
                                  <select name="" name="districts" id="districts" 
                                  style="width: 200px;" class="form-control"
                         
                                  {{--  data-url="{{route('admin.statistic.changeDistrict',['districtId'=> count($districts) > 0 ? $districts[0]->id : 0])}}" --}}>
                                  <option value="">Chọn Quận/Huyện</option>  
                                  {{-- @if(count($districts) > 0) 
+
                                         @foreach($districts as $district) 
                                             <option value="{{$district->id}}">{{$district->name}}</option>
                                         @endforeach
                                     @else
                                          <option>{{trans('system.noData')}}</option>
+
                                     @endif --}}
+
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6 form-group ">
                             <div class="form-inline">
                                 <label for="">Trường:</label>
+
                                  <select name="" name="schools" id="schools"
                                   style="width: 200px;" class="form-control"
                                   >
@@ -87,6 +108,7 @@
                                     @else
                                          <option>{{trans('system.noData')}}</option>
                                     @endif --}}
+
                                 </select>
                             </div>
                         </div>
@@ -105,12 +127,16 @@
                     <!-- TO DO List -->
                     <div class="box box-primary">
                         <div class="box-header">
+
                             <h3 class="box-title"><i class="fa fa-list"></i> {{trans('Thống kê')}}</h3>
+
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
                                     <input type="text" id="nav-search-input" name="table_search"
+
                                            class="form-control pull-right" placeholder=" {{trans('seach')}}">
+
 
                                     <div class="input-group-btn">
                                         <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>
@@ -137,6 +163,7 @@
                                 </tr>
                                 
                                 </thead>
+
                                 <tbody id="tbody">
                                 @if(!empty($users))
                                     @foreach($users as $key => $user)
@@ -156,6 +183,7 @@
                                 @else
                                     <tr>
                                         <td colspan="9">No Records</td>
+
                                     </tr>
                                 @endif
                                 </tbody>
@@ -168,8 +196,10 @@
                                     @include('pagination.index',['current_page' => 1,'total_page' => $pages])
                                 </div>
                                 <div class="col-md-6 pull-right">
+
                                     <div class="form-group pull-right">
                                         <label class="view-by">
+
                                             View By
                                             <select id="show-records" class="form-control input-sm">
                                                 <option value="10">10</option>
@@ -178,7 +208,9 @@
                                                 <option value="100">100</option>
                                             </select>
                                         </label>
+
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -191,11 +223,13 @@
         <!-- /.bank -->
 
     </div>
+
     <input type="hidden" id="url-ajax" value="/admin/statistic/pagination/">
+
 @endsection
 @push('scripts')
 
     <script src="{{ asset('common/pagination-search.js') }}"></script>
     <script src="{{ asset('modules/admin/statistic/custom.js') }}"></script>
-    {{-- <script src="{{ asset('modules/admin/statistic/user.js') }}"></script> --}}
 @endpush
+

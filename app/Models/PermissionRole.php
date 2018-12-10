@@ -9,6 +9,7 @@ class PermissionRole extends Model
     //
 
     public $table = 'permission_role';
+       public $fillable=['permission_id','role_id'];
     public $timestamps = false;
 
     public static function deleteAll($role_id)

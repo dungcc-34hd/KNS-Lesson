@@ -32,12 +32,12 @@
 
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b>Minh</b>PT</a>
+        <a href="#"><b>BÀI GIẢNG</b></a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
 
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Đăng nhập vào bài giảng</p>
         <div class="row">
             <div class="col-md-12">
                 @include('common.message')
@@ -50,20 +50,20 @@
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password" name="password">
+                <input type="password" class="form-control" placeholder="Mật khẩu" name="password">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox" name="remember"> Remember Me
+                            <input type="checkbox" name="remember"> Nhớ mật khẩu
                         </label>
                     </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
                 </div>
                 <!-- /.col -->
             </div>

@@ -18,6 +18,7 @@ class CreateLessonDetailsTable extends Migration
             $table->string('name')->nullable();
             $table->string('title')->nullable();
             $table->string('type')->nullable();
+            $table->string('outline')->nullable();
             $table->string('background_audio')->nullable();
             $table->string('background_image')->nullable();
             $table->integer('lesson_id')->nullable();

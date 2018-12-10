@@ -8,7 +8,7 @@ class Permission extends LaratrustPermission
 {
     //
     protected $fillable = [
-        'name', 'display_name', 'description', 'type',
+        'name', 'display_name','description',
     ];
     public static function getPermissions()
     {

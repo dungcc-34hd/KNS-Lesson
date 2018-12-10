@@ -53,10 +53,11 @@
                             <table class="table table-hover results-table">
                                 <tbody>
                                 <tr>
-                                    <th class="order-number">No.</th>
-                                    <th>Name</th>
-                                    <th>Display Name</th>
-                                    <th>Description</th>
+                                    <th class="order-number">STT</th>
+                                    <th>Tên</th>
+                                    <th>Tên hiển thị</th>
+                                    <th>Mô tả</th>
+
                                     <th class="item-action-3"></th>
                                 </tr>
                                 @if(!empty($permissions))
@@ -64,15 +65,11 @@
                                         <tr>
                                             <td class="text-center">{{$key + 1}}</td>
                                             <td>{{$permission->name}}</td>
-                                            <td class="green">{{$permission->display_name}}</td>
+                                            <td>{{$permission->display_name}}</td>
                                             <td>{{$permission->description}}</td>
+
                                             <td>
                                                 <div class="btn-group btn-group-sm">
-                                                    <a class="btn btn-success"
-                                                       href="{{route('admin.permission.show',['id' => $permission->id])}}"
-                                                       title="Detail">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
                                                     <a class="btn btn-info"
                                                        href="{{route('admin.permission.edit',['id' => $permission->id])}}"
                                                        title="Edit">
@@ -126,13 +123,12 @@
         </section>
         <!-- /.content -->
 
-
     </div>
     <input type="hidden" id="url-ajax" value="/admin/permission/pagination/">
 @endsection
 
 @push('scripts')
-{{--    <script src="{{ asset('assets/admin/plugins/iCheck/icheck.min.js') }}"></script>--}}
+
     <script src="{{ asset('common/pagination-search.js') }}"></script>
     <script src="{{ asset('js/vue.js') }}"></script>
     <script src="{{ asset('modules/admin/permission/permission.js') }}"></script>

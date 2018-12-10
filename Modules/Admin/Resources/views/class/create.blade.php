@@ -1,6 +1,6 @@
 @extends('admin::layouts.master')
 @section('title')
-    Create School
+    Tạo Lớp
 @endsection 
 @section('content')
     <div class="content-wrapper">
@@ -27,22 +27,11 @@
                                     </div>
                                 </div>
                                 
-                                <div class="form-group">
-                                    <label>User @include('common.require')</label>
-                                    <div class="clearfix">
-                                        <select  class="form-control" name="select-user">
-                                            <option value="">Chọn User </option>
-                                            @foreach ($users as $key => $user)
-                                                <option value="{{$user->id}}">{{$user->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    
-                                </div>
+                              
                                 <div class="form-group">
                                         <label>Khối @include('common.require')</label>
                                         <div class="clearfix">
-                                            <select  class="form-control" name="select-grade-level">
+                                            <select  class="form-control" name="grade_id">
                                                 <option value="">Chọn khối</option>
                                                 @foreach ($gradeLevels as $key => $gradeLevel)
                                                     <option value="{{$gradeLevel->id}}">{{$gradeLevel->name}}</option>
@@ -50,26 +39,6 @@
                                             </select>
                                         </div>
                                         
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Trường @include('common.require')</label>
-                                    <div class="clearfix">
-                                        <select  class="form-control" name="select-school">
-                                            <option value="">Chọn trường</option>
-                                            @foreach ($schools as $key => $school)
-                                                <option value="{{$school->id}}">{{$school->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Số lượng học sinh @include('common.require')</label>
-                                    <div class="clearfix">
-                                        <input type="number" class="form-control" name="quantity" min="1">
-                                    </div>
                                 </div>
 
                             </div>

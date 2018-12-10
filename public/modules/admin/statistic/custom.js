@@ -1,6 +1,7 @@
 
 $(function ()
 {
+
 activeMenu('statistic', null, false);
 });
 $(document).ready(function(){
@@ -77,3 +78,4 @@ $(document).ready(function(){
     });
 
 });
+

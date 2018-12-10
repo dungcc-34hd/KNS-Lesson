@@ -17,38 +17,38 @@ class PermissionsTableSeeder extends Seeder
 
             //CRUD
             $permission = new \App\Permission([
-                'name' => 'read',
-                'display_name' => 'Read',
-                'description' => 'Read Lists',
+                'name' => 'FullKhoi',
+                'display_name' => 'Full khối',
+                'description' => 'Full Khối',
                 'type' => 'CRUD',
             ]);
             $permission->save();
 
             $permission = new \App\Permission([
-                'name' => 'create',
-                'display_name' => 'Create',
-                'description' => 'Create Object',
+                'name' => 'TheoKhoi',
+                'display_name' => 'Theo Khối',
+                'description' => 'Theo Khối',
                 'type' => 'CRUD',
             ]);
             $permission->save();
 
             $permission = new \App\Permission([
-                'name' => 'edit',
-                'display_name' => 'Edit',
-                'description' => 'Edit Object',
+                'name' => 'Beta',
+                'display_name' => 'Beta',
+                'description' => ' Beta',
                 'type' => 'CRUD',
             ]);
             $permission->save();
 
-            $permission = new \App\Permission([
-                'name' => 'delete',
-                'display_name' => 'Delete',
-                'description' => 'Delete Object',
-                'type' => 'CRUD',
-            ]);
-            $permission->save();
+            // $permission = new \App\Permission([
+            //     'name' => 'delete',
+            //     'display_name' => 'Delete',
+            //     'description' => 'Delete Object',
+            //     'type' => 'CRUD',
+            // ]);
+            // $permission->save();
 
-            //End CRUD
+            // //End CRUD
 
 
         }
