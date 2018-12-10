@@ -10,7 +10,7 @@
     <div class="content-wrapper" id="app">
         <!-- bank Header (Page header) -->
         <section class="content-header">
-<<<<<<< HEAD
+
             <div class="row container">
                 <div class="">
                     <h4 class="pull-left uppercase">
@@ -18,12 +18,7 @@
                         <strong>
                             Thống kê
                         </strong>
-=======
-            <div class="row">
-                <div class="">
-                    <h4 class="pull-left uppercase">
-                        Thống kê
->>>>>>> 94c1364d662f45eecbe0a0a1120898bb80dd92dc
+
                     </h4>            
                 </div>
             </div>
@@ -31,16 +26,13 @@
                         <div class="col-md-6 form-group">
                             <div class="form-inline">
                                 <label for="">Khu vực:</label>
-<<<<<<< HEAD
+
                                 <select class="select-option form-control"  name="areas" id="areas"style="width: 200px;"
                                   >
                                   <option value="">Chọn Khu Vực</option>
                                     @if(count($areas) > 0)  
                                              
-=======
-                                <select class="select-option form-control" id="selectArea" style="width: 200px;"  data-url="{{route('admin.statistic.changeArea',['areaId'=> count($areas) > 0 ? $areas[0]->id : 0])}}">
-                                    @if(count($areas) > 0)       
->>>>>>> 94c1364d662f45eecbe0a0a1120898bb80dd92dc
+
                                         @foreach($areas as $area)
                                             <option value="{{$area->id}}">{{$area->name}}</option>
                                         @endforeach
