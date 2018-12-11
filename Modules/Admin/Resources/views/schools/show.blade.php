@@ -44,7 +44,19 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Quận/Huyện/Thành phố</td>
+                                            <td>Khu vực</td>
+                                            <td>
+                                                {{!empty($school->area) ? $school->area->name: ''}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tỉnh/thành phố</td>
+                                            <td>
+                                                {{!empty($school->province) ? $school->province->name: ''}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Quận/Huyện</td>
                                             <td>
                                                 {{!empty($school->district) ? $school->district->name : ''}}
                                             </td>

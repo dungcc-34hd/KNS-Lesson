@@ -1,18 +1,24 @@
-<tr>
-    <th class="order-number">Id.</th>
+{{-- <tr>
+     <th class="order-number">Id.</th>
     <th>Tên</th>
     <th>Cấp</th>
-    <th>Quận/Huyện/Thành phố</th>
-    {{-- <th>Số lượng học sinh</th> --}}
+    <th>Khu vực</th>
+    <th>Tỉnh</th>
+    <th>Quận/Huyện</th>
+    <th>Key</th>
     <th class="item-action-3"></th>
-</tr>
+</tr> --}}
 @if(!empty($schools))
     @foreach($schools as $key => $school)
         <tr>
             <td class="text-center">{{$key + 1}}</td>
             <td>{{$school->name}}</td>
-            <td class="green">{{!empty($school->schoolLevel) ? $school->schoolLevel->name: ''}}</td>
-            <td class="green">{{!empty($school->district) ? $school->district->name: ''}}</td>
+            <td>{{!empty($school->schoolLevel) ? $school->schoolLevel->name: ''}}</td>
+             <td>{{!empty($school->area) ? $school->area->name: ''}}</td>
+             <td>{{!empty($school->province) ? $school->province->name: ''}}</td>
+            <td>{{!empty($school->district) ? $school->district->name: ''}}</td>
+           
+            <td> {{$school->license_key}}</td>
             <td>
                 <div class="btn-group btn-group-sm">
                     <a class="btn btn-success"
@@ -34,7 +40,7 @@
 
                 </div>
             </td>
-        </tr>
+        </tr> 
     @endforeach
 @else
     <tr>

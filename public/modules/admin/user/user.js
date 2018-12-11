@@ -1,5 +1,5 @@
 $(function () {
-   activeMenu('user', null, false);
+   activeMenu('users','user', true);
 
     $(document).on('click', '.delete-object', function (e) {
         e.preventDefault();

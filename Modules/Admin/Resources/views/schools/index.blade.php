@@ -25,6 +25,43 @@
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
+                    <div class="form-group col-md-4">
+                        <label>Khu vực </label>
+                        <div class="clearfix">
+                            <select  class="form-control" name="area-id" id="selectArea" data-url="{{route('admin.school.change-area', ['areaId' => count($areas) >0 ? $areas[0]->id : 0])}}" >
+                                <option value="">Chọn khu vực</option>
+                                @foreach ($areas as $key => $area)
+                                    <option value="{{$area->id}}">{{$area->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>     
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Tỉnh/thành phố </label>
+                        <div class="clearfix">
+                            <select  class="form-control" name="province-id" id="selectProvince" data-url="{{route('admin.school.change-province', ['provinceId' => count($provinces) >0 ? $provinces[0]->id : 0])}}">
+                                <option value="">Chọn tỉnh</option>
+                                @foreach ($provinces as $key => $province)
+                                    <option value="{{$province->id}}">{{$province->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>     
+                    </div>    
+                    <div class="form-group col-md-4">
+                        <label>Quận/Huyện </label>
+                        <div class="clearfix">
+                            <select  class="form-control" name="district_id" id="selectDistrict" data-url="{{route('admin.school.change-district', ['districtId' => count($districts) >0 ? $districts[0]->id : 0])}}">
+                                <option value="">Chọn quận/huyện</option>
+                                @foreach ($districts as $key => $district)
+                                    <option value="{{$district->id}}">{{$district->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>     
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <a href="{{route('admin.school.create')}}" class="btn btn-primary">Tạo</a>
                 </div>
             </div>
@@ -49,24 +86,31 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body table-responsive no-padding">
-                            <table class="table table-hover results-table">
-                                <tbody>
+                            <table class="table table-hover results-table" >
+                                <thead>
                                 <tr>
                                     <th class="order-number">Id.</th>
                                     <th>Tên</th>
                                     <th>Cấp</th>
-                                    <th>Quận/Huyện/Thành phố</th>
+                                    <th>Khu vực</th>
+                                    <th>Tỉnh</th>
+                                    <th>Quận/Huyện</th>
                                     <th>Key</th>
                                     {{-- <th>Số lượng học sinh</th> --}}
                                     <th class="item-action-3"></th>
                                 </tr>
+                                </thead>
+                                <tbody>
                                 @if(!empty($schools))
                                     @foreach($schools as $key => $school)
                                         <tr>
                                             <td class="text-center">{{$key + 1}}</td>
                                             <td>{{$school->name}}</td>
                                             <td>{{!empty($school->schoolLevel) ? $school->schoolLevel->name: ''}}</td>
+                                             <td>{{!empty($school->area) ? $school->area->name: ''}}</td>
+                                             <td>{{!empty($school->province) ? $school->province->name: ''}}</td>
                                             <td>{{!empty($school->district) ? $school->district->name: ''}}</td>
+                                           
                                             <td> {{$school->license_key}}</td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">

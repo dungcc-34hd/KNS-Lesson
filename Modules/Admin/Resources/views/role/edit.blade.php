@@ -25,7 +25,7 @@
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Save</button>
-                        <a href="{{route('admin.permission.index')}}" type="button" class="btn btn-default">Go Back</a>
+                        <a href="{{route('admin.role.index')}}" type="button" class="btn btn-default">Go Back</a>
                     </div>
                 </div>
             </section>

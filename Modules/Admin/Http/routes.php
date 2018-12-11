@@ -92,6 +92,9 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete/{id}', 'SchoolController@delete')->name('admin.school.delete');
         Route::get('/pagination/{records}/{search?}', 'SchoolController@pagination')->name('admin.school.pagination');
         Route::get('/treeView','SchoolController@treeView')->name('admin.school.treeView');
+           Route::get('change-area/{areaId}','SchoolController@changeArea')->name('admin.school.change-area');
+           Route::get('change-province/{provinceId}','SchoolController@changeProvince')->name('admin.school.change-province');
+           Route::get('change-district/{districtId}','SchoolController@changeDistrict')->name('admin.school.change-district');
 
     });
 
