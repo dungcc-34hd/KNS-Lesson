@@ -249,6 +249,7 @@ class SchoolController extends Controller
     {
         try {
             $array = $request->all();
+            // dd($array);
             $array['license_key']= $this->SimpleRandString();
             $array['quantity_account']=99;
             $this->repository->create( $array);
