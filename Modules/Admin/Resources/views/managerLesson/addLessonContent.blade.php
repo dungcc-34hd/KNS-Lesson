@@ -51,7 +51,7 @@
             </div>
 
             <div class="form-group">
-                <label>Nhạc nền @include('common.require')</label>
+                <label>Nhạc nền</label>
                 <div class="clearfix">
                     <input type="file" class="form-control" name="background-music" >
                 </div>
@@ -63,7 +63,7 @@
                         <div id="field0">
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label"
+                                <label class="col-md-4 control-label label-name"
                                        for="action_id">{{\App\Models\LessonDetail::TYPE[$typeId]}}</label>
                                 <div class="col-md-5 clearfix">
                                     <input type="file" class="add_field_button form-control " name="background-image[]"
@@ -121,8 +121,8 @@
                 </div>
             @endif
             <br/>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary create-content-lesson " id="create-content-lesson">Tạo nội
+            <div class="modal-footer" style="margin-top: 25px;">
+                <button type="submit" class="btn btn-primary create-content-lesson " id="create-content-lesson">Cập nhật nội
                     dung
                 </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
@@ -137,10 +137,11 @@
                 e.preventDefault();
                 var addto = "#field" + next;
                 var addRemove = "#field" + (next);
+                var label_name = $('.label-name').text();
                 next = next + 1;
                 var newIn = '<div id="field' + next + '" name="field' + next + '">' +
                     '<!-- Text input--><div class="form-group"> ' +
-                    '<label class="col-md-4 control-label" for="action_id">Slide</label> ' +
+                    '<label class="col-md-4 control-label" for="action_id">' + label_name + '</label> ' +
                     '<div class="col-md-5"> ' +
                     '<input type="file" class="form-control add_field_button" name="background-image[]"\n' +
                     '                               id="background-image" required> ' +

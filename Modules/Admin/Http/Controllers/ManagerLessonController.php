@@ -257,7 +257,10 @@ class ManagerLessonController extends Controller
         $typeId = $this->repository->getTypeById($id);
         $lessonDetail = $this->repository->getTitleById($id);
         $lesson = $this->repository->getLessonNameById($id);
-        $lessonContent = LessonContent::find($id);
+        $lessonContent = LessonContent::findLessonByID($id);
+        if(is_null($lessonContent)){
+            return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail'));
+        }
         $contents = json_decode($lessonContent->content);
         return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail','lessonContent','contents'));
     }
