@@ -37,165 +37,62 @@ $(function () {
 });
 
 
-$(function ()
-{
-   $('#selectArea').change(function () {
-        process($(this).val());
-         
+$(document).ready(function(){
+    
+    // select areas
+    $("#areas").change(function(){
+        var area = $(this).val();
 
-   });
-   $('#selectProvince').change(function ()
-    {
-       changeProvince($(this).val());
-         
-   });
-   $('#selectDistrict').change(function() {
-        changeDistrict($(this).val());
-   });
+        $.ajax({
+            type:'GET',
+            url:'/admin/school/hanlding-area/',
+            'data': {
+                'area' : area,
+            },
+            success:function(data) {
+                $('#provinces').html(data.select);
+                $('#tbody').html(data.user);
+                $("#districts").html('<option>Chọn Quận/Huyện</option>');
+                $("#schools").html('<option>Chọn Trường </option>');
+                // var records = $('#tbody').val();
+                // ajaxLoadData(records,1,$('#nav-search-input').val());
+            }
+         });
+    });
 
+    // select provinces
+    $("#provinces").change(function(){
+        var province = $(this).val();
+      
+        $.ajax({
+            type:'GET',
+            url:'/admin/school/hanlding-province',
+            'data': {
+                'province' : province,
+            },
+            success:function(data) {
+                $('#districts').html(data.select);
+                $('#tbody').html(data.user);
+                $("#schools").html('<option>Chọn Trường </option>');
+                // ajaxLoadData(records,1,$('#nav-search-input').val());
+            }
+         });
+    });
 
+    // select districts
+    $("#districts").change(function(){
+        var district = $(this).val();
+       
+        $.ajax({
+            type:'GET',
+            url:'/admin/school/hanlding-district',
+            'data': {
+                'district' : district,
+            },
+            success:function(data) {
+                $('#tbody').html(data.user);
+                $('#schools').html(data.select);
+            }
+         });
+    });
 });
-
-function process(areaId) {
-    
-        var url = $('#selectArea').data('url');
-        console.log(url);
-        var indexOf = url.indexOf('change-area') + 11;
-        console.log(indexOf);
-        var lenght = url.length;
-        var processUrl =  url.substr(0, indexOf)+ '/' + $('#selectArea').val();
-        axios.get(processUrl).then(function (result) {
-        var data = result.data;
-        // console.log(data);
-        $('#selectProvince').empty();
-        if($.isEmptyObject(data['provinces']))
-        {
-            var option = '<option>Không có dữ liệu</option>'
-            $('#selectProvince').append(option)
-             
-        }
-        else
-        {
-            $.each(data['provinces'], function (i, value) {
-                var option = '<option value='+value.id+'>'+value.name+'</option>'
-                 $('#selectProvince').append(option)
-            });
-           
-          
-              
-        }
-         $('#selectDistrict').empty();
-        if($.isEmptyObject(data['districts']))
-        {
-            
-            var option = '<option>Không có dữ liệu</option>'
-            $('#selectDistrict').append(option)
-            
-        }
-        else
-        {
-           
-            $.each(data['districts'], function (i, value) {
-                var option = '<option value='+value.id+'>'+value.name+'</option>'
-
-                $('#selectDistrict').append(option)
-            });
-        }
-        $('.results-table tbody').empty();
-        if($.isEmptyObject(data['data']))
-        {
-            
-             var table = '<tr><td colspan="5">Không có bản ghi nào</td></tr>'
-            $('.results-table tbody').append(table);
-            
-        }else{
-            
-            $.each(data['data'], function (i, value) {
-                var a = (value.license_key==null)?"":value.license_key
-                var table = '<tr><td>' +(i+1)+  '</td><td>'+value.name+'</td><td>'+value.name_level+'</td><td>'+value.name_area+'</td><td>'+value.name_province+'</td><td>'+value.name_district+'</td><td>'+a+'</td></tr>'
-                $('.results-table tbody').append(table);
-                
-            });
-        
-        }
-
-        
-    });
-
-}
-function changeProvince(provinceId){
-    
-     var url = $('#selectProvince').data('url');
-        console.log(url);
-        var indexOf = url.indexOf('change-province') + 15;
-        console.log(indexOf);
-        var lenght = url.length;
-        var processUrl =  url.substr(0, indexOf)+ '/' + $('#selectProvince').val();
-        axios.get(processUrl).then(function (result) {
-        var data = result.data;
-   
-         $('#selectDistrict').empty();
-        if($.isEmptyObject(data['districts']))
-        {
-            
-            var option = '<option>Không có dữ liệu</option>'
-            $('#selectDistrict').append(option)
-            
-        }
-        else
-        {
-           
-            $.each(data['districts'], function (i, value) {
-                var option = '<option value='+value.id+'>'+value.name+'</option>'
-
-                $('#selectDistrict').append(option)
-            }); 
-        }
-         $('.results-table tbody').empty();
-         if($.isEmptyObject(data['data']))
-        {
-            
-             var table = '<tr><td colspan="5">Không có bản ghi nào</td></tr>'
-            $('.results-table tbody').append(table);
-            
-        }else{
-            $.each(data['data'], function (i, value) {
-                var a = (value.license_key==null)?"":value.license_key
-                var data = '<tr><td>' +(i+1)+  '</td><td>'+value.name+'</td><td>'+value.name_level+'</td><td>'+value.name_area+'</td><td>'+value.name_province+'</td><td>'+value.name_district+'</td><td>'+value.license_key+'</td></tr>'
-                $('.results-table tbody').append(data);
-                
-            });
-         }
-        
-    });
-}
-
-function changeDistrict(districtId){
-   
-     var url = $('#selectDistrict').data('url');
-        console.log(url);
-        var indexOf = url.indexOf('change-district') + 15;
-        console.log(indexOf);
-        var lenght = url.length;
-        var processUrl =  url.substr(0, indexOf)+ '/' + $('#selectDistrict').val();
-        axios.get(processUrl).then(function (result) {
-        var data = result.data;
-        console.log(data);
-        $('.results-table tbody').empty();
-        if($.isEmptyObject(data))
-        {
-            
-            var table = '<tr><td colspan="5">Không có bản ghi nào</td></tr>'
-            $('.results-table tbody').append(table);
-            
-        }else{
-            $.each(data, function (i, value) {
-             var a = (value.license_key==null)?"":value.license_keys
-            var table = '<tr><td>' +(i+1)+  '</td><td>'+value.name+'</td><td>'+value.name_level+'</td><td>'+value.name_area+'</td><td>'+value.name_province+'</td><td>'+value.name_district+'</td><td>'+value.license_key+'</td></tr>'
-            $('.results-table tbody').append(table);
-                
-            });
-         }
-        
-    });
-}

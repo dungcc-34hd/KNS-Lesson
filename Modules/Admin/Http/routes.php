@@ -96,6 +96,11 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
            Route::get('change-province/{provinceId}','SchoolController@changeProvince')->name('admin.school.change-province');
            Route::get('change-district/{districtId}','SchoolController@changeDistrict')->name('admin.school.change-district');
 
+        Route::get('/hanlding-area','SchoolController@hanldingArea')->name('admin.school.hanldingArea');
+        Route::get('/hanlding-province','SchoolController@hanldingProvince')->name('admin.school.hanldingProvince');
+        Route::get('/hanlding-district','SchoolController@hanldingDistrict')->name('admin.school.hanldingDistrict');
+
+
     });
 
     // Class
