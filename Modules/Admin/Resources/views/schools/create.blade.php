@@ -30,7 +30,7 @@
                                 <div class="form-group">
                                     <label>Cấp @include('common.require')</label>
                                     <div class="clearfix">
-                                        <select  class="form-control" name="select-school-level">
+                                        <select  class="form-control" name="school-level-id">
                                             <option value="">Select School</option>
                                             @foreach ($schoolLevels as $key => $schoolLevel)
                                                 <option value="{{$schoolLevel->id}}">{{$schoolLevel->name}}</option>
@@ -41,16 +41,39 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Quận/Huyện/Thành phố @include('common.require')</label>
+                                    <label>Khu vực @include('common.require')</label>
                                     <div class="clearfix">
-                                        <select  class="form-control" name="select-district">
-                                            <option value="">Select District</option>
+                                        <select  class="form-control" name="area-id" id="selectArea" >
+                                            <option value="">Chọn khu vực</option>
+                                            @foreach ($areas as $key => $area)
+                                                <option value="{{$area->id}}">{{$area->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>     
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Tỉnh/thành phố @include('common.require')</label>
+                                    <div class="clearfix">
+                                        <select  class="form-control" name="province-id" id="selectProvince">
+                                            <option value="">Chọn tỉnh</option>
+                                            @foreach ($provinces as $key => $province)
+                                                <option value="{{$province->id}}">{{$province->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>     
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Quận/Huyện @include('common.require')</label>
+                                    <div class="clearfix">
+                                        <select  class="form-control" name="district_id" id="selectDistrict">
+                                            <option value="">Chọn quận/huyện</option>
                                             @foreach ($districts as $key => $district)
                                                 <option value="{{$district->id}}">{{$district->name}}</option>
                                             @endforeach
                                         </select>
-                                    </div>
-                                    
+                                    </div>     
                                 </div>
 
                             </div>
@@ -69,5 +92,6 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('modules/admin/school/school-validation.js')}}"></script>
-    <script src="{{ asset('modules/admin/school/school.js') }}"></script>
+    <script src="{{ asset('modules/admin/school/custom.js') }}"></script>
+    {{-- <script src="{{ asset('modules/admin/school/custom.js') }}"></script> --}}
 @endpush

@@ -16,9 +16,14 @@ use Illuminate\Routing\Controller;
 class SchoolController extends Controller
 {
     protected $repository;
+ 
     public function __construct(SchoolEloquentRepository $repository)
     {
         $this->repository = $repository;
+        $this->areaId     = 'areaId';
+        $this->provinceId='provinceId';
+        $this->districtId     = 'districtId';
+
     }
 
     public function pagination(Request $request, $records, $search = null)
@@ -42,10 +47,33 @@ class SchoolController extends Controller
     public function index()
     {
         $records = 10;
-        $schools =  $this->repository->getObjects($records);
-        $pages = $this->repository->getPages($records);
-        return view('admin::schools.index', compact('schools','pages'));
+         $areas    =  Area::all();
+         $areaId=0;
+        $array=$this->repository->changeArea($areaId);
+        return view('admin::schools.index',[
+            'schools' =>  $this->repository->getObjects($records),
+            'pages' => $this->repository->getPages($records),
+            'areas'=> $areas,
+            'provinces'=>$array['provinces'],
+            'districts'=>$array['districts'],
+            'schoolLevels' => SchoolLevel::all(),
+        ]);
+       
     }
+    public function changeArea($areaId){
+       
+        $array=$this->repository->changeArea($areaId);
+        return response()->json($array);
+    }
+    public function changeProvince($provinceId){
+        $array=$this->repository->changeProvince($provinceId);
+        return response()->json($array);
+    }
+    public function changeDistrict($districtId){
+        $array=$this->repository->changeDistrict($districtId);
+        return response()->json($array);
+    }
+
 
     /**
      * show
@@ -65,10 +93,17 @@ class SchoolController extends Controller
      */
     public function edit($id)
     {
-        $school =  School::findOrFail($id);
-        $districts =  District::all();
-        $schoolLevels =  SchoolLevel::all();
-        return view ('admin::schools.edit', compact('school','districts','schoolLevels'));
+       
+        $areas    =  Area::all();
+        count($areas) >0 ? $areaId=$areas[0]->id : $areaId=0;
+        $array=$this->repository->changeArea($areaId);
+        return view('admin::schools.edit',[
+            'school' => School::findOrFail($id),
+            'areas'=> $areas,
+            'provinces'=>$array['provinces'],
+            'districts'=>$array['districts'],
+            'schoolLevels' => SchoolLevel::all(),
+        ]);
     }
 
     /**
@@ -77,15 +112,9 @@ class SchoolController extends Controller
      */
     public function update(Request $request ,$id)
     {
-        $school = School::findOrFail($id);
-
-        $school->name               = $request->name;
-        $school->school_level_id     = $request->input('select-school-level');
-        $school->district_id        = $request->input('select-district');
-        $school->quantity_account    = 90; 
-        $school->expired_at          = "2100-11-14 00:00:00"; 
-        $school->save();
-
+       
+        $array = $request->all();
+        $this->repository->update($request->id, $array);
         Session::flash('flash_level', 'success');
         Session::flash('flash_message', 'Tạo mới thành công');
 
@@ -98,13 +127,19 @@ class SchoolController extends Controller
      */
     
     public function create()
-    {
+    {  
+        $areas    =  Area::all();
+        count($areas) >0 ? $areaId=$areas[0]->id : $areaId=0;
+        $array=$this->repository->changeArea($areaId);
+        return view('admin::schools.create',[
+            'areas'=> $areas,
+            'provinces'=>$array['provinces'],
+            'districts'=>$array['districts'],
+            'schoolLevels' => SchoolLevel::all(),
+        ]);
         
-    
-        $districts    =  District::all();
-        $schoolLevels =  SchoolLevel::all();
-        return view('admin::schools.create',compact('districts','schoolLevels'));
     }
+    
 
     /**
      * store a provincial
@@ -113,20 +148,19 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            $array = $request->all();
+            $array['license_key']= $this->SimpleRandString();
+            $this->repository->create( $array);
+            message($request, 'success', 'Tạo mới thành công.');
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            message($request, 'danger', ERROR_SYSTEM);
+        }
+        return redirect()->route('admin.school.index');
 
-        $school = new School();
-        $school->name                = $request->name;
-        $school->school_level_id     = $request->input('select-school-level');
-        $school->district_id         = $request->input('select-district');
-        $school->license_key         = $this->SimpleRandString();
-        $school->quantity_account    = 90; 
-        $school->expired_at          = "2100-11-14 00:00:00"; 
-        $school->save();
-
-        Session::flash('flash_level', 'success');
-        Session::flash('flash_message', 'Thêm mới mới thành công');
-
-        return redirect('admin/school/index');
     }
 
     public function delete($id)

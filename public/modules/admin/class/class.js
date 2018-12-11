@@ -1,5 +1,5 @@
 $(function () {
-    activeMenu('class', null, false);
+    activeMenu('data','class', true);
     $(document).on('click', '.delete-object', function (e) {
         e.preventDefault();
         var object_name = $(this).attr('object_name');

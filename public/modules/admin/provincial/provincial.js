@@ -1,5 +1,5 @@
 $(function () {
-    activeMenu('provincial', null, false);
+    activeMenu('data','provincial',true);
     $(document).on('click', '.delete-object', function (e) {
         e.preventDefault();
         var object_name = $(this).attr('object_name');

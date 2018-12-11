@@ -1,5 +1,5 @@
 $(function () {
-    activeMenu('area', null, false);
+    activeMenu('data', 'area', true);
     // $('.select2').select2();
     var areaID = $('#area-id').val();
     // if(areaID !== undefined)
