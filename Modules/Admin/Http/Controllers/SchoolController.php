@@ -250,6 +250,7 @@ class SchoolController extends Controller
         try {
             $array = $request->all();
             $array['license_key']= $this->SimpleRandString();
+            $array['quantity_account']=99;
             $this->repository->create( $array);
             message($request, 'success', 'Tạo mới thành công.');
         }
