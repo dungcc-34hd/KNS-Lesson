@@ -115,7 +115,7 @@ $(function () {
         });
     });
 
-});
+}); 
 function ajaxLoadData(records,  current_page,search) {
     var url_controller = $('#url-ajax').val();
     var url = url_controller + records +"?page=" + current_page;
@@ -134,7 +134,7 @@ function ajaxLoadData(records,  current_page,search) {
             $('.results-table tbody').empty();
             $('.results-table tbody').append(result);
 
-            //append pagination
+            //append pagination 
             $.ajax({
                 type: 'GET',
                 url: "/pagination/" + current_page + "/" + $('#total-pages-current').val(),

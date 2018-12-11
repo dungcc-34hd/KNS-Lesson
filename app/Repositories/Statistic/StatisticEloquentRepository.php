@@ -64,12 +64,7 @@ class StatisticEloquentRepository extends EloquentRepository implements Statisti
     
 
 
-    /**
-     * Get pages
-     * @author Minhpt
-     * @date 17/04/2018
-     * @return mixed
-     */
+  
     public function getAreaPages($records,$id,$tableID, $search = null)
     {
         $total = !is_null($search) ? 
@@ -79,12 +74,7 @@ class StatisticEloquentRepository extends EloquentRepository implements Statisti
         return ceil($total / $records);
     }
 
-    /**
-     * Get all
-     * @author Minhpt
-     * @date 17/04/2018
-     * @return mixed
-     */
+  
     public function getAreaObjects($records,$id,$tableID, $search = null)
     {
         if(is_null($search))

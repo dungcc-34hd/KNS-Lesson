@@ -36,4 +36,4 @@
     </tr>
 @endif
 <input id="total-pages-current" type="hidden" value="{{ isset($pages) ? $pages : 0 }}">
-<input id="pages-current" type="hidden" value="{{ isset($currentPage) ? $currentPage : 1}}">
+<input id="pages-current" type="hidden" value="{{ isset($currentPage) ? $currentPage : 1}}"> 

@@ -75,4 +75,9 @@ class ManagerLessonEloquentRepository extends EloquentRepository implements Mana
     {
         return Lesson::where('id',$this->getLessonIdById($lesson_id))->first()->name;
     }
+
+    public function getNameLessonById($id)
+    {
+        return Lesson::where('id',$id)->first()->name;
+    }
 }
