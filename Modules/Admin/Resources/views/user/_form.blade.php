@@ -22,6 +22,15 @@
                    value="@isset($user){{$user->email}}@endisset">
         </div>
     </div> 
+    @if(!isset($user))
+    <div class="form-group">
+            <label>Mật khẩu @include('common.require')</label>
+            <div class="clearfix">
+                <input type="password" class="form-control" name="password"
+                       value="@isset($user){{$user->email}}@endisset">
+            </div>
+        </div> 
+        @endif
     <div class="form-group">
         <label>SĐT @include('common.require')</label>
         <div class="clearfix">

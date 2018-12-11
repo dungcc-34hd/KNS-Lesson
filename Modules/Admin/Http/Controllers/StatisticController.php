@@ -46,19 +46,15 @@ class StatisticController extends Controller
 
     public function index()
     {
-         $records=10;
-        
+        $records=10;
 
-    
-          
         $areas = Area::all();
         return view('admin::statistic.index',
         [
             'users'             => $this->repository->getObjects($records),
             'pages'             => $this->repository->getPages($records),
-            'areas'             => $areas    
-
-        ]);
+            'areas'             => $areas   
+        ]); 
         
     }
 
@@ -66,10 +62,7 @@ class StatisticController extends Controller
   
      /**
      * hanlding ajax for Area reutrn provinces
-     * @author thanh
-     * @date 4/12/2018
-     * @param  Request $request
-     * @return view
+ 
      */
     public function hanldingArea(Request $req)
     {
@@ -89,10 +82,6 @@ class StatisticController extends Controller
 
      /**
      * hanlding ajax for Province reutrn district
-     * @author thanh
-     * @date 4/12/2018
-     * @param  Request $request
-     * @return view
      */
     public function hanldingProvince(Request $req)
     {
@@ -111,10 +100,6 @@ class StatisticController extends Controller
 
       /**
      * hanlding ajax for Province reutrn district
-     * @author thanh
-     * @date 4/12/2018
-     * @param  Request $request
-     * @return view
      */
     public function hanldingDistrict(Request $req)
     {

@@ -220,8 +220,6 @@
 
 @endsection
 @push('scripts')
-
     <script src="{{ asset('common/pagination-search.js') }}"></script>
     <script src="{{ asset('modules/admin/statistic/custom.js') }}"></script>
 @endpush
-
