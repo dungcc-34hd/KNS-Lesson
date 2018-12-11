@@ -36,6 +36,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/show/{id}', 'UserController@show')->name('admin.user.show');
         Route::get('/edit/{id}', 'UserController@edit')->name('admin.user.edit');
         Route::post('/edit/{id}', 'UserController@update')->name('admin.user.update');
+        Route::post('/edit-Password/{id}', 'UserController@updatePassword')->name('admin.user.updatePassword');
         Route::get('/create', 'UserController@create')->name('admin.user.create');
         Route::post('/store', 'UserController@store')->name('admin.user.store');
         Route::get('/delete/{id}', 'UserController@destroy')->name('admin.user.delete');
@@ -43,6 +44,12 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('change-province/{provinceId}','UserController@changeProvince')->name('admin.user.change-province');
         Route::get('change-district/{districtId}','UserController@changeDistrict')->name('admin.user.change-district');
         Route::get('change-grade/{gradeId}','UserController@changeGrade')->name('admin.user.change-grade');
+
+        // ajax
+        Route::get('/hanlding-area','UserController@hanldingArea')->name('admin.statistic.hanldingArea');
+        Route::get('/hanlding-province','UserController@hanldingProvince')->name('admin.statistic.hanldingProvince');
+        Route::get('/hanlding-district','UserController@hanldingDistrict')->name('admin.statistic.hanldingDistrict');
+        Route::get('/hanlding-school','UserController@hanldingSchool')->name('admin.statistic.hanldingSchool');
     });
 
     // Area
@@ -140,19 +147,27 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
 
     // manager lesson
     Route::group(['prefix' => 'manager-lesson'], function () {
+        Route::get('/add-lesson', 'ManagerLessonController@addLesson')->name('admin.managerLesson.addLesson');
+        Route::get('/edit-lesson/{id}', 'ManagerLessonController@editLesson')->name('admin.managerLesson.editLesson');
         Route::get('/index', 'ManagerLessonController@index')->name('admin.managerLesson.index');
-        Route::get('/create', 'ManagerLessonController@create')->name('admin.managerLesson.create');
         Route::post('/store-lesson', 'ManagerLessonController@storeLesson')->name('admin.managerLesson.storeLesson');
+        Route::post('/update-lesson/{id}', 'ManagerLessonController@updateLesson')->name('admin.managerLesson.updateLesson');
         Route::post('/store-lesson-detail', 'ManagerLessonController@storeLessonDetail')->name('admin.managerLesson.storeLessonDetail');
+        Route::get('/edit-lesson-detail/{id}', 'ManagerLessonController@editLessonDetail')->name('admin.managerLesson.editLessonDetail');
+        Route::post('/update-lesson-detail/{id}', 'ManagerLessonController@updateLessonDetail')->name('admin.managerLesson.updateLessonDetail');
         Route::post('/store-lesson-content', 'ManagerLessonController@storeLessonContent')->name('admin.managerLesson.storeLessonContent');
         Route::get('/get-value-type/{id}', 'ManagerLessonController@getValueType')->name('admin.managerLesson.getValueType');
         Route::get('/get-value-lesson-detail/{id}', 'ManagerLessonController@getValueLessonDetail')->name('admin.managerLesson.getValueLessonDetail');
-        Route::get('/show/{id}', 'ManagerLessonController@show')->name('admin.managerLesson.show');
+        Route::get('/show-detail-lesson/{id}', 'ManagerLessonController@showDetailLesson')->name('admin.managerLesson.showDetailLesson');
+        Route::get('/edit-lesson-content/{id}', 'ManagerLessonController@editLessonContent')->name('admin.managerLesson.editLessonContent');
         Route::get('/edit/{id}', 'ManagerLessonController@edit')->name('admin.managerLesson.edit');
         Route::post('/update/{id}', 'ManagerLessonController@update')->name('admin.managerLesson.update');
         Route::get('/delete/{id}', 'ManagerLessonController@delete')->name('admin.managerLesson.delete');
         Route::get('/pagination/{records}/{search?}', 'ManagerLessonController@pagination')->name('admin.managerLesson.pagination');
+
+       
     });
+
     // statistic
     Route::group(['prefix'=>'statistic'],function(){
         Route::get('/','StatisticController@index')->name('admin.statistic.index');
@@ -162,7 +177,16 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/change-district/{districtId}','StatisticController@changeDistrict')->name('admin.statistic.changeDistrict');
         Route::get('/change-school/{schoolId}','StatisticController@changeSchool')->name('admin.statistic.changeSchool');
         Route::get('/change-select/{areaId}/{provinceId}','StatisticController@changeSelect')->name('admin.statistic.changeSelect');
+
+ 
+        // ajax
+        Route::get('/hanlding-area','StatisticController@hanldingArea')->name('admin.statistic.hanldingArea');
+        Route::get('/hanlding-province','StatisticController@hanldingProvince')->name('admin.statistic.hanldingProvince');
+        Route::get('/hanlding-district','StatisticController@hanldingDistrict')->name('admin.statistic.hanldingDistrict');
+        Route::get('/hanlding-school','StatisticController@hanldingSchool')->name('admin.statistic.hanldingSchool');
         
+
+
     });
 });
 //Login

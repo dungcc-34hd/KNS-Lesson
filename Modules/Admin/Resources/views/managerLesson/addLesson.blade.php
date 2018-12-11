@@ -1,6 +1,10 @@
-<div class="modal fade" id="modalAddGrade" role="dialog">
-    <div class="modal-dialog">
-        <form action="{{route('admin.managerLesson.storeLesson')}}" method="post" class="validation-form">
+<div class="modal-content">
+        <form @if(isset($lesson))
+              action="{{route('admin.managerLesson.updateLesson',[$lesson->id])}}"
+        @else
+                action="{{route('admin.managerLesson.storeLesson')}}"
+              @endif
+        method="post" class="validation-form">
             {{csrf_field()}}
             <div class="modal-content">
                 <div class="modal-header">
@@ -13,8 +17,12 @@
                         <div class="clearfix">
                             <select class="form-control" name="grade" id="grade">
                                 <option value="">Chọn khối</option>
-                                @foreach ($grades as $key => $grade)
-                                    <option value="{{$grade->id}}">{{$grade->name}}</option>
+                                @foreach ($grades as $grade)
+                                    @if(isset($lesson))
+                                        <option value="{{$grade->id}}" {{$grade->id == $lesson->grade_id ? "selected" : ''}}>{{$grade->name}}</option>
+                                    @else
+                                        <option value="{{$grade->id}}">{{$grade->name}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -22,31 +30,22 @@
                     <div class="form-group">
                         <label>Tên bài học @include('common.require')</label>
                         <div class="clearfix">
-                            <input type="text" class="form-control" name="name" id="name">
+                            <input type="text" class="form-control" name="name" id="name" value="@isset($lesson){{$lesson->name}}@endisset">
                         </div>
                     </div>
                 </div>
-                {{--<div class="modal-body">--}}
-                {{--<label>Nhạc nền @include('common.require')</label>--}}
-                {{--<div class="clearfix">--}}
-                {{--<input type="file" class="form-control" name="background-audio" id="background-audio">--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="modal-body">--}}
-                {{--<label>Ảnh nền @include('common.require')</label>--}}
-                {{--<div class="clearfix">--}}
-                {{--<input type="file" class="form-control" name="background-image" id="background-image">--}}
-                {{--</div>--}}
-                {{--</div>--}}
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" id="create-grade">Tạo bài học
+                    <button type="submit" class="btn btn-primary" id="create-grade">
+                        @if(isset($lesson))
+                            Sửa bài học
+                            @else
+                            Tạo bài học
+                        @endif
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </form>
-    </div>
-
 </div>
 </div>
 @push('scripts')
