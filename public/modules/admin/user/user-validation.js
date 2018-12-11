@@ -13,10 +13,13 @@ $('.validation-form').validate({
             email: true,
             minlength: 3
         },
-        tel: {
-
+        password: {
             required: true,
-
+            minlength: 5
+        },
+       
+        tel: {
+            required: true,
             maxlength:11,
         },
         role_id:{
@@ -53,6 +56,11 @@ $('.validation-form').validate({
             required: "Xin vui lòng nhập email.",
             email:"Email không đúng định dạng ."
         },
+        password:{
+            required: "xin vui lòng nhập mật khẩu",
+            minlength: "Độ dài tối thiểu là 5 ."
+        },
+      
         tel:{
             maxlength: "Số điện thoại không quá 11 kí tự .",
             required: "Xin vui lòng nhập số điện thoại."
