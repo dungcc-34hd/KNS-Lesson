@@ -13,18 +13,48 @@
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
+
             <li class="header">Administrator</li>
-            {{-- <li class="role"><a href="{{route('admin.role.index')}}"><i class="fa fa-gg-circle"></i> <span>Role</span></a></li> --}}
-            <li class="permission"><a href="{{route('admin.permission.index')}}"><i class="fa fa-lock"></i> <span>Permission</span></a></li>
-            <li class="user"><a href="{{route('admin.user.index')}}"><i class="fa fa-users"></i> <span>User</span></a></li>
-            <li class="area"><a href="{{route('admin.area.index')}}"><i class="fa fa-users"></i> <span>Khu vực</span></a></li>
-            <li class="provincial"><a href="{{route('admin.province.index')}}"><i class="fa fa-users"></i> <span>Tỉnh</span></a></li>
-            <li class="district"><a href="{{route('admin.district.index')}}"><i class="fa fa-users"></i> <span>Quận /Huyện</span></a></li>
-            <li class="school"><a href="{{route('admin.school.index')}}"><i class="fa fa-users"></i> <span>Trường</span></a></li>
-            <li class="class"><a href="{{route('admin.class.index')}}"><i class="fa fa-users"></i> <span>Lớp</span></a></li>
-            <li class="class"><a href="{{route('admin.managerLesson.index')}}"><i class="fa fa-users"></i> <span>Quản lý bài học</span></a></li>
-            <li class="grade-level"><a href="{{route('admin.grade.index')}}"><i class="fa fa-users"></i> <span>Khối</span></a></li>
-            <li class="statistic"><a href="{{route('admin.statistic.index')}}"><i class="fa fa-users"></i> <span>Thống kê</span></a></li>
+            {{-- users --}}
+            <li class="treeview users">
+                <a href="#">
+                    <i class="fa fa-users"></i> <span>Quản Lý User</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="role"><a href="{{route('admin.role.index')}}"><i class="fa fa-gg-circle"></i> <span>Role</span></a></li>
+                    <li class="permission"><a href="{{route('admin.permission.index')}}"><i class="fa fa-lock"></i> <span>Permission</span></a></li>
+                    <li class="user"><a href="{{route('admin.user.index')}}"><i class="fa fa-users"></i> <span>User</span></a></li>
+                </ul>
+            </li>
+            {{-- data --}}
+            <li class="treeview data">
+                <a href="#">
+                    <i class="fa fa-users"></i> <span>Quản Lý Dữ liệu</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="area"><a href="{{route('admin.area.index')}}"><i class="fa fa-users"></i> <span>Khu vực</span></a></li>
+                    <li class="provincial"><a href="{{route('admin.province.index')}}"><i class="fa fa-users"></i> <span>Tỉnh</span></a></li>
+                    <li class="district"><a href="{{route('admin.district.index')}}"><i class="fa fa-users"></i> <span>Quận /Huyện</span></a></li>
+                    <li class="school"><a href="{{route('admin.school.index')}}"><i class="fa fa-users"></i> <span>Trường</span></a></li>
+                    <li class="class"><a href="{{route('admin.class.index')}}"><i class="fa fa-users"></i> <span>Lớp</span></a></li>
+                    <li class="grade-level"><a href="{{route('admin.grade.index')}}"><i class="fa fa-users"></i> <span>Khối</span></a></li>
+                </ul>
+                
+            </li>
+            <li class="treeview lesson">
+                <li class="lesson"><a href="{{route('admin.managerLesson.index')}}"><i class="fa fa-users"></i> <span>Quản lý bài học</span></a></li>
+            </li>
+            
+           
+            
+            
+            
         </ul>
     </section>
     <!-- /.sidebar -->

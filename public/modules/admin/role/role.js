@@ -1,5 +1,6 @@
 $(function () {
-    activeMenu('role', null, false);
+    activeMenu('users', 'role', true);
+
     //Flat red color scheme for iCheck
     $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
         checkboxClass: 'icheckbox_square-green',
@@ -13,7 +14,7 @@ $(function () {
         var row = $(this).closest('tr');
         $.confirm({
             title: 'Confirm!',
-            content: 'Are you delete role: ' + role_name + '?',
+            content: 'Bạn có muốn xóa: ' + role_name + '?',
             buttons: {
                 confirm: function () {
                     $.ajax({

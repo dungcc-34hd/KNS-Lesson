@@ -9,11 +9,11 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/pagination/{records}/{search?}', 'RoleController@pagination')->name('admin.role.pagination');
         Route::get('/view/{id}', 'RoleController@view')->name('admin.role.view');
         Route::get('/edit/{id}', 'RoleController@edit')->name('admin.role.edit');
-        Route::post('/edit/{id}', 'RoleController@edit')->name('admin.role.edit');
+        Route::post('/edit/{id}', 'RoleController@update')->name('admin.role.update');
         Route::get('/create', 'RoleController@create')->name('admin.role.create');
-        Route::post('/create', 'RoleController@create')->name('admin.role.create');
+        Route::post('/store', 'RoleController@store')->name('admin.role.store');
         Route::get('/delete/{id}', 'RoleController@delete')->name('admin.role.delete');
-        Route::get('/delete-view-detail/{id}', 'RoleController@deleteViewDetail')->name('admin.role.deleteViewDetail');
+       
     }); 
     
     //Permission
@@ -36,6 +36,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/show/{id}', 'UserController@show')->name('admin.user.show');
         Route::get('/edit/{id}', 'UserController@edit')->name('admin.user.edit');
         Route::post('/edit/{id}', 'UserController@update')->name('admin.user.update');
+        Route::post('/edit-Password/{id}', 'UserController@updatePassword')->name('admin.user.updatePassword');
         Route::get('/create', 'UserController@create')->name('admin.user.create');
         Route::post('/store', 'UserController@store')->name('admin.user.store');
         Route::get('/delete/{id}', 'UserController@destroy')->name('admin.user.delete');
@@ -43,6 +44,12 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('change-province/{provinceId}','UserController@changeProvince')->name('admin.user.change-province');
         Route::get('change-district/{districtId}','UserController@changeDistrict')->name('admin.user.change-district');
         Route::get('change-grade/{gradeId}','UserController@changeGrade')->name('admin.user.change-grade');
+
+        // ajax
+        Route::get('/hanlding-area','UserController@hanldingArea')->name('admin.statistic.hanldingArea');
+        Route::get('/hanlding-province','UserController@hanldingProvince')->name('admin.statistic.hanldingProvince');
+        Route::get('/hanlding-district','UserController@hanldingDistrict')->name('admin.statistic.hanldingDistrict');
+        Route::get('/hanlding-school','UserController@hanldingSchool')->name('admin.statistic.hanldingSchool');
     });
 
     // Area
@@ -92,6 +99,9 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete/{id}', 'SchoolController@delete')->name('admin.school.delete');
         Route::get('/pagination/{records}/{search?}', 'SchoolController@pagination')->name('admin.school.pagination');
         Route::get('/treeView','SchoolController@treeView')->name('admin.school.treeView');
+           Route::get('change-area/{areaId}','SchoolController@changeArea')->name('admin.school.change-area');
+           Route::get('change-province/{provinceId}','SchoolController@changeProvince')->name('admin.school.change-province');
+           Route::get('change-district/{districtId}','SchoolController@changeDistrict')->name('admin.school.change-district');
 
     });
 
@@ -149,7 +159,10 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::post('/update/{id}', 'ManagerLessonController@update')->name('admin.managerLesson.update');
         Route::get('/delete/{id}', 'ManagerLessonController@delete')->name('admin.managerLesson.delete');
         Route::get('/pagination/{records}/{search?}', 'ManagerLessonController@pagination')->name('admin.managerLesson.pagination');
+
+       
     });
+
     // statistic
     Route::group(['prefix'=>'statistic'],function(){
         Route::get('/','StatisticController@index')->name('admin.statistic.index');
@@ -159,7 +172,16 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/change-district/{districtId}','StatisticController@changeDistrict')->name('admin.statistic.changeDistrict');
         Route::get('/change-school/{schoolId}','StatisticController@changeSchool')->name('admin.statistic.changeSchool');
         Route::get('/change-select/{areaId}/{provinceId}','StatisticController@changeSelect')->name('admin.statistic.changeSelect');
+
+ 
+        // ajax
+        Route::get('/hanlding-area','StatisticController@hanldingArea')->name('admin.statistic.hanldingArea');
+        Route::get('/hanlding-province','StatisticController@hanldingProvince')->name('admin.statistic.hanldingProvince');
+        Route::get('/hanlding-district','StatisticController@hanldingDistrict')->name('admin.statistic.hanldingDistrict');
+        Route::get('/hanlding-school','StatisticController@hanldingSchool')->name('admin.statistic.hanldingSchool');
         
+
+
     });
 });
 //Login

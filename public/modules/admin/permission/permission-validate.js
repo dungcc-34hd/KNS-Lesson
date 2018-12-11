@@ -19,10 +19,12 @@ $('.validation-form').validate({
 
     messages: {
         name: {
-            required: "Please specify a valid name."
+             required: "Xin vui lòng nhập tên .",
+            minlength: "Độ dài tối thiểu là 3"
         },
         display_name: {
-            required: "Please specify a display display name."
+             required: "Xin vui lòng nhập tên hiển thị .",
+            minlength: "Độ dài tối thiểu là 3"
         },
         type: {
             required: "Please specify a short type."
