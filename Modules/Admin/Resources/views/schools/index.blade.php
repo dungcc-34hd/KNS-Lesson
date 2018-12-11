@@ -26,9 +26,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group col-md-4">
-                        <label>Khu vực </label>
+                        <label>Khu vực @include('common.require')</label>
                         <div class="clearfix">
-                            <select  class="form-control" name="area-id" id="selectArea" data-url="{{route('admin.school.change-area', ['areaId' => count($areas) >0 ? $areas[0]->id : 0])}}" >
+                            <select  class="form-control" name="area-id" id="areas" {{-- data-url="{{route('admin.school.change-area', ['areaId' => count($areas) >0 ? $areas[0]->id : 0])}}" --}} >
                                 <option value="">Chọn khu vực</option>
                                 @foreach ($areas as $key => $area)
                                     <option value="{{$area->id}}">{{$area->name}}</option>
@@ -39,7 +39,7 @@
                     <div class="form-group col-md-4">
                         <label>Tỉnh/thành phố </label>
                         <div class="clearfix">
-                            <select  class="form-control" name="province-id" id="selectProvince" data-url="{{route('admin.school.change-province', ['provinceId' => count($provinces) >0 ? $provinces[0]->id : 0])}}">
+                            <select  class="form-control" name="province-id" id="provinces" {{-- data-url="{{route('admin.school.change-province', ['provinceId' => count($provinces) >0 ? $provinces[0]->id : 0])}}" --}}>
                                 <option value="">Chọn tỉnh</option>
                                 @foreach ($provinces as $key => $province)
                                     <option value="{{$province->id}}">{{$province->name}}</option>
@@ -48,9 +48,9 @@
                         </div>     
                     </div>    
                     <div class="form-group col-md-4">
-                        <label>Quận/Huyện </label>
+                        <label>Quận/Huyện @include('common.require')</label>
                         <div class="clearfix">
-                            <select  class="form-control" name="district_id" id="selectDistrict" data-url="{{route('admin.school.change-district', ['districtId' => count($districts) >0 ? $districts[0]->id : 0])}}">
+                            <select  class="form-control" name="district_id" id="districts">
                                 <option value="">Chọn quận/huyện</option>
                                 @foreach ($districts as $key => $district)
                                     <option value="{{$district->id}}">{{$district->name}}</option>
@@ -100,7 +100,7 @@
                                     <th class="item-action-3"></th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
                                 @if(!empty($schools))
                                     @foreach($schools as $key => $school)
                                         <tr>
