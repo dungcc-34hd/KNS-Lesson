@@ -49,25 +49,6 @@
                                                 {{$lessonDetail->lesson->name}}
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>Trạng thái</td>
-                                            <td>
-                                                <div class="btn-group btn-group-sm">
-                                                    <a class="btn btn-info"
-                                                       href="{{route('admin.class.edit',['id' => $lessonDetail->id])}}"
-                                                       title="Edit">
-                                                        <i class="ace-icon fa fa-pencil"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-danger delete-object"
-                                                       title="Delete"
-                                                       object_id="{{$lessonDetail->id}}"
-                                                       object_name="{{$lessonDetail->name}}">
-                                                        <i class="fa fa-trash-o"></i>
-                                                    </a>
-
-                                                </div>
-                                            </td>
-                                        </tr>
                                         </tbody>
 
                                     </table>
