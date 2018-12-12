@@ -49,6 +49,8 @@ class ManagerLessonController extends Controller
         $grades = Grade::all();
         $lessonDetails = LessonDetail::all();
         $lessonContents = LessonContent::all();
+//        $checkLessonContents = LessonContent::all('lesson_detail_id')->get();
+
         return view('admin::managerLesson.index', compact('lessonDetails', 'lessons', 'grades', 'lessonDetails','lessonContents'));
     }
 

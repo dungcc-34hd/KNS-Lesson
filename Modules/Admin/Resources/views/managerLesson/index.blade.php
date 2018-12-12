@@ -15,33 +15,35 @@
             <div class="clearfix">
                 <button type="button" class="btn btn-primary  modal-show"
                         data-url="/admin/manager-lesson/add-lesson"
-                        >Tạo bài học</button>
+                >Tạo bài học
+                </button>
             </div>
             <br>
             <div class="col-md-12">
-                    <div class="col-md-7">
-                        <h4>Danh sách bài học</h4>
-                    </div>
-                    <div class="col-md-3">
-                        <select  class="form-control" name="grade_id" style="margin-left: 8em;">
-                            <option value="">Chọn khối</option>
-                            @foreach ($grades as $key => $grades)
-                                <option value="{{$grades->id}}">{{$grades->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="box-tools" style="margin-left: 8em;">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" id="nav-search-input" name="table_search" class="form-control pull-right"
-                                       placeholder="Tìm kiếm">
-                                <div class="input-group-btn">
-                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                </div>
+                <div class="col-md-7">
+                    <h4>Danh sách bài học</h4>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" name="grade_id" style="margin-left: 8em;">
+                        <option value="">Chọn khối</option>
+                        @foreach ($grades as $key => $grades)
+                            <option value="{{$grades->id}}">{{$grades->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <div class="box-tools" style="margin-left: 8em;">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" id="nav-search-input" name="table_search" class="form-control pull-right"
+                                   placeholder="Tìm kiếm">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </div>
-            </div><div style="clear: both"></div>
+                </div>
+            </div>
+            <div style="clear: both"></div>
 
 
             @foreach($lessons as $lesson)
@@ -51,7 +53,8 @@
 
                         <button type="button" class="btn btn-info btn-sm modalDetailLesson modal-show"
                                 data-url="/admin/manager-lesson/get-value-lesson-detail/{{$lesson->id}}"
-                                data-value="{{$lesson->id}}" data-text="{{$lesson->name}}">Thêm nội dung {{$lesson->name}}</button>
+                                data-value="{{$lesson->id}}" data-text="{{$lesson->name}}">Thêm nội
+                            dung {{$lesson->name}}</button>
                         <div class="box-tools pull-right">
                             <div class="btn-group btn-group-sm">
                                 <button type="button" class="btn btn-primary  modal-show"
@@ -85,22 +88,31 @@
                                         <td class="">{{$key + 1}}</td>
                                         <td>
                                             <span data-url="/admin/manager-lesson/get-value-type/{{$lessonDetail->id}}"
-                                                    value="{{$lessonDetail->id}}"> {{$lessonDetail->title}}</span>
+                                                  value="{{$lessonDetail->id}}"> {{$lessonDetail->title}}</span>
 
                                         </td>
                                         <td class="pull-right">
                                             <div class="btn-group btn-group-sm">
                                                 <button type="button" class="btn btn-primary  modal-show"
                                                         data-url="/admin/manager-lesson/edit-lesson-detail/{{$lessonDetail->id}}"
-                                                >Sửa nội dung</button>
-                                                @if($lessonDetail->lessonContent)
-                                                <button type="button" class="btn btn-success  modal-show"
-                                                        data-url="/admin/manager-lesson/get-value-type/{{$lessonDetail->id}}">Thêm chi tiết</button>
+                                                >Sửa nội dung
+                                                </button>
+
+
+                                                @if(!\App\Models\LessonContent::checkContentByDetailId($lessonDetail->id))
+                                                        <button type="button" class="btn btn-success  modal-show"
+                                                                data-url="/admin/manager-lesson/get-value-type/{{$lessonDetail->id}}">
+                                                            Thêm chi tiết
+                                                        </button>
+                                                @else
+                                                    @foreach($lessonDetail->lessonContent as $key=>$item)
+                                                        <button type="button" class="btn btn-success  modal-show"
+                                                                data-url="/admin/manager-lesson/edit-lesson-content/{{$item->id}}">
+                                                            Sửa nội dung chi tiết
+                                                        </button>
+                                                    @endforeach
                                                 @endif
-                                                @foreach($lessonDetail->lessonContent as $key=>$item)
-                                                <button type="button" class="btn btn-success  modal-show"
-                                                data-url="/admin/manager-lesson/edit-lesson-content/{{$item->id}}">Sửa nội dung chi tiết</button>
-                                                @endforeach
+
                                                 <a href="#" class="btn btn-danger delete-object"
                                                    title="Delete"
                                                    object_id="{{$lessonDetail->id}}"
