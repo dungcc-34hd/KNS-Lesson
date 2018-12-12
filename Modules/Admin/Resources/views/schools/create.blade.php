@@ -82,7 +82,7 @@
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Create</button>
-                        <a href="{{route('admin.area.index')}}" type="button" class="btn btn-default">Go Back</a>
+                        <a href="{{route('admin.school.index')}}" type="button" class="btn btn-default">Go Back</a>
                     </div>
                 </div>
             </section>

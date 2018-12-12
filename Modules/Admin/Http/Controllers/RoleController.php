@@ -10,6 +10,7 @@ use App\Role;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 
 class RoleController extends Controller
@@ -145,7 +146,8 @@ class RoleController extends Controller
         {
             Role::where('id', '=', $id)->delete();
             PermissionRole::where('role_id','=',$id)->delete();
-            return response()->json(['status' => true]);
+            Session::flash('flash_level', 'success');
+            Session::flash('flash_message', 'Xoá thành công');
         }
         catch (QueryException $exception)
         {

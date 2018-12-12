@@ -66,11 +66,7 @@
                                             <td>{{$role->name_permission}}</td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">
-                                                    {{-- <a class="btn btn-success"
-                                                       href="{{route('admin.role.view',['id' => $role->role_id])}}"
-                                                       title="Detail">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a> --}}
+                                                   
                                                     @if($role->id != 1)
                                                         <a class="btn btn-info"
                                                            href="{{route('admin.role.edit',['id' => $role->role_id])}}"
@@ -90,7 +86,7 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td colspan="5">No Records</td>
+                                        <td colspan="5">Không có bản ghi nào</td>
                                     </tr>
                                 @endif
                                 </tbody>

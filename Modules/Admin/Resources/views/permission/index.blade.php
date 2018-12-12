@@ -88,7 +88,7 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td colspan="5">No Records</td>
+                                        <td colspan="5">Không có bản ghi nào</td>
                                     </tr>
                                 @endif
                                 </tbody>
