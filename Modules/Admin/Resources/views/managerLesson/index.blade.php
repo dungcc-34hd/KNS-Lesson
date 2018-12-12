@@ -80,30 +80,31 @@
                                 <th class="item-action-3 pull-right">Status</th>
                             </tr>
                             @if(!empty($lesson->lessonDetail))
-                                @foreach($lesson->lessonDetail as $key=>$item)
+                                @foreach($lesson->lessonDetail as $key=>$lessonDetail)
                                     <tr>
                                         <td class="">{{$key + 1}}</td>
                                         <td>
-                                            <span data-url="/admin/manager-lesson/get-value-type/{{$item->id}}"
-                                                    value="{{$item->id}}"> {{$item->title}}</span>
+                                            <span data-url="/admin/manager-lesson/get-value-type/{{$lessonDetail->id}}"
+                                                    value="{{$lessonDetail->id}}"> {{$lessonDetail->title}}</span>
 
                                         </td>
                                         <td class="pull-right">
                                             <div class="btn-group btn-group-sm">
-                                                {{--<a class="btn btn-success"--}}
-                                                   {{--href="{{route('admin.managerLesson.showDetailLesson',['id' => $item->id])}}"--}}
-                                                   {{--title="Detail">--}}
-                                                    {{--<i class="fa fa-eye"></i>--}}
-                                                {{--</a>--}}
                                                 <button type="button" class="btn btn-primary  modal-show"
-                                                        data-url="/admin/manager-lesson/edit-lesson-detail/{{$item->id}}"
+                                                        data-url="/admin/manager-lesson/edit-lesson-detail/{{$lessonDetail->id}}"
                                                 >Sửa nội dung</button>
+                                                @if($lessonDetail->lessonContent)
+                                                <button type="button" class="btn btn-success  modal-show"
+                                                        data-url="/admin/manager-lesson/get-value-type/{{$lessonDetail->id}}">Thêm chi tiết</button>
+                                                @endif
+                                                @foreach($lessonDetail->lessonContent as $key=>$item)
                                                 <button type="button" class="btn btn-success  modal-show"
                                                 data-url="/admin/manager-lesson/edit-lesson-content/{{$item->id}}">Sửa nội dung chi tiết</button>
+                                                @endforeach
                                                 <a href="#" class="btn btn-danger delete-object"
                                                    title="Delete"
-                                                   object_id="{{$item->id}}"
-                                                   object_name="{{$item->name}}">
+                                                   object_id="{{$lessonDetail->id}}"
+                                                   object_name="{{$lessonDetail->name}}">
                                                     <i class="fa fa-trash-o"></i>
                                                 </a>
 

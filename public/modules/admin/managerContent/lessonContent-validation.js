@@ -1,13 +1,10 @@
-$('#addLessonContent').validate({
+$('#add-lesson-content').validate({
     errorElement: 'div',
     errorClass: 'help-block',
     focusInvalid: false,
     ignore: "",
     rules: {
         title: {
-            required: true,
-        },
-        background-image: {
             required: true,
         },
         content: {
@@ -17,13 +14,8 @@ $('#addLessonContent').validate({
             required: true,
         },
         answer: {
-            required: true,
-        },
-        is-correct: {
-            required: true,
-        },
-
-
+            required: true
+        }
     },
 
     messages: {
@@ -32,10 +24,10 @@ $('#addLessonContent').validate({
         },
         content: {
             required: "Mời bạn nhập vào trường này."
-        }
+        },
         question: {
             required: "Mời bạn nhập vào trường này."
-        }
+        },
     },
 
 

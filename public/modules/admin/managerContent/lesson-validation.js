@@ -1,4 +1,4 @@
-$('.validation-form').validate({
+$('.validation-form-lesson').validate({
     errorElement: 'div',
     errorClass: 'help-block',
     focusInvalid: false,

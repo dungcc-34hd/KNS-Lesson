@@ -15,4 +15,8 @@ class LessonDetail extends Model
     {
         return $this->belongsTo(Lesson::class);
     }
+    public function lessonContent()
+    {
+        return $this->hasMany(LessonContent::class);
+    }
 }

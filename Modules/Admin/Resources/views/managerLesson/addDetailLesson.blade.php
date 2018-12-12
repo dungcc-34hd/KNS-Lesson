@@ -12,7 +12,7 @@
         @endisset
         @isset($lessonName)
             <input type="hidden" value="{{$lessonName}}" name="lesson-detail"/>
-    @endisset
+         @endisset
     <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -24,14 +24,14 @@
                     <label>Tên bài học @include('common.require')</label>
                     <div class="clearfix">
                         <input type="text" class="form-control" name="detail-lesson" id="detail-lesson"
-                               value="@isset($lessonDetail) {{$lessonDetail->title}} @endisset" required>
+                               value="@isset($lessonDetail) {{$lessonDetail->title}} @endisset" >
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Kiểu định dạng @include('common.require')</label>
                     <div class="clearfix">
-                        <select class="form-control" name="type" id="type" required>
+                        <select class="form-control" name="type" id="type" >
                             @if(isset($lessonDetail))
                                 <option value="{{$lessonDetail->type}}" {{\App\Models\LessonDetail::TYPE[$lessonDetail->type] ? "selected" : ''}}>{{\App\Models\LessonDetail::TYPE[$lessonDetail->type]}}</option>
                             @else
@@ -68,7 +68,6 @@
 
 </div>
 </div>
-@push('scripts')
     <script src="{{ asset('modules/admin/managerContent/lessonDetail-validation.js')}}"></script>
     <script>
         $('.modalDetailLesson').on('click', function () {
@@ -84,4 +83,3 @@
             });
         });
     </script>
-@endpush

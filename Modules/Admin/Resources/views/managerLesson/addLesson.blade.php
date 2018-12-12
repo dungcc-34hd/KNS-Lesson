@@ -4,7 +4,7 @@
         @else
                 action="{{route('admin.managerLesson.storeLesson')}}"
               @endif
-        method="post" class="validation-form">
+        method="post" class="validation-form-lesson">
             {{csrf_field()}}
             <div class="modal-content">
                 <div class="modal-header">
@@ -48,6 +48,4 @@
         </form>
 </div>
 </div>
-@push('scripts')
     <script src="{{ asset('modules/admin/managerContent/lesson-validation.js')}}"></script>
-@endpush

@@ -231,21 +231,14 @@ class ManagerLessonController extends Controller
 
         //nếu là trắc nghiệm
         if ($request['type'] == 3) {
-
             //$is_correct = isset($request['is-correct']) ? $request['is-correct'][0] : null;
             foreach ($request['answer'] as $key => $item) {
                 $lessonAnswer = new LessonAnswer();
                 $lessonAnswer->lesson_content_id = $contentLesson->id;
                 $lessonAnswer->answer = $item;
-                $lessonAnswer->is_correct = true;
-                $lessonAnswer->save();
-            }
-
-            foreach ($request['answerFail'] as $key => $item) {
-                $lessonAnswer = new LessonAnswer();
-                $lessonAnswer->lesson_content_id = $contentLesson->id;
-                $lessonAnswer->answer = $item;
                 $lessonAnswer->is_correct = false;
+                if($key == 0)
+                $lessonAnswer->is_correct = true;
                 $lessonAnswer->save();
             }
         }
@@ -254,20 +247,67 @@ class ManagerLessonController extends Controller
 
     public function editLessonContent($id)
     {
-        $typeId = $this->repository->getTypeById($id);
-        $lessonDetail = $this->repository->getTitleById($id);
-        $lesson = $this->repository->getLessonNameById($id);
-        $lessonContent = LessonContent::findLessonByID($id);
+        $lessonContent = LessonContent::find($id);
+        $typeId = $this->repository->getTypeById($lessonContent->lesson_detail_id);
+        $lessonDetail = $this->repository->getTitleById($lessonContent->lesson_detail_id);
+        $lesson = $this->repository->getLessonNameById($lessonContent->lesson_detail_id);
+        $lessonAnswer = LessonAnswer::findLessonContentByID($id);
+//        dd($lessonAnswer);
         if(is_null($lessonContent)){
             return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail'));
         }
         $contents = json_decode($lessonContent->content);
-        return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail','lessonContent','contents'));
+
+        return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail','lessonContent','contents','lessonAnswer'));
     }
 
-    public function delete($id)
+    public function updateLessonContent(Request $request,$id)
     {
-//        $school = School::findOrFail($id);
-//        $school->delete();
+        $contentLesson = LessonContent::find($id);
+        $contentLesson->title = $request['title'];
+        $contentLesson->question = $request['question'];
+
+        //make directory
+        $directory = public_path() . "/modules/managerContent/" . $request['lesson'] . '/' . $request['lesson-detail'];
+        $contentLesson->path = $directory;
+        if (!is_null($request->file('background-music'))) {
+            if ($request->file('background-music')) {
+                $music = $request['background-music']->getClientOriginalName();
+                $request['background-music']->move($directory, $music);
+                $contentLesson->background_music = $music;
+            }
+        }
+        $names = [];
+        if (!is_null($request['background-image'])) {
+            foreach ($request['background-image'] as $item) {
+                $filename = $item->getClientOriginalName();
+                $item->move($directory, $filename);
+                $contentLesson->path = $directory . '/' . $filename;
+                array_push($names, $filename);
+            }
+        }
+
+        $contentLesson->audio = json_encode($names);
+        $content =[];
+        foreach ($request['content'] as $item) {
+            array_push($content, $item);
+        }
+        $contentLesson->content = json_encode($content,JSON_UNESCAPED_UNICODE);
+
+        $contentLesson->save();
+
+        //nếu là trắc nghiệm
+        if ($request['type'] == 3) {
+            //$is_correct = isset($request['is-correct']) ? $request['is-correct'][0] : null;
+            foreach ($request['answer'] as $key => $item) {
+                $lessonAnswer = LessonAnswer::find($id);
+                $lessonAnswer->answer = $item;
+                $lessonAnswer->is_correct = false;
+                if($key == 0)
+                    $lessonAnswer->is_correct = true;
+                $lessonAnswer->save();
+            }
+        }
+        return redirect('admin/manager-lesson/index');
     }
 }
