@@ -93,6 +93,11 @@
                                                 <button type="button" class="btn btn-primary  modal-show"
                                                         data-url="/admin/manager-lesson/edit-lesson-detail/{{$lessonDetail->id}}"
                                                 >Sửa nội dung</button>
+                                                @if($lessonDetail->lessonContent)
+                                                <button type="button" class="btn btn-success  modal-show"
+                                                        data-url="/admin/manager-lesson/get-value-type/{{$lessonDetail->id}}">Thêm chi tiết</button>
+                                                @endif
+                                                @foreach($lessonDetail->lessonContent as $key=>$item)
                                                 <button type="button" class="btn btn-success  modal-show"
                                                         data-url="/admin/manager-lesson/get-value-type/{{$lessonDetail->id}}">Thêm chi tiết</button>
                                                 @foreach($lessonDetail->lessonContent as $key=>$item)

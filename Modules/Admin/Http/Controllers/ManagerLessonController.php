@@ -265,7 +265,6 @@ class ManagerLessonController extends Controller
     {
         $contentLesson = LessonContent::find($id);
         $contentLesson->title = $request['title'];
-        $contentLesson->lesson_detail_id = $request['lesson-detail-id'];
         $contentLesson->question = $request['question'];
 
         //make directory
