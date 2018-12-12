@@ -5,7 +5,12 @@
 
     </div>
 
-    <form action="{{route('admin.managerLesson.storeLessonContent')}}" method="post" class="validation-form"
+    <form @if(isset($lessonContent))
+          action="{{route('admin.managerLesson.updateLessonContent',$lessonContent->id)}}"
+          @else
+          action="{{route('admin.managerLesson.storeLessonContent')}}"
+          @endif
+          method="post" class="validation-form"
           enctype="multipart/form-data" id="addLessonContent">
         {{csrf_field()}}
         @isset($typeId)
@@ -53,65 +58,79 @@
             <div class="form-group">
                 <label>Nhạc nền</label>
                 <div class="clearfix">
-                    <input type="file" class="form-control" name="background-music" >
+                    <input type="file" class="form-control" name="background-music"
+                           value="@isset($lessonContent){{$lessonContent->background_music}}@endisset">
                 </div>
             </div>
 
             <div class="col-md-12">
-                @if($typeId != 3)
-                    <div id="field">
-                        <div id="field0">
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label label-name"
-                                       for="action_id">{{\App\Models\LessonDetail::TYPE[$typeId]}}</label>
-                                <div class="col-md-5 clearfix">
-                                    <input type="file" class="add_field_button form-control " name="background-image[]"
-                                           id="background-image" required>
-                                </div>
+                <div id="field">
+                    <div id="field0">
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label label-name"
+                                   for="action_id">{{\App\Models\LessonDetail::TYPE[$typeId]}}</label>
+                            <div class="col-md-5 clearfix">
+                                <input type="file" class="add_field_button form-control " name="background-image[]"
+                                       id="background-image" required>
                             </div>
                         </div>
-                        <button id="add-more" name="add-more" class="btn btn-primary">Thêm</button>
                     </div>
-                @endif
+                    <button id="add-more" name="add-more" class="btn btn-primary">Thêm</button>
+                </div>
             </div>
             @if($typeId == 3)
                 <div class="show-request-answer">
                     <div class="form-group">
                         <label>Câu hỏi @include('common.require')</label>
                         <div class="clearfix">
-                            <textarea type="text" id="question" class="md-textarea form-control" rows="3"
-                                      name="question" required></textarea>
+                            <input type="text" id="question" class="form-control"
+                                   name="question" required
+                                   value="@isset($lessonContent){{$lessonContent->question}}@endisset">
                         </div>
                     </div>
                     <div class="answer-wrapper">
                         <label>Câu trả lời đúng @include('common.require') </label>
-                        <input type="text" id="answer" class="md-textarea form-control" placeholder="Nhập câu trả lời đúng"
-                                  name="answer[]" required>
+                        <input type="text" id="answer" class="md-textarea form-control"
+                               placeholder="Nhập câu trả lời đúng"
+                               name="answer[]" value="
+                        @isset($lessonAnswer)
+                        @foreach($lessonAnswer as $answer)
+                        @if($answer->is_correct == 1)
+                        {{trim($answer->answer)}}
+                        @endif
+                        @endforeach
+                        @endisset" required>
 
                     </div>
                     <br/>
                     <div class="answer-wrapper">
                         <label>Câu trả lời Sai @include('common.require') </label>
                         <div class="input-group control-group after-add-more">
-                            <input type="text" name="answerFail[]" class="form-control" placeholder="Nhập câu trả lời sai">
-                            <div class="input-group-btn">
-                                <button class="btn btn-success add-more" type="button"><i
-                                            class="glyphicon glyphicon-plus"></i> Add
-                                </button>
-                            </div>
+                            @isset($lessonAnswer)
+                                @foreach($lessonAnswer as $answer)
+                                    @if($answer->is_correct == 0)
+                            <input type="text" name="answer[]" class="form-control" placeholder="Nhập câu trả lời sai"
+                                   value=" {{trim($answer->answer)}}">
+                                    @endif
+                                @endforeach
+                            @endisset
+                        </div>
+                        <input type="text" name="answer[]" class="form-control" placeholder="Nhập câu trả lời sai">
+                        <div class="input-group-btn">
+                            <button class="btn btn-success add-more" type="button"><i
+                                        class="glyphicon glyphicon-plus"></i>
+                            </button>
                         </div>
                     </div>
-
-
 
                     <!-- Copy Fields -->
                     <div class="copy hide">
                         <div class="control-group input-group" style="margin-top:10px">
-                            <input type="text" name="answerFail[]" class="form-control" placeholder="Nhập câu trả lời sai">
+                            <input type="text" name="answer[]" class="form-control" placeholder="Nhập câu trả lời sai">
                             <div class="input-group-btn">
                                 <button class="btn btn-danger remove" type="button"><i
-                                            class="glyphicon glyphicon-remove"></i> Remove
+                                            class="glyphicon glyphicon-remove"></i>
                                 </button>
                             </div>
                         </div>
@@ -122,8 +141,12 @@
             @endif
             <br/>
             <div class="modal-footer" style="margin-top: 25px;">
-                <button type="submit" class="btn btn-primary create-content-lesson " id="create-content-lesson">Cập nhật nội
-                    dung
+                <button type="submit" class="btn btn-primary create-content-lesson " id="create-content-lesson">
+                    @if(isset($lessonContent))
+                        Cập nhật nội dung
+                    @else
+                        Tạo nội dung
+                    @endif
                 </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>
