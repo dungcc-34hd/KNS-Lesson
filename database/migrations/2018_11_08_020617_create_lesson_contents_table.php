@@ -21,7 +21,6 @@ class CreateLessonContentsTable extends Migration
             $table->integer('lesson_detail_id')->nullable();
             $table->string('path')->nullable();
             $table->string('audio')->nullable();
-            $table->string('background_music')->nullable();
             $table->integer('order_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
