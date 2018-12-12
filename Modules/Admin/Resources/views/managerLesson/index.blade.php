@@ -99,6 +99,9 @@
                                                 @endif
                                                 @foreach($lessonDetail->lessonContent as $key=>$item)
                                                 <button type="button" class="btn btn-success  modal-show"
+                                                        data-url="/admin/manager-lesson/get-value-type/{{$lessonDetail->id}}">Thêm chi tiết</button>
+                                                @foreach($lessonDetail->lessonContent as $key=>$item)
+                                                <button type="button" class="btn btn-success  modal-show"
                                                 data-url="/admin/manager-lesson/edit-lesson-content/{{$item->id}}">Sửa nội dung chi tiết</button>
                                                 @endforeach
                                                 <a href="#" class="btn btn-danger delete-object"
@@ -127,5 +130,6 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('modules/admin/managerContent/managerContent.js') }}"></script>
+    <script src="{{ asset('modules/admin/managerContent/lesson-validation.js')}}"></script>
 @endpush
 

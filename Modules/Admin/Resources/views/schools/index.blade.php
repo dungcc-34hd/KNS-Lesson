@@ -28,7 +28,7 @@
                     <div class="form-group col-md-4">
                         <label>Khu vực </label>
                         <div class="clearfix">
-                            <select  class="form-control" name="area-id" id="selectArea" data-url="{{route('admin.school.change-area', ['areaId' => count($areas) >0 ? $areas[0]->id : 0])}}" >
+                            <select  class="form-control" name="area_id" id="areas" >
                                 <option value="">Chọn khu vực</option>
                                 @foreach ($areas as $key => $area)
                                     <option value="{{$area->id}}">{{$area->name}}</option>
@@ -39,7 +39,7 @@
                     <div class="form-group col-md-4">
                         <label>Tỉnh/thành phố </label>
                         <div class="clearfix">
-                            <select  class="form-control" name="province-id" id="selectProvince" data-url="{{route('admin.school.change-province', ['provinceId' => count($provinces) >0 ? $provinces[0]->id : 0])}}">
+                            <select  class="form-control" name="province_id" id="provinces" >
                                 <option value="">Chọn tỉnh</option>
                                 @foreach ($provinces as $key => $province)
                                     <option value="{{$province->id}}">{{$province->name}}</option>
@@ -50,7 +50,7 @@
                     <div class="form-group col-md-4">
                         <label>Quận/Huyện </label>
                         <div class="clearfix">
-                            <select  class="form-control" name="district_id" id="selectDistrict" data-url="{{route('admin.school.change-district', ['districtId' => count($districts) >0 ? $districts[0]->id : 0])}}">
+                            <select  class="form-control" name="district_id" id="districts">
                                 <option value="">Chọn quận/huyện</option>
                                 @foreach ($districts as $key => $district)
                                     <option value="{{$district->id}}">{{$district->name}}</option>
@@ -62,7 +62,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{route('admin.school.create')}}" class="btn btn-primary">Tạo</a>
+                    <a href="{{route('admin.school.create')}}" class="btn btn-primary">Thêm</a>
                 </div>
             </div>
             <div class="row">
@@ -96,11 +96,10 @@
                                     <th>Tỉnh</th>
                                     <th>Quận/Huyện</th>
                                     <th>Key</th>
-                                    {{-- <th>Số lượng học sinh</th> --}}
                                     <th class="item-action-3"></th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
                                 @if(!empty($schools))
                                     @foreach($schools as $key => $school)
                                         <tr>

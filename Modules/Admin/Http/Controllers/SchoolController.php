@@ -3,6 +3,7 @@
 namespace Modules\admin\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\Province;
 use App\Models\District;
 use App\Models\School;
 use App\Models\SchoolLevel;
@@ -16,7 +17,7 @@ use Illuminate\Routing\Controller;
 class SchoolController extends Controller
 {
     protected $repository;
- 
+    protected $areaId;
     public function __construct(SchoolEloquentRepository $repository)
     {
         $this->repository = $repository;
@@ -29,6 +30,7 @@ class SchoolController extends Controller
     public function pagination(Request $request, $records, $search = null)
     {
         $per_page = is_null($records) ? 10 : $records;
+         $areaId = session()->has($this->areaId) ? session($this->areaId) : 0;
 
         return view('admin::schools.pagination',
             [
@@ -60,8 +62,105 @@ class SchoolController extends Controller
         ]);
        
     }
-    public function changeArea($areaId){
+   public function hanldingArea(Request $req)
+    {
+        $title          = "Chọn Tỉnh";
+        $records        =10;
+        $area_id        = $req->area;
+        $Users          = $this->repository->getAreaObjects($records,$area_id,'area_id');
+        $page           = $this->repository->getAreaPages($records,$area_id,'area_id');
+        $provinces      = Province::where('area_id',$area_id)->get();
+        
+        $select         = $this->returnOption($provinces,$title );
+
+        $user           = $this->returnTr($Users);
+        
+        return response()->json(['select' => $select,'user'=>$user]);  
+    }
+        public function hanldingProvince(Request $req)
+    {
+        $title          = "Chọn Quận/Huyện";
+        $records        =10;
+        $province_id    = $req->province;
+        $Users          = $this->repository->getAreaObjects($records,$province_id ,'province_id');
+        $page           = $this->repository->getAreaPages($records,$province_id ,'province_id');
+        $districts      = District::where('province_id',$province_id )->get();
+        
+        $select         = $this->returnOption($districts,$title );
+        $user           = $this->returnTr($Users);
+
+        return response()->json(['select' => $select,'user'=>$user]);  
+    }
+     public function hanldingDistrict(Request $req)
+    {
        
+        $records        =10;
+        $district_id    = $req->district;
+        $Users          = $this->repository->getAreaObjects($records,$district_id ,'district_id');
+        $page           = $this->repository->getAreaPages($records,$district_id ,'district_id');        
+       
+        $user           = $this->returnTr($Users);
+
+        return response()->json(['user'=>$user]);    
+    }
+
+    // return json
+    public function returnOption($provinces,$title){
+        $arrayOption = array("<option value='' >$title</option>");
+        foreach ($provinces as  $value) {
+            $option = "<option value='".$value->id."'>".$value->name."</option>";
+            array_push($arrayOption, $option);
+        }
+        $select = implode(" ",$arrayOption);
+        return $select;
+    }
+    public function returnTr($Users){
+        
+        $arrayUser      =  array();
+        if($Users!=null){
+            foreach ($Users as $key =>  $user) {
+                $key = $key+1;
+                $option = " 
+                <tr>
+                <td >".$key."</td>
+                <td>".$user->name."</td>
+                <td>".$user->schoolLevel['name']."</td>
+                <td>".$user->area['name']."</td>
+                <td>".$user->province['name']."</td>
+                <td>".$user->district['name']."</td>
+                <td>".$user->license_key."</td>
+               
+                <td> <div class='btn-group btn-group-sm'>
+                <a class='btn btn-success' href='/admin/school/show/".$user->id."' title='Detail'>
+                <i class='fa fa-eye'></i>
+                </a>
+                <a class='btn btn-info' href='/admin/school/edit/".$user->id."' title='Edit'>
+                <i class='ace-icon fa fa-pencil'></i>
+                </a>
+                <a href='' class='btn btn-danger delete-object' title='Delete' object_id='".$user->id."' object_name='".$user->name."'>
+                <i class='fa fa-trash-o'></i>
+                </a>
+                </div></td>
+                </tr>";
+                array_push($arrayUser, $option);
+            }
+       
+        }else{
+            $option = "<tr> <td colspan='9'>Không có bản ghi nào</td> </tr>";
+            array_push($arrayUser, $option);
+        }
+        $user  = implode(" ",$arrayUser);
+
+        return $user;
+ 
+    }
+
+
+
+
+
+    public function changeArea($areaId){
+       session([$this->areaId => $areaId]);
         $array=$this->repository->changeArea($areaId);
         return response()->json($array);
     }
@@ -116,7 +215,7 @@ class SchoolController extends Controller
         $array = $request->all();
         $this->repository->update($request->id, $array);
         Session::flash('flash_level', 'success');
-        Session::flash('flash_message', 'Tạo mới thành công');
+        Session::flash('flash_message', 'Cập nhật thành công');
 
         return redirect('admin/school/index');
     }
@@ -150,7 +249,8 @@ class SchoolController extends Controller
     {
         try {
             $array = $request->all();
-            $array['license_key']= $this->SimpleRandString();
+            $array['quantity_account']=99;
+            $array['license_key']=$this->SimpleRandString();
             $this->repository->create( $array);
             message($request, 'success', 'Tạo mới thành công.');
         }
@@ -165,11 +265,22 @@ class SchoolController extends Controller
 
     public function delete($id)
     {
-        $school = School::findOrFail($id);
-        $school->delete();
-
-        Session::flash('flash_level', 'success');
+        try
+        {
+              
+            $this->repository->delete($id);
+            Session::flash('flash_level', 'success');
         Session::flash('flash_message', 'Xoá thành công');
+       
+            
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            return response()->json(['status' => false]);
+        }
+
+
         
     }
 

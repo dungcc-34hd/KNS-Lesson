@@ -5,6 +5,7 @@
 
     </div>
 
+<<<<<<< HEAD
     <form id="add-lesson-content" @if(isset($lessonContent))
         action="{{route('admin.managerLesson.updateLessonContent',$lessonContent->id)}}"
           @else
@@ -12,6 +13,15 @@
           @endif
           method="post"
           enctype="multipart/form-data">
+=======
+    <form @if(isset($lessonContent))
+          action="{{route('admin.managerLesson.updateLessonContent',$lessonContent->id)}}"
+          @else
+          action="{{route('admin.managerLesson.storeLessonContent')}}"
+          @endif
+          method="post" class="validation-form"
+          enctype="multipart/form-data" id="addLessonContent">
+>>>>>>> develop
         {{csrf_field()}}
         @isset($typeId)
             <input type="hidden" value="{{$typeId}}" name="type">
@@ -96,9 +106,7 @@
                         <input type="text" id="answer" class="form-control"
                                placeholder="Nhập câu trả lời đúng"
                                name="answer[]"
-                               value="@isset($lessonAnswer) @foreach($lessonAnswer as $answer)@if($answer->is_correct == 1){{$answer->answer}}@endif @endforeach @endisset"
-                        >
-
+                               value="@isset($lessonAnswer) @foreach($lessonAnswer as $answer)@if($answer->is_correct == 1){{$answer->answer}}@endif @endforeach @endisset">
                     </div>
                     <br/>
                     <div class="answer-wrapper">

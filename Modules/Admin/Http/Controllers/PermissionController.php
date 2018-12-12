@@ -12,6 +12,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use App\Role;
+use Illuminate\Support\Facades\Session;
 use App\Models\PermissionRole;
 
 class PermissionController extends Controller
@@ -149,11 +150,14 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {  
+        
         try
         {
             
             $this->repository->delete($id);
-            return response()->json(['status' => true]);
+            Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
+            
         }
         catch (QueryException $exception)
         {

@@ -20,7 +20,7 @@
                 <a href="#">
                     <i class="fa fa-users"></i> <span>Quản Lý User</span>
                     <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-angle-left pull-left"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
@@ -34,7 +34,7 @@
                 <a href="#">
                     <i class="fa fa-users"></i> <span>Quản Lý Dữ liệu</span>
                     <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-angle-left pull-left"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
