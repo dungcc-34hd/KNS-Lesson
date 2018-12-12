@@ -15,4 +15,8 @@ class LessonContent extends Model
     {
         return LessonContent::where('lesson_detail_id',$lesson_detail_id)->first();
     }
+    public static function  checkContentByDetailId($id)
+    {
+        return LessonContent::where('lesson_detail_id', $id)->exists();
+    }
 }
