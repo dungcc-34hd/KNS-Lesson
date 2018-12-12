@@ -160,6 +160,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/get-value-lesson-detail/{id}', 'ManagerLessonController@getValueLessonDetail')->name('admin.managerLesson.getValueLessonDetail');
         Route::get('/show-detail-lesson/{id}', 'ManagerLessonController@showDetailLesson')->name('admin.managerLesson.showDetailLesson');
         Route::get('/edit-lesson-content/{id}', 'ManagerLessonController@editLessonContent')->name('admin.managerLesson.editLessonContent');
+        Route::post('/update-lesson-content/{id}', 'ManagerLessonController@updateLessonContent')->name('admin.managerLesson.updateLessonContent');
         Route::get('/edit/{id}', 'ManagerLessonController@edit')->name('admin.managerLesson.edit');
         Route::post('/update/{id}', 'ManagerLessonController@update')->name('admin.managerLesson.update');
         Route::get('/delete/{id}', 'ManagerLessonController@delete')->name('admin.managerLesson.delete');
