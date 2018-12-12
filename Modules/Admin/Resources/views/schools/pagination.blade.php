@@ -1,13 +1,4 @@
-{{-- <tr>
-     <th class="order-number">Id.</th>
-    <th>Tên</th>
-    <th>Cấp</th>
-    <th>Khu vực</th>
-    <th>Tỉnh</th>
-    <th>Quận/Huyện</th>
-    <th>Key</th>
-    <th class="item-action-3"></th>
-</tr> --}}
+
 @if(!empty($schools))
     @foreach($schools as $key => $school)
         <tr>

@@ -45,7 +45,5 @@
     <!-- /.form-group -->
 </div>
 @push('scripts')
-    {{-- <script src="{{ asset('modules/admin/permission/permission.js') }}"></script> --}}
     <script src="{{ asset('modules/admin/role/role-validation.js') }}"></script>
-    {{-- <script src="{{ asset('modules/admin/permission/permission-validate.js') }}"></script> --}}
 @endpush

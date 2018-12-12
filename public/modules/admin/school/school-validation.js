@@ -9,21 +9,37 @@ $('.validation-form').validate({
             minlength: 3
         },
       
-        'select-school-level': {
+        school_level_id: {
             required: true
         },
-        'select-district': {
+        area_id: {
             required: true
-        }
+        },
+        province_id: {
+            required: true
+        },
+        district_id: {
+            required: true
+        },
     },
 
     messages: {
         name: {
-            required: "Please specify a valid name."
+            required: "Xin vui lòng nhập tên trường.",
+            minlength: "Độ dài tối thiểu là 3."
         },
-        email: {
-            required: "Please specify a valid email."
-        }
+        school_level_id:{
+             required: "Xin vui lòng chọn cấp ."
+        },
+        area_id:{
+            required: "Xin vui lòng chọn khu vực ."
+        },
+        province_id:{
+            required: "Xin vui lòng chọn tỉnh."
+        },
+        district_id:{
+            required: "Xin vui lòng chọn quận/huyện."
+        },
     },
  
 
