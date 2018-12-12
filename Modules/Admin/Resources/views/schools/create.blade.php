@@ -30,7 +30,7 @@
                                 <div class="form-group">
                                     <label>Cấp @include('common.require')</label>
                                     <div class="clearfix">
-                                        <select  class="form-control" name="school-level-id">
+                                        <select  class="form-control" name="school_level_id">
                                             <option value="">Select School</option>
                                             @foreach ($schoolLevels as $key => $schoolLevel)
                                                 <option value="{{$schoolLevel->id}}">{{$schoolLevel->name}}</option>
@@ -43,7 +43,7 @@
                                 <div class="form-group">
                                     <label>Khu vực @include('common.require')</label>
                                     <div class="clearfix">
-                                        <select  class="form-control" name="area-id" id="selectArea" >
+                                        <select  class="form-control" name="area_id" id="selectArea" >
                                             <option value="">Chọn khu vực</option>
                                             @foreach ($areas as $key => $area)
                                                 <option value="{{$area->id}}">{{$area->name}}</option>
@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label>Tỉnh/thành phố @include('common.require')</label>
                                     <div class="clearfix">
-                                        <select  class="form-control" name="province-id" id="selectProvince">
+                                        <select  class="form-control" name="province_id" id="selectProvince">
                                             <option value="">Chọn tỉnh</option>
                                             @foreach ($provinces as $key => $province)
                                                 <option value="{{$province->id}}">{{$province->name}}</option>
@@ -82,7 +82,7 @@
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Create</button>
-                        <a href="{{route('admin.area.index')}}" type="button" class="btn btn-default">Go Back</a>
+                        <a href="{{route('admin.school.index')}}" type="button" class="btn btn-default">Go Back</a>
                     </div>
                 </div>
             </section>

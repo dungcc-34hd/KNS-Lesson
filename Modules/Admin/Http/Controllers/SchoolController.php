@@ -146,7 +146,7 @@ class SchoolController extends Controller
             }
        
         }else{
-            $option = "<tr> <td colspan='9'>No Records</td> </tr>";
+            $option = "<tr> <td colspan='9'>Không có bản ghi nào</td> </tr>";
             array_push($arrayUser, $option);
         }
         $user  = implode(" ",$arrayUser);
@@ -215,7 +215,7 @@ class SchoolController extends Controller
         $array = $request->all();
         $this->repository->update($request->id, $array);
         Session::flash('flash_level', 'success');
-        Session::flash('flash_message', 'Tạo mới thành công');
+        Session::flash('flash_message', 'Cập nhật thành công');
 
         return redirect('admin/school/index');
     }
@@ -249,7 +249,8 @@ class SchoolController extends Controller
     {
         try {
             $array = $request->all();
-            $array['license_key']= $this->SimpleRandString();
+            $array['quantity_account']=99;
+            $array['license_key']=$this->SimpleRandString();
             $this->repository->create( $array);
             message($request, 'success', 'Tạo mới thành công.');
         }
@@ -264,11 +265,22 @@ class SchoolController extends Controller
 
     public function delete($id)
     {
-        $school = School::findOrFail($id);
-        $school->delete();
-
-        Session::flash('flash_level', 'success');
+        try
+        {
+              
+            $this->repository->delete($id);
+            Session::flash('flash_level', 'success');
         Session::flash('flash_message', 'Xoá thành công');
+       
+            
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            return response()->json(['status' => false]);
+        }
+
+
         
     }
 
