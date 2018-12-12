@@ -1,20 +1,20 @@
 @extends('admin::layouts.master')
 @section('title')
-    Edit Permission
+    Edit Role
 @endsection
 @section('content')
 
     <div class="content-wrapper">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
-            <li class="breadcrumb-item active">Permissions</li>
+            <li class="breadcrumb-item active">Role</li>
         </ol>
         <form action="{{route('admin.role.edit',['id' => $role->role_id])}}" method="post" class="validation-form">
             {{csrf_field()}}
             <section class="content">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Permission</h3>
+                        <h3 class="box-title">Role</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
