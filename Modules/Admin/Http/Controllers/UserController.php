@@ -77,16 +77,17 @@ class UserController extends Controller
     public function edit($id)
     {
         $users=$this->repository->find($id);
-        $areaId=$users->area_id;
+        // dd($users);
+        // $areaId=$users->area_id;
         $gradeId=$users->grade_id;
-        $areas=$this->repository->Area();
-        $array=$this->repository->select($areaId);
+        // $areas=$this->repository->Area();
+        // $array=$this->repository->select($areaId);
         return view('admin::user.edit',[
             'user'=>$users,
-            'areas' => $areas,
-            'provinces'=> $array['provinces'],
-            'districts'=> $array['districts'],
-            'schools'=> $array['schools'],
+            'areas' => Area::all(),
+            'provinces'=> Province::all(),
+            'districts'=> District::all(),
+            'schools'=> School::all(),
             'grades' => $this->repository->grade(),
             'class' =>  $this->repository->getClass($gradeId),
             'roles' =>$this->repository->getRoles(),
@@ -147,6 +148,7 @@ class UserController extends Controller
         $areas=$this->repository->Area();
         count($areas) >0 ? $areaId=$areas[0]->id : $areaId=0;
         $array=$this->repository->select($areaId);
+        // dd($array);
         $grades=$this->repository->grade();
         count($grades) >0 ? $gradeId=$grades[0]->id : $gradeId=0;
 

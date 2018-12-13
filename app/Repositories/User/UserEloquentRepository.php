@@ -80,9 +80,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
     }
     public function district($provinceId){
         $districts=\App\Models\District::where('province_id','=',$provinceId)->get();
-         if(count($districts)>0){
-            $districtId=$districts[0]->id;
-        }
+        count($districts) > 0 ? $districtId=$districts[0]->id : $districtId=0;
         $schools=\App\Models\School::where('district_id','=',$districtId)->get();
         $array['districts']=$districts;
         $array['schools']=$schools;
