@@ -60,36 +60,40 @@
             <div class="form-group">
                 <label>Nhạc nền</label>
                 <div class="clearfix">
-                   @isset($lessonContent){{$lessonContent->background_music}}@endisset
-                    <input type="file" class="form-control background-music" name="backgroundMusic"
+                    @isset($lessonContent){{$lessonContent->background_music}}@endisset
+                    <input type="file" class="form-control background-music" name="background-music"
                            value="">
                 </div>
             </div>
             @if($typeId != 3)
-            <div class="col-md-12">
-                <div id="field">
-                    <div id="field0">
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label label-name"
-                                   for="action_id">{{\App\Models\LessonDetail::TYPE[$typeId]}}</label>
-                            <div class="col-md-5 clearfix">
-                            @if(isset($audios))
-                                @foreach($audios as $audio)
-
-                                        <input type="file" class="add_field_button form-control " name="background-image[]"
-                                           id="background-image" value="{{$audio}}"> {{$audio}}
-                                    @endforeach
-                                @else
-                                    <input type="file" class="add_field_button form-control " name="background-image[]"
-                                           id="background-image">
-                                @endif
+                <div class="col-md-12">
+                    <div id="field">
+                        <div id="field0">
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="control-label label-name"
+                                       for="action_id">{{\App\Models\LessonDetail::TYPE[$typeId]}}</label>
+                                <h6>(Chọn nhiều {{\App\Models\LessonDetail::TYPE[$typeId]}})</h6><br>
+                                <div class="col-md-12 clearfix">
+                                    @if(isset($audios))
+                                        @foreach($audios as $audio)
+                                            {{$audio}}
+                                        @endforeach
+                                        <input type="file" class="add_field_button form-control "
+                                               name="background-image[]"
+                                               id="background-image" multiple>
+                                        @else
+                                        <input type="file" class="add_field_button form-control "
+                                               name="background-image[]"
+                                               id="background-image" multiple>
+                                    @endif
+                                </div>
+                                <br><br>
                             </div>
                         </div>
+                        {{--<button id="add-more" name="add-more" class="btn btn-primary">Thêm</button>--}}
                     </div>
-                    <button id="add-more" name="add-more" class="btn btn-primary">Thêm</button>
                 </div>
-            </div>
             @endif
             @if($typeId == 3)
                 <div class="show-request-answer">
