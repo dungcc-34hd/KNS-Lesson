@@ -76,11 +76,9 @@ class DistrictController extends Controller
     public function update(Request $request ,$id)
     {
         $provincial = District::findOrFail($id);
-
-        $provincial->name        = $request->name;
-        $provincial->area_id        = $request->input('select-provincial');
-        $provincial->save();
-        Session::flash('message', 'Successfully updated provincial!');
+        $array = $request->all();
+        $this->repository->update($request->id,$array);
+         message($request, 'success', 'Cập nhật thành công.');
         return redirect('admin/district/index');
     }
 
@@ -106,14 +104,26 @@ class DistrictController extends Controller
         $district->province_id	 = $request->input('select-provincial');
         $district->save();
 
-        Session::flash('message', 'Successfully created provicial!');
+        message($request, 'success', 'Thêm mới thành công.');
         return redirect('admin/district/index');
     }
 
     public function delete($id)
     {
-        $district = District::findOrFail($id);
-        $district->delete();
+        try
+        {
+              
+            $this->repository->delete($id);
+            Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
+       
+            
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            return response()->json(['status' => false]);
+        }
     }
 
 }

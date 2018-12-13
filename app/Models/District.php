@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class District extends Model
 {
-    public $fillable =['name','provincial_id'];
+    public $fillable =['name','province_id'];
 
     public function province()
     {

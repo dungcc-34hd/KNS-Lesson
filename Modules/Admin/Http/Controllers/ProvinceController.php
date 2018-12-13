@@ -41,6 +41,7 @@ class ProvinceController extends Controller
     {
         $records = 10;
         $provincials =  $this->repository->getObjects($records);
+        // dd($provincials);
         $pages = $this->repository->getPages($records);
         return view('admin::province.index', compact('provincials','pages'));
     }
@@ -79,7 +80,7 @@ class ProvinceController extends Controller
         $provincial->name        = $request->name;
         $provincial->area_id        = $request->input('select-provincial');
         $provincial->save();
-        Session::flash('message', 'Successfully updated provincial!');
+         message($request, 'success', 'Cập nhật thành công.');
         return redirect('admin/province/index');
     }
 
@@ -105,7 +106,7 @@ class ProvinceController extends Controller
         $provincial->area_id = $request->input('select-area');
         $provincial->save();
 
-        Session::flash('message', 'Successfully created provicial!');
+         message($request, 'success', 'Thêm mới thành công.');
         return redirect('admin/province/index');
     }
 
