@@ -46,30 +46,45 @@ $(document).ready(function(){
     // select areas
     $("#areas").change(function(){
         var area = $(this).val();
+        if (area!=''){
 
-        $.ajax({
-            type:'GET',
-            url:'/admin/school/hanlding-area/',
-            'data': {
-                'area' : area,
-            },
-            success:function(data) {
-                $('#provinces').html(data.select);
-                $('#tbody').html(data.user);
-                $("#districts").html('<option>Chọn Quận/Huyện</option>');
-                $("#schools").html('<option>Chọn Trường </option>');
-                
-            }
-         });
+            $.ajax({
+                type:'GET',
+                url:'/admin/user/hanlding-area/',
+                'data': {
+                    'area' : area,
+                },
+                success:function(data) {
+                    $('#provinces').html(data.select);
+                    $('#tbody').html(data.user);
+                    $("#districts").html('<option>Chọn Quận/Huyện</option>');
+                    $("#schools").html('<option>Chọn Trường </option>');
+                }
+             });
+        }else{
+            $.ajax({
+                type:'GET',
+                url:'/admin/user/select/',
+                'data': {
+                    'area' : area,
+                },
+                success:function(data) {
+                    $('#tbody').html(data.user);
+                }
+             });
+        }
+
+       
     });
 
     // select provinces
     $("#provinces").change(function(){
         var province = $(this).val();
       
-        $.ajax({
+        if(province!=''){
+            $.ajax({
             type:'GET',
-            url:'/admin/school/hanlding-province',
+            url:'/admin/user/hanlding-province',
             'data': {
                 'province' : province,
             },
@@ -77,18 +92,30 @@ $(document).ready(function(){
                 $('#districts').html(data.select);
                 $('#tbody').html(data.user);
                 $("#schools").html('<option>Chọn Trường </option>');
-                
+                // ajaxLoadData(records,1,$('#nav-search-input').val());
             }
          });
-    });
+        }else{
+            $.ajax({
+                type:'GET',
+                url:'/admin/user/select/',
+                'data': {
+                    'province' : province,
+                },
+                success:function(data) {
+                    $('#tbody').html(data.user);
+                }
+             });
+        }
 
+});
     // select districts
     $("#districts").change(function(){
         var district = $(this).val();
-       
-        $.ajax({
+        if(district!=''){
+            $.ajax({
             type:'GET',
-            url:'/admin/school/hanlding-district',
+            url:'/admin/user/hanlding-district',
             'data': {
                 'district' : district,
             },
@@ -97,5 +124,19 @@ $(document).ready(function(){
                 $('#schools').html(data.select);
             }
          });
+        }else{
+            $.ajax({
+                type:'GET',
+                url:'/admin/user/select/',
+                'data': {
+                    'district' : district,
+                },
+                success:function(data) {
+                    $('#tbody').html(data.user);
+                }
+             });
+        }
+       
+        
     });
 });

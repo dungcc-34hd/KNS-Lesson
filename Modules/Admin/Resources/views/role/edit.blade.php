@@ -24,11 +24,14 @@
                         <!-- /.box-body -->
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <a href="{{route('admin.role.index')}}" type="button" class="btn btn-default">Go Back</a>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <a href="{{route('admin.role.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>
             </section>
         </form>
     </div>
 @endsection
+@push('scripts')
+    {{-- <script src="{{ asset('modules/admin/role/role-validation.js') }}"></script> --}}
+@endpush

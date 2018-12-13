@@ -44,6 +44,8 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('change-province/{provinceId}','UserController@changeProvince')->name('admin.user.change-province');
         Route::get('change-district/{districtId}','UserController@changeDistrict')->name('admin.user.change-district');
         Route::get('change-grade/{gradeId}','UserController@changeGrade')->name('admin.user.change-grade');
+        Route::get('/select','UserController@select')->name('admin.user.select');
+
 
         // ajax
         Route::get('/hanlding-area','UserController@hanldingArea')->name('admin.statistic.hanldingArea');
@@ -106,6 +108,8 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/hanlding-area','SchoolController@hanldingArea')->name('admin.school.hanldingArea');
         Route::get('/hanlding-province','SchoolController@hanldingProvince')->name('admin.school.hanldingProvince');
         Route::get('/hanlding-district','SchoolController@hanldingDistrict')->name('admin.school.hanldingDistrict');
+         Route::get('/select','UserController@select')->name('admin.user.select');
+
 
 
     });

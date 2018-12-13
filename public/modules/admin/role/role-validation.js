@@ -5,8 +5,10 @@ $('.validation-form').validate({
     ignore: "",
     rules: {
         name: {
+            // unique: true,
             required: true,
             minlength: 3,
+            
         },
         display_name: {
             required: true,
@@ -20,9 +22,10 @@ $('.validation-form').validate({
 
     messages: {
         name: {
+            // unique: "Tên đã tồn tại",
             required: "Xin vui lòng nhập tên .",
             minlength: "Độ dài tối thiểu là 3",
-            unique: "Tên đã tồn tại",
+            
         },
         display_name: {
             required: "Xin vui lòng nhập tên hiển thị.",
@@ -37,7 +40,7 @@ $('.validation-form').validate({
 
 
     highlight: function (e) {
-        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+        // $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
     },
 
     success: function (e) {

@@ -8,6 +8,9 @@
           <div class="clearfix">
             <input type="text" class="form-control" name="name"
                    value="@isset($permission) {{ $permission->name }} @endisset">
+            @if($errors)
+                <span style="color: #dd4b39;" class="text-danger">{{$errors->first('name')}}</span> 
+            @endif
         </div>
 
     </div>
@@ -17,6 +20,9 @@
         <div class="clearfix">
             <input type="text" class="form-control" name="display_name"
                    value="@isset($permission) {{ $permission->display_name }} @endisset">
+            @if($errors)
+                <span style="color: #dd4b39;" class="text-danger">{{$errors->first('display_name')}}</span> 
+            @endif
         </div>
 
     </div>
@@ -39,5 +45,5 @@
 </div>
 @push('scripts')
     <script src="{{ asset('modules/admin/permission/permission.js') }}"></script>
-    <script src="{{ asset('modules/admin/permission/permission-validate.js') }}"></script>
+    {{-- <script src="{{ asset('modules/admin/permission/permission-validate.js') }}"></script> --}}
 @endpush

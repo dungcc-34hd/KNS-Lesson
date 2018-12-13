@@ -1,5 +1,5 @@
 <tr>
-    <th class="order-number">No.</th>
+    <th class="order-number">STT</th>
     <th>Tên</th>
     <th>Tên hiển thị</th>
     <th>Mô tả</th>
