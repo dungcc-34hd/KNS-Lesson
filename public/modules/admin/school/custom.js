@@ -66,7 +66,7 @@ function changeProvince(provinceId){
         var data = response.data;
         // console.log(data);
          $('#selectDistrict').empty();
-        if($.isEmptyObject(data))
+        if($.isEmptyObject(data['districts']))
         {
             
             var option = '<option>Không có dữ liệu</option>'
@@ -76,7 +76,7 @@ function changeProvince(provinceId){
         else
         {
            
-            $.each(data, function (i, value) {
+            $.each(data['districts'], function (i, value) {
                 var option = '<option value='+value.id+'>'+value.name+'</option>'
 
                 $('#selectDistrict').append(option)

@@ -50,7 +50,7 @@ $(document).ready(function(){
 
             $.ajax({
                 type:'GET',
-                url:'/admin/user/hanlding-area/',
+                url:'/admin/school/hanlding-area/',
                 'data': {
                     'area' : area,
                 },
@@ -65,7 +65,7 @@ $(document).ready(function(){
         }else{
             $.ajax({
                 type:'GET',
-                url:'/admin/user/select/',
+                url:'/admin/school/select/',
                 'data': {
                     'area' : area,
                 },
@@ -86,7 +86,7 @@ $(document).ready(function(){
         if(province!=''){
             $.ajax({
             type:'GET',
-            url:'/admin/user/hanlding-province',
+            url:'/admin/school/hanlding-province',
             'data': {
                 'province' : province,
             },
@@ -100,7 +100,7 @@ $(document).ready(function(){
         }else{
             $.ajax({
                 type:'GET',
-                url:'/admin/user/select/',
+                url:'/admin/school/select/',
                 'data': {
                     'province' : province,
                 },
@@ -117,7 +117,7 @@ $(document).ready(function(){
         if(district!=''){
             $.ajax({
             type:'GET',
-            url:'/admin/user/hanlding-district',
+            url:'/admin/school/hanlding-district',
             'data': {
                 'district' : district,
             },
@@ -129,7 +129,7 @@ $(document).ready(function(){
         }else{
             $.ajax({
                 type:'GET',
-                url:'/admin/user/select/',
+                url:'/admin/school/select/',
                 'data': {
                     'district' : district,
                 },
