@@ -198,15 +198,14 @@ class SchoolController extends Controller
      */
     public function edit($id)
     {
-       
+      
+      
         $areas    =  Area::all();
-        count($areas) >0 ? $areaId=$areas[0]->id : $areaId=0;
-        $array=$this->repository->changeArea($areaId);
         return view('admin::schools.edit',[
             'school' => School::findOrFail($id),
             'areas'=> $areas,
-            'provinces'=>$array['provinces'],
-            'districts'=>$array['districts'],
+            'provinces'=>Province::all(),
+            'districts'=>District::all(),
             'schoolLevels' => SchoolLevel::all(),
         ]);
     }
@@ -236,6 +235,7 @@ class SchoolController extends Controller
         $areas    =  Area::all();
         count($areas) >0 ? $areaId=$areas[0]->id : $areaId=0;
         $array=$this->repository->changeArea($areaId);
+        
         return view('admin::schools.create',[
             'areas'=> $areas,
             'provinces'=>$array['provinces'],

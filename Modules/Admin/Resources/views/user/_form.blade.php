@@ -27,7 +27,7 @@
             <label>Mật khẩu @include('common.require')</label>
             <div class="clearfix">
                 <input type="password" class="form-control" name="password"
-                       value="@isset($user){{$user->email}}@endisset">
+                       value="">
             </div>
         </div> 
         @endif
@@ -54,11 +54,12 @@
         <div class="clearfix">
             <select name="province_id" id="selectProvince" class="select-option form-control">
                 <option value="">Chọn tỉnh/thành phố</option>
-                @foreach($provinces as $key => $province)
+                @foreach($provinces as $key => $province)   
                 <option @if(isset($user) && $user->province_id == $province->id) selected @endif value="{{$province->id}}">{{$province->name}}</option>
                 @endforeach
             </select>
         </div>
+
     </div>  
     <div class="form-group">
         <label>Quận/huyện @include('common.require')</label>
@@ -69,6 +70,10 @@
                     <option @if(isset($user) && $user->district_id == $district->id) selected @endif value="{{$district->id}}">{{$district->name}}</option>
                 @endforeach
             </select>
+             {{-- <p>{{$user->district_id}}</p>  --}}
+           {{--  @foreach($districts as $key => $district)
+                <p>{{$district->name}}</p>
+            @endforeach --}}
         </div>
     </div>    
     <div class="form-group">
