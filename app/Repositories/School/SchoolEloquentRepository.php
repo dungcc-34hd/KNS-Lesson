@@ -99,7 +99,6 @@ class SchoolEloquentRepository extends EloquentRepository implements SchoolRepos
     public function changeProvince($provinceId){
         $districts=District::where('province_id','=',$provinceId)->get();
         
-         $array['data']=$data;
          $array['districts']=$districts;
         return $array;
     }

@@ -31,7 +31,7 @@
                                     <label>Tỉnh/Thành phố @include('common.require')</label>
                                     <select class="form-control" name="province_id">
                                         @foreach ($provincials as $key => $provincial)
-                                            <option value="{{$provincial->id}}" {{ $district->provincial_id == $provincial->id ? "selected" : '' }}>{{$provincial->name}}</option>
+                                            <option value="{{$provincial->id}}" {{ $district->province_id == $provincial->id ? "selected" : '' }}>{{$provincial->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
