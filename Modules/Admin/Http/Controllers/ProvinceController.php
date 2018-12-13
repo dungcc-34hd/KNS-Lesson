@@ -23,9 +23,9 @@ class ProvinceController extends Controller
     {
         $per_page = is_null($records) ? 10 : $records;
 
-        return view('admin::user.pagination',
+        return view('admin::province.pagination',
             [
-                'users' => $this->repository->getObjects($per_page, $search),
+                'provincials' => $this->repository->getObjects($per_page, $search),
                 'pages'       => $this->repository->getPages($per_page, $search),
                 'records'     => $per_page,
                 'currentPage' => $request->page
@@ -40,7 +40,7 @@ class ProvinceController extends Controller
     public function index()
     {
         $records = 10;
-        $provincials =  Province::all();
+        $provincials =  $this->repository->getObjects($records);
         $pages = $this->repository->getPages($records);
         return view('admin::province.index', compact('provincials','pages'));
     }
@@ -111,8 +111,20 @@ class ProvinceController extends Controller
 
     public function delete($id)
     {
-        $provincial = Province::findOrFail($id);
-        $provincial->delete();
+        try
+        {
+              
+            $this->repository->delete($id);
+            Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
+       
+            
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            return response()->json(['status' => false]);
+        }
     }
 
 }

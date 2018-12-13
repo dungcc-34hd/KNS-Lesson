@@ -25,7 +25,7 @@
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{route('admin.district.create')}}" class="btn btn-primary">Tạo</a>
+                    <a href="{{route('admin.district.create')}}" class="btn btn-primary">Thêm</a>
                 </div>
             </div>
             <div class="row">
@@ -62,7 +62,7 @@
                                         <tr>
                                             <td class="text-center">{{$key + 1}}</td>
                                             <td>{{$district->name}}</td>
-                                            <td class="green">{{!empty($district->provincial) ? $district->provincial->name: ''}}</td>
+                                            <td class="green">{{!empty($district->Province) ? $district->Province->name: ''}}</td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-success"
@@ -105,6 +105,7 @@
                                         <label class="view-by">
                                             Xem với
                                             <select id="show-records" class="form-control input-sm">
+                                               
                                                 <option value="10">10</option>
                                                 <option value="25">25</option>
                                                 <option value="50">50</option>

@@ -89,7 +89,7 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td colspan="5">No Records</td>
+                                        <td colspan="5">Không có bản ghi nào</td>
                                     </tr>
                                 @endif
                                 </tbody>
@@ -99,12 +99,12 @@
                         <div class="box-footer">
                             <div class="row">
                                 <div class="col-md-6 pull-left widget-page">
-{{--                                    @include('pagination.index',['current_page' => 1,'total_page' => $pages])--}}
+                                    @include('pagination.index',['current_page' => 1,'total_page' => $pages])
                                 </div>
                                 <div class="col-md-6 pull-right">
                                     <div class="form-group pull-right">
                                         <label class="view-by">
-                                            Xem theo
+                                            Xem với
                                             <select id="show-records" class="form-control input-sm">
                                                 <option value="10">10</option>
                                                 <option value="25">25</option>

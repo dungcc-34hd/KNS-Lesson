@@ -8,7 +8,7 @@ $(function () {
        
         $.confirm({
             title: 'Confirm!', 
-            content: 'Are you deleteff object: ' + object_name + '?',
+            content: 'Bạn có muốn xóa: ' + object_name + '?',
             buttons: {
                 confirm: function () {
                     // alert('ahihi');
