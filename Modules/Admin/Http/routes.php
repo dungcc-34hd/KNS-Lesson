@@ -168,9 +168,10 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/edit/{id}', 'ManagerLessonController@edit')->name('admin.managerLesson.edit');
         Route::post('/update/{id}', 'ManagerLessonController@update')->name('admin.managerLesson.update');
         Route::get('/delete/{id}', 'ManagerLessonController@delete')->name('admin.managerLesson.delete');
+        Route::get('/delete-lesson/{id}', 'ManagerLessonController@deleteLesson')->name('admin.managerLesson.deleteLesson');
+        Route::get('/delete-lesson-detail/{id}', 'ManagerLessonController@deleteLessonDetail')->name('admin.managerLesson.deleteLessonDetail');
         Route::get('/pagination/{records}/{search?}', 'ManagerLessonController@pagination')->name('admin.managerLesson.pagination');
 
-       
     });
 
     // statistic

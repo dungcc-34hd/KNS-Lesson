@@ -29,12 +29,16 @@ class ManagerLessonController extends Controller
     {
         $per_page = is_null($records) ? 10 : $records;
 
-        return view('admin::user.pagination',
+        return view('admin::managerLesson.pagination',
             [
-                'users' => $this->repository->getObjects($per_page, $search),
+                'managerLesson' => $this->repository->getObjects($per_page, $search),
                 'pages' => $this->repository->getPages($per_page, $search),
                 'records' => $per_page,
-                'currentPage' => $request->page
+                'currentPage' => $request->page,
+                'lessonName' => $this->repository->getLessonNameByGradeId($search),
+                'lessons' => Lesson::all(),
+                'lessonDetails' => LessonDetail::all(),
+                'lessonContents' => LessonContent::all(),
             ]);
     }
 
@@ -49,9 +53,14 @@ class ManagerLessonController extends Controller
         $grades = Grade::all();
         $lessonDetails = LessonDetail::all();
         $lessonContents = LessonContent::all();
-//        $checkLessonContents = LessonContent::all('lesson_detail_id')->get();
 
         return view('admin::managerLesson.index', compact('lessonDetails', 'lessons', 'grades', 'lessonDetails','lessonContents'));
+    }
+
+    public function getLessonName($gradeId)
+    {
+        $lessonName = $this->repository->getLessonNameByGradeId($gradeId);
+        return response($lessonName);
     }
 
     public function addLesson()
@@ -254,13 +263,13 @@ class ManagerLessonController extends Controller
         $lessonDetail = $this->repository->getTitleById($lessonContent->lesson_detail_id);
         $lesson = $this->repository->getLessonNameById($lessonContent->lesson_detail_id);
         $lessonAnswer = LessonAnswer::findLessonContentByID($id);
-//        dd($lessonAnswer);
         if(is_null($lessonContent)){
             return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail'));
         }
         $contents = json_decode($lessonContent->content);
+        $audios = json_decode($lessonContent->audio);
 
-        return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail','lessonContent','contents','lessonAnswer'));
+        return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail','lessonContent','contents','lessonAnswer','audios'));
     }
 
     public function updateLessonContent(Request $request,$id)
@@ -311,5 +320,29 @@ class ManagerLessonController extends Controller
             }
         }
         return redirect('admin/manager-lesson/index');
+    }
+
+    /**
+     * @param $id
+     * delete lesson
+     */
+    public function deleteLesson($id)
+    {
+        $lesson = Lesson::findOrFail($id);
+        $directory = public_path() . "/modules/managerContent/" . $lesson->name;
+        File::deleteDirectory($directory);
+        $lesson->delete();
+    }
+
+    /**
+     * @param $id
+     * delete lesson det5ail
+     */
+    public function deleteLessonDetail($id)
+    {
+        $lessonDetail = LessonDetail::findOrFail($id);
+        $directory = public_path() . "/modules/managerContent/" . $this->repository->getNameLessonById($lessonDetail->lesson_id) . '/' . $lessonDetail->title;
+        File::deleteDirectory($directory);
+        $lessonDetail->delete();
     }
 }

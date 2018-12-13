@@ -6,7 +6,7 @@
     </div>
 
     <form id="add-lesson-content" @if(isset($lessonContent))
-        action="{{route('admin.managerLesson.updateLessonContent',$lessonContent->id)}}"
+    action="{{route('admin.managerLesson.updateLessonContent',$lessonContent->id)}}"
           @else
           action="{{route('admin.managerLesson.storeLessonContent')}}"
           @endif
@@ -60,11 +60,12 @@
             <div class="form-group">
                 <label>Nhạc nền</label>
                 <div class="clearfix">
-                    <input type="file" class="form-control" name="background-music"
-                           value="@isset($lessonContent){{$lessonContent->background_music}}@endisset">
+                   @isset($lessonContent){{$lessonContent->background_music}}@endisset
+                    <input type="file" class="form-control background-music" name="backgroundMusic"
+                           value="">
                 </div>
             </div>
-
+            @if($typeId != 3)
             <div class="col-md-12">
                 <div id="field">
                     <div id="field0">
@@ -73,15 +74,23 @@
                             <label class="col-md-4 control-label label-name"
                                    for="action_id">{{\App\Models\LessonDetail::TYPE[$typeId]}}</label>
                             <div class="col-md-5 clearfix">
-                                <input type="file" class="add_field_button form-control " name="background-image[]"
-                                       id="background-image">
-{{--                                <img src="{{asset('/modules/managerContent/1.1/trắc nghiệm/)}}" />--}}
+                            @if(isset($audios))
+                                @foreach($audios as $audio)
+
+                                        <input type="file" class="add_field_button form-control " name="background-image[]"
+                                           id="background-image" value="{{$audio}}"> {{$audio}}
+                                    @endforeach
+                                @else
+                                    <input type="file" class="add_field_button form-control " name="background-image[]"
+                                           id="background-image">
+                                @endif
                             </div>
                         </div>
                     </div>
                     <button id="add-more" name="add-more" class="btn btn-primary">Thêm</button>
                 </div>
             </div>
+            @endif
             @if($typeId == 3)
                 <div class="show-request-answer">
                     <div class="form-group">
@@ -229,11 +238,9 @@
             $(".after-add-more").after(html);
         });
 
-
         $("body").on("click", ".remove", function () {
             $(this).parents(".control-group").remove();
         });
-
 
     });
 </script>

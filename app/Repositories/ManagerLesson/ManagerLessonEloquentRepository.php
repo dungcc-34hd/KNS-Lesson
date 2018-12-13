@@ -16,7 +16,7 @@ class ManagerLessonEloquentRepository extends EloquentRepository implements Mana
      */
     public function getModel()
     {
-        return School::class;
+        return Lesson::class;
     }
 
     /**
@@ -42,10 +42,11 @@ class ManagerLessonEloquentRepository extends EloquentRepository implements Mana
      */
     public function getObjects($records, $search = null)
     {
-        return is_null($search) ? $this->_model->paginate($records)->items() : $this->_model->where(function ($q) use ($search) {
-            $q->where('name', 'like', '%' . $search . '%');
-//            $q->orWhere('description', 'like', '%' . $search . '%');
-        })->paginate($records)->items();
+            return is_null($search) ? $this->_model->paginate($records)->items() : $this->_model->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%');
+//              $q->orWhere('description', 'like', '%' . $search . '%');
+            })->paginate($records)->items();
+
     }
 
     public function getImage($image)
@@ -79,5 +80,10 @@ class ManagerLessonEloquentRepository extends EloquentRepository implements Mana
     public function getNameLessonById($id)
     {
         return Lesson::where('id',$id)->first()->name;
+    }
+
+    public function getLessonNameByGradeId($gradeId)
+    {
+        return Lesson::where('grade_id',$gradeId)->get();
     }
 }
