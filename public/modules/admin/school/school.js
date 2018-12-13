@@ -55,6 +55,7 @@ $(document).ready(function(){
                     'area' : area,
                 },
                 success:function(data) {
+                    console.log(data.user);
                     $('#provinces').html(data.select);
                     $('#tbody').html(data.user);
                     $("#districts").html('<option>Chọn Quận/Huyện</option>');
@@ -69,6 +70,7 @@ $(document).ready(function(){
                     'area' : area,
                 },
                 success:function(data) {
+                    console.log(data.user);
                     $('#tbody').html(data.user);
                 }
              });

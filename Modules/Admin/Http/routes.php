@@ -108,7 +108,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/hanlding-area','SchoolController@hanldingArea')->name('admin.school.hanldingArea');
         Route::get('/hanlding-province','SchoolController@hanldingProvince')->name('admin.school.hanldingProvince');
         Route::get('/hanlding-district','SchoolController@hanldingDistrict')->name('admin.school.hanldingDistrict');
-         Route::get('/select','UserController@select')->name('admin.user.select');
+         Route::get('/select','SchoolController@select')->name('admin.school.select');
 
 
 
