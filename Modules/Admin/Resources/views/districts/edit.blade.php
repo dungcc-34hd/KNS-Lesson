@@ -41,7 +41,7 @@
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Cập nhật</button>
-                        <a href="{{route('admin.province.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
+                        <a href="{{route('admin.district.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>
             </section>

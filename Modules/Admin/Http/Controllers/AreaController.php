@@ -23,9 +23,10 @@ class AreaController extends Controller
     {
         $per_page = is_null($records) ? 10 : $records;
 
-        return view('admin::user.pagination',
+
+        return view('admin::areas.pagination',
             [
-                'users' => $this->repository->getObjects($per_page, $search),
+                'areas' => $this->repository->getObjects($per_page, $search),
                 'pages'       => $this->repository->getPages($per_page, $search),
                 'records'     => $per_page,
                 'currentPage' => $request->page
@@ -40,7 +41,7 @@ class AreaController extends Controller
     public function index()
     {
         $records = 10;
-        $areas =  Area::all();
+        $areas =  $this->repository->getObjects($records);
         $pages = $this->repository->getPages($records);
         return view('admin::areas.index', compact('areas','pages'));
     }

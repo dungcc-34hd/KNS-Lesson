@@ -22,11 +22,11 @@ class DistrictController extends Controller
 
     public function pagination(Request $request, $records, $search = null)
     {
-        $per_page = is_null($records) ? 10 : $records;
+        $per_page = is_null($records) ? 1 : $records;
 
-        return view('admin::user.pagination',
+        return view('admin::districts.pagination',
             [
-                'users' => $this->repository->getObjects($per_page, $search),
+                'districts' => $this->repository->getObjects($per_page, $search),
                 'pages'       => $this->repository->getPages($per_page, $search),
                 'records'     => $per_page,
                 'currentPage' => $request->page
@@ -40,8 +40,8 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        $records = 10;
-        $districts =  District::all();
+        $records = 1;
+        $districts =  $this->repository->getObjects($records);
         $pages = $this->repository->getPages($records);
         return view('admin::districts.index', compact('districts','pages'));
     }
