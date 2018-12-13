@@ -86,6 +86,8 @@ class PermissionController extends Controller
      */
     public function update(Request $request)
     {
+        $id=$request->id;
+        $this->validation($request,$id);
         try {
             
             $array = $request->all();
@@ -112,9 +114,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-
         return view('admin::permission.create');
-
     }
 
     /**
@@ -126,6 +126,7 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validation($request,$id=null);
         try
         {
             $array = $request->all();
@@ -138,7 +139,6 @@ class PermissionController extends Controller
             message($request, 'danger', ERROR_SYSTEM);
         }
         return redirect()->route('admin.permission.index');
-
     }
 
     /**
@@ -149,21 +149,27 @@ class PermissionController extends Controller
      * @return view
      */
     public function destroy($id)
-    {  
-        
+    {     
         try
         {
-            
             $this->repository->delete($id);
             Session::flash('flash_level', 'success');
-        Session::flash('flash_message', 'Xoá thành công');
-            
+        Session::flash('flash_message', 'Xoá thành công');       
         }
         catch (QueryException $exception)
         {
             Log::error($exception->getMessage());
             return response()->json(['status' => false]);
         }
-
+    }
+    public function validation($request,$id=null){
+        $message=[
+            'unique'=>'Trường này đã tồn tại.', 
+            'required'=> 'Trường này không được để trống.',
+        ];
+        $validatedData = $request->validate([
+        'name' => 'required|unique:permissions,name,'.$id,
+        'display_name'=>'required|unique:permissions,display_name,'.$id,
+        ],$message);
     }
 }

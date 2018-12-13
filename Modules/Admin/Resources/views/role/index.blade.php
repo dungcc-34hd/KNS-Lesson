@@ -11,19 +11,19 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Dashboard
+                Role
                 <small>Control panel</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
+                <li class="active">Role</li>
             </ol>
         </section>
 
         <!-- Main content -->
         <section class="content">
                  <div class="col-lg-12">                    
-                     <a href="{{route('admin.role.create')}}" class="btn btn-primary">Create</a>  
+                     <a href="{{route('admin.role.create')}}" class="btn btn-primary">Thêm</a>  
                 </div>  
                 <div class="col-lg-12">
                     @include('common.message')
@@ -32,11 +32,11 @@
                     <!-- TO DO List -->
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">Responsive Hover Table</h3>
+                            <h3 class="box-title">Danh sách Role</h3>
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" id="nav-search-input" name="table_search" class="form-control pull-right" placeholder="Search">
+                                    <input type="text" id="nav-search-input" name="table_search" class="form-control pull-right" placeholder="Tìm kiếm">
 
                                     <div class="input-group-btn">
                                         <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -49,7 +49,7 @@
                             <table class="table table-hover results-table">
                                 <tbody>
                                 <tr>
-                                    <th class="order-number">No.</th>
+                                    <th class="order-number">STT</th>
                                     <th>Tên</th>
                                     <th>Tên hiển thị</th>
                                     <th>Mô tả</th>

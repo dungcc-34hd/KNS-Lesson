@@ -23,6 +23,7 @@ class RoleController extends Controller
     public function __construct(RoleRepositoryInterface $repository)
     {
         $this->roleRepository = $repository;
+
     }
 
     public function pagination(Request $request, $records, $search = null)
@@ -76,6 +77,8 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validation($request,$id=null);
+        
         try
         {
             $array = $request->all();
@@ -95,6 +98,7 @@ class RoleController extends Controller
             Log::error($exception->getMessage());
             message($request, 'danger', ERROR_SYSTEM);
         }
+       
         return redirect()->route('admin.role.index');
 
     }
@@ -104,6 +108,7 @@ class RoleController extends Controller
          $permissions=$this->roleRepository->getPermission();
         return view('admin::role.edit', compact('permissions','role'));
     }
+   
 
     /**
      * Update the specified resource in storage.
@@ -114,8 +119,9 @@ class RoleController extends Controller
      */
     public function update(Request $request)
     {
-        try {
-            
+        $id=$request->id;
+        $this->validation($request,$id);
+        try {  
             $array = $request->all();
             $name=$request->name;
             $display_name=$request->display_name;
@@ -125,9 +131,7 @@ class RoleController extends Controller
       
             $role_id=Role::where('id', $request->id)->update(['name'=>$name,'display_name'=>$display_name,'description'=>$description]);
             
-             PermissionRole::where('role_id',$request->id)->update(['permission_id'=>$permission_id]);
-
-           
+             PermissionRole::where('role_id',$request->id)->update(['permission_id'=>$permission_id]);      
             message($request, 'success', 'Cập nhật thành công.');
         }
         catch (QueryException $exception)
@@ -154,6 +158,17 @@ class RoleController extends Controller
             Log::error($exception->getMessage());
             return response()->json(['status' => false]);
         }
+    }
+     public function validation($request,$id=null){
+        $message=[
+            'unique'=>'Trường này đã tồn tại.', 
+            'required'=> 'Trường này không được để trống.',        
+        ];
+        $validatedData = $request->validate([
+        'name' => 'required|unique:roles,name,'.$id,
+        'display_name'=>'required|unique:roles,display_name,'.$id,
+        'permission_id'=>'required',
+        ],$message);
     }
 
  }

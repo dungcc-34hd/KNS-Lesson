@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Artwork;
+use Illuminate\Support\Facades\Validator;
 
 if (!function_exists('formatCurrency')) {
     function formatCurrency($cost)
@@ -37,6 +38,19 @@ if (!function_exists('messageSS')) {
     {
         $request->session()->flash('flash_level', $alert);
         $request->session()->flash('flash_message', $message);
+    }
+}
+if(!function_exists('validationCustom'))
+{
+    function validationCustom($request, $array)
+    {
+        $validator = Validator::make($request->all(), $array);
+        if ($validator->fails()) {
+            $validation = $validator->getMessageBag()->getMessages();
+            $validation['status'] = -1;
+            return $validation;
+        }
+        return null;
     }
 }
 

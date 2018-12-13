@@ -62,6 +62,12 @@ class SchoolController extends Controller
         ]);
        
     }
+ public function select(){
+        $records=10;
+        $data        = $this->repository->getObjects($records);
+         $user           = $this->returnTr($data);
+         return response()->json(['user'=>$user]); 
+    }
    public function hanldingArea(Request $req)
     {
         $title          = "Chọn Tỉnh";

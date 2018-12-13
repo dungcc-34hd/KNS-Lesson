@@ -8,7 +8,7 @@ use App\Models\LsClass;
 use App\Models\District;
 use App\Models\School;
 use App\Models\Province;
-
+use App\User;
 use App\Repositories\User\UserEloquentRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Database\QueryException;
@@ -63,6 +63,7 @@ class UserController extends Controller
                 'users'         => $this->repository->getObjects($records),
                 'pages'         => $this->repository->getPages($records),
                 'areas'         => $areas
+
             ]);
     }
 
@@ -159,18 +160,18 @@ class UserController extends Controller
             'roles' =>$this->repository->getRoles(),
         ]);
     }
-    // public function changeSelect($areaId){
-    //     $array = $this->repository->select($areaId);
-    //      return response()->json($array);
-    // }
-    // public function changeProvince($provinceId){
-    //     $array = $this->repository->district($provinceId);
-    //     return response()->json($array);
-    // }
-    // public function changeDistrict($districtId){
-    //     $array = $this->repository->school($districtId);
-    //     return response()->json($array);
-    // }
+    public function changeSelect($areaId){
+        $array = $this->repository->select($areaId);
+         return response()->json($array);
+    }
+    public function changeProvince($provinceId){
+        $array = $this->repository->district($provinceId);
+        return response()->json($array);
+    }
+    public function changeDistrict($districtId){
+        $array = $this->repository->school($districtId);
+        return response()->json($array);
+    }
     public function changeGrade($gradeId){
         $array = $this->repository->getClass($gradeId);
         return response()->json($array);
@@ -255,8 +256,8 @@ class UserController extends Controller
         $title          = "Chọn Tỉnh";
         $records        = 10;
         $area_id        = $req->area;
-        $Users          = $this->repository->getAreaObjects($records,$area_id,'area_id');
-        $page           = $this->repository->getAreaPages($records,$area_id,'area_id');
+        $Users          = $this->repository->getAreaObjects($records,$area_id,'users.area_id');
+        $page           = $this->repository->getAreaPages($records,$area_id,'users.area_id');
         $provinces      = Province::where('area_id',$area_id)->get();
         
         $select         = $this->returnOption($provinces,$title );
@@ -274,8 +275,8 @@ class UserController extends Controller
         $title          = "Chọn Quận/Huyện";
         $records        =10;
         $province_id    = $req->province;
-        $Users          = $this->repository->getAreaObjects($records,$province_id ,'province_id');
-        $page           = $this->repository->getAreaPages($records,$province_id ,'province_id');
+        $Users          = $this->repository->getAreaObjects($records,$province_id ,'users.province_id');
+        $page           = $this->repository->getAreaPages($records,$province_id ,'users.province_id');
         $districts      = District::where('province_id',$province_id )->get();
         
         $select         = $this->returnOption($districts,$title );
@@ -287,13 +288,19 @@ class UserController extends Controller
       /**
      * hanlding ajax for Province reutrn district
      */
+    public function select(){
+        $records=10;
+        $data        = $this->repository->getObjects($records);
+         $user           = $this->returnTr($data);
+         return response()->json(['user'=>$user]); 
+    }
     public function hanldingDistrict(Request $req)
     {
         $title          = "Chọn Trường";
         $records        =10;
         $district_id    = $req->district;
-        $Users          = $this->repository->getAreaObjects($records,$district_id ,'district_id');
-        $page           = $this->repository->getAreaPages($records,$district_id ,'district_id');
+        $Users          = $this->repository->getAreaObjects($records,$district_id ,'users.district_id');
+        $page           = $this->repository->getAreaPages($records,$district_id ,'users.district_id');
         $school         = School::where('district_id',$district_id)->get();
         
         $select         = $this->returnOption($school,$title );
@@ -325,6 +332,7 @@ class UserController extends Controller
             array_push($arrayOption, $option);
         }
         $select = implode(" ",$arrayOption);
+
         return $select;
     }
     public function returnTr($Users){
@@ -346,10 +354,10 @@ class UserController extends Controller
                 <td> ".$user->IP."</td>
                 <td>".$user->download."</td>
                 <td> <div class='btn-group btn-group-sm'>
-                <a class='btn btn-success' href='admin/user/show/".$user->id."' title='Detail'>
+                <a class='btn btn-success' href='/admin/user/show/".$user->id."' title='Detail'>
                 <i class='fa fa-eye'></i>
                 </a>
-                <a class='btn btn-info' href='admin/user/edit/".$user->id."' title='Edit'>
+                <a class='btn btn-info' href='/admin/user/edit/".$user->id."' title='Edit'>
                 <i class='ace-icon fa fa-pencil'></i>
                 </a>
                 <a href='' class='btn btn-danger delete-object' title='Delete' object_id='".$user->id."' object_name='".$user->name."'>
@@ -360,8 +368,9 @@ class UserController extends Controller
                 array_push($arrayUser, $option);
             }
        
-        }else{
-            $option = "<tr> <td colspan='11'>No Records</td> </tr>";
+        }
+        else{
+            $option = "<tr> <td colspan='11'>Không có bản ghi nào</td> </tr>";
             array_push($arrayUser, $option);
         }
         $user  = implode(" ",$arrayUser);
