@@ -80,7 +80,7 @@ class AreaController extends Controller
         $area->description = $request->description;
 
         $area->save();
-        Session::flash('message', 'Successfully updated area!');
+         message($request, 'success', 'Cập nhật thành công.');
         return redirect('admin/area/index');
     }
 
@@ -105,14 +105,26 @@ class AreaController extends Controller
         $area->description = $request->description;
         $area->save();
 
-        Session::flash('message', 'Successfully created area!');
+         message($request, 'success', 'Thêm mới thành công.');
         return redirect('admin/area/index');
     }
 
     public function delete($id)
     {
-        $area = Area::findOrFail($id);
-        $area->delete();
+        try
+        {
+              
+            $this->repository->delete($id);
+            Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
+       
+            
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            return response()->json(['status' => false]);
+        }
     }
 
 }
