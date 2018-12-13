@@ -7,25 +7,28 @@ $('#add-lesson-content').validate({
         title: {
             required: true,
         },
-        content: {
+        'content[]': {
             required: true,
         },
         question: {
             required: true,
         },
-        answer: {
+        'answer[]': {
             required: true
-        }
+        },
     },
 
     messages: {
         title: {
             required: "Mời bạn nhập vào trường này."
         },
-        content: {
+        'content[]': {
             required: "Mời bạn nhập vào trường này."
         },
         question: {
+            required: "Mời bạn nhập vào trường này."
+        },
+        'answer[]': {
             required: "Mời bạn nhập vào trường này."
         },
     },
