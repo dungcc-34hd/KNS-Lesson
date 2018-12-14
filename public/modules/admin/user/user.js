@@ -8,7 +8,7 @@ $(function () {
         var row = $(this).closest('tr');
         $.confirm({
             title: 'Confirm!',
-            content: 'Are you delete object: ' + object_name + '?',
+            content: 'Bạn có muốn xóa: ' + object_name + '?',
             buttons: {
                 confirm: function () {
                     $.ajax({
@@ -62,7 +62,7 @@ $(function () {
                     'area' : area,
                 },
                 success:function(data) {
-                    $('#provinces').html('<option>Chọn Quận/Huyện</option>');
+                    $('#provinces').html('<option>Chọn Tỉnh/thành phố</option>');
                     $('#tbody').html(data.user);
                      $("#districts").html('<option>Chọn Quận/Huyện</option>');
                     $("#schools").html('<option>Chọn Trường </option>');

@@ -40,7 +40,7 @@
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" id="nav-search-input" name="table_search" class="form-control pull-right" placeholder="Search">
+                                    <input type="text" id="nav-search-input" name="table_search" class="form-control pull-right" placeholder="Tìm kiếm">
                                     <div class="input-group-btn">
                                         <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                                     </div>
@@ -89,7 +89,7 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td colspan="5">No Records</td>
+                                        <td colspan="5">Không có bản ghi nào</td>
                                     </tr>
                                 @endif
                                 </tbody>
@@ -104,7 +104,7 @@
                                 <div class="col-md-6 pull-right">
                                     <div class="form-group pull-right">
                                         <label class="view-by">
-                                            View By
+                                            Xem với
                                             <select id="show-records" class="form-control input-sm">
                                                 <option value="10">10</option>
                                                 <option value="25">25</option>

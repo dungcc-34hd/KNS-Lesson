@@ -3,36 +3,36 @@
     <th>Tên</th>
     <th>Tên hiển thị</th>
     <th>Mô tả</th>
-    <th class="item-action-3"></th>
+    <th class="item-action-3">Trạng thái</th>
 </tr>
     @if(!empty($permissions))
-                                    @foreach($permissions as $key => $permission)
-                                        <tr>
-                                            <td class="text-center">{{$key + 1}}</td>
-                                            <td>{{$permission->name}}</td>
-                                            <td>{{$permission->display_name}}</td>
-                                            <td>{{$permission->description}}</td>
+    @foreach($permissions as $key => $permission)
+        <tr>
+            <td class="text-center">{{$key + 1}}</td>
+            <td>{{$permission->name}}</td>
+            <td>{{$permission->display_name}}</td>
+            <td>{{$permission->description}}</td>
 
-                                            
-                                            <td>
-                                                <div class="btn-group btn-group-sm">
-                                                    <a class="btn btn-info"
-                                                       href="{{route('admin.permission.edit',['id' => $permission->id])}}"
-                                                       title="Edit">
-                                                        <i class="ace-icon fa fa-pencil"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-danger delete-object"
-                                                       title="Delete"
-                                                       object_id="{{$permission->id}}"
-                                                       object_name="{{$permission->display_name}}">
-                                                        <i class="fa fa-trash-o"></i>
-                                                    </a>
+            
+            <td>
+                <div class="btn-group btn-group-sm">
+                    <a class="btn btn-info"
+                       href="{{route('admin.permission.edit',['id' => $permission->id])}}"
+                       title="Edit">
+                        <i class="ace-icon fa fa-pencil"></i>
+                    </a>
+                    <a href="#" class="btn btn-danger delete-object"
+                       title="Delete"
+                       object_id="{{$permission->id}}"
+                       object_name="{{$permission->display_name}}">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
 
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @else
+                </div>
+            </td>
+        </tr>
+    @endforeach
+@else
 
     <tr>
         <td colspan="5">Không có bản ghi nào</td>

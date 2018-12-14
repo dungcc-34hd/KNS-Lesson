@@ -52,7 +52,7 @@
                             <table class="table table-hover results-table">
                                 <tbody>
                                 <tr>
-                                    <th class="order-number">Id.</th>
+                                    <th class="order-number">STT</th>
                                     <th>Tỉnh/Thành phố</th>
                                     <th>Khu vực</th>
                                     <th class="item-action-3">Trạng thái</th>
@@ -103,7 +103,7 @@
                                 <div class="col-md-6 pull-right">
                                     <div class="form-group pull-right">
                                         <label class="view-by">
-                                            Xem theo
+                                            Xem với
                                             <select id="show-records" class="form-control input-sm">
                                                 
                                                 <option value="10">10</option>

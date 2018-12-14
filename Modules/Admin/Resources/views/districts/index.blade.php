@@ -52,7 +52,7 @@
                             <table class="table table-hover results-table">
                                 <tbody>
                                 <tr>
-                                    <th class="order-number">Id.</th>
+                                    <th class="order-number">STT</th>
                                     <th>Quận/Huyện</th>
                                     <th>Khu vực</th> 
                                     <th>Tỉnh/Thành phố</th>

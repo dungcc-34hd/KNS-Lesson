@@ -24,8 +24,6 @@ $(function ()
 function process(areaId) {
     axios.get('/admin/user/change-select/' + areaId).then(function (response) {
         var data = response.data;
-        console.log(data);
-        // console.log(data['programs'][0]);
         $('#selectProvince').empty();
         if($.isEmptyObject(data['provinces']))
         {
