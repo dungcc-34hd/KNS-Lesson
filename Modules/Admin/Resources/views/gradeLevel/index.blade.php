@@ -25,7 +25,7 @@
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{route('admin.grade.create')}}" class="btn btn-primary">Tạo lớp</a>
+                    <a href="{{route('admin.grade.create')}}" class="btn btn-primary">Tạo khối</a>
                 </div>
             </div>
             <div class="row">
@@ -36,7 +36,7 @@
                     <!-- TO DO List -->
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">Danh sách lớp</h3>
+                            <h3 class="box-title">Danh sách khối</h3>
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
