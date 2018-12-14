@@ -114,7 +114,7 @@ $(function () {
             } 
         });
     });
-
+ 
 }); 
 function ajaxLoadData(records,  current_page,search) {
     var url_controller = $('#url-ajax').val();

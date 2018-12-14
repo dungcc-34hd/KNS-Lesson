@@ -91,7 +91,7 @@ class SchoolController extends Controller
         $Users          = $this->repository->getAreaObjects($records,$province_id ,'province_id');
         $page           = $this->repository->getAreaPages($records,$province_id ,'province_id');
         $districts      = District::where('province_id',$province_id )->get();
-        
+         
         $select         = $this->returnOption($districts,$title );
         $user           = $this->returnTr($Users);
 

@@ -62,7 +62,7 @@ class ManagerLessonEloquentRepository extends EloquentRepository implements Mana
     public function getTypeById($id)
     {
         return LessonDetail::where('id',$id)->first()->type;
-    }
+    } 
 
     public function getTitleById($id)
     {

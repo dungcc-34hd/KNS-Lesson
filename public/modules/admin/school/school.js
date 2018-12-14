@@ -10,7 +10,7 @@ $(document).ready(function(){
         var object_id = $(this).attr('object_id');
         var row = $(this).closest('tr');
        
-        $.confirm({
+        $.confirm({ 
             title: 'Confirm!', 
             content: 'Are you deleteff object: ' + object_name + '?',
             buttons: {

@@ -28,7 +28,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/change-radio/{id}/{value}', 'PermissionController@changeRadio')->name('admin.permission.changeRadio');
 
     });
-    
+     
     //User
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', 'UserController@index')->name('admin.user.index');
@@ -66,7 +66,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/pagination/{records}/{search?}', 'AreaController@pagination')->name('admin.area.pagination');
     });
 
-    // Provincial
+    // Provincial 
     Route::group(['prefix' => 'province'], function () {
         Route::get('/index', 'ProvinceController@index')->name('admin.province.index');
         Route::get('/create', 'ProvinceController@create')->name('admin.province.create');
@@ -108,7 +108,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/hanlding-area','SchoolController@hanldingArea')->name('admin.school.hanldingArea');
         Route::get('/hanlding-province','SchoolController@hanldingProvince')->name('admin.school.hanldingProvince');
         Route::get('/hanlding-district','SchoolController@hanldingDistrict')->name('admin.school.hanldingDistrict');
-         Route::get('/select','SchoolController@select')->name('admin.school.select');
+        Route::get('/select','SchoolController@select')->name('admin.school.select');
 
 
 
