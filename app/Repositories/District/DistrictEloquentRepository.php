@@ -3,6 +3,7 @@
 namespace App\Repositories\District;
 
 use App\Models\District;
+use App\Models\Province;
 use App\Repositories\EloquentRepository;
 
 class DistrictEloquentRepository extends EloquentRepository implements DistrictRepositoryInterface
@@ -16,6 +17,7 @@ class DistrictEloquentRepository extends EloquentRepository implements DistrictR
     {
         return District::class;
     }
+    public $properties='districts.*,areas.name as name_area,districts.name as name_district';
 
     /**
      * Get pages
@@ -25,10 +27,15 @@ class DistrictEloquentRepository extends EloquentRepository implements DistrictR
      */
     public function getPages($records, $search = null)
     {
-        $total = !is_null($search) ? count($this->_model->where(function ($q) use ($search) {
-            $q->where('name', 'like', '%' . $search . '%');
+        if(!is_null($search)){
+             $total = count(District::join('provinces','districts.province_id','=','provinces.id')->join('areas','provinces.area_id','=','areas.id')->where(function ($q) use ($search) {
+            $q->where('districts.name', 'like', '%' . $search . '%');
 //            $q->orWhere('description', 'like', '%' . $search . '%');
-        })->get()) : count($this->_model->get());
+            })->selectRaw($this->properties)->get());
+        }else{
+            $total=count(District::join('provinces','districts.province_id','=','provinces.id')->join('areas','provinces.area_id','=','areas.id')->selectRaw($this->properties)->get());
+        }
+         
         return ceil($total / $records);
     }
 
@@ -40,9 +47,18 @@ class DistrictEloquentRepository extends EloquentRepository implements DistrictR
      */
     public function getObjects($records, $search = null)
     {
-        return is_null($search) ? $this->_model->paginate($records)->items() : $this->_model->where(function ($q) use ($search) {
-            $q->where('name', 'like', '%' . $search . '%');
+        if(is_null($search)) {
+            $result= District::join('provinces','districts.province_id','=','provinces.id')->join('areas','provinces.area_id','=','areas.id')->selectRaw($this->properties)->paginate($records)->items(); 
+        }else{
+            $result=District::join('provinces','districts.province_id','=','provinces.id')->join('areas','provinces.area_id','=','areas.id')->where(function ($q) use ($search) {
+            $q->where('districts.name', 'like', '%' . $search . '%');
 //            $q->orWhere('description', 'like', '%' . $search . '%');
-        })->paginate($records)->items();
+            })->selectRaw($this->properties)->paginate($records)->items();
+        }
+        return $result;
+    }
+
+    public function province($areaId){
+        return Province::where('area_id','=',$areaId)->get();
     }
 }

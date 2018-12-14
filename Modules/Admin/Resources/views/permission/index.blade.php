@@ -25,7 +25,7 @@
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{route('admin.permission.create')}}" class="btn btn-primary">Create</a>
+                    <a href="{{route('admin.permission.create')}}" class="btn btn-primary">Tạo Permission</a>
                 </div>
             </div>
             <div class="row">
@@ -36,7 +36,7 @@
                     <!-- TO DO List -->
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">Permisstion Lists</h3>
+                            <h3 class="box-title">Danh sách Permisstion</h3>
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">

@@ -33,7 +33,7 @@ $('.validation-form').validate({
 
 
     highlight: function (e) {
-        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+        // $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
     },
 
     success: function (e) {

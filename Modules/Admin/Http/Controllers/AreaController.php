@@ -74,6 +74,7 @@ class AreaController extends Controller
      */
     public function update(Request $request ,$id)
     {
+        $this->validation($request,$id);
         $area = Area::findOrFail($id);
 
         $area->name        = $request->name;
@@ -100,6 +101,7 @@ class AreaController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validation($request,$id=null);
         $area = new Area();
         $area->name        = $request->name;
         $area->description = $request->description;
@@ -125,6 +127,15 @@ class AreaController extends Controller
             Log::error($exception->getMessage());
             return response()->json(['status' => false]);
         }
+    }
+    public function validation($request,$id=null){
+        $message=[
+            'unique'=>'Trường này đã tồn tại.', 
+            'required'=> 'Trường này không được để trống.',        
+        ];
+        $validatedData = $request->validate([
+        'name' => 'required|unique:areas,name,'.$id,
+        ],$message);
     }
 
 }

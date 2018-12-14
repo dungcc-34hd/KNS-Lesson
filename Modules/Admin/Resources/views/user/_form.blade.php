@@ -12,6 +12,9 @@
         <div class="clearfix">
             <input type="text" class="form-control" name="name"
                    value="@isset($user){{$user->name}}@endisset">
+            @if($errors)
+                <span style="color: #dd4b39;" >{{$errors->first('name')}}</span> 
+            @endif
         </div>
     </div>
     <!-- /.form-group -->
@@ -20,6 +23,9 @@
         <div class="clearfix">
             <input type="text" class="form-control" name="email"
                    value="@isset($user){{$user->email}}@endisset">
+            @if($errors)
+                <span style="color: #dd4b39;" >{{$errors->first('email')}}</span> 
+            @endif
         </div>
     </div> 
     @if(!isset($user))
@@ -28,6 +34,7 @@
             <div class="clearfix">
                 <input type="password" class="form-control" name="password"
                        value="">
+            
             </div>
         </div> 
         @endif
@@ -36,6 +43,9 @@
         <div class="clearfix">
             <input type="number" class="form-control" name="tel"
                    value="@isset($user){{$user->tel}}@endisset">
+             @if($errors)
+                <span style="color: #dd4b39;" >{{$errors->first('tel')}}</span> 
+            @endif
         </div>
     </div> 
     <div class="form-group">
@@ -47,6 +57,9 @@
                 <option @if(isset($user) && $user->area_id == $area->id) selected @endif value="{{$area->id}}">{{$area->name}}</option>
                 @endforeach
             </select>
+             @if($errors)
+                <span style="color: #dd4b39;" >{{$errors->first('area_id')}}</span> 
+            @endif
         </div>
     </div>
     <div class="form-group">
@@ -58,6 +71,9 @@
                 <option @if(isset($user) && $user->province_id == $province->id) selected @endif value="{{$province->id}}">{{$province->name}}</option>
                 @endforeach
             </select>
+            @if($errors)
+                <span style="color: #dd4b39;" >{{$errors->first('province_id')}}</span> 
+            @endif
         </div>
 
     </div>  
@@ -70,10 +86,9 @@
                     <option @if(isset($user) && $user->district_id == $district->id) selected @endif value="{{$district->id}}">{{$district->name}}</option>
                 @endforeach
             </select>
-             {{-- <p>{{$user->district_id}}</p>  --}}
-           {{--  @foreach($districts as $key => $district)
-                <p>{{$district->name}}</p>
-            @endforeach --}}
+             @if($errors)
+                <span style="color: #dd4b39;" >{{$errors->first('district_id')}}</span> 
+            @endif
         </div>
     </div>    
     <div class="form-group">
@@ -85,6 +100,9 @@
                     <option @if(isset($user) && $user->school_id == $school->id) selected @endif value="{{$school->id}}">{{$school->name}}</option>
                 @endforeach
             </select>
+            @if($errors)
+                <span style="color: #dd4b39;" >{{$errors->first('school_id')}}</span> 
+            @endif
         </div>
     </div>    
     <div class="form-group">
@@ -96,6 +114,9 @@
                     <option @if(isset($user) && $user->grade_id == $grade->id) selected @endif value="{{$grade->id}}">{{$grade->name}}</option>
                 @endforeach
             </select>
+            @if($errors)
+                <span style="color: #dd4b39;" >{{$errors->first('grade_id')}}</span> 
+            @endif
         </div>
     </div>
     <div class="form-group">
@@ -107,6 +128,9 @@
                     <option @if(isset($user) && $user->class_id == $value->id) selected @endif value="{{$value->id}}">{{$value->name}}</option>
                 @endforeach
             </select>
+            @if($errors)
+                <span style="color: #dd4b39;" >{{$errors->first('class_id')}}</span> 
+            @endif
         </div>
     </div>
     <div class="form-group">
@@ -125,6 +149,9 @@
                     <option @if(isset($user) && $user->role_id == $role->id) selected @endif value="{{$role->id}}">{{$role->name}}</option>
                 @endforeach
             </select>
+            @if($errors)
+                <span style="color: #dd4b39;" >{{$errors->first('role_id')}}</span> 
+            @endif
         </div>
     </div>
 
@@ -135,7 +162,7 @@
 <!-- /.col -->
 @push('scripts')
     <script src="{{ asset('modules/admin/user/user.js') }}"></script>
-    <script src="{{ asset('modules/admin/user/user-validation.js') }}"></script>
+    {{-- <script src="{{ asset('modules/admin/user/user-validation.js') }}"></script> --}}
     <script src="{{ asset('assets/admin/bower_components/select2/dist/js/select2.full.js') }}"></script>
     <script src="{{ asset('modules/admin/user/custom.js') }}"></script>
 @endpush

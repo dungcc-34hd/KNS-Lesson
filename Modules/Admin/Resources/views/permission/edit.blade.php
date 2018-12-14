@@ -25,7 +25,7 @@
                         <!-- /.box-body -->
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
                         <a href="{{route('admin.permission.index')}}" type="button" class="btn btn-default">Go Back</a>
                     </div>
                 </div>

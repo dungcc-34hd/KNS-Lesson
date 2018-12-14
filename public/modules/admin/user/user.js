@@ -48,6 +48,7 @@ $(function () {
                 },
                 success:function(data) {
                     $('#provinces').html(data.select);
+                    // if(area==""){}
                     $('#tbody').html(data.user);
                     $("#districts").html('<option>Chọn Quận/Huyện</option>');
                     $("#schools").html('<option>Chọn Trường </option>');
@@ -61,7 +62,10 @@ $(function () {
                     'area' : area,
                 },
                 success:function(data) {
+                    $('#provinces').html('<option>Chọn Quận/Huyện</option>');
                     $('#tbody').html(data.user);
+                     $("#districts").html('<option>Chọn Quận/Huyện</option>');
+                    $("#schools").html('<option>Chọn Trường </option>');
                 }
              });
         }
@@ -94,6 +98,8 @@ $(function () {
                 },
                 success:function(data) {
                     $('#tbody').html(data.user);
+                     $("#districts").html('<option>Chọn Quận/Huyện</option>');
+                    $("#schools").html('<option>Chọn Trường </option>');
                 }
              });
         }
@@ -124,6 +130,8 @@ $(function () {
                 },
                 success:function(data) {
                     $('#tbody').html(data.user);
+                    $("#schools").html('<option>Chọn Trường </option>');
+                
                 }
              });
         }

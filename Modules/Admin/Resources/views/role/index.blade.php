@@ -23,7 +23,7 @@
         <!-- Main content -->
         <section class="content">
                  <div class="col-lg-12">                    
-                     <a href="{{route('admin.role.create')}}" class="btn btn-primary">Thêm</a>  
+                     <a href="{{route('admin.role.create')}}" class="btn btn-primary">Tạo Role</a>  
                 </div>  
                 <div class="col-lg-12">
                     @include('common.message')

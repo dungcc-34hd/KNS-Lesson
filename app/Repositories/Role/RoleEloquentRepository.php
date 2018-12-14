@@ -30,9 +30,9 @@ class RoleEloquentRepository extends EloquentRepository implements RoleRepositor
     public function getPages($records,$search = null)
     {
           if(!is_null($search)){
-            $total = count(Permission::Join('permission_role','permissions.id','=','permission_role.permission_id')->JOIN('roles','permission_role.role_id','=','roles.id')->where('roles.display_name', 'like', '%' . $search . '%')->selectRaw($this->properties)->get());
+            $total = count(Role::Join('permission_role','roles.id','=','permission_role.role_id')->JOIN('permissions','permission_role.permission_id','=','permissions.id')->where('roles.display_name', 'like', '%' . $search . '%')->selectRaw($this->properties)->get());
         }else{
-            $total= count(Permission::Join('permission_role','permissions.id','=','permission_role.permission_id')->JOIN('roles','permission_role.role_id','=','roles.id')->selectRaw($this->properties)->get());
+            $total= count(Role::Join('permission_role','roles.id','=','permission_role.role_id')->JOIN('permissions','permission_role.permission_id','=','permissions.id')->selectRaw($this->properties)->get());
         }
        
         return ceil($total/$records);
@@ -47,9 +47,9 @@ class RoleEloquentRepository extends EloquentRepository implements RoleRepositor
     public function getObjects($records, $search = null)
     {
         if( is_null($search)){
-                $results= Permission::Join('permission_role','permissions.id','=','permission_role.permission_id')->JOIN('roles','permission_role.role_id','=','roles.id')->selectRaw($this->properties)->paginate($records)->items();
+                $results= Role::Join('permission_role','roles.id','=','permission_role.role_id')->JOIN('permissions','permission_role.permission_id','=','permissions.id')->selectRaw($this->properties)->paginate($records)->items();
             }else{
-                $results=  Permission::Join('permission_role','permissions.id','=','permission_role.permission_id')->JOIN('roles','permission_role.role_id','=','roles.id')->where('roles.display_name', 'like', '%' . $search . '%')->selectRaw($this->properties)->paginate($records)->items();
+                $results= Role::Join('permission_role','roles.id','=','permission_role.role_id')->JOIN('permissions','permission_role.permission_id','=','permissions.id')->where('roles.display_name', 'like', '%' . $search . '%')->selectRaw($this->properties)->paginate($records)->items();
             }
               
              return $results;

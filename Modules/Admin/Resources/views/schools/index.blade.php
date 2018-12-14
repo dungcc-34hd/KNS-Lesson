@@ -40,7 +40,7 @@
                         <label>Tỉnh/thành phố </label>
                         <div class="clearfix">
                             <select  class="form-control" name="province_id" id="provinces" >
-                                <option value="">Chọn tỉnh</option>
+                                <option value="">Chọn tỉnh/thành phố</option>
                                 @foreach ($provinces as $key => $province)
                                     <option value="{{$province->id}}">{{$province->name}}</option>
                                 @endforeach
@@ -62,7 +62,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{route('admin.school.create')}}" class="btn btn-primary">Thêm</a>
+                    <a href="{{route('admin.school.create')}}" class="btn btn-primary">Tạo trường học</a>
                 </div>
             </div>
             <div class="row">
