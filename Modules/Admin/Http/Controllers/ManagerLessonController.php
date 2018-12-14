@@ -53,7 +53,7 @@ class ManagerLessonController extends Controller
         $grades = Grade::all();
         $lessonDetails = LessonDetail::all();
         $lessonContents = LessonContent::all();
-
+        $a = $this->repository->getAllContent(1);
         return view('admin::managerLesson.index', compact('lessonDetails', 'lessons', 'grades', 'lessonDetails','lessonContents'));
     }
 
@@ -256,6 +256,10 @@ class ManagerLessonController extends Controller
         return redirect('admin/manager-lesson/index');
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function editLessonContent($id)
     {
         $lessonContent = LessonContent::find($id);
@@ -272,7 +276,12 @@ class ManagerLessonController extends Controller
         return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail','lessonContent','contents','lessonAnswer','audios'));
     }
 
-    public function updateLessonContent(Request $request,$id)
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function updateLessonContent(Request $request, $id)
     {
         $contentLesson = LessonContent::find($id);
         $contentLesson->title = $request['title'];
@@ -344,5 +353,10 @@ class ManagerLessonController extends Controller
         $directory = public_path() . "/modules/managerContent/" . $this->repository->getNameLessonById($lessonDetail->lesson_id) . '/' . $lessonDetail->title;
         File::deleteDirectory($directory);
         $lessonDetail->delete();
+    }
+
+    public function jsonLesson()
+    {
+
     }
 }

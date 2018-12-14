@@ -3,6 +3,7 @@
 namespace App\Repositories\ManagerLesson;
 
 use App\Models\Lesson;
+use App\Models\LessonContent;
 use App\Models\LessonDetail;
 use App\Models\School;
 use App\Repositories\EloquentRepository;
@@ -64,6 +65,10 @@ class ManagerLessonEloquentRepository extends EloquentRepository implements Mana
         return LessonDetail::where('id',$id)->first()->type;
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getTitleById($id)
     {
         return LessonDetail::where('id',$id)->first()->title;
@@ -85,5 +90,14 @@ class ManagerLessonEloquentRepository extends EloquentRepository implements Mana
     public function getLessonNameByGradeId($gradeId)
     {
         return Lesson::where('grade_id',$gradeId)->get();
+    }
+
+    public function getAllContent($lessonId)
+    {
+        $test = Lesson::leftJoin('lesson_details','lesson_details.lesson_id','=','lesson.id')
+            ->leftJoin('lesson_contents','lesson_contents.lesson_detail_id','=','lesson_details.id')
+            ->leftJoin('lesson_answers','lesson_answers.lesson_content_id','=','lesson_contents.id')
+
+
     }
 }
