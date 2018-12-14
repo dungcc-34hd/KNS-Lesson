@@ -355,8 +355,10 @@ class ManagerLessonController extends Controller
         $lessonDetail->delete();
     }
 
-    public function jsonLesson()
+    public function jsonLesson($id)
     {
-
+        $dataContents= $this->repository->getAllContent($id);
+        dd($dataContents);
+        return view ('admin::managerLesson.json',compact('dataContents'));
     }
 }

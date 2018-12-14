@@ -46,10 +46,12 @@
                                 dung {{$lesson->name}}</button>
                             <div class="box-tools pull-right">
                                 <div class="btn-group btn-group-sm">
-                                    <button type="button" class="btn btn-primary  modal-show"
+                                    <button type="button" class="btn btn-primary add-json-lesson"
+                                           value="{{$lesson->id}}"
+                                    ><i class="ace-icon fa fa-pencil"></i></button>
+                                    <button type="button" class="btn btn-primary  modal-show "
                                             data-url="/admin/manager-lesson/edit-lesson/{{$lesson->id}}"
                                     ><i class="ace-icon fa fa-pencil"></i></button>
-
                                     <a href="#" class="btn btn-danger delete-lesson"
                                        title="Delete"
                                        object_id="{{$lesson->id}}"
@@ -139,7 +141,6 @@
                                     <button type="button" class="btn btn-primary  modal-show"
                                             data-url="/admin/manager-lesson/edit-lesson/{{$lesson->id}}"
                                     ><i class="ace-icon fa fa-pencil"></i></button>
-
                                     <a href="#" class="btn btn-danger delete-object"
                                        title="Delete"
                                        object_id="{{$lesson->id}}"
@@ -239,6 +240,17 @@
                            $('.displayFull').addClass('hidden');
                            $('.displayLesson').removeClass('hidden');
                        }
+                    }
+                });
+            });
+            $(".add-json-lesson").click(function(event){
+                var lessonId = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: '/admin/manager-lesson/add-lesson-json/'+ lessonId ,
+                    data: {'gradeId': lessonId},
+                    success: function( data ) {
+
                     }
                 });
             });

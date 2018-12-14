@@ -94,10 +94,10 @@ class ManagerLessonEloquentRepository extends EloquentRepository implements Mana
 
     public function getAllContent($lessonId)
     {
-        $test = Lesson::leftJoin('lesson_details','lesson_details.lesson_id','=','lesson.id')
+        return Lesson::leftJoin('lesson_details','lesson_details.lesson_id','=','lessons.id')
             ->leftJoin('lesson_contents','lesson_contents.lesson_detail_id','=','lesson_details.id')
             ->leftJoin('lesson_answers','lesson_answers.lesson_content_id','=','lesson_contents.id')
-
-
+            ->where('lessons.id','=',$lessonId)
+            ->get();
     }
 }
