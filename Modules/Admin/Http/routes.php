@@ -88,6 +88,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::post('/update/{id}', 'DistrictController@update')->name('admin.district.update');
         Route::get('/delete/{id}', 'DistrictController@delete')->name('admin.district.delete');
         Route::get('/pagination/{records}/{search?}', 'DistrictController@pagination')->name('admin.district.pagination');
+        Route::get('change-area/{areaId}', 'DistrictController@changeArea')->name('admin.district.changeArea');
     });
 
     // School

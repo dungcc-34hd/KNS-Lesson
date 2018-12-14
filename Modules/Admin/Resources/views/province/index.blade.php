@@ -126,7 +126,7 @@
 
 
     </div>
-    <input type="hidden" id="url-ajax" value="/admin/area/pagination/">
+    <input type="hidden" id="url-ajax" value="/admin/province/pagination/">
 @endsection
 
 @push('scripts')

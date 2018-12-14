@@ -75,10 +75,11 @@ class ProvinceController extends Controller
      */
     public function update(Request $request ,$id)
     {
+        $this->validation($request,$id);
         $provincial = Province::findOrFail($id);
 
         $provincial->name        = $request->name;
-        $provincial->area_id        = $request->input('select-provincial');
+        $provincial->area_id        = $request->input('area_id');
         $provincial->save();
          message($request, 'success', 'Cập nhật thành công.');
         return redirect('admin/province/index');
@@ -101,9 +102,10 @@ class ProvinceController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validation($request,$id=null);
         $provincial = new Province();
         $provincial->name        = $request->name;
-        $provincial->area_id = $request->input('select-area');
+        $provincial->area_id = $request->input('area_id');
         $provincial->save();
 
          message($request, 'success', 'Thêm mới thành công.');
@@ -126,6 +128,17 @@ class ProvinceController extends Controller
             Log::error($exception->getMessage());
             return response()->json(['status' => false]);
         }
+    }
+
+    public function validation($request,$id=null){
+        $message=[
+            'unique'=>'Trường này đã tồn tại.', 
+            'required'=> 'Trường này không được để trống.',        
+        ];
+        $validatedData = $request->validate([
+        'name' => 'required|unique:provinces,name,'.$id,
+        'area_id'=>'required',
+        ],$message);
     }
 
 }

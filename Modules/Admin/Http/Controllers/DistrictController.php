@@ -75,6 +75,7 @@ class DistrictController extends Controller
      */
     public function update(Request $request ,$id)
     {
+        $this->validation($request,$id);
         $provincial = District::findOrFail($id);
         $array = $request->all();
         $this->repository->update($request->id,$array);
@@ -88,8 +89,10 @@ class DistrictController extends Controller
      */
     public function create()
     {
-        $provincials= Province::all();
-        return view('admin::districts.create',compact('provincials'));
+        $areas= Area::all();
+        $areaId=0;
+        $provincials=$this->repository->province($areaId);
+        return view('admin::districts.create',compact('provincials','areas'));
     }
 
     /**
@@ -99,9 +102,10 @@ class DistrictController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validation($request,$id=null);
         $district = new District();
         $district->name        = $request->name;
-        $district->province_id	 = $request->input('select-provincial');
+        $district->province_id	 = $request->input('province_id');
         $district->save();
 
         message($request, 'success', 'Thêm mới thành công.');
@@ -124,6 +128,22 @@ class DistrictController extends Controller
             Log::error($exception->getMessage());
             return response()->json(['status' => false]);
         }
+    }
+
+    public function changeArea($areaId){
+        $array=$this->repository->province($areaId);
+        return response()->json($array);
+    }
+
+    public function validation($request,$id=null){
+        $message=[
+            'required'=> 'Trường này không được để trống.',        
+        ];
+        $validatedData = $request->validate([
+        'name' => 'required',
+        'province_id' => 'required',
+        'area_id'   =>'required',
+        ],$message);
     }
 
 }

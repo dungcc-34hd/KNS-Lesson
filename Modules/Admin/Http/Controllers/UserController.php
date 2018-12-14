@@ -77,17 +77,13 @@ class UserController extends Controller
     public function edit($id)
     {
         $users=$this->repository->find($id);
-        // dd($users);
-        // $areaId=$users->area_id;
         $gradeId=$users->grade_id;
-        // $areas=$this->repository->Area();
-        // $array=$this->repository->select($areaId);
         return view('admin::user.edit',[
             'user'=>$users,
             'areas' => Area::all(),
-            'provinces'=> Province::all(),
-            'districts'=> District::all(),
-            'schools'=> School::all(),
+             'provinces'=>Province::where('area_id','=',$users->area_id)->get(),
+            'districts'=>District::where('province_id','=',$users->province_id)->get(),
+            'schools'=> School::where('district_id','=',$users->district_id)->get(),
             'grades' => $this->repository->grade(),
             'class' =>  $this->repository->getClass($gradeId),
             'roles' =>$this->repository->getRoles(),
@@ -105,6 +101,8 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
+        $id=$request->id;
+        $this->validation($request,$id);
         try {
             $array = $request->all();
             $array['password'] = Hash::make($request->password);
@@ -146,11 +144,10 @@ class UserController extends Controller
     public function create()
     {
         $areas=$this->repository->Area();
-        count($areas) >0 ? $areaId=$areas[0]->id : $areaId=0;
+        $areaId=0;
         $array=$this->repository->select($areaId);
-        // dd($array);
         $grades=$this->repository->grade();
-        count($grades) >0 ? $gradeId=$grades[0]->id : $gradeId=0;
+        $gradeId=0;
 
         return view('admin::user.create',[
             'areas' => $areas,
@@ -188,6 +185,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $id=$request->id;
+        $this->validation($request,$id==null);
         try
         {
             $array = $request->all();
@@ -380,10 +379,24 @@ class UserController extends Controller
         return $user;
  
     }
-    
-
-
-
-
-
+    public function validation($request,$id=null){
+        $message=[
+            'unique'=>'Trường này đã tồn tại.', 
+            'required'=> 'Trường này không được để trống.',
+            'min'       => 'Độ dài tối thiểu là 3 ký tự',
+            'max'       => 'Trường này không quá 11 ký tự '
+        ];
+        $validatedData = $request->validate([
+        'name' => 'required',
+        'email'=>'required|email|unique:users,email,'.$id,
+        'tel' => 'required|max:11|',
+         'role_id' =>'required',
+         'area_id' =>'required',
+         'province_id' =>'required',
+         'district_id' =>'required',
+         'school_id' =>'required',
+         'grade_id' =>'required',
+         'class_id' =>'required',
+        ],$message);
+    }
 }

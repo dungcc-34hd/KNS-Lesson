@@ -12,7 +12,7 @@ $(document).ready(function(){
        
         $.confirm({
             title: 'Confirm!', 
-            content: 'Are you deleteff object: ' + object_name + '?',
+            content: 'Bạn có muốn xóa: ' + object_name + '?',
             buttons: {
                 confirm: function () {
                     $.ajax({
@@ -72,6 +72,9 @@ $(document).ready(function(){
                 success:function(data) {
                     console.log(data.user);
                     $('#tbody').html(data.user);
+                    $("#provinces").html('<option>Chọn Tỉnh/thành phố</option>');
+                    $("#districts").html('<option>Chọn Quận/Huyện</option>');
+                    
                 }
              });
         }
@@ -106,6 +109,7 @@ $(document).ready(function(){
                 },
                 success:function(data) {
                     $('#tbody').html(data.user);
+                    $("#districts").html('<option>Chọn Quận/Huyện</option>');
                 }
              });
         }

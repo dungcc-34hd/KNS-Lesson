@@ -24,7 +24,7 @@
                         <!-- /.box-body -->
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
                         <a href="{{route('admin.role.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>

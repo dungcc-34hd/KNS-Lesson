@@ -133,7 +133,7 @@
                     </div> 
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{route('admin.user.create')}}" class="btn btn-primary">Create</a>
+                    <a href="{{route('admin.user.create')}}" class="btn btn-primary">Tạo User</a>
                 </div>
             </div>
             <div class="row">
