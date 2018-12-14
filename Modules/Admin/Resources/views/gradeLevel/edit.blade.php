@@ -7,21 +7,21 @@
     <div class="content-wrapper">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Trang chủ</a></li>
-            <li class="breadcrumb-item active">Lớp</li>
+            <li class="breadcrumb-item active">Khối</li>
         </ol>
         <form action="{{route('admin.grade.update', $grade->id)}}" method="post" class="validation-form">
             {{csrf_field()}}
             <section class="content">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Lớp</h3>
+                        <h3 class="box-title">Khối</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Tên lớp @include('common.require')</label>
+                                    <label>Tên Khối @include('common.require')</label>
                                     <div class="clearfix">
                                         <input type="text" class="form-control" name="name"
                                                value="@isset($grade){{$grade->name}}@endisset">

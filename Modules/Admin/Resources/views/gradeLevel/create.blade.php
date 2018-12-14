@@ -6,14 +6,14 @@
     <div class="content-wrapper">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Trang chủ</a></li>
-            <li class="breadcrumb-item active">Lớp</li>
+            <li class="breadcrumb-item active">Khối</li>
         </ol>
         <form action="{{route('admin.grade.store')}}" method="post" class="validation-form">
             {{csrf_field()}}
             <section class="content">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Lớp</h3>
+                        <h3 class="box-title">Khối</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -32,7 +32,7 @@
                         <!-- /.box-body -->
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Tạo lớp</button>
+                        <button type="submit" class="btn btn-primary">Tạo khối</button>
                         <a href="{{route('admin.class.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>

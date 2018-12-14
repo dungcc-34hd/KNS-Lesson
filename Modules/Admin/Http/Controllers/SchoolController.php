@@ -34,10 +34,10 @@ class SchoolController extends Controller
 
         return view('admin::schools.pagination',
             [
-                'schools' => $this->repository->getObjects($per_page, $search),
-                'pages'       => $this->repository->getPages($per_page, $search),
-                'records'     => $per_page,
-                'currentPage' => $request->page
+                'schools'       => $this->repository->getObjects($per_page, $search),
+                'pages'         => $this->repository->getPages($per_page, $search),
+                'records'       => $per_page,
+                'currentPage'   => $request->page
             ]);
     }
 
@@ -53,12 +53,12 @@ class SchoolController extends Controller
          $areaId=0;
         $array=$this->repository->changeArea($areaId);
         return view('admin::schools.index',[
-            'schools' =>  $this->repository->getObjects($records),
-            'pages' => $this->repository->getPages($records),
-            'areas'=> $areas,
-            'provinces'=>$array['provinces'],
-            'districts'=>$array['districts'],
-            'schoolLevels' => SchoolLevel::all(),
+            'schools'       => $this->repository->getObjects($records),
+            'pages'         => $this->repository->getPages($records),
+            'areas'         => $areas,
+            'provinces'     =>$array['provinces'],
+            'districts'     =>$array['districts'],
+            'schoolLevels'  => SchoolLevel::all(),
         ]);
        
     }
@@ -95,7 +95,7 @@ class SchoolController extends Controller
         $select         = $this->returnOption($districts,$title );
         $user           = $this->returnTr($Users);
 
-        return response()->json(['select' => $select,'user'=>$user]);  
+        return response()->json(['select' => $select,'user'=>$user]);   
     }
      public function hanldingDistrict(Request $req)
     {
