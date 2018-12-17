@@ -342,8 +342,11 @@ class ManagerLessonController extends Controller
                 $lessonAnswer = LessonAnswer::find($id);
                 $lessonAnswer->answer = $item;
                 $lessonAnswer->is_correct = false;
+                $lessonAnswer->answer_last = false;
                 if ($key == 0)
                     $lessonAnswer->is_correct = true;
+                if ($request->answer_last == 1)
+                    $lessonAnswer->answer_last = 1;
                 $lessonAnswer->save();
             }
         }
@@ -422,7 +425,7 @@ class ManagerLessonController extends Controller
             return response()->json(['status' => false, 'info' => __('system.error')]);
         }
     }
-    
+
     public function zip($id)
     {
         try{
