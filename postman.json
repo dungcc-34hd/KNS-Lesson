@@ -1,0 +1,325 @@
+{
+	"id": "36a84618-e75b-fb3c-d38d-5d9e02077177",
+	"name": "postman.json",
+	"description": "",
+	"order": [
+		"afed256d-b712-e337-8034-93944d3bc272",
+		"8d939a7d-d37f-223f-875d-ebd0742f6648",
+		"295f1e8f-4ba9-8dde-f1a1-d7797adf0183",
+		"9eab41ea-ad2b-765c-4d11-927ebf711ebd",
+		"c51ced1b-1c9f-5bf3-159e-4fb876f4639f",
+		"3a0c2357-ece6-9e53-88e9-628fb1a39f64",
+		"2cc7d9d4-784d-8314-0a1c-e63c6d124897",
+		"63b58b90-e574-6c1a-e2df-0d81c1efad07",
+		"2dc56b31-b1e6-4bb9-69f4-e717eac9eadc"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1545018384938,
+	"owner": "2326530",
+	"public": false,
+	"requests": [
+		{
+			"id": "295f1e8f-4ba9-8dde-f1a1-d7797adf0183",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://kns.local/api/lessons",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "36a84618-e75b-fb3c-d38d-5d9e02077177",
+			"data": null,
+			"dataMode": "params",
+			"name": "http://kns.local/api/lessons",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1545018483252,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "2cc7d9d4-784d-8314-0a1c-e63c6d124897",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://kns.local/api/schools?district_id=2",
+			"queryParams": [
+				{
+					"key": "district_id",
+					"value": "2",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "36a84618-e75b-fb3c-d38d-5d9e02077177",
+			"data": null,
+			"dataMode": "params",
+			"name": "http://kns.local/api/schools?district_id=2",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1545018534499,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "2dc56b31-b1e6-4bb9-69f4-e717eac9eadc",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://kns.local/api/class?page=0&size=2&grade_id=2",
+			"queryParams": [
+				{
+					"key": "page",
+					"value": "0",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "size",
+					"value": "2",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "grade_id",
+					"value": "2",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "36a84618-e75b-fb3c-d38d-5d9e02077177",
+			"data": null,
+			"dataMode": "params",
+			"name": "http://kns.local/api/class?page=0&size=2&grade_id=2",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1545018544198,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "3a0c2357-ece6-9e53-88e9-628fb1a39f64",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://kns.local/api/districts",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "36a84618-e75b-fb3c-d38d-5d9e02077177",
+			"data": null,
+			"dataMode": "params",
+			"name": "http://kns.local/api/districts",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1545018528659,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "63b58b90-e574-6c1a-e2df-0d81c1efad07",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://kns.local/api/grades",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "36a84618-e75b-fb3c-d38d-5d9e02077177",
+			"data": null,
+			"dataMode": "params",
+			"name": "http://kns.local/api/grades",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1545018539614,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "8d939a7d-d37f-223f-875d-ebd0742f6648",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://kns.local/api/login",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "36a84618-e75b-fb3c-d38d-5d9e02077177",
+			"data": [],
+			"dataMode": "raw",
+			"name": "http://kns.local/api/login",
+			"description": "Login",
+			"descriptionFormat": "html",
+			"time": 1545018465678,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n        \"email\": \"gv@gmail.com\",\n        \"password\": \"password\"\n}"
+		},
+		{
+			"id": "9eab41ea-ad2b-765c-4d11-927ebf711ebd",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://kns.local/api/provinces",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "36a84618-e75b-fb3c-d38d-5d9e02077177",
+			"data": null,
+			"dataMode": "params",
+			"name": "http://kns.local/api/provinces",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1545018517647,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "afed256d-b712-e337-8034-93944d3bc272",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://kns.local/api/register",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "36a84618-e75b-fb3c-d38d-5d9e02077177",
+			"data": [],
+			"dataMode": "raw",
+			"name": "http://kns.local/api/register",
+			"description": "Register",
+			"descriptionFormat": "html",
+			"time": 1545018453961,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n    \"name\" : \"Giao Vien 1\",\n    \"email\" : \"gv@gmail.com\",\n    \"password\": \"password\",\n    \"school_id\" : 1,\n    \"tel\" : \"0987654321\",\n    \"area_id\" : 3,\n    \"province_id\" : 3,\n    \"class_id\" : 1,\n    \"grade_id\" : 2,\n    \"district_id\" : 2,\n    \"quantity_student\" : 40,\n    \"role_id\" : 2 \n}"
+		},
+		{
+			"id": "c51ced1b-1c9f-5bf3-159e-4fb876f4639f",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://kns.local/api/areas",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "36a84618-e75b-fb3c-d38d-5d9e02077177",
+			"data": null,
+			"dataMode": "params",
+			"name": "http://kns.local/api/areas",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1545018524252,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use DB;
+use App\Models\Area;
 
 class AreaController extends Controller
 {
@@ -14,16 +14,12 @@ class AreaController extends Controller
     	if(!is_null($size)){
     		return response()->json([
 	    		'code' => 0, 
-	    		'data' => DB::table('areas')
-	    					->select(['id', 'name'])
-							->paginate($size)
+	    		'data' => Area::select(['id', 'name'])->paginate($size)
 			], 200);
     	}else{
     		return response()->json([
 	    		'code' => 0, 
-	    		'data' => DB::table('areas')
-	    					->select(['id', 'name'])
-							->paginate()
+	    		'data' => Area::select(['id', 'name'])->paginate()
 			], 200);
     	}
     }
