@@ -9,7 +9,7 @@
     <th>Quyền</th>
     <th>IP</th>
     <th>Lượt tải về</th>
-    <th class="item-action-3"></th>
+    <th class="item-action-3">Trạng thái</th>
 </tr>
 </thead>
 <tbody id="tbody">
@@ -43,7 +43,7 @@
     @endforeach @else
 </tbody>
 <tr>
-    <td colspan="5">No Records</td>
+    <td colspan="5">Không có bản ghi nào</td>
 </tr>
 @endif
 <input id="total-pages-current" type="hidden" value="{{ isset($pages) ? $pages : 0 }}">

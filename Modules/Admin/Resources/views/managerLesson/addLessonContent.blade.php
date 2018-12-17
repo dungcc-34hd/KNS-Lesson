@@ -60,36 +60,40 @@
             <div class="form-group">
                 <label>Nhạc nền</label>
                 <div class="clearfix">
-                   @isset($lessonContent){{$lessonContent->background_music}}@endisset
-                    <input type="file" class="form-control background-music" name="backgroundMusic"
+                    @isset($lessonContent){{$lessonContent->background_music}}@endisset
+                    <input type="file" class="form-control background-music" name="background-music"
                            value="">
                 </div>
             </div>
             @if($typeId != 3)
-            <div class="col-md-12">
-                <div id="field">
-                    <div id="field0">
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label label-name"
-                                   for="action_id">{{\App\Models\LessonDetail::TYPE[$typeId]}}</label>
-                            <div class="col-md-5 clearfix">
-                            @if(isset($audios))
-                                @foreach($audios as $audio)
-
-                                        <input type="file" class="add_field_button form-control " name="background-image[]"
-                                           id="background-image" value="{{$audio}}"> {{$audio}}
-                                    @endforeach
-                                @else
-                                    <input type="file" class="add_field_button form-control " name="background-image[]"
-                                           id="background-image">
-                                @endif
+                <div class="col-md-12">
+                    <div id="field">
+                        <div id="field0">
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="control-label label-name"
+                                       for="action_id">{{\App\Models\LessonDetail::TYPE[$typeId]}}</label>
+                                <h6>(Chọn nhiều {{\App\Models\LessonDetail::TYPE[$typeId]}})</h6><br>
+                                <div class="col-md-12 clearfix">
+                                    @if(isset($audios))
+                                        @foreach($audios as $audio)
+                                            {{$audio}}
+                                        @endforeach
+                                        <input type="file" class="add_field_button form-control "
+                                               name="background-image[]"
+                                               id="background-image" multiple>
+                                    @else
+                                        <input type="file" class="add_field_button form-control "
+                                               name="background-image[]"
+                                               id="background-image" multiple>
+                                    @endif
+                                </div>
+                                <br><br>
                             </div>
                         </div>
+                        {{--<button id="add-more" name="add-more" class="btn btn-primary">Thêm</button>--}}
                     </div>
-                    <button id="add-more" name="add-more" class="btn btn-primary">Thêm</button>
                 </div>
-            </div>
             @endif
             @if($typeId == 3)
                 <div class="show-request-answer">
@@ -106,7 +110,17 @@
                         <input type="text" id="answer" class="form-control"
                                placeholder="Nhập câu trả lời đúng"
                                name="answer[]"
-                               value="@isset($lessonAnswer) @foreach($lessonAnswer as $answer)@if($answer->is_correct == 1){{$answer->answer}}@endif @endforeach @endisset">
+                               value="@isset($lessonAnswer) @foreach($lessonAnswer as $answer)@if($answer->is_correct == 1){{$answer->answer}}@endif @endforeach @endisset"><br>
+                        <input type="checkbox" class=" answer_last" name="answer_last"
+                               @isset($lessonAnswer)
+                               @foreach($lessonAnswer as $answer)
+                               {{($answer->answer_last == 1) ? 'checked' :''}}
+                               @endforeach
+                               @endisset
+                               {{isset($lessonAnswer->answer_last)? 'checked': ''}}
+
+
+                               value="0"><label>Câu trả lời đúng ở cuối</label>
                     </div>
                     <br/>
                     <div class="answer-wrapper">
@@ -130,6 +144,7 @@
                                         class="glyphicon glyphicon-plus"></i>
                             </button>
                         </div>
+                        </label>
                     </div>
                 </div>
             @endif
@@ -193,6 +208,13 @@
         //     })
         //
         // });
+
+        $('.answer_last').click(function () {
+            $(this).attr('value',0);
+            if ($(this).is(':checked')){
+                $(this).attr('value', 1);
+            }
+        });
 
         function changeAnswerCorrect(correct) {
             axios.get('/admin/manager-lesson/get-value-correct/' + correct).then(function (response) {

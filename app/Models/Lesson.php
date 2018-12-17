@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lesson extends Model
 {
+	public $fillable =['is_public'];
     public function lessonDetail()
     {
         return $this->hasMany(LessonDetail::class);

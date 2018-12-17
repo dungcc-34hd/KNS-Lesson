@@ -25,7 +25,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="role"><a href="{{route('admin.role.index')}}"><i class="fa fa-gg-circle"></i> <span>Role</span></a></li>
-                    <li class="permission"><a href="{{route('admin.permission.index')}}"><i class="fa fa-lock"></i> <span>Permission</span></a></li>
+                    {{-- <li class="permission"><a href="{{route('admin.permission.index')}}"><i class="fa fa-lock"></i> <span>Permission</span></a></li> --}}
                     <li class="user"><a href="{{route('admin.user.index')}}"><i class="fa fa-users"></i> <span>User</span></a></li>
                 </ul>
             </li>
@@ -49,7 +49,17 @@
                 
             </li>
             <li class="treeview lesson">
-                <li class="lesson"><a href="{{route('admin.managerLesson.index')}}"><i class="fa fa-users"></i> <span>Quản lý bài học</span></a></li>
+                 <a href="#">
+                    <i class="fa fa-users"></i> <span>Quản Lý Bài học</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-left"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="type"><a href="{{route('admin.typeLesson.index')}}"><i class="fa fa-users"></i> <span>Quản lý dạng nội dung</span></a></li>
+                    <li class="lesson"><a href="{{route('admin.managerLesson.index')}}"><i class="fa fa-users"></i> <span>Quản lý bài học</span></a></li>
+                </ul>
+                
             </li>
             
            

@@ -29,6 +29,14 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Tên tiêu đề bài học @include('common.require')</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control" name="name" id="name"
+                               value="@isset($lessonDetail) {{$lessonDetail->name}} @endisset" >
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label>Kiểu định dạng @include('common.require')</label>
                     <div class="clearfix">
                         <select class="form-control" name="type" id="type" >

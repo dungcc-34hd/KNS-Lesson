@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddcolumnTokenToTableUsers extends Migration
+class AddColumnToLessonTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddcolumnTokenToTableUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('token', 30)->after('download')->nullable();
+        Schema::table('lessons', function (Blueprint $table) {
+            $table->tinyInteger('is_public')->default(1)->after('background_image');
         });
     }
 
@@ -25,8 +25,8 @@ class AddcolumnTokenToTableUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
+        Schema::table('lessons', function (Blueprint $table) {
+            Schema::dropIfExists('is_public');
         });
     }
 }
