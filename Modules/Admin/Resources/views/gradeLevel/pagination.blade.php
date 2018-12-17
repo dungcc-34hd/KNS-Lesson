@@ -1,5 +1,5 @@
 <tr>
-    <th class="order-number">Id.</th>
+    <th class="order-number">STT</th>
     <th>Tên khối</th>
    
     <th class="item-action-3">Trạng thái</th>
@@ -35,7 +35,7 @@
     @endforeach
 @else 
     <tr>
-        <td colspan="5">No Records</td>
+        <td colspan="5">Không có bản ghi nào</td>
     </tr>
 @endif
 <input id="total-pages-current" type="hidden" value="{{ isset($pages) ? $pages : 0 }}">

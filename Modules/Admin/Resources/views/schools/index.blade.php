@@ -89,14 +89,14 @@
                             <table class="table table-hover results-table" >
                                 <thead>
                                 <tr>
-                                    <th class="order-number">Id.</th>
+                                    <th class="order-number">STT</th>
                                     <th>Tên</th>
                                     <th>Cấp</th>
                                     <th>Khu vực</th>
                                     <th>Tỉnh</th>
                                     <th>Quận/Huyện</th>
                                     <th>Key</th>
-                                    <th class="item-action-3"></th>
+                                    <th class="item-action-3">Trạng thái</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tbody">

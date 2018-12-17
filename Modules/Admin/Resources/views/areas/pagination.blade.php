@@ -1,5 +1,5 @@
 <tr>
-    <th class="order-number">Id.</th>
+    <th class="order-number">STT</th>
     <th>Tên khu vực</th>
     <th>Mô tả</th>
     <th class="item-action-3">Trạng thái</th>
