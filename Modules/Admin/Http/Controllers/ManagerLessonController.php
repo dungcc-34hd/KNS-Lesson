@@ -391,17 +391,36 @@ class ManagerLessonController extends Controller
     }
 
 
-     public function publicObject($id){
+    public function publicObject($id){
         try {
             $lesson = $this->repository->find($id);
             // dd($lesson);
             $lesson->update(['is_public' => !$lesson->is_public]);
-             Session::flash('flash_level', 'success');
-        Session::flash('flash_message', 'Cập nhật thành công');
-            // return response()->json(['status' => true, 'info' => __('crud.displayed', ['name' => $lesson->name])]);
+            Session::flash('flash_level', 'success');
+            Session::flash('flash_message', 'Cập nhật thành công');
+            return response()->json(['status' => true, 'info' => __('crud.displayed', ['name' => $lesson->name])]);
         } catch (QueryException $exception) {
             Log::error($exception->getMessage());
-            // return response()->json(['status' => false, 'info' => __('system.error')]);
+            return response()->json(['status' => false, 'info' => __('system.error')]);
+        }
+    }
+
+
+    public function zip($id)
+    {
+        try{
+            $this->jsonLesson($id);
+            $nameLesson = Lesson::find($id)->name;
+
+            $zipper = new \Chumper\Zipper\Zipper;
+            $files = path.$nameLesson;
+            $zipper->make(path.$nameLesson.'.zip')->add($files)->close();
+            return redirect()->route('admin.managerLesson.index');
+        }catch (\Exception $e) {
+            $array = ['error' => 'Không thành công!'];
+            return response()->json([
+                $array
+            ], 502);
         }
     }
 

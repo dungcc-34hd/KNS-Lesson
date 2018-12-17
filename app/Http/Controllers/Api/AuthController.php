@@ -59,13 +59,13 @@ class AuthController extends Controller
                 $error = $validator->errors();
                 return response()->json(['error' => $error, 'code' => 104], 200);
             }
-            
+
         // }
         // catch (\Exception $e) {
         //     $array = ['error' => $e->getMessage()];
         //     return response()->json([$array], 104);
         // }
-        
+
     }
 
 
@@ -91,7 +91,11 @@ class AuthController extends Controller
                 $credentials = $request->only('email', 'password');
                 $user = User::where('email',$email)->first();
                 if(!is_null($user->token)){
-                    return response()->json(['message'=>'Tài khoản đã đăng nhập trên hệ thống', 'code' => 1],200);
+                    return response()->json([
+                        'message'=>'Tài khoản đã đăng nhập trên hệ thống',
+                        'token' =>  $user->token,
+                        'code' => 1
+                    ],200);
                 }else{
                     if(!is_null($user->school_id)){
                         $license_key = School::where('id',$user->school_id)->first()->license_key;
@@ -131,7 +135,7 @@ class AuthController extends Controller
                         return response()-json(['message'=>'Email hoặc mật khẩu không đúng', 'code' => 1],200);
                     }
                 }
-                
+
 
             }
 

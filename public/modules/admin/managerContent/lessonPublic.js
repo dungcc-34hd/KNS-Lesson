@@ -7,7 +7,7 @@ $(document).on('click', '.is_public', function (e) {
         $.confirm({
             title: 'Xác nhận!',
             content: 'Bạn muốn thay đổi trạng thái của ' + objectName + '?',
-           buttons: {
+            buttons: {
                 confirm: function () {
                     $.ajax({
                         type: 'GET',
@@ -15,9 +15,11 @@ $(document).on('click', '.is_public', function (e) {
                         success: function (result) {
                             if (result['status']) {
                                 if (isPublic==0) {
-                                    $('.is_public').data('is_public', 1);
+                                    $('.is_public').attr('is_public', 1);
+                                    $('.is_public').attr('disabled', 'disabled');
+                                    $.get('/admin/manager-lesson/zip/'+objectId,function(data){});
                                 }else{
-                                    $('.is_public').data('is_public', 0);
+                                    $('.is_public').attr('is_public', 0);
                                 }
                             }
                             else {
@@ -32,7 +34,7 @@ $(document).on('click', '.is_public', function (e) {
 
             }
         });
-    
 
-   
+
+
 });
