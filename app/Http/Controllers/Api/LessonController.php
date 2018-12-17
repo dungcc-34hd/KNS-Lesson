@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use DB;
+use App\Models\Lesson;
+use App\User;
+use Auth;
 
 class LessonController extends Controller
 {
@@ -13,19 +15,33 @@ class LessonController extends Controller
     	$size = $request->size;
     	if(!is_null($size)){
     		return response()->json([
-	    		'code' => 0, 
-	    		'data' => DB::table('lessons')
-	    					->select(['id', 'name'])
+	    		'code' => 0,
+	    		'data' => Lesson::select(['id', 'name'])
 							->paginate($size)
 			], 200);
     	}else{
     		return response()->json([
-	    		'code' => 0, 
-	    		'data' => DB::table('lessons')
-	    					->select(['id', 'name'])
+	    		'code' => 0,
+	    		'data' => Lesson::select(['id', 'name'])
 							->paginate()
 			], 200);
     	}
-    	
     }
+
+    public function downloadZip($lessonId = null)
+    {
+        // $this->updateAmountDownload();
+        $lesson = Lesson::find($lessonId);
+        isset($lesson) ? $name = $lesson->name : '';
+        $path = path.$name.'.zip';
+        return response()->file($path);
+    }
+
+    public function updateAmountDownload()
+    {
+        $user = User::find(Auth::user()->id);
+        $user->download = $user->download + 1;
+        $user->save();
+    }
+
 }

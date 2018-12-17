@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use DB;
+use App\Models\School;
 
 class SchoolController extends Controller
 {
@@ -16,24 +16,40 @@ class SchoolController extends Controller
 			if(!is_null($district_id)){
 				return response()->json([
 		    		'code' => 0, 
-		    		'data' => DB::table('schools')
-		    					->select(['id', 'name','province_id','school_level_id','license_key','district_id','area_id'])
-		    					->where('district_id',$district_id)
-								->paginate($size)
+		    		'data' => School::select([
+						    			'id', 
+						    			'name',
+						    			'province_id',
+						    			'school_level_id',
+						    			'license_key',
+						    			'district_id',
+						    			'area_id'])
+		    						->where('district_id',$district_id)
+									->paginate($size)
 				], 200);
 			}else{
 				return response()->json([
 		    		'code' => 0, 
-		    		'data' => DB::table('schools')
-		    					->select(['id', 'name','province_id','school_level_id','license_key','district_id','area_id'])
+		    		'data' => School::select(['id', 
+						    			'name',
+						    			'province_id',
+						    			'school_level_id',
+						    			'license_key',
+						    			'district_id',
+						    			'area_id'])
 								->paginate($size)
 				], 200);
 			}
 		}else{
 			return response()->json([
 	    		'code' => 0, 
-	    		'data' => DB::table('schools')
-	    					->select(['id', 'name','province_id','school_level_id','license_key','district_id','area_id'])
+	    		'data' => School::select(['id', 
+						    			'name',
+						    			'province_id',
+						    			'school_level_id',
+						    			'license_key',
+						    			'district_id',
+						    			'area_id'])
 							->paginate()
 			], 200);
 		}

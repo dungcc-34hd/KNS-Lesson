@@ -10,6 +10,7 @@ use App\User;
 use App\Models\School;
 use Validator;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -38,11 +39,16 @@ class AuthController extends Controller
             if(!$validator->fails()){
                 $arr['password'] = Hash::make($arr['password']);
                 $user = User::create($arr);
+                $tokenResult = $user->createToken('Personal Access Token');
+                $token = $tokenResult->token;
+                $token->expires_at = Carbon::now()->addHours(4);
+                $token->save();
                 return response()->json([
                     'data' => [
                         'name' => $user->name,
                         'email' => $user->email,
                         'school_id' => $user->school_id,
+                        'token' => $tokenResult->accessToken,
                         'tel' => $user->tel,
                         'area_id' => $user->area_id,
                         'province_id' => $user->province_id,
@@ -59,13 +65,13 @@ class AuthController extends Controller
                 $error = $validator->errors();
                 return response()->json(['error' => $error, 'code' => 104], 200);
             }
-            
+
         // }
         // catch (\Exception $e) {
         //     $array = ['error' => $e->getMessage()];
         //     return response()->json([$array], 104);
         // }
-        
+
     }
 
 
@@ -91,7 +97,11 @@ class AuthController extends Controller
                 $credentials = $request->only('email', 'password');
                 $user = User::where('email',$email)->first();
                 if(!is_null($user->token)){
-                    return response()->json(['message'=>'Tài khoản đã đăng nhập trên hệ thống', 'code' => 1],200);
+                    return response()->json([
+                        'message'=>'Tài khoản đã đăng nhập trên hệ thống',
+                        'token' =>  $user->token,
+                        'code' => 1
+                    ],200);
                 }else{
                     if(!is_null($user->school_id)){
                         $license_key = School::where('id',$user->school_id)->first()->license_key;
@@ -100,14 +110,17 @@ class AuthController extends Controller
                     }
                     if(!is_null($user) && Hash::check('password',$password)){
                         if (Auth::attempt($credentials)) {
-                            $user->token = Str::random(30);
-                            $user->save();
+                            $tokenResult = $user->createToken('Personal Access Token');
+                            $token = $tokenResult->token;
+                            $token->expires_at = Carbon::now()->addHours(4);
+                            $token->save();
+
                             return response()->json([
                                 'data' => [
                                     'name' => $user->name,
                                     'email' => $user->email,
                                     'school_id' => $user->school_id,
-                                    'token' =>  $user->token,
+                                    'token' =>  $tokenResult->accessToken,
                                     'tel' => $user->tel,
                                     'area_id' => $user->area_id,
                                     'province_id' => $user->province_id,
@@ -131,7 +144,7 @@ class AuthController extends Controller
                         return response()-json(['message'=>'Email hoặc mật khẩu không đúng', 'code' => 1],200);
                     }
                 }
-                
+
 
             }
 
@@ -146,5 +159,13 @@ class AuthController extends Controller
 //            ], 502);
 //        }
 
+    }
+
+   public function logout()
+    {
+        Auth::logout();
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ]);
     }
 }
