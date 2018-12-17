@@ -23,7 +23,7 @@
         <!-- Main content -->
         <section class="content">
                  <div class="col-lg-12">                    
-                     <a href="{{route('admin.role.create')}}" class="btn btn-primary">Thêm</a>  
+                     <a href="{{route('admin.role.create')}}" class="btn btn-primary">Tạo Role</a>  
                 </div>  
                 <div class="col-lg-12">
                     @include('common.message')
@@ -54,7 +54,7 @@
                                     <th>Tên hiển thị</th>
                                     <th>Mô tả</th>
                                     <th>Quyền</th>
-                                    <th class="item-action-3"></th>
+                                    <th class="item-action-3">Trạng thái</th>
                                 </tr>
                                 @if(count($roles) > 0)
                                     @foreach($roles as $key => $role)
@@ -101,7 +101,7 @@
                                 <div class="col-md-6 pull-right">
                                     <div class="form-group pull-right">
                                         <label class="view-by">
-                                            View By
+                                            Xem với
                                             <select id="show-records" class="form-control input-sm">
                                                 <option value="10">10</option>
                                                 <option value="25">25</option>

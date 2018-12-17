@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 
 class ManagerLessonController extends Controller
 {
@@ -387,6 +388,21 @@ class ManagerLessonController extends Controller
 
         File::put($directory . "/config.json", json_encode($jsonData));
 
+    }
+
+
+     public function publicObject($id){
+        try {
+            $lesson = $this->repository->find($id);
+            // dd($lesson);
+            $lesson->update(['is_public' => !$lesson->is_public]);
+             Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Cập nhật thành công');
+            // return response()->json(['status' => true, 'info' => __('crud.displayed', ['name' => $lesson->name])]);
+        } catch (QueryException $exception) {
+            Log::error($exception->getMessage());
+            // return response()->json(['status' => false, 'info' => __('system.error')]);
+        }
     }
 
 }

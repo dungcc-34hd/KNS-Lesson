@@ -23,24 +23,30 @@
                                     <label>Tỉnh/Thành phố @include('common.require')</label>
                                     <div class="clearfix">
                                         <input type="text" class="form-control" name="name">
+                                         @if($errors)
+                                            <span style="color: #dd4b39;" >{{$errors->first('name')}}</span> 
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>khu vực @include('common.require')</label>
-                                    <select  class="form-control" name="select-area">
-                                        <option value="">Select area</option>
+                                    <select  class="form-control" name="area_id">
+                                        <option value="">Chọn khu vực</option>
                                         @foreach ($areas as $key => $area)
                                             <option value="{{$area->id}}">{{$area->name}}</option>
                                         @endforeach
                                     </select>
+                                    @if($errors)
+                                        <span style="color: #dd4b39;" >{{$errors->first('area_id')}}</span> 
+                                    @endif
                                 </div>
                             </div>
                         </div>
                         <!-- /.box-body -->
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Tạo </button>
-                        <a href="{{route('admin.area.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
+                        <button type="submit" class="btn btn-primary">Tạo tỉnh/thành phố </button>
+                        <a href="{{route('admin.province.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>
             </section>

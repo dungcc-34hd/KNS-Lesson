@@ -1,5 +1,8 @@
 $(function () {
     activeMenu('data','district',true);
+    $('#selectArea').change(function () {
+        changeArea($(this).val());
+    });
     $(document).on('click', '.delete-object', function (e) {
         e.preventDefault();
         var object_name = $(this).attr('object_name');
@@ -36,3 +39,28 @@ $(function () {
     });
 });
 
+function changeArea(areaId){
+    axios.get('/admin/district/change-area/' + areaId).then(function (response) {
+        
+        var data = response.data;
+        console.log(areaId);
+         $('#selectProvince').empty();
+        if($.isEmptyObject(data))
+        {
+            
+            var option = '<option>Không có dữ liệu</option>'
+            $('#selectProvince').append(option)
+            
+        }
+        else
+        {
+           
+            $.each(data, function (i, value) {
+                var option = '<option value='+value.id+'>'+value.name+'</option>'
+
+                $('#selectProvince').append(option)
+            }); 
+        }
+        // ajaxLoadData($('#show-records').val(), $('#pages-current').val(), $('#nav-search-input').val());
+    });
+}

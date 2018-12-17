@@ -46,10 +46,22 @@
                                 dung {{$lesson->name}}</button>
                             <div class="box-tools pull-right">
                                 <div class="btn-group btn-group-sm">
-                                    <button type="button" class="btn btn-primary add-json-lesson"
-                                           value="{{$lesson->id}}"
-                                    ><i class="ace-icon fa fa-pencil"></i></button>
-                                    <button type="button" class="btn btn-primary  modal-show "
+
+                                    <a href="#" class="btn btn-info " 
+                                       title=""
+                                       object_id="{{$lesson->id}}"
+                                       object_name="{{$lesson->name}}">
+                                        Thử nghiệm
+                                    </a>
+                                    <a href="#" class="btn btn-success is_public"  @if($lesson->is_public==1) disabled @endif
+                                       title="Public"
+                                       is_public="{{$lesson->is_public}}"
+                                       object_id="{{$lesson->id}}"
+                                       object_name="{{$lesson->name}}">
+                                        Public
+                                    </a>
+
+                                    <button type="button" class="btn btn-primary  modal-show"
                                             data-url="/admin/manager-lesson/edit-lesson/{{$lesson->id}}"
                                     ><i class="ace-icon fa fa-pencil"></i></button>
                                     <a href="#" class="btn btn-danger delete-lesson"
@@ -221,6 +233,7 @@
 @push('scripts')
     {{--<script src="{{ asset('modules/admin/managerContent/managerContent.js') }}"></script>--}}
     <script src="{{ asset('modules/admin/managerContent/lessonDelete.js') }}"></script>
+    <script src="{{ asset('modules/admin/managerContent/lessonPublic.js') }}"></script>
     <script src="{{ asset('modules/admin/managerContent/lessonDetailDelete.js') }}"></script>
     <script src="{{ asset('common/pagination-search.js') }}"></script>
     <script>

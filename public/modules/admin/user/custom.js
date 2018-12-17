@@ -24,8 +24,6 @@ $(function ()
 function process(areaId) {
     axios.get('/admin/user/change-select/' + areaId).then(function (response) {
         var data = response.data;
-        console.log(data);
-        // console.log(data['programs'][0]);
         $('#selectProvince').empty();
         if($.isEmptyObject(data['provinces']))
         {
@@ -85,7 +83,7 @@ function process(areaId) {
 function changeProvince(provinceId){
   axios.get('/admin/user/change-province/' + provinceId).then(function (response) {
       var data =response.data;
-      // console.log(data);
+      console.log(data);
       $('#selectDistrict').empty();
         if($.isEmptyObject(data['districts']))
         {

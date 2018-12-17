@@ -25,22 +25,28 @@
                                     <div class="clearfix">
                                         <input type="text" class="form-control" name="name"
                                                value="@isset($provincial){{$provincial->name}}@endisset">
+                                        @if($errors)
+                                            <span style="color: #dd4b39;" >{{$errors->first('name')}}</span> 
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Khu vực @include('common.require')</label>
-                                    <select class="form-control" name="select-provincial">
+                                    <select class="form-control" name="area_id">
                                         @foreach ($areas as $key => $area)
                                             <option value="{{$area->id}}" {{ $provincial->area_id == $area->id ? "selected" : '' }}>{{$area->name}}</option>
                                         @endforeach
                                     </select>
+                                     @if($errors)
+                                        <span style="color: #dd4b39;" >{{$errors->first('area_id')}}</span> 
+                                    @endif
                                 </div>
                             </div>
                         </div>
                         <!-- /.box-body -->
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
                         <a href="{{route('admin.province.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>

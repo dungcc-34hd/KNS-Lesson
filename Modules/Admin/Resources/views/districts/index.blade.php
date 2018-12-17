@@ -25,7 +25,7 @@
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{route('admin.district.create')}}" class="btn btn-primary">Thêm</a>
+                    <a href="{{route('admin.district.create')}}" class="btn btn-primary">Tạo Quận/huyện</a>
                 </div>
             </div>
             <div class="row">
@@ -52,8 +52,9 @@
                             <table class="table table-hover results-table">
                                 <tbody>
                                 <tr>
-                                    <th class="order-number">Id.</th>
+                                    <th class="order-number">STT</th>
                                     <th>Quận/Huyện</th>
+                                    <th>Khu vực</th> 
                                     <th>Tỉnh/Thành phố</th>
                                     <th class="item-action-3">Trạng thái</th>
                                 </tr>
@@ -62,6 +63,7 @@
                                         <tr>
                                             <td class="text-center">{{$key + 1}}</td>
                                             <td>{{$district->name}}</td>
+                                            <td>{{$district->name_area}}</td>
                                             <td class="green">{{!empty($district->Province) ? $district->Province->name: ''}}</td>
                                             <td>
                                                 <div class="btn-group btn-group-sm">

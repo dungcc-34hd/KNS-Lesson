@@ -75,12 +75,11 @@ class DistrictController extends Controller
      */
     public function update(Request $request ,$id)
     {
+        $this->validation($request,$id);
         $provincial = District::findOrFail($id);
-
-        $provincial->name        = $request->name;
-        $provincial->area_id        = $request->input('select-provincial');
-        $provincial->save();
-        Session::flash('message', 'Successfully updated provincial!');
+        $array = $request->all();
+        $this->repository->update($request->id,$array);
+         message($request, 'success', 'Cập nhật thành công.');
         return redirect('admin/district/index');
     }
 
@@ -90,8 +89,10 @@ class DistrictController extends Controller
      */
     public function create()
     {
-        $provincials= Province::all();
-        return view('admin::districts.create',compact('provincials'));
+        $areas= Area::all();
+        $areaId=0;
+        $provincials=$this->repository->province($areaId);
+        return view('admin::districts.create',compact('provincials','areas'));
     }
 
     /**
@@ -101,19 +102,48 @@ class DistrictController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validation($request,$id=null);
         $district = new District();
         $district->name        = $request->name;
-        $district->province_id	 = $request->input('select-provincial');
+        $district->province_id	 = $request->input('province_id');
         $district->save();
 
-        Session::flash('message', 'Successfully created provicial!');
+        message($request, 'success', 'Thêm mới thành công.');
         return redirect('admin/district/index');
     }
 
     public function delete($id)
     {
-        $district = District::findOrFail($id);
-        $district->delete();
+        try
+        {
+              
+            $this->repository->delete($id);
+            Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
+       
+            
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            return response()->json(['status' => false]);
+        }
+    }
+
+    public function changeArea($areaId){
+        $array=$this->repository->province($areaId);
+        return response()->json($array);
+    }
+
+    public function validation($request,$id=null){
+        $message=[
+            'required'=> 'Trường này không được để trống.',        
+        ];
+        $validatedData = $request->validate([
+        'name' => 'required',
+        'province_id' => 'required',
+        'area_id'   =>'required',
+        ],$message);
     }
 
 }

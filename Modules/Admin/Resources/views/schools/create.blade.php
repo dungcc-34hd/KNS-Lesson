@@ -31,7 +31,7 @@
                                     <label>Cấp @include('common.require')</label>
                                     <div class="clearfix">
                                         <select  class="form-control" name="school_level_id">
-                                            <option value="">Select School</option>
+                                            <option value="">Chọn Cấp</option>
                                             @foreach ($schoolLevels as $key => $schoolLevel)
                                                 <option value="{{$schoolLevel->id}}">{{$schoolLevel->name}}</option>
                                             @endforeach
@@ -57,9 +57,11 @@
                                     <div class="clearfix">
                                         <select  class="form-control" name="province_id" id="selectProvince">
                                             <option value="">Chọn tỉnh</option>
-                                            @foreach ($provinces as $key => $province)
-                                                <option value="{{$province->id}}">{{$province->name}}</option>
-                                            @endforeach
+                                            @if(count($provinces) > 0 )
+                                                @foreach ($provinces as $key => $province)
+                                                    <option value="{{$province->id}}">{{$province->name}}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                     </div>     
                                 </div>
@@ -81,8 +83,8 @@
                         <!-- /.box-body -->
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Create</button>
-                        <a href="{{route('admin.school.index')}}" type="button" class="btn btn-default">Go Back</a>
+                        <button type="submit" class="btn btn-primary">Tạo trường</button>
+                        <a href="{{route('admin.school.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>
             </section>

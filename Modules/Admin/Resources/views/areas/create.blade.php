@@ -16,27 +16,9 @@
                         <h3 class="box-title">Khu vực</h3>
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Tên khu vực @include('common.require')</label>
-                                    <div class="clearfix">
-                                        <input type="text" class="form-control" name="name">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Mô tả @include('common.require')</label>
-                                    <div class="clearfix">
-                                        <input type="text" class="form-control" name="description">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
+                    @include('admin::areas._form')
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button type="submit" class="btn btn-primary">Tạo khu vực</button>
                         <a href="{{route('admin.area.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>

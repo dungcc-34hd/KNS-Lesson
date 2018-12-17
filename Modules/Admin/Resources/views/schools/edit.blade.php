@@ -50,6 +50,7 @@
                                         </select>
                                     </div>     
                                 </div>
+                              
 
                                 <div class="form-group">
                                     <label>Tỉnh/thành phố @include('common.require')</label>
@@ -62,18 +63,18 @@
                                         </select>
                                     </div>     
                                 </div>
-                                
                                 <div class="form-group">
                                     <label>Quận/Huyện @include('common.require')</label>
-                                    <div class="clearfix">
+                                    <div class="clearfix"> 
                                         <select  class="form-control" name="district_id" id="selectDistrict">
                                             <option value="">Chọn quận/huyện</option>
                                             @foreach ($districts as $key => $district)
-                                                <option value="{{$district->id}}" {{ $district->id == $school->district_id ? "selected" : '' }}>{{$district->name}}</option>
+                                               <option value="{{$district->id}}" {{ $district->id == $school->district_id ? "selected" : '' }}>{{$district->name}}</option>
                                             @endforeach
                                         </select>
-                                    </div>     
+                                    </div>    
                                 </div>
+
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -90,5 +91,6 @@
 
 @push('scripts')
     <script src="{{ asset('modules/admin/school/school-validation.js')}}"></script>
-    <script src="{{ asset('modules/admin/school/school.js') }}"></script>
+    {{-- <script src="{{ asset('modules/admin/school/school.js') }}"></script> --}}
+    <script src="{{ asset('modules/admin/school/custom.js') }}"></script>
 @endpush
