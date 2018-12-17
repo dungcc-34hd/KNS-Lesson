@@ -217,6 +217,7 @@ class ManagerLessonController extends Controller
         //make directory
         $directory = public_path() . "/modules/managerContent/" . $request['lesson'] . '/' . $request['lesson-detail'];
         $contentLesson->path = $directory;
+
         if (!is_null($request->file('background-music'))) {
             if ($request->file('background-music')) {
                 $music = $request['background-music']->getClientOriginalName();
@@ -224,6 +225,7 @@ class ManagerLessonController extends Controller
                 $contentLesson->background_music = $music;
             }
         }
+
         $names = [];
         if (!is_null($request['background-image'])) {
             foreach ($request['background-image'] as $item) {
@@ -251,10 +253,14 @@ class ManagerLessonController extends Controller
                 $lessonAnswer->lesson_content_id = $contentLesson->id;
                 $lessonAnswer->answer = $item;
                 $lessonAnswer->is_correct = false;
+                $lessonAnswer->answer_last = false;
                 if ($key == 0)
                     $lessonAnswer->is_correct = true;
+                if ($request->answer_last == 1)
+                    $lessonAnswer->answer_last = 1;
                 $lessonAnswer->save();
             }
+
         }
         return redirect('admin/manager-lesson/index');
     }
@@ -401,13 +407,14 @@ class ManagerLessonController extends Controller
     }
 
 
-     public function publicObject($id){
+    public function publicObject($id)
+    {
         try {
             $lesson = $this->repository->find($id);
             // dd($lesson);
             $lesson->update(['is_public' => !$lesson->is_public]);
-             Session::flash('flash_level', 'success');
-        Session::flash('flash_message', 'Cập nhật thành công');
+            Session::flash('flash_level', 'success');
+            Session::flash('flash_message', 'Cập nhật thành công');
             // return response()->json(['status' => true, 'info' => __('crud.displayed', ['name' => $lesson->name])]);
         } catch (QueryException $exception) {
             Log::error($exception->getMessage());
