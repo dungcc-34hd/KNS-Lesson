@@ -54,7 +54,7 @@ class ManagerLessonController extends Controller
         $lessonDetails = LessonDetail::all();
         $lessonContents = LessonContent::all();
         $a = $this->repository->getAllContent(1);
-        return view('admin::managerLesson.index', compact('lessonDetails', 'lessons', 'grades', 'lessonDetails','lessonContents'));
+        return view('admin::managerLesson.index', compact('lessonDetails', 'lessons', 'grades', 'lessonDetails', 'lessonContents'));
     }
 
     public function getLessonName($gradeId)
@@ -66,14 +66,14 @@ class ManagerLessonController extends Controller
     public function addLesson()
     {
         $grades = Grade::all();
-        return view('admin::managerLesson.addLesson',compact('grades','lesson'));
+        return view('admin::managerLesson.addLesson', compact('grades', 'lesson'));
     }
 
     public function editLesson($id)
     {
         $lesson = Lesson::findorfail($id);
         $grades = Grade::all();
-        return view('admin::managerLesson.addLesson',compact('grades','lesson'));
+        return view('admin::managerLesson.addLesson', compact('grades', 'lesson'));
     }
 
     /**
@@ -116,7 +116,7 @@ class ManagerLessonController extends Controller
         //edit directory
         $newDirectory = public_path() . "/modules/managerContent/" . $request->name;
         $directoryOld = public_path() . "/modules/managerContent/" . $lesson->name;
-        rename($directoryOld,$newDirectory);
+        rename($directoryOld, $newDirectory);
         $lesson->name = $request->name;
         $lesson->grade_id = $request->grade;
         $lesson->save();
@@ -136,6 +136,7 @@ class ManagerLessonController extends Controller
         $detailLesson->lesson_id = $request['lesson-id'];
         $detailLesson->type = $request['type'];
         $detailLesson->outline = $request['outline'];
+        $detailLesson->name = $request['name'];
 
         //make directory
         $directory = public_path() . "/modules/managerContent/" . $request['lesson-detail'] . '/' . $request['detail-lesson'];
@@ -154,7 +155,7 @@ class ManagerLessonController extends Controller
     public function editLessonDetail(Request $request, $id)
     {
         $lessonDetail = LessonDetail::find($id);
-        return view('admin::managerLesson.addDetailLesson',compact('lessonDetail'));
+        return view('admin::managerLesson.addDetailLesson', compact('lessonDetail'));
     }
 
 
@@ -165,15 +166,16 @@ class ManagerLessonController extends Controller
      */
     public function updateLessonDetail(Request $request, $id)
     {
-        $detailLesson =  LessonDetail::find($id);
+        $detailLesson = LessonDetail::find($id);
 
         //make directory
         $oldDirectory = public_path() . "/modules/managerContent/" . $this->repository->getNameLessonById($detailLesson->lesson_id) . '/' . $detailLesson->title;
         $newdirectory = public_path() . "/modules/managerContent/" . $this->repository->getNameLessonById($detailLesson->lesson_id) . '/' . $request['detail-lesson'];
-        rename($oldDirectory,$newdirectory);
+        rename($oldDirectory, $newdirectory);
         $detailLesson->title = $request['detail-lesson'];
         $detailLesson->type = $request['type'];
         $detailLesson->outline = $request['outline'];
+        $detailLesson->name = $request['name'];
         $detailLesson->save();
         return redirect('admin/manager-lesson/index');
     }
@@ -183,7 +185,7 @@ class ManagerLessonController extends Controller
         $lesson = Lesson::find($id);
         $lessonId = $id;
         $lessonName = $lesson->name;
-        return view('admin::managerLesson.addDetailLesson', compact('lessonId', 'lessonName' ));
+        return view('admin::managerLesson.addDetailLesson', compact('lessonId', 'lessonName'));
     }
 
     /**
@@ -232,11 +234,11 @@ class ManagerLessonController extends Controller
         }
 
         $contentLesson->audio = json_encode($names);
-        $content =[];
+        $content = [];
         foreach ($request['content'] as $item) {
             array_push($content, $item);
         }
-        $contentLesson->content = json_encode($content,JSON_UNESCAPED_UNICODE);
+        $contentLesson->content = json_encode($content, JSON_UNESCAPED_UNICODE);
 
         $contentLesson->save();
 
@@ -248,8 +250,8 @@ class ManagerLessonController extends Controller
                 $lessonAnswer->lesson_content_id = $contentLesson->id;
                 $lessonAnswer->answer = $item;
                 $lessonAnswer->is_correct = false;
-                if($key == 0)
-                $lessonAnswer->is_correct = true;
+                if ($key == 0)
+                    $lessonAnswer->is_correct = true;
                 $lessonAnswer->save();
             }
         }
@@ -267,13 +269,13 @@ class ManagerLessonController extends Controller
         $lessonDetail = $this->repository->getTitleById($lessonContent->lesson_detail_id);
         $lesson = $this->repository->getLessonNameById($lessonContent->lesson_detail_id);
         $lessonAnswer = LessonAnswer::findLessonContentByID($id);
-        if(is_null($lessonContent)){
+        if (is_null($lessonContent)) {
             return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail'));
         }
         $contents = json_decode($lessonContent->content);
         $audios = json_decode($lessonContent->audio);
 
-        return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail','lessonContent','contents','lessonAnswer','audios'));
+        return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail', 'lessonContent', 'contents', 'lessonAnswer', 'audios'));
     }
 
     /**
@@ -308,11 +310,11 @@ class ManagerLessonController extends Controller
         }
 
         $contentLesson->audio = json_encode($names);
-        $content =[];
+        $content = [];
         foreach ($request['content'] as $item) {
             array_push($content, $item);
         }
-        $contentLesson->content = json_encode($content,JSON_UNESCAPED_UNICODE);
+        $contentLesson->content = json_encode($content, JSON_UNESCAPED_UNICODE);
 
         $contentLesson->save();
 
@@ -323,7 +325,7 @@ class ManagerLessonController extends Controller
                 $lessonAnswer = LessonAnswer::find($id);
                 $lessonAnswer->answer = $item;
                 $lessonAnswer->is_correct = false;
-                if($key == 0)
+                if ($key == 0)
                     $lessonAnswer->is_correct = true;
                 $lessonAnswer->save();
             }
@@ -355,10 +357,36 @@ class ManagerLessonController extends Controller
         $lessonDetail->delete();
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * json content
+     */
     public function jsonLesson($id)
     {
-        $dataContents= $this->repository->getAllContent($id);
-        dd($dataContents);
-        return view ('admin::managerLesson.json',compact('dataContents'));
+        $dataContents = $this->repository->getAllContent($id);
+        $lessonName = Lesson::find($id);
+        $dataDapAns = $this->repository->getQuizDapAn($id);
+        $partDataList = [];
+        foreach ($dataContents as $dataContent) {
+            $lessonData = [
+                "type" => LessonDetail::TYPE[$dataContent->lessonDetailType],
+                "path" => $dataContent->lessonDetailTitle,
+                "title" => $dataContent->lessonDetailName,
+                "outline" => $dataContent->lessonDetailOutline,
+                "guide" => [
+                    "title" => $dataContent->lessonContentTitle,
+                    "contents" => json_decode($dataContent->lessonContentContent),
+                ]
+            ];
+            array_push($partDataList, $lessonData);
+        }
+//        dd($partDataList);
+        $jsonData = ["parts" => $partDataList];
+        $directory = public_path() . "/modules/managerContent/" . $lessonName->name;
+
+        File::put($directory . "/config.json", json_encode($jsonData));
+
     }
+
 }
