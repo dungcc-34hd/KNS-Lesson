@@ -172,6 +172,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete-lesson/{id}', 'ManagerLessonController@deleteLesson')->name('admin.managerLesson.deleteLesson');
         Route::get('/delete-lesson-detail/{id}', 'ManagerLessonController@deleteLessonDetail')->name('admin.managerLesson.deleteLessonDetail');
         Route::get('/pagination/{records}/{search?}', 'ManagerLessonController@pagination')->name('admin.managerLesson.pagination');
+        Route::get('public/{id}','ManagerLessonController@publicObject')->name('admin.managerLesson.public');
 
     });
 
