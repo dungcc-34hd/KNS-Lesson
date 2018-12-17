@@ -11,11 +11,14 @@ use App\Models\LsClass;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
     use LaratrustUserTrait;
     use Notifiable;
+
+    use HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
