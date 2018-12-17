@@ -11,7 +11,7 @@
     <div class="content-wrapper" id="app">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
+            <h1> 
                 Trường học
                 <small>Control panel</small>
             </h1>
@@ -28,7 +28,7 @@
                     <div class="form-group col-md-4">
                         <label>Khu vực </label>
                         <div class="clearfix">
-                            <select  class="form-control" name="area_id" id="areas" >
+                            <select  class="form-control areas_S" name="area_id" id="areas" data-table="area_id">
                                 <option value="">Chọn khu vực</option>
                                 @foreach ($areas as $key => $area)
                                     <option value="{{$area->id}}">{{$area->name}}</option>
@@ -39,8 +39,8 @@
                     <div class="form-group col-md-4">
                         <label>Tỉnh/thành phố </label>
                         <div class="clearfix">
-                            <select  class="form-control" name="province_id" id="provinces" >
-                                <option value="">Chọn tỉnh/thành phố</option>
+                            <select  class="form-control provinces_S" name="province_id" id="provinces" data-table="province_id" >
+                                <option value="">Chọn Tỉnh</option>
                                 @foreach ($provinces as $key => $province)
                                     <option value="{{$province->id}}">{{$province->name}}</option>
                                 @endforeach
@@ -50,7 +50,7 @@
                     <div class="form-group col-md-4">
                         <label>Quận/Huyện </label>
                         <div class="clearfix">
-                            <select  class="form-control" name="district_id" id="districts">
+                            <select  class="form-control districts_S" name="district_id" id="districts" data-table="district_id">
                                 <option value="">Chọn quận/huyện</option>
                                 @foreach ($districts as $key => $district)
                                     <option value="{{$district->id}}">{{$district->name}}</option>
@@ -174,6 +174,7 @@
 
     </div>
     <input type="hidden" id="url-ajax" value="/admin/school/pagination/">
+    <input type="hidden" id="pagination_Select" value="/admin/school/pagination_Select/">
 @endsection
 
 @push('scripts')

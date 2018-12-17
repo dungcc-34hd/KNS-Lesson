@@ -10,7 +10,6 @@
 
     <div class="content-wrapper" id="app">
 
-           
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
@@ -32,7 +31,8 @@
                                         <label for="">Khu vực:</label>
                                 </div>
                                 <div class="col-md-9">
-                                        <select class="select-option form-control"  name="areas" id="areas"style="width: 200px;"
+                                        <select class="select-option form-control areas_S"  name="areas" id="areas"style="width: 200px;" 
+                                        data-table="area_id"
                                         >
                                         <option value="">Chọn Khu Vực</option>
                                           @if(count($areas) > 0)  
@@ -56,18 +56,10 @@
                                         <label for="">Tỉnh:</label>
                                 </div>
                                 <div class="col-md-9">
-                                        <select class="select-option form-control"  name="provinces" id="provinces"
-                                        style="width: 200px;" data-url="">
+                                        <select class="select-option form-control provinces_S"  name="provinces" id="provinces"
+                                        style="width: 200px;" data-table="province_id">
                                         <option value="">Chọn Tỉnh</option>
-                                           {{-- @if(count($provinces) > 0)       
-       
-                                               @foreach($provinces as $province)
-                                                   <option value="{{$province->id}}">{{$province->name}}</option>
-                                               @endforeach
-                                           @else
-                                                <option>{{trans('system.noData')}}</option>
-       
-                                           @endif --}}
+                                  
        
                                        </select>
                                 </div>
@@ -83,19 +75,10 @@
                                 </div>
                                 <div class="col-md-9">
                                         <select name="" name="districts" id="districts" 
-                                        style="width: 200px;" class="form-control"
-                               
-                                        {{--  data-url="{{route('admin.statistic.changeDistrict',['districtId'=> count($districts) > 0 ? $districts[0]->id : 0])}}" --}}>
+                                        style="width: 200px;" class="form-control districts_S"
+                                        data-table="district_id">
                                         <option value="">Chọn Quận/Huyện</option>  
-                                        {{-- @if(count($districts) > 0) 
-       
-                                               @foreach($districts as $district) 
-                                                   <option value="{{$district->id}}">{{$district->name}}</option>
-                                               @endforeach
-                                           @else
-                                                <option>{{trans('system.noData')}}</option>
-       
-                                           @endif --}}
+                     
        
                                        </select>
                                 </div>
@@ -111,18 +94,11 @@
                                 </div>
                                 <div class="col-md-10">
                                         <select name="" name="schools" id="schools"
-                                        style="width: 200px;" class="form-control"
+                                        style="width: 200px;" class="form-control schools_S"
+                                        data-table="school_id"
                                         >
                                          <option >Chọn Trường</option> 
-                                         {{-- @if(count($schools) > 0) 
-                                              @foreach($schools as $school) 
-                                                  <option value="{{$school->id}}"
-                                                      >{{$school->name}}</option>
-                                              @endforeach
-                                          @else
-                                               <option>{{trans('system.noData')}}</option>
-                                          @endif --}}
-      
+                          
                                       </select>
                                     </div>
                               
@@ -252,6 +228,7 @@
 
     </div>
     <input type="hidden" id="url-ajax" value="/admin/user/pagination/">
+    <input type="hidden" id="pagination_Select" value="/admin/user/pagination_Select/">
 @endsection
 
 @push('scripts')

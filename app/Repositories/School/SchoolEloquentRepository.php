@@ -62,7 +62,8 @@ class SchoolEloquentRepository extends EloquentRepository implements SchoolRepos
       public function getAreaPages($records,$id,$tableID, $search = null)
     {
         $total = !is_null($search) ? count(School::where(function ($q) use ($search) {
-        $q->where('name', 'like', '%' . $search . '%');$q->where($tableID,$id); })->get()) :
+        $q->where('name', 'like', '%' . $search . '%');
+        $q->where($tableID,$id); })->get()) :
         count( School::where($tableID,$id)->get());
 
         return ceil($total / $records);
@@ -76,9 +77,7 @@ class SchoolEloquentRepository extends EloquentRepository implements SchoolRepos
         }
         else {
             $result= School::where(function ($q) use ($search) { 
-                $q->where('name', 'like', '%' . $search . '%');
                 $q->where($tableID,$id);
-                // $q->orWhere('area_id',$area);
                 })->paginate($records)->items();
         }
           return $result;  

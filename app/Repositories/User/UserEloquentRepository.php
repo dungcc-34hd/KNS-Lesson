@@ -131,9 +131,25 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
   
     public function getAreaObjects($records,$id,$tableID, $search = null)
     {
-        if(is_null($search))
-            $User = User::join('areas','users.area_id','=','areas.id')->join('provinces','users.province_id','=','provinces.id')->join('districts','users.district_id','=','districts.id')->join('schools','users.school_id','=','schools.id')->join('class','users.class_id','=','class.id')->join('grades','users.grade_id','=','grades.id')->join('roles','users.role_id','=','roles.id')->selectRaw($this->properties)->where($tableID,$id)->paginate($records)->items(); 
-            // dd()
+        if(is_null($search)){
+            $User = User::join('areas','users.area_id','=','areas.id')
+            ->join('provinces','users.province_id','=','provinces.id')
+            ->join('districts','users.district_id','=','districts.id')
+            ->join('schools','users.school_id','=','schools.id')
+            ->join('class','users.class_id','=','class.id')
+            ->join('grades','users.grade_id','=','grades.id')
+            ->join('roles','users.role_id','=','roles.id')
+            ->selectRaw($this->properties)->where($tableID,$id)->paginate($records)->items(); 
+            // $sql = User::join('areas','users.area_id','=','areas.id')
+            // ->join('provinces','users.province_id','=','provinces.id')
+            // ->join('districts','users.district_id','=','districts.id')
+            // ->join('schools','users.school_id','=','schools.id')
+            // ->join('class','users.class_id','=','class.id')
+            // ->join('grades','users.grade_id','=','grades.id')
+            // ->join('roles','users.role_id','=','roles.id')
+            // ->selectRaw($this->properties)->where($tableID,$id)->get()->sql(); 
+            // dd($sql);
+        }
         else 
             $User= User::join('areas','users.area_id','=','areas.id')->join('provinces','users.province_id','=','provinces.id')->join('districts','users.district_id','=','districts.id')->join('schools','users.school_id','=','schools.id')->join('class','users.class_id','=','class.id')->join('grades','users.grade_id','=','grades.id')->join('roles','users.role_id','=','roles.id')->selectRaw($this->properties)->where(function ($q) use ($search) { 
                 $q->where('name', 'like', '%' . $search . '%')->Where($tableID,$id);
