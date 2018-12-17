@@ -350,14 +350,20 @@ class ManagerLessonController extends Controller
      public function publicObject($id){
         try {
             $lesson = $this->repository->find($id);
-            // dd($lesson);
             $lesson->update(['is_public' => !$lesson->is_public]);
-             Session::flash('flash_level', 'success');
-        Session::flash('flash_message', 'Cập nhật thành công');
-            // return response()->json(['status' => true, 'info' => __('crud.displayed', ['name' => $lesson->name])]);
+            return response()->json(['status' => true]);
         } catch (QueryException $exception) {
             Log::error($exception->getMessage());
-            // return response()->json(['status' => false, 'info' => __('system.error')]);
+            return response()->json(['status' => false, 'info' => __('system.error')]);
+        }
+    }
+    public function testObject($id){
+        try {
+            $lesson = $this->repository->find($id);
+            $lesson->update(['is_public' => 1]);
+             
+        } catch (QueryException $exception) {
+            Log::error($exception->getMessage());      
         }
     }
 }
