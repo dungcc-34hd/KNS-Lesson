@@ -3,6 +3,7 @@
 namespace App\Repositories\ManagerLesson;
 
 use App\Models\Lesson;
+use App\Models\LessonContent;
 use App\Models\LessonDetail;
 use App\Models\School;
 use App\Repositories\EloquentRepository;
@@ -64,6 +65,10 @@ class ManagerLessonEloquentRepository extends EloquentRepository implements Mana
         return LessonDetail::where('id',$id)->first()->type;
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getTitleById($id)
     {
         return LessonDetail::where('id',$id)->first()->title;
@@ -85,5 +90,34 @@ class ManagerLessonEloquentRepository extends EloquentRepository implements Mana
     public function getLessonNameByGradeId($gradeId)
     {
         return Lesson::where('grade_id',$gradeId)->get();
+    }
+
+    /**
+     * @param $lessonId
+     * @return mixed
+     */
+    public function getAllContent($lessonId)
+    {
+        return Lesson::leftJoin('lesson_details','lessons.id','=','lesson_details.lesson_id')
+            ->leftJoin('lesson_contents','lesson_details.id','=','lesson_contents.lesson_detail_id')
+            ->where('lesson_details.lesson_id','=',$lessonId)
+            ->select('lessons.name as lessonName','lesson_details.title as lessonDetailTitle','lesson_details.type as lessonDetailType','lesson_details.name as lessonDetailName',
+                'lesson_details.outline as lessonDetailOutline' ,'lesson_contents.title as lessonContentTitle','lesson_contents.content as lessonContentContent',
+                'lesson_contents.question as lessonContentQuestion')
+            ->get();
+    }
+
+    /**
+     * @param $lessonId
+     * @return mixed
+     */
+    public function getQuizDapAn($lessonId)
+    {
+        return Lesson::leftJoin('lesson_details','lesson_details.lesson_id','=','lessons.id')
+            ->leftJoin('lesson_contents','lesson_contents.lesson_detail_id','=','lesson_details.id')
+            ->leftJoin('lesson_answers','lesson_answers.lesson_content_id','=','lesson_contents.id')
+            ->where('lessons.id','=',$lessonId)
+            ->select('lesson_details.type as type','lesson_answers.answer as lessonAnswer','lesson_answers.is_correct as lessonFalse')
+            ->get();
     }
 }

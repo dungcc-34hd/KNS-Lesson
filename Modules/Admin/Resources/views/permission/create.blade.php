@@ -23,8 +23,8 @@
                         <!-- /.box-body -->
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Create</button>
-                        <a href="{{route('admin.permission.index')}}" type="button" class="btn btn-default">Go Back</a>
+                        <button type="submit" class="btn btn-primary">Tạo Permission</button>
+                        <a href="{{route('admin.permission.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>
             </section>

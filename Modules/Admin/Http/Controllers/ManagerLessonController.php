@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 
 class ManagerLessonController extends Controller
 {
@@ -53,7 +54,6 @@ class ManagerLessonController extends Controller
         $grades = Grade::all();
         $lessonDetails = LessonDetail::all();
         $lessonContents = LessonContent::all();
-
         return view('admin::managerLesson.index', compact('lessonDetails', 'lessons', 'grades', 'lessonDetails', 'lessonContents'));
     }
 
@@ -136,6 +136,7 @@ class ManagerLessonController extends Controller
         $detailLesson->lesson_id = $request['lesson-id'];
         $detailLesson->type = $request['type'];
         $detailLesson->outline = $request['outline'];
+        $detailLesson->name = $request['name'];
 
         //make directory
         $directory = public_path() . "/modules/managerContent/" . $request['lesson-detail'] . '/' . $request['detail-lesson'];
@@ -174,6 +175,7 @@ class ManagerLessonController extends Controller
         $detailLesson->title = $request['detail-lesson'];
         $detailLesson->type = $request['type'];
         $detailLesson->outline = $request['outline'];
+        $detailLesson->name = $request['name'];
         $detailLesson->save();
         return redirect('admin/manager-lesson/index');
     }
@@ -257,6 +259,10 @@ class ManagerLessonController extends Controller
         return redirect('admin/manager-lesson/index');
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function editLessonContent($id)
     {
         $lessonContent = LessonContent::find($id);
@@ -273,6 +279,11 @@ class ManagerLessonController extends Controller
         return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail', 'lessonContent', 'contents', 'lessonAnswer', 'audios'));
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function updateLessonContent(Request $request, $id)
     {
         $contentLesson = LessonContent::find($id);
@@ -356,4 +367,52 @@ class ManagerLessonController extends Controller
         File::deleteDirectory($directory);
         $lessonDetail->delete();
     }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * json content
+     */
+    public function jsonLesson($id)
+    {
+        $dataContents = $this->repository->getAllContent($id);
+        $lessonName = Lesson::find($id);
+        $dataDapAns = $this->repository->getQuizDapAn($id);
+        $partDataList = [];
+        foreach ($dataContents as $dataContent) {
+            $lessonData = [
+                "type" => LessonDetail::TYPE[$dataContent->lessonDetailType],
+                "path" => $dataContent->lessonDetailTitle,
+                "title" => $dataContent->lessonDetailName,
+                "outline" => $dataContent->lessonDetailOutline,
+                "guide" => [
+                    "title" => $dataContent->lessonContentTitle,
+                    "contents" => json_decode($dataContent->lessonContentContent),
+                ]
+            ];
+            array_push($partDataList, $lessonData);
+        }
+//        dd($partDataList);
+        $jsonData = ["parts" => $partDataList];
+        $directory = public_path() . "/modules/managerContent/" . $lessonName->name;
+
+        File::put($directory . "/config.json", json_encode($jsonData));
+
+    }
+
+
+     public function publicObject($id){
+        try {
+            $lesson = $this->repository->find($id);
+            // dd($lesson);
+            $lesson->update(['is_public' => !$lesson->is_public]);
+             Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Cập nhật thành công');
+            // return response()->json(['status' => true, 'info' => __('crud.displayed', ['name' => $lesson->name])]);
+        } catch (QueryException $exception) {
+            Log::error($exception->getMessage());
+            // return response()->json(['status' => false, 'info' => __('system.error')]);
+        }
+    }
+
 }

@@ -25,7 +25,7 @@
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{route('admin.grade.create')}}" class="btn btn-primary">Tạo lớp</a>
+                    <a href="{{route('admin.grade.create')}}" class="btn btn-primary">Tạo khối</a>
                 </div>
             </div>
             <div class="row">
@@ -36,11 +36,11 @@
                     <!-- TO DO List -->
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">Danh sách lớp</h3>
+                            <h3 class="box-title">Danh sách khối</h3>
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" id="nav-search-input" name="table_search" class="form-control pull-right" placeholder="Search">
+                                    <input type="text" id="nav-search-input" name="table_search" class="form-control pull-right" placeholder="Tìm kiếm">
                                     <div class="input-group-btn">
                                         <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                                     </div>
@@ -52,7 +52,7 @@
                             <table class="table table-hover results-table">
                                 <tbody>
                                 <tr>
-                                    <th class="order-number">Id.</th>
+                                    <th class="order-number">STT</th>
                                     <th>Tên khối</th>
                                    
                                     <th class="item-action-3">Trạng thái</th>
@@ -88,7 +88,7 @@
                                     @endforeach
                                 @else 
                                     <tr>
-                                        <td colspan="5">No Records</td>
+                                        <td colspan="5">Không có bản ghi nào</td>
                                     </tr>
                                 @endif
                                 </tbody>
@@ -103,7 +103,7 @@
                                 <div class="col-md-6 pull-right">
                                     <div class="form-group pull-right">
                                         <label class="view-by">
-                                            View By
+                                            Xem với 
                                             <select id="show-records" class="form-control input-sm">
                                                 <option value="10">10</option>
                                                 <option value="25">25</option>

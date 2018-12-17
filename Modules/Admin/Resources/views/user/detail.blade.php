@@ -138,7 +138,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{route('admin.user.index')}}" type="button" class="btn btn-default">Quay lại</a>
+                            <a href="{{route('admin.user.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                         </div>
                     </div>
                     

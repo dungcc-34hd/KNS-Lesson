@@ -9,7 +9,7 @@
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
             <li class="breadcrumb-item active">Quận/Huyện</li>
         </ol>
-        <form action="{{route('admin.province.update', $district->id)}}" method="post" class="validation-form">
+        <form action="{{route('admin.district.update', $district->id)}}" method="post" class="validation-form">
             {{csrf_field()}}
             <section class="content">
                 <div class="box box-primary">
@@ -25,15 +25,33 @@
                                     <div class="clearfix">
                                         <input type="text" class="form-control" name="name"
                                                value="@isset($district){{$district->name}}@endisset">
+                                        @if($errors)
+                                            <span style="color: #dd4b39;" >{{$errors->first('name')}}</span> 
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Tỉnh/Thành phố @include('common.require')</label>
-                                    <select class="form-control" name="select-provincial">
-                                        @foreach ($provincials as $key => $provincial)
-                                            <option value="{{$provincial->id}}" {{ $district->provincial_id == $provincial->id ? "selected" : '' }}>{{$provincial->name}}</option>
+                                    <label>Khu vực @include('common.require')</label>
+                                    <select  class="form-control" name="area_id" id="selectArea">
+                                        <option value="">Chọn khu vực</option>
+                                        @foreach ($areas as $key => $area)
+                                            <option value="{{$area->id}}">{{$area->name}}</option>
                                         @endforeach
                                     </select>
+                                    @if($errors)
+                                            <span style="color: #dd4b39;" >{{$errors->first('area_id')}}</span> 
+                                        @endif
+                                </div>
+                                <div class="form-group">
+                                    <label>Tỉnh/Thành phố @include('common.require')</label>
+                                    <select class="form-control" name="province_id">
+                                        @foreach ($provincials as $key => $provincial)
+                                            <option value="{{$provincial->id}}" {{ $district->province_id == $provincial->id ? "selected" : '' }}>{{$provincial->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @if($errors)
+                                            <span style="color: #dd4b39;" >{{$errors->first('province_id')}}</span> 
+                                        @endif
                                 </div>
                             </div>
                         </div>
@@ -49,5 +67,5 @@
     </div>
 @endsection
 @push('scripts')
-
+    <script src="{{ asset('modules/admin/district/district.js') }}"></script>
 @endpush

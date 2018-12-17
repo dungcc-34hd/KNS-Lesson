@@ -74,13 +74,14 @@ class AreaController extends Controller
      */
     public function update(Request $request ,$id)
     {
+        $this->validation($request,$id);
         $area = Area::findOrFail($id);
 
         $area->name        = $request->name;
         $area->description = $request->description;
 
         $area->save();
-        Session::flash('message', 'Successfully updated area!');
+         message($request, 'success', 'Cập nhật thành công.');
         return redirect('admin/area/index');
     }
 
@@ -100,19 +101,41 @@ class AreaController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validation($request,$id=null);
         $area = new Area();
         $area->name        = $request->name;
         $area->description = $request->description;
         $area->save();
 
-        Session::flash('message', 'Successfully created area!');
+         message($request, 'success', 'Thêm mới thành công.');
         return redirect('admin/area/index');
     }
 
     public function delete($id)
     {
-        $area = Area::findOrFail($id);
-        $area->delete();
+        try
+        {
+              
+            $this->repository->delete($id);
+            Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
+       
+            
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            return response()->json(['status' => false]);
+        }
+    }
+    public function validation($request,$id=null){
+        $message=[
+            'unique'=>'Trường này đã tồn tại.', 
+            'required'=> 'Trường này không được để trống.',        
+        ];
+        $validatedData = $request->validate([
+        'name' => 'required|unique:areas,name,'.$id,
+        ],$message);
     }
 
 }

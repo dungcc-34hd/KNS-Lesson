@@ -4,7 +4,7 @@
     <th>Tên hiển thị</th>
     <th>Mô tả</th>
     <th>Quyền</th>/
-    <th class="item-action-3"></th>
+    <th class="item-action-3">Trạng thái</th>
 </tr>
   @if(count($roles) > 0)
     @foreach($roles as $key => $role)

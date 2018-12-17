@@ -88,6 +88,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::post('/update/{id}', 'DistrictController@update')->name('admin.district.update');
         Route::get('/delete/{id}', 'DistrictController@delete')->name('admin.district.delete');
         Route::get('/pagination/{records}/{search?}', 'DistrictController@pagination')->name('admin.district.pagination');
+        Route::get('change-area/{areaId}', 'DistrictController@changeArea')->name('admin.district.changeArea');
     });
 
     // School
@@ -108,7 +109,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/hanlding-area','SchoolController@hanldingArea')->name('admin.school.hanldingArea');
         Route::get('/hanlding-province','SchoolController@hanldingProvince')->name('admin.school.hanldingProvince');
         Route::get('/hanlding-district','SchoolController@hanldingDistrict')->name('admin.school.hanldingDistrict');
-         Route::get('/select','UserController@select')->name('admin.user.select');
+         Route::get('/select','SchoolController@select')->name('admin.school.select');
 
 
 
@@ -167,10 +168,12 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::post('/update-lesson-content/{id}', 'ManagerLessonController@updateLessonContent')->name('admin.managerLesson.updateLessonContent');
         Route::get('/edit/{id}', 'ManagerLessonController@edit')->name('admin.managerLesson.edit');
         Route::post('/update/{id}', 'ManagerLessonController@update')->name('admin.managerLesson.update');
+        Route::get('/add-lesson-json/{id}', 'ManagerLessonController@jsonLesson')->name('admin.managerLesson.jsonLesson');
         Route::get('/delete/{id}', 'ManagerLessonController@delete')->name('admin.managerLesson.delete');
         Route::get('/delete-lesson/{id}', 'ManagerLessonController@deleteLesson')->name('admin.managerLesson.deleteLesson');
         Route::get('/delete-lesson-detail/{id}', 'ManagerLessonController@deleteLessonDetail')->name('admin.managerLesson.deleteLessonDetail');
         Route::get('/pagination/{records}/{search?}', 'ManagerLessonController@pagination')->name('admin.managerLesson.pagination');
+        Route::get('public/{id}','ManagerLessonController@publicObject')->name('admin.managerLesson.public');
 
     });
 

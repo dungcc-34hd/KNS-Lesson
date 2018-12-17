@@ -7,9 +7,9 @@
         <div class="clearfix">
             <input type="text" class="form-control" name="name"
                    value="@isset($role) {{ $role->name_role }} @endisset">
-            {{-- @if($errors) --}}
+            @if($errors)
                 <span style="color: #dd4b39;" >{{$errors->first('name')}}</span> 
-            {{-- @endif --}}
+            @endif
         </div>
     </div>
     <!-- /.form-group -->

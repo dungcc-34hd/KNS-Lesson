@@ -23,23 +23,41 @@
                                     <label>Quận/Huyện @include('common.require')</label>
                                     <div class="clearfix">
                                         <input type="text" class="form-control" name="name">
+                                        @if($errors)
+                                            <span style="color: #dd4b39;" >{{$errors->first('name')}}</span> 
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label>Khu vực @include('common.require')</label>
+                                    <select  class="form-control" name="area_id" id="selectArea">
+                                        <option value="">Chọn khu vực</option>
+                                        @foreach ($areas as $key => $area)
+                                            <option value="{{$area->id}}">{{$area->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @if($errors)
+                                            <span style="color: #dd4b39;" >{{$errors->first('area_id')}}</span> 
+                                        @endif
+                                </div>
+                                <div class="form-group">
                                     <label>Tỉnh/Thành phố @include('common.require')</label>
-                                    <select  class="form-control" name="select-provincial">
-                                        <option value="">Select Provincial</option>
+                                    <select  class="form-control" name="province_id" id="selectProvince">
+                                        <option value="">Chọn tỉnh/thành phố</option>
                                         @foreach ($provincials as $key => $provincial)
                                             <option value="{{$provincial->id}}">{{$provincial->name}}</option>
                                         @endforeach
                                     </select>
+                                    @if($errors)
+                                            <span style="color: #dd4b39;" >{{$errors->first('province_id')}}</span> 
+                                        @endif
                                 </div>
                             </div>
                         </div>
                         <!-- /.box-body -->
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Tạo</button>
+                        <button type="submit" class="btn btn-primary">Tạo quận/huyện</button>
                         <a href="{{route('admin.district.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>
@@ -48,3 +66,7 @@
 
     </div>
 @endsection
+@push('scripts')
+    <script src="{{ asset('modules/admin/district/district.js') }}"></script>
+@endpush
+

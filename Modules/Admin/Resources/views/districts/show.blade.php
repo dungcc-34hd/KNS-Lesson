@@ -68,6 +68,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="box-footer">
+                                <a href="{{route('admin.district.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
+                        </div>  
                     </div>
                 </div>
             </div>

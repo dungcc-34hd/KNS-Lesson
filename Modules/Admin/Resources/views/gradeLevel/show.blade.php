@@ -7,7 +7,7 @@
     <div class="content-wrapper">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Trạng thái</a></li>
-            <li class="breadcrumb-item active">Lớp</li>
+            <li class="breadcrumb-item active">Khối</li>
         </ol>
         <section class="content">
             <div class="row">
@@ -63,6 +63,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="box-footer">
+                                <a href="{{route('admin.grade.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
+                        </div>  
                     </div>
                 </div>
             </div>
