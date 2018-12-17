@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use DB;
+use App\Models\District;
 
 class DistrictController extends Controller
 {
@@ -16,24 +16,21 @@ class DistrictController extends Controller
 			if($province_id){
 				return response()->json([
 		    		'code' => 0, 
-		    		'data' => DB::table('districts')
-		    					->select(['id', 'name','province_id'])
+		    		'data' => District::select(['id', 'name','province_id'])
 		    					->where('province_id',$province_id)
 								->paginate($size)
 				], 200);
 			}else{
 				return response()->json([
 		    		'code' => 0, 
-		    		'data' => DB::table('districts')
-		    					->select(['id', 'name','province_id'])
+		    		'data' => District::select(['id', 'name','province_id'])
 								->paginate($size)
 				], 200);
 			}
 		}else{
 			return response()->json([
 	    		'code' => 0, 
-	    		'data' => DB::table('districts')
-	    					->select(['id', 'name','province_id'])
+	    		'data' => District::select(['id', 'name','province_id'])
 							->paginate()
 			], 200);
 		}

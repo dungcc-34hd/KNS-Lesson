@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Lesson;
 use App\User;
 use Auth;
-use DB;
 
 class LessonController extends Controller
 {
@@ -17,15 +16,13 @@ class LessonController extends Controller
     	if(!is_null($size)){
     		return response()->json([
 	    		'code' => 0,
-	    		'data' => DB::table('lessons')
-	    					->select(['id', 'name'])
+	    		'data' => Lesson::select(['id', 'name'])
 							->paginate($size)
 			], 200);
     	}else{
     		return response()->json([
 	    		'code' => 0,
-	    		'data' => DB::table('lessons')
-	    					->select(['id', 'name'])
+	    		'data' => Lesson::select(['id', 'name'])
 							->paginate()
 			], 200);
     	}
