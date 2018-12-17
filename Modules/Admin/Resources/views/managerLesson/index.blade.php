@@ -47,7 +47,7 @@
                             <div class="box-tools pull-right">
                                 <div class="btn-group btn-group-sm">
 
-                                    <a href="#" class="btn btn-info " 
+                                    <a href="{{ route('admin.managerLesson.zip',$lesson->id) }}" class="btn btn-info "
                                        title=""
                                        object_id="{{$lesson->id}}"
                                        object_name="{{$lesson->name}}">
