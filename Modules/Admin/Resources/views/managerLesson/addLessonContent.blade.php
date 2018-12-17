@@ -82,7 +82,7 @@
                                         <input type="file" class="add_field_button form-control "
                                                name="background-image[]"
                                                id="background-image" multiple>
-                                        @else
+                                    @else
                                         <input type="file" class="add_field_button form-control "
                                                name="background-image[]"
                                                id="background-image" multiple>
@@ -110,7 +110,17 @@
                         <input type="text" id="answer" class="form-control"
                                placeholder="Nhập câu trả lời đúng"
                                name="answer[]"
-                               value="@isset($lessonAnswer) @foreach($lessonAnswer as $answer)@if($answer->is_correct == 1){{$answer->answer}}@endif @endforeach @endisset">
+                               value="@isset($lessonAnswer) @foreach($lessonAnswer as $answer)@if($answer->is_correct == 1){{$answer->answer}}@endif @endforeach @endisset"><br>
+                        <input type="checkbox" class=" answer_last" name="answer_last"
+                               @isset($lessonAnswer)
+                               @foreach($lessonAnswer as $answer)
+                               {{($answer->answer_last == 1) ? 'checked' :''}}
+                               @endforeach
+                               @endisset
+                               {{isset($lessonAnswer->answer_last)? 'checked': ''}}
+
+
+                               value="0"><label>Câu trả lời đúng ở cuối</label>
                     </div>
                     <br/>
                     <div class="answer-wrapper">
@@ -134,6 +144,7 @@
                                         class="glyphicon glyphicon-plus"></i>
                             </button>
                         </div>
+                        </label>
                     </div>
                 </div>
             @endif
@@ -197,6 +208,13 @@
         //     })
         //
         // });
+
+        $('.answer_last').click(function () {
+            $(this).attr('value',0);
+            if ($(this).is(':checked')){
+                $(this).attr('value', 1);
+            }
+        });
 
         function changeAnswerCorrect(correct) {
             axios.get('/admin/manager-lesson/get-value-correct/' + correct).then(function (response) {
