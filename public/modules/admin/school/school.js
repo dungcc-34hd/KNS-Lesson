@@ -73,7 +73,6 @@ $(document).ready(function () {
 
 
             } else {
-                // alert('ahihih')
                 $.ajax({
                     type: 'GET',
                     url: '/admin/school/select/',
@@ -85,9 +84,10 @@ $(document).ready(function () {
                         $('#tbody').html(data.user);
                         $("#provinces").html('<option>Chọn Tỉnh</option>');
                         $("#districts").html('<option>Chọn Quận/Huyện</option>');
-                        // ajaxLoadData(records,1,$('#nav-search-input').val());
+                        
                     }
                 });
+                ajaxLoadData(records,1,$('#nav-search-input').val());
             }
 
 
@@ -124,8 +124,11 @@ $(document).ready(function () {
                     success: function (data) {
                         $('#tbody').html(data.user);
                         $("#districts").html('<option>Chọn Quận/Huyện</option>');
+                        ajaxLoadDataForSelect(records, 1, province,table);
                     }
                 });
+                ajaxLoadDataForSelect(records, 1, $(".areas_S").val(),$(".areas_S").data('table'));
+
             }
 
         });
@@ -158,6 +161,7 @@ $(document).ready(function () {
                         $('#tbody').html(data.user);
                     }
                 });
+                ajaxLoadDataForSelect(records, 1, $(".provinces_S").val(),$(".provinces_S").data('table'));
             }
 
 
@@ -228,7 +232,7 @@ $(document).ready(function () {
     //                 $('.next').addClass('disabled');
     //                 $('.previous').attr('value', parseInt($(this).attr('value')) - 1)
     //             }
-    //             else if($(this).hasClass('previous'))
+    //             else if($(this).hasClass('previous')) 
     //             {
     //                 setValuePrevious(pageCurrent);
     //             }

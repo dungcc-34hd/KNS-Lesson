@@ -213,7 +213,7 @@
                                                 <option value="100">100</option>
                                             </select>
                                         </label>
-                                    </div>
+                                    </div> 
                                 </div>
                             </div>
                         </div>
