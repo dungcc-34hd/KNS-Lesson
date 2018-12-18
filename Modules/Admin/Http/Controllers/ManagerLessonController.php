@@ -54,6 +54,26 @@ class ManagerLessonController extends Controller
         $grades = Grade::all();
         $lessonDetails = LessonDetail::all();
         $lessonContents = LessonContent::all();
+
+        $dataDapAn = $this->repository->getQuizDapAn( 1);
+        //create json trac nghiem
+        $answerDataList = [];
+        $lessonAnswerData = [
+            "answer_last" => ($dataDapAn->answerLast == 1) ? true : false,
+            "question" => $dataDapAn->question,
+
+                "answer" => $dataDapAn->answer,
+                "wrong" => [
+                    ""
+                ]
+
+        ];
+        dd($lessonAnswerData,$dataDapAn);
+        array_push($answerDataList, $lessonAnswerData);
+        $jsonData = ["parts" => $answerDataList];
+//            $directory = public_path() . "/modules/managerContent/" . $lessonName->name;
+
+//        File::put($directory . "/config.json", json_encode($jsonData));
         return view('admin::managerLesson.index', compact('lessonDetails', 'lessons', 'grades', 'lessonDetails', 'lessonContents'));
     }
 
@@ -208,7 +228,6 @@ class ManagerLessonController extends Controller
      */
     public function storeLessonContent(Request $request)
     {
-//        dd($request->all());
         $contentLesson = new LessonContent();
         $contentLesson->title = $request['title'];
         $contentLesson->lesson_detail_id = $request['lesson-detail-id'];
@@ -247,6 +266,7 @@ class ManagerLessonController extends Controller
 
         //nếu là trắc nghiệm
         if ($request['type'] == 3) {
+
             //$is_correct = isset($request['is-correct']) ? $request['is-correct'][0] : null;
             foreach ($request['answer'] as $key => $item) {
                 $lessonAnswer = new LessonAnswer();
@@ -260,6 +280,23 @@ class ManagerLessonController extends Controller
                     $lessonAnswer->answer_last = 1;
                 $lessonAnswer->save();
             }
+            $dataDapAn = $this->repository->getQuizDapAn( $contentLesson->id);
+
+            //create json trac nghiem
+            $answerDataList = [];
+                $lessonAnswerData = [
+                    "answer_last" => ($dataDapAn->answer_last == 1) ? true : false,
+                    "question" => $dataDapAn->question,
+                    "answer" => $dataDapAn->answer,
+                    "wrong" => [
+                      $dataDapAn->lessonContentContent,
+                    ]
+                ];
+                array_push($answerDataList, $lessonAnswerData);
+            $jsonData = ["parts" => $answerDataList];
+//            $directory = public_path() . "/modules/managerContent/" . $lessonName->name;
+
+            File::put($directory . "/config.json", json_encode($jsonData));
 
         }
         return redirect('admin/manager-lesson/index');
@@ -401,12 +438,10 @@ class ManagerLessonController extends Controller
             ];
             array_push($partDataList, $lessonData);
         }
-//        dd($partDataList);
         $jsonData = ["parts" => $partDataList];
         $directory = public_path() . "/modules/managerContent/" . $lessonName->name;
 
         File::put($directory . "/config.json", json_encode($jsonData));
-
     }
 
 
