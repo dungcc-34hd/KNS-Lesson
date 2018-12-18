@@ -86,6 +86,8 @@ class AuthController extends Controller
 
             if (Auth::attempt($credentials)) {
                 $license_key = !empty($user->school_id) ? School::where('id',$user->school_id)->first()->license_key : "";
+                $user->ip = request()->ip();
+                $user->save();
                 $tokenResult = $user->createToken('Personal Access Token');
                 $token = $tokenResult->token;
                 $token->expires_at = Carbon::now()->addHours(4);
