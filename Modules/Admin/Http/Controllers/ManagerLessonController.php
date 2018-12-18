@@ -11,6 +11,7 @@ use App\Models\LessonDetail;
 use App\Models\School;
 use App\Repositories\ManagerLesson\ManagerLessonEloquentRepository;
 use Faker\Provider\Image;
+use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Routing\Controller;
@@ -54,26 +55,6 @@ class ManagerLessonController extends Controller
         $grades = Grade::all();
         $lessonDetails = LessonDetail::all();
         $lessonContents = LessonContent::all();
-
-        $dataDapAn = $this->repository->getQuizDapAn( 1);
-        //create json trac nghiem
-        $answerDataList = [];
-        $lessonAnswerData = [
-            "answer_last" => ($dataDapAn->answerLast == 1) ? true : false,
-            "question" => $dataDapAn->question,
-
-                "answer" => $dataDapAn->answer,
-                "wrong" => [
-                    ""
-                ]
-
-        ];
-        dd($lessonAnswerData,$dataDapAn);
-        array_push($answerDataList, $lessonAnswerData);
-        $jsonData = ["parts" => $answerDataList];
-//            $directory = public_path() . "/modules/managerContent/" . $lessonName->name;
-
-//        File::put($directory . "/config.json", json_encode($jsonData));
         return view('admin::managerLesson.index', compact('lessonDetails', 'lessons', 'grades', 'lessonDetails', 'lessonContents'));
     }
 
@@ -281,22 +262,26 @@ class ManagerLessonController extends Controller
                 $lessonAnswer->save();
             }
             $dataDapAn = $this->repository->getQuizDapAn( $contentLesson->id);
-
             //create json trac nghiem
             $answerDataList = [];
-                $lessonAnswerData = [
-                    "answer_last" => ($dataDapAn->answer_last == 1) ? true : false,
-                    "question" => $dataDapAn->question,
-                    "answer" => $dataDapAn->answer,
-                    "wrong" => [
-                      $dataDapAn->lessonContentContent,
-                    ]
-                ];
-                array_push($answerDataList, $lessonAnswerData);
-            $jsonData = ["parts" => $answerDataList];
-//            $directory = public_path() . "/modules/managerContent/" . $lessonName->name;
+            foreach ($dataDapAn->answer as $key => $item )
+            {
+                if($key != 0){
+                    $answerWrong[] = $item;
+                }
+            }
+            $lessonAnswerData = [
+                "answer_last" => ($dataDapAn->answerLast == 1) ? true : false,
+                "question" => $dataDapAn->question,
+                "answer" => $dataDapAn->answer[0],
+                "wrong" => $answerWrong
 
-            File::put($directory . "/config.json", json_encode($jsonData));
+            ];
+            array_push($answerDataList, $lessonAnswerData);
+            $jsonData = ["data" => $answerDataList];
+            $directory = public_path() . "/modules/managerContent/" .'/'.$request['lesson'].'/'.$request['lesson-detail'];
+
+            File::put($directory . "/tncc.json", json_encode($jsonData,JSON_UNESCAPED_UNICODE));
 
         }
         return redirect('admin/manager-lesson/index');

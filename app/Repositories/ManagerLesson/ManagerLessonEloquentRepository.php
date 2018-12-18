@@ -117,13 +117,13 @@ class ManagerLessonEloquentRepository extends EloquentRepository implements Mana
         $data = LessonContent::find($lessonContentId);
         $data->answer = LessonAnswer::where('lesson_content_id','=',$lessonContentId)->get();
         foreach ($data->answer as $value){
-//            $answers[] = $value['answer'];
+            $answers[] = $value['answer'];
             $answerLast = $value['answer_last'];
-//            $answerIsCorrect = $value['answer_last'];
+            $answerIsCorrect = $value['answer_last'];
         }
-//        $data['answer'] = $answers;
+        $data['answer'] = $answers;
         $data['answerLast'] = $answerLast;
-//        $data['answerIsCorrect'] = $answerIsCorrect;
+        $data['answerIsCorrect'] = $answerIsCorrect;
       return $data ;
     }
 }
