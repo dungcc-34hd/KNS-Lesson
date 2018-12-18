@@ -85,7 +85,12 @@ class AuthController extends Controller
             $user = User::where('email',$email)->first();
 
             if (Auth::attempt($credentials)) {
-                $license_key = !is_null($user->school_id) ? School::where('id',$user->school_id)->first()->license_key : "";
+                $query = !is_null($user->school_id) ? School::where('id',$user->school_id)->first() : "";
+                if(!is_null($query)){
+                    $license_key = $query->license_key;
+                }else{
+                    $license_key = '';
+                }
                 $user->ip = request()->ip();
                 $user->save();
                 $tokenResult = $user->createToken('Personal Access Token');
