@@ -21,11 +21,11 @@ class SchoolEloquentRepository extends EloquentRepository implements SchoolRepos
         return School::class;
     }
     public $properties='schools.*,areas.name as name_area,provinces.name as name_province, districts.name as name_district,school_levels.name as name_level';
-    /**
+    /** 
      * Get pages
      * @author Minhpt
      * @date 17/04/2018
-     * @return mixed
+     * @return mixed 
      */
     public function getPages($records, $search = null)
     {

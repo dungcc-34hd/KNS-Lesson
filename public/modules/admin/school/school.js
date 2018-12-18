@@ -3,6 +3,7 @@
 
 $(document).ready(function () {
     $(function () {
+
         activeMenu('data', 'school', true);
         $(document).on('click', '.delete-object', function (e) {
             e.preventDefault();
@@ -32,6 +33,7 @@ $(document).ready(function () {
                                     $('.alert-danger').show();
                                     window.location.href = '/admin/school/index';
                                 }
+
                             }
                         });
                     },

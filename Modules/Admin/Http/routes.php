@@ -69,7 +69,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/pagination/{records}/{search?}', 'AreaController@pagination')->name('admin.area.pagination');
     });
 
-    // Provincial
+    // Provincial 
     Route::group(['prefix' => 'province'], function () {
         Route::get('/index', 'ProvinceController@index')->name('admin.province.index');
         Route::get('/create', 'ProvinceController@create')->name('admin.province.create');
