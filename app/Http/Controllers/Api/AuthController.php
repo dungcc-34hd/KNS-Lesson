@@ -83,7 +83,7 @@ class AuthController extends Controller
             $password = Hash::make($request->password);
             $credentials = $request->only('email', 'password');
             $user = User::where('email',$email)->first();
-                
+
             if (Auth::attempt($credentials)) {
                 $license_key = !empty($user->school_id) ? School::where('id',$user->school_id)->first()->license_key : "";
                 $tokenResult = $user->createToken('Personal Access Token');
@@ -115,7 +115,7 @@ class AuthController extends Controller
                     ['message' => 'Email hoặc mật khẩu không đúng', 'code' => 1]
                 ], 200);
             }
-                
+
 
 
 
@@ -133,14 +133,6 @@ class AuthController extends Controller
 
    public function logout(Request $request)
     {
-        // Auth::logout();
-        $value = $request->bearerToken();
-        if ($value) {
-            dd($value);
-            $id = (new Parser())->parse($value)->getHeader('jti');
-            $revoked = DB::table('oauth_access_tokens')->where('id', '=', $id)->update(['revoked' => 1]);
-            $this->guard()->logout();
-        }
         Auth::logout();
         return response()->json([
             'message' => 'Successfully logged out'
