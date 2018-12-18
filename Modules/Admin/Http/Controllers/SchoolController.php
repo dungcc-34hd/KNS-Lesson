@@ -20,22 +20,37 @@ class SchoolController extends Controller
     protected $areaId;
     public function __construct(SchoolEloquentRepository $repository)
     {
-        $this->repository = $repository;
-        $this->areaId     = 'areaId';
-        $this->provinceId='provinceId';
-        $this->districtId     = 'districtId';
+        $this->repository       = $repository;
+        $this->areaId           = 'areaId';
+        $this->provinceId       = 'provinceId';
+        $this->districtId       = 'districtId';
 
     }
 
     public function pagination(Request $request, $records, $search = null)
     {
         $per_page = is_null($records) ? 10 : $records;
-         $areaId = session()->has($this->areaId) ? session($this->areaId) : 0;
+        $areaId = session()->has($this->areaId) ? session($this->areaId) : 0;
 
         return view('admin::schools.pagination',
             [
                 'schools'       => $this->repository->getObjects($per_page, $search),
                 'pages'         => $this->repository->getPages($per_page, $search),
+                'records'       => $per_page,
+                'currentPage'   => $request->page
+            ]);
+    }
+    public function pagination_Select(Request $request, $records, $table,$id)
+    {
+        $per_page            = is_null($records) ? 10 : $records;
+        $areaId              = session()->has($this->areaId) ? session($this->areaId) : 0;
+        $schools             = $this->repository->getAreaObjects($records,$id,$table);
+        $pages               = $this->repository->getAreaPages($records,$id ,$table); 
+        // dd($request->page);
+        return view('admin::schools.pagination',
+            [
+                'schools'       => $schools,
+                'pages'         => $pages,
                 'records'       => $per_page,
                 'currentPage'   => $request->page
             ]);
@@ -49,20 +64,20 @@ class SchoolController extends Controller
     public function index()
     {
         $records = 10;
-         $areas    =  Area::all();
-         $areaId=0;
+        $areas    =  Area::all();
+        $areaId=0;
         $array=$this->repository->changeArea($areaId);
         return view('admin::schools.index',[
             'schools'       => $this->repository->getObjects($records),
             'pages'         => $this->repository->getPages($records),
             'areas'         => $areas,
-            'provinces'     =>$array['provinces'],
-            'districts'     =>$array['districts'],
+            'provinces'     => $array['provinces'],
+            'districts'     => $array['districts'],
             'schoolLevels'  => SchoolLevel::all(),
         ]);
        
     }
- public function select(){
+    public function select(){
         $records=10;
         $data        = $this->repository->getObjects($records);
          $user           = $this->returnTr($data);
@@ -72,18 +87,18 @@ class SchoolController extends Controller
     {
         $title          = "Chọn Tỉnh";
         $records        =10;
-        $area_id        = $req->area;
+        $area_id        = $req->area; 
         $Users          = $this->repository->getAreaObjects($records,$area_id,'area_id');
         $page           = $this->repository->getAreaPages($records,$area_id,'area_id');
         $provinces      = Province::where('area_id',$area_id)->get();
-        
+
         $select         = $this->returnOption($provinces,$title );
 
         $user           = $this->returnTr($Users);
         
-        return response()->json(['select' => $select,'user'=>$user]);  
+        return response()->json(['select' => $select,'user'=>$user,'page'=>$page]);  
     }
-        public function hanldingProvince(Request $req)
+    public function hanldingProvince(Request $req)
     {
         $title          = "Chọn Quận/Huyện";
         $records        =10;
@@ -91,13 +106,13 @@ class SchoolController extends Controller
         $Users          = $this->repository->getAreaObjects($records,$province_id ,'province_id');
         $page           = $this->repository->getAreaPages($records,$province_id ,'province_id');
         $districts      = District::where('province_id',$province_id )->get();
-        
+         
         $select         = $this->returnOption($districts,$title );
         $user           = $this->returnTr($Users);
 
-        return response()->json(['select' => $select,'user'=>$user]);   
+        return response()->json(['select' => $select,'user'=>$user,'page'=>$page]);   
     }
-     public function hanldingDistrict(Request $req)
+    public function hanldingDistrict(Request $req)
     {
        
         $records        =10;
@@ -107,7 +122,7 @@ class SchoolController extends Controller
        
         $user           = $this->returnTr($Users);
 
-        return response()->json(['user'=>$user]);    
+        return response()->json(['user'=>$user,'page'=>$page]);    
     }
 
     // return json

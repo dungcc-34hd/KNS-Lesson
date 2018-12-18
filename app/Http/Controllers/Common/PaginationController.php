@@ -11,6 +11,6 @@ class PaginationController extends Controller
     {
         return view('pagination.index')
             ->with('current_page',(int)$current_page)
-            ->with('total_page',(int)$total_page);
-    }
+            ->with('total_page',(int)$total_page); 
+    } 
 }

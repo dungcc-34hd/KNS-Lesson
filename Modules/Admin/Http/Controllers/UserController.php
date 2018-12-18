@@ -14,7 +14,7 @@ use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash; 
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
@@ -44,6 +44,23 @@ class UserController extends Controller
                 'records'     => $per_page,
                 'currentPage' => $request->page,
                 'areas'       => $areas
+            ]);
+    }
+    public function pagination_Select(Request $request, $records, $table,$id)
+    {
+        $per_page            = is_null($records) ? 10 : $records;
+        $areaId              = Area::all();
+        $users               = $this->repository->getAreaObjects($records,$id,"users.$table");
+       
+        // getAreaObjects($records,$area_id,'users.area_id')
+        $pages               = $this->repository->getAreaPages($records,$id,"users.$table"); 
+        // dd($request->page);
+        return view('admin::user.pagination',
+            [
+                'users'         => $users,
+                'pages'         => $pages,
+                'records'       => $per_page,
+                'currentPage'   => $request->page
             ]);
     }
 
@@ -235,7 +252,7 @@ class UserController extends Controller
     public function show($id)
     {
        $user = $this->repository->show($id);
-        return view('admin::user.detail', compact('user'));
+       return view('admin::user.detail', compact('user'));
     }
 
     public function delete($id)
