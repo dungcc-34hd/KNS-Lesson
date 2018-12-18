@@ -38,8 +38,7 @@ class User extends Authenticatable
         'grade_id',
         'class_id',
         'role_id',
-        'quantity_student',
-        'token'
+        'quantity_student'
     ];
 
     /**
@@ -55,30 +54,35 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
     public function area()
     {
         return $this->belongsTo(Area::class);
     }
+
     public function province()
     {
         return $this->belongsTo(Province::class);
     }
+
     public function district()
     {
         return $this->belongsTo(District::class);
     }
+
     public function school()
     {
         return $this->belongsTo(School::class);
     }
+
     public function grade()
     {
         return $this->belongsTo(Grade::class);
     }
+
     public function lsClass()
     {
         return $this->belongsTo(LsClass::class,'class_id','id');
     }
 
-  
 }
