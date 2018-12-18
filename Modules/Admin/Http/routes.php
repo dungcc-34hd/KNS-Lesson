@@ -197,8 +197,13 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
 
     });
      Route::group(['prefix'=>'type-lesson'],function(){
-        Route::get('','LessonTypeController@index')->name('admin.typeLesson.index');
-        // Route::get('/pagination/{records}/{search?}', 'LessonTypeController@pagination')->name('admin.typeLesson.pagination');
+        Route::get('/','LessonTypeController@index')->name('admin.typeLesson.index');
+        Route::get('/pagination/{records}/{search?}', 'LessonTypeController@pagination')->name('admin.typeLesson.pagination');
+        Route::get('/create','LessonTypeController@create')->name('admin.typeLesson.create');
+        Route::post('/store','LessonTypeController@store')->name('admin.typeLesson.store');
+        Route::get('/edit/{id}','LessonTypeController@edit')->name('admin.typeLesson.edit');
+        Route::post('/update/{id}','LessonTypeController@update')->name('admin.typeLesson.update');
+        Route::get('/delete/{id}','LessonTypeController@destroy')->name('admin.typeLesson.delete');
      });
 });
 //Login

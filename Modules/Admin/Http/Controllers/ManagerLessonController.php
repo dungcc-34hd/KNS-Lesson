@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
+use App\Models\LessonType;
 
 class ManagerLessonController extends Controller
 {
@@ -185,7 +186,8 @@ class ManagerLessonController extends Controller
         $lesson = Lesson::find($id);
         $lessonId = $id;
         $lessonName = $lesson->name;
-        return view('admin::managerLesson.addDetailLesson', compact('lessonId', 'lessonName'));
+         $types = LessonType::all();
+        return view('admin::managerLesson.addDetailLesson', compact('lessonId', 'lessonName','types'));
     }
 
     /**

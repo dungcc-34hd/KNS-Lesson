@@ -61,37 +61,38 @@
                                         <tr>
                                             <td>Khu vực</td>
                                             <td>
-                                                {{$user->name_area}}
+                                                {{$user->area['name']}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Tỉnh</td>
                                             <td>
-                                                {{$user->name_province}}
+                                                {{$user->province['name']}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Quận/huyện</td>
                                             <td>
-                                                {{$user->name_district}}
+                                                {{$user->district['name']}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Trường</td>
                                             <td>
-                                                {{$user->name_school}}
+                                                {{$user->school['name']}}
+                                               
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Khối</td>
                                             <td>
-                                                {{$user->name_grade}}
+                                                {{$user->grade['name']}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Lớp</td>
                                             <td>
-                                                {{$user->name_class}}
+                                                {{$user->lsClass['name']}}
                                             </td>
                                         </tr>
                                         <tr>
@@ -103,7 +104,7 @@
                                         <tr>
                                             <td>Quyền</td>
                                             <td>
-                                                {{$user->name_role}}
+                                                {{$user->role->name}}
                                             </td>
                                         </tr>
                                         <tr>
