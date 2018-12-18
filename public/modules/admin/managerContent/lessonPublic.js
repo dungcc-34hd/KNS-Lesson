@@ -41,8 +41,8 @@ $(document).on('click', '.is_public', function (e) {
                         success: function (result) {
                             if (result['status']) {
                                     $('.is_public').data('is_public', 1);
-                                    $('.is_public').attr('disabled', 'true');
-                               
+                                    $('.is_public').attr('disabled', 'disabled');
+                                    $.get('/admin/manager-lesson/zip/'+objectId,function(data){});
                                  window.location.href = '/admin/manager-lesson/index';
                             }
                             else {
@@ -58,6 +58,7 @@ $(document).on('click', '.is_public', function (e) {
             }
         });  
      }
+ 
          
 });
 

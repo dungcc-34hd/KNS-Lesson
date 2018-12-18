@@ -11,12 +11,17 @@ class LessonContent extends Model
         return $this->belongsTo(LessonDetail::class);
     }
 
-    public static function findLessonByID($lesson_detail_id)
+    public function lessonAnswer()
     {
-        return LessonContent::where('lesson_detail_id',$lesson_detail_id)->first();
+        return $this->belongsTo(LessonAnswer::class);
     }
 
-    public static function  checkContentByDetailId($id)
+    public static function findLessonByID($lesson_detail_id)
+    {
+        return LessonContent::where('lesson_detail_id', $lesson_detail_id)->first();
+    }
+
+    public static function checkContentByDetailId($id)
     {
         return LessonContent::where('lesson_detail_id', $id)->exists();
     }

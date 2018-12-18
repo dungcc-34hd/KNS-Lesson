@@ -13,9 +13,9 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/create', 'RoleController@create')->name('admin.role.create');
         Route::post('/store', 'RoleController@store')->name('admin.role.store');
         Route::get('/delete/{id}', 'RoleController@delete')->name('admin.role.delete');
-       
-    }); 
-    
+
+    });
+
     //Permission
     Route::group(['prefix' => 'permission'], function () {
         Route::get('/', 'PermissionController@index')->name('admin.permission.index');
@@ -28,7 +28,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/change-radio/{id}/{value}', 'PermissionController@changeRadio')->name('admin.permission.changeRadio');
 
     });
-    
+
     //User
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', 'UserController@index')->name('admin.user.index');
@@ -168,13 +168,14 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::post('/update-lesson-content/{id}', 'ManagerLessonController@updateLessonContent')->name('admin.managerLesson.updateLessonContent');
         Route::get('/edit/{id}', 'ManagerLessonController@edit')->name('admin.managerLesson.edit');
         Route::post('/update/{id}', 'ManagerLessonController@update')->name('admin.managerLesson.update');
+        Route::get('/add-lesson-json/{id}', 'ManagerLessonController@jsonLesson')->name('admin.managerLesson.jsonLesson');
         Route::get('/delete/{id}', 'ManagerLessonController@delete')->name('admin.managerLesson.delete');
         Route::get('/delete-lesson/{id}', 'ManagerLessonController@deleteLesson')->name('admin.managerLesson.deleteLesson');
         Route::get('/delete-lesson-detail/{id}', 'ManagerLessonController@deleteLessonDetail')->name('admin.managerLesson.deleteLessonDetail');
         Route::get('/pagination/{records}/{search?}', 'ManagerLessonController@pagination')->name('admin.managerLesson.pagination');
         Route::get('public/{id}','ManagerLessonController@publicObject')->name('admin.managerLesson.public');
         Route::get('test/{id}','ManagerLessonController@testObject')->name('admin.managerLesson.test');
-
+        Route::get('zip/{id}','ManagerLessonController@zip')->name('admin.managerLesson.zip');
     });
 
     // statistic
@@ -187,16 +188,18 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/change-school/{schoolId}','StatisticController@changeSchool')->name('admin.statistic.changeSchool');
         Route::get('/change-select/{areaId}/{provinceId}','StatisticController@changeSelect')->name('admin.statistic.changeSelect');
 
- 
+
         // ajax
         Route::get('/hanlding-area','StatisticController@hanldingArea')->name('admin.statistic.hanldingArea');
         Route::get('/hanlding-province','StatisticController@hanldingProvince')->name('admin.statistic.hanldingProvince');
         Route::get('/hanlding-district','StatisticController@hanldingDistrict')->name('admin.statistic.hanldingDistrict');
         Route::get('/hanlding-school','StatisticController@hanldingSchool')->name('admin.statistic.hanldingSchool');
-        
-
 
     });
+     Route::group(['prefix'=>'type-lesson'],function(){
+        Route::get('','LessonTypeController@index')->name('admin.typeLesson.index');
+        // Route::get('/pagination/{records}/{search?}', 'LessonTypeController@pagination')->name('admin.typeLesson.pagination');
+     });
 });
 //Login
 Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Modules\Admin\Http\Controllers'], function () {
