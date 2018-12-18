@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Models\School;
 use Validator;
-use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 class AuthController extends Controller
@@ -82,71 +81,42 @@ class AuthController extends Controller
 //        try {
             $email = $request->email;
             $password = Hash::make($request->password);
-            $validator = Validator::make([
-                'email' => 'required|string|email',
-                'password' => 'required|min:6|string'
-            ],[
-                'email.required'    => 'email không được để trống',
-                'email.string'   => 'email sai định dạng',
-                'email.email'   => 'email sai định dạng',
-                'email.unique'   => 'email đã tồn tại',
-                'password.min'   => 'Mật khẩu phải có ít nhất 6 ký tự',
-                'password.required'   => 'Mật khẩu không được để trống'
-            ]);
-            if(!$validator->fails()){
-                $credentials = $request->only('email', 'password');
-                $user = User::where('email',$email)->first();
-                if(!is_null($user->token)){
-                    return response()->json([
-                        'message'=>'Tài khoản đã đăng nhập trên hệ thống',
-                        'token' =>  $user->token,
-                        'code' => 1
-                    ],200);
-                }else{
-                    if(!is_null($user->school_id)){
-                        $license_key = School::where('id',$user->school_id)->first()->license_key;
-                    }else{
-                        $license_key = '';
-                    }
-                    if(!is_null($user) && Hash::check('password',$password)){
-                        if (Auth::attempt($credentials)) {
-                            $tokenResult = $user->createToken('Personal Access Token');
-                            $token = $tokenResult->token;
-                            $token->expires_at = Carbon::now()->addHours(4);
-                            $token->save();
+            $credentials = $request->only('email', 'password');
+            $user = User::where('email',$email)->first();
+                
+            if (Auth::attempt($credentials)) {
+                $license_key = !empty($user->school_id) ? School::where('id',$user->school_id)->first()->license_key : "";
+                $tokenResult = $user->createToken('Personal Access Token');
+                $token = $tokenResult->token;
+                $token->expires_at = Carbon::now()->addHours(4);
+                $token->save();
 
-                            return response()->json([
-                                'data' => [
-                                    'name' => $user->name,
-                                    'email' => $user->email,
-                                    'school_id' => $user->school_id,
-                                    'token' =>  $tokenResult->accessToken,
-                                    'tel' => $user->tel,
-                                    'area_id' => $user->area_id,
-                                    'province_id' => $user->province_id,
-                                    'class_id' => $user->class_id,
-                                    'grade_id' => $user->grade_id,
-                                    'district_id' => $user->district_id,
-                                    'quantity_student' => $user->quantity_student,
-                                    'role_id' => $user->role_id,
-                                    'license_key'   => $license_key,
-                                    'IP'    => request()->ip()
-                                ],
-                                'code'=>0
-                            ],200);
-                        }else{
-                            return response()->json([
-                                ['message' => 'Unauthorized', 'code' => 1]
-                            ], 202);
-                        }
-
-                    }else{
-                        return response()-json(['message'=>'Email hoặc mật khẩu không đúng', 'code' => 1],200);
-                    }
-                }
-
-
+                return response()->json([
+                    'data' => [
+                        'name' => $user->name,
+                        'email' => $user->email,
+                        'school_id' => $user->school_id,
+                        'token' =>  $tokenResult->accessToken,
+                        'tel' => $user->tel,
+                        'area_id' => $user->area_id,
+                        'province_id' => $user->province_id,
+                        'class_id' => $user->class_id,
+                        'grade_id' => $user->grade_id,
+                        'district_id' => $user->district_id,
+                        'quantity_student' => $user->quantity_student,
+                        'role_id' => $user->role_id,
+                        'license_key'   => $license_key,
+                        'IP'    => request()->ip()
+                    ],
+                    'code'=>0
+                ],200);
+            }else{
+                return response()->json([
+                    ['message' => 'Email hoặc mật khẩu không đúng', 'code' => 1]
+                ], 200);
             }
+                
+
 
 
 
@@ -161,8 +131,16 @@ class AuthController extends Controller
 
     }
 
-   public function logout()
+   public function logout(Request $request)
     {
+        // Auth::logout();
+        $value = $request->bearerToken();
+        if ($value) {
+            dd($value);
+            $id = (new Parser())->parse($value)->getHeader('jti');
+            $revoked = DB::table('oauth_access_tokens')->where('id', '=', $id)->update(['revoked' => 1]);
+            $this->guard()->logout();
+        }
         Auth::logout();
         return response()->json([
             'message' => 'Successfully logged out'
