@@ -174,8 +174,8 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete-lesson-detail/{id}', 'ManagerLessonController@deleteLessonDetail')->name('admin.managerLesson.deleteLessonDetail');
         Route::get('/pagination/{records}/{search?}', 'ManagerLessonController@pagination')->name('admin.managerLesson.pagination');
         Route::get('public/{id}','ManagerLessonController@publicObject')->name('admin.managerLesson.public');
+        Route::get('test/{id}','ManagerLessonController@testObject')->name('admin.managerLesson.test');
         Route::get('zip/{id}','ManagerLessonController@zip')->name('admin.managerLesson.zip');
-
     });
 
     // statistic
@@ -195,9 +195,11 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/hanlding-district','StatisticController@hanldingDistrict')->name('admin.statistic.hanldingDistrict');
         Route::get('/hanlding-school','StatisticController@hanldingSchool')->name('admin.statistic.hanldingSchool');
 
-
-
     });
+     Route::group(['prefix'=>'type-lesson'],function(){
+        Route::get('','LessonTypeController@index')->name('admin.typeLesson.index');
+        // Route::get('/pagination/{records}/{search?}', 'LessonTypeController@pagination')->name('admin.typeLesson.pagination');
+     });
 });
 //Login
 Route::group(['middleware' => 'web', 'prefix' => 'admin', 'namespace' => 'Modules\Admin\Http\Controllers'], function () {
