@@ -1,14 +1,38 @@
+.custom-edit{
+    font-size: 15px !important;
+    margin-left: 10em !important;
+    padding: 2px 7px !important;
+}
+.custom-delete{
+    font-size: 15px !important;
+    margin-left: 3px !important;
+    padding: 4px 8px !important;
+    color: orange !important;
+    background-color: #ecf0f5 !important;
+    margin-bottom: 5px !important;
+}
+.custom-delete:hover{
+    color: #fff !important;
+    background-color: red !important;
+    border-radius: 4px !important;
+}
+.ace-icon{
+    display: block !important;
+}
+.fa{
+    display: inline-block !important;
+}
 .tree, .tree ul {
     margin:0;
     padding:0;
     list-style:none
 }
 .tree ul {
-    margin-left:1em;
+    margin-left:1.3em;
     position:relative
 }
 .tree ul ul {
-    margin-left:.5em
+    margin-left:1em
 }
 .tree ul:before {
     content:"";

@@ -152,23 +152,31 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
 
     // manager lesson
     Route::group(['prefix' => 'manager-lesson'], function () {
+        Route::get('/index', 'ManagerLessonController@index')->name('admin.managerLesson.index');
+
         Route::get('/add-lesson', 'ManagerLessonController@addLesson')->name('admin.managerLesson.addLesson');
         Route::get('/edit-lesson/{id}', 'ManagerLessonController@editLesson')->name('admin.managerLesson.editLesson');
-        Route::get('/index', 'ManagerLessonController@index')->name('admin.managerLesson.index');
+
         Route::post('/store-lesson', 'ManagerLessonController@storeLesson')->name('admin.managerLesson.storeLesson');
         Route::post('/update-lesson/{id}', 'ManagerLessonController@updateLesson')->name('admin.managerLesson.updateLesson');
+
         Route::post('/store-lesson-detail', 'ManagerLessonController@storeLessonDetail')->name('admin.managerLesson.storeLessonDetail');
         Route::get('/edit-lesson-detail/{id}', 'ManagerLessonController@editLessonDetail')->name('admin.managerLesson.editLessonDetail');
         Route::post('/update-lesson-detail/{id}', 'ManagerLessonController@updateLessonDetail')->name('admin.managerLesson.updateLessonDetail');
+
         Route::post('/store-lesson-content', 'ManagerLessonController@storeLessonContent')->name('admin.managerLesson.storeLessonContent');
+
         Route::get('/get-value-type/{id}', 'ManagerLessonController@getValueType')->name('admin.managerLesson.getValueType');
         Route::get('/get-value-lesson-detail/{id}', 'ManagerLessonController@getValueLessonDetail')->name('admin.managerLesson.getValueLessonDetail');
+
         Route::get('/show-detail-lesson/{id}', 'ManagerLessonController@showDetailLesson')->name('admin.managerLesson.showDetailLesson');
         Route::get('/edit-lesson-content/{id}', 'ManagerLessonController@editLessonContent')->name('admin.managerLesson.editLessonContent');
         Route::post('/update-lesson-content/{id}', 'ManagerLessonController@updateLessonContent')->name('admin.managerLesson.updateLessonContent');
+
         Route::get('/edit/{id}', 'ManagerLessonController@edit')->name('admin.managerLesson.edit');
         Route::post('/update/{id}', 'ManagerLessonController@update')->name('admin.managerLesson.update');
         Route::get('/add-lesson-json/{id}', 'ManagerLessonController@jsonLesson')->name('admin.managerLesson.jsonLesson');
+
         Route::get('/delete/{id}', 'ManagerLessonController@delete')->name('admin.managerLesson.delete');
         Route::get('/delete-lesson/{id}', 'ManagerLessonController@deleteLesson')->name('admin.managerLesson.deleteLesson');
         Route::get('/delete-lesson-detail/{id}', 'ManagerLessonController@deleteLessonDetail')->name('admin.managerLesson.deleteLessonDetail');
@@ -197,6 +205,25 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
 
 
 
+    });
+
+    Route::group(['prefix'=>'manager-area'],function(){
+        Route::get('/','ManagerAreaController@index')->name('admin.managerArea.index');
+        Route::get('/create-area','ManagerAreaController@createArea')->name('admin.managerArea.createArea');
+        Route::get('/create-province','ManagerAreaController@createProvince')->name('admin.managerArea.createProvince');
+        Route::get('/create-district','ManagerAreaController@createDistrict')->name('admin.managerArea.createDistrict');
+        Route::post('/store-area','ManagerAreaController@storeArea')->name('admin.managerArea.storeArea');
+        Route::post('/store-province','ManagerAreaController@storeProvince')->name('admin.managerArea.storeProvince');
+        Route::post('/store-district','ManagerAreaController@storeDistrict')->name('admin.managerArea.storeDistrict');
+        Route::get('/edit-area/{id}','ManagerAreaController@editArea')->name('admin.managerArea.editArea');
+        Route::get('/edit-province/{id}','ManagerAreaController@editProvince')->name('admin.managerArea.editProvince');
+        Route::get('/edit-district/{id}','ManagerAreaController@editDistrict')->name('admin.managerArea.editDistrict');
+        Route::post('/update-area/{id}','ManagerAreaController@updateArea')->name('admin.managerArea.updateArea');
+        Route::post('/update-province/{id}','ManagerAreaController@updateProvince')->name('admin.managerArea.updateProvince');
+        Route::post('/update-district/{id}','ManagerAreaController@updateDistrict')->name('admin.managerArea.updateDistrict');
+        Route::get('/delete-area/{id}','ManagerAreaController@deleteArea')->name('admin.managerArea.deleteArea');
+        Route::get('/delete-province/{id}','ManagerAreaController@deleteProvince')->name('admin.managerArea.deleteProvince');
+        Route::get('/delete-district/{id}','ManagerAreaController@deleteDistrict')->name('admin.managerArea.deleteDistrict');
     });
 });
 //Login

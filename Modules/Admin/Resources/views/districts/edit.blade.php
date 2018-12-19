@@ -35,7 +35,7 @@
                                     <select  class="form-control" name="area_id" id="selectArea">
                                         <option value="">Chọn khu vực</option>
                                         @foreach ($areas as $key => $area)
-                                            <option value="{{$area->id}}" {{ $area_current->area_id == $area->id ? "selected" : '' }}>{{$area->name}}</option>
+                                            <option value="{{$area->id}}" {{$provinceId->area_id == $area->id ? "selected" : '' }}>{{$area->name}}</option>
                                         @endforeach
                                     </select>
                                     @if($errors)
