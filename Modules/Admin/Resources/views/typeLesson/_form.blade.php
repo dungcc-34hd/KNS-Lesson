@@ -4,8 +4,8 @@
         <div class="form-group">
             <label>Id </label>
             <div class="clearfix">
-                <input type="text" class="form-control" name="id_qualify"
-                       value="@isset($type){{$type->id_qualify}}@endisset">
+                <input type="text" class="form-control" name="id_type"
+                       value="@isset($type){{$type->id_type}}@endisset">
                 @if($errors)
                     <span style="color: #dd4b39;" class="text-danger">{{$errors->first('id_qualify')}}</span> 
                 @endif
@@ -19,6 +19,16 @@
                 @if($errors)
                     <span style="color: #dd4b39;" class="text-danger">{{$errors->first('name')}}</span> 
                 @endif
+            </div>
+        </div>
+        <div class="form-group">
+            <label> Định dạng</label>
+            <div class="clearfix">
+                <select  class="form-control" name="type" >
+                    <option value="1" @if(isset($type) && $type->type == 1) selected @endif>Ảnh</option>
+                    <option value="2" @if(isset($type) && $type->type == 2) selected @endif>Video</option>
+                    <option value="1" @if(isset($type) && $type->type == 3) selected @endif>Câu hỏi-trả lời</option>
+                </select>
             </div>
         </div>
         <div class="form-group">

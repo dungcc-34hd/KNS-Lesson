@@ -2,6 +2,7 @@
     <th class="order-number">STT</th>
     <th>Id </th>
     <th>Tên </th>
+    <th>Định dạng</th>
     <th>Mô tả</th>
     <th class="item-action-3">Trạng thái</th>
 </tr>
@@ -9,8 +10,9 @@
 @foreach($types as $key => $type)
     <tr>
         <td class="text-center">{{$key + 1}}</td>
-        <td>{{$type->id_qualify}}</td>
+        <td>{{$type->id_type}}</td>
         <td>{{$type->name}}</td>
+         <td>@isset($type->type){{\App\Models\LessonType::TYPE[$type->type]}}@endisset</td>
         <td class="green">{{$type->description}}</td>
         <td>
             <div class="btn-group btn-group-sm">

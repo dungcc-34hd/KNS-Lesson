@@ -13,7 +13,7 @@ class LessonContent extends Model
 
     public function lessonAnswer()
     {
-        return $this->belongsTo(LessonAnswer::class);
+        return $this->hasMany(LessonAnswer::class);
     }
 
     public static function findLessonByID($lesson_detail_id)

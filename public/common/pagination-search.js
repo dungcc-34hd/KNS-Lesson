@@ -14,7 +14,7 @@ $(function () {
             {
                 $('.first').removeClass('disabled');
                 $('.previous').removeClass('disabled');
-            }
+            } 
             else
             {
                 $('.first').addClass('disabled');
@@ -75,8 +75,37 @@ $(function () {
                     $('.next').attr('value', parseInt($(this).attr('value')) + 1)
                 }
             }
-            var search = $('#nav-search-input').val() !== '' ? $('#nav-search-input').val() : null;
-            ajaxLoadData(records,page, search);
+            
+            var search          = $('#nav-search-input').val() !== '' ? $('#nav-search-input').val() : null;
+            var area            = $(".areas_S").val();
+            var provinces       = $(".provinces_S").val();
+            var districts       = $(".districts_S").val();
+            var schools         = $('.schools_S').val();
+            var nameArea        = $(".areas_S").data('table');
+            var nameProvinces   = $(".provinces_S").data('table');
+            var nameDistricts   = $(".districts_S").data('table');
+            var nameSchools     = $('.schools_S').data('table');
+       
+            if(area !='' && area!=undefined ){
+                if(provinces !=''&&provinces!=undefined ){
+                    if(districts != ""&&provinces!=undefined ){
+                        if(schools != ""&&schools!=undefined ){
+                            ajaxLoadDataForSelect(records,  page,schools,nameSchools);
+                        }else{
+                            ajaxLoadDataForSelect(records,  page,districts,nameDistricts);    
+                        }
+                        ajaxLoadDataForSelect(records,  page,districts,nameDistricts);
+                    }else{
+                        ajaxLoadDataForSelect(records,  page,provinces,nameProvinces);
+                    }
+                }else{
+                    ajaxLoadDataForSelect(records,  page,area,nameArea);
+                }
+            }else{
+                ajaxLoadData(records,page, search);
+            }
+        
+
         }
     });
     $('#show-records').bind('change', function () {
@@ -85,6 +114,25 @@ $(function () {
         ajaxLoadData(per_page,1,search);
     });
     $('#nav-search-input').keyup(function () {
+
+        var area            = $(".areas_S").val();
+        var provinces       = $(".provinces_S").val();
+        var districts       = $(".districts_S").val();
+        var schools         = $('.schools_S').val();
+        
+        if(area !='' && area!=undefined ){
+           $(".areas_S").val('');
+        }
+        if(provinces !='' &&provinces!=undefined ){
+            $(".provinces_S").html('<option value="">Chọn Tỉnh</option>');
+        }
+        if(districts !='' &&provinces!=undefined ){
+            $(".districts_S").html('<option value="">Chọn Quận/Huyện</option>');
+        }
+        if(schools !='' &&schools!=undefined ){
+            $(".schools_S").html('<option value="">Chọn Trường</option>');
+        }
+
         var records = $('#show-records').val();
         ajaxLoadData(records,1,$(this).val());
     });
@@ -114,7 +162,7 @@ $(function () {
             } 
         });
     });
-
+ 
 }); 
 function ajaxLoadData(records,  current_page,search) {
     var url_controller = $('#url-ajax').val();
@@ -122,7 +170,38 @@ function ajaxLoadData(records,  current_page,search) {
     if(search !== null && search !== '')
     {
         url = url_controller + records +"/"+search+"?page=" + current_page;
-    }
+    } 
+    $.ajax({
+        type: 'GET',
+        url: url ,
+        beforeSend: function () {
+            $('#spiner-load-ajax').modal({backdrop: 'static', keyboard: false});
+        },
+        success: function (result) {
+            //append data in table
+            $('.results-table tbody').empty();
+            $('.results-table tbody').append(result);
+
+            //append pagination 
+            $.ajax({
+                type: 'GET',
+                url: "/pagination/" + current_page + "/" + $('#total-pages-current').val(),
+                success: function (re) {
+                    $('.widget-page').empty();
+                    $('.widget-page').append(re);
+                    $('#spiner-load-ajax').modal('hide');
+                }
+            });
+
+        }
+    });
+}
+function ajaxLoadDataForSelect(records,  current_page,id,table) {
+    var url_controller = $('#pagination_Select').val();
+    
+    $('#nav-search-input').val('');
+    url = url_controller + records +"/"+table+ "/"+ id+"?page=" + current_page;
+     
     $.ajax({
         type: 'GET',
         url: url ,

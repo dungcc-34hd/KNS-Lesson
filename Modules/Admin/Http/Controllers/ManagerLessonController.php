@@ -11,6 +11,7 @@ use App\Models\LessonDetail;
 use App\Models\School;
 use App\Repositories\ManagerLesson\ManagerLessonEloquentRepository;
 use Faker\Provider\Image;
+use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Routing\Controller;
@@ -210,7 +211,6 @@ class ManagerLessonController extends Controller
      */
     public function storeLessonContent(Request $request)
     {
-//        dd($request->all());
         $contentLesson = new LessonContent();
         $contentLesson->title = $request['title'];
         $contentLesson->lesson_detail_id = $request['lesson-detail-id'];
@@ -249,6 +249,7 @@ class ManagerLessonController extends Controller
 
         //nếu là trắc nghiệm
         if ($request['type'] == 3) {
+
             //$is_correct = isset($request['is-correct']) ? $request['is-correct'][0] : null;
             foreach ($request['answer'] as $key => $item) {
                 $lessonAnswer = new LessonAnswer();
@@ -262,6 +263,27 @@ class ManagerLessonController extends Controller
                     $lessonAnswer->answer_last = 1;
                 $lessonAnswer->save();
             }
+            $dataDapAn = $this->repository->getQuizDapAn( $contentLesson->id);
+            //create json trac nghiem
+            $answerDataList = [];
+            foreach ($dataDapAn->answer as $key => $item )
+            {
+                if($key != 0){
+                    $answerWrong[] = $item;
+                }
+            }
+            $lessonAnswerData = [
+                "answer_last" => ($dataDapAn->answerLast == 1) ? true : false,
+                "question" => $dataDapAn->question,
+                "answer" => $dataDapAn->answer[0],
+                "wrong" => $answerWrong
+
+            ];
+            array_push($answerDataList, $lessonAnswerData);
+            $jsonData = ["data" => $answerDataList];
+            $directory = public_path() . "/modules/managerContent/" .'/'.$request['lesson'].'/'.$request['lesson-detail'];
+
+            File::put($directory . "/tncc.json", json_encode($jsonData,JSON_UNESCAPED_UNICODE));
 
         }
         return redirect('admin/manager-lesson/index');
@@ -403,12 +425,10 @@ class ManagerLessonController extends Controller
             ];
             array_push($partDataList, $lessonData);
         }
-//        dd($partDataList);
         $jsonData = ["parts" => $partDataList];
         $directory = public_path() . "/modules/managerContent/" . $lessonName->name;
 
         File::put($directory . "/config.json", json_encode($jsonData));
-
     }
 
 

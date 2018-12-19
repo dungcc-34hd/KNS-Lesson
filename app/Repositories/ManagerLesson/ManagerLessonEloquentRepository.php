@@ -3,6 +3,7 @@
 namespace App\Repositories\ManagerLesson;
 
 use App\Models\Lesson;
+use App\Models\LessonAnswer;
 use App\Models\LessonContent;
 use App\Models\LessonDetail;
 use App\Models\School;
@@ -63,7 +64,7 @@ class ManagerLessonEloquentRepository extends EloquentRepository implements Mana
     public function getTypeById($id)
     {
         return LessonDetail::where('id',$id)->first()->type;
-    }
+    } 
 
     /**
      * @param $id
@@ -111,13 +112,18 @@ class ManagerLessonEloquentRepository extends EloquentRepository implements Mana
      * @param $lessonId
      * @return mixed
      */
-    public function getQuizDapAn($lessonId)
+    public function getQuizDapAn($lessonContentId)
     {
-        return Lesson::leftJoin('lesson_details','lesson_details.lesson_id','=','lessons.id')
-            ->leftJoin('lesson_contents','lesson_contents.lesson_detail_id','=','lesson_details.id')
-            ->leftJoin('lesson_answers','lesson_answers.lesson_content_id','=','lesson_contents.id')
-            ->where('lessons.id','=',$lessonId)
-            ->select('lesson_details.type as type','lesson_answers.answer as lessonAnswer','lesson_answers.is_correct as lessonFalse')
-            ->get();
+        $data = LessonContent::find($lessonContentId);
+        $data->answer = LessonAnswer::where('lesson_content_id','=',$lessonContentId)->get();
+        foreach ($data->answer as $value){
+            $answers[] = $value['answer'];
+            $answerLast = $value['answer_last'];
+            $answerIsCorrect = $value['answer_last'];
+        }
+        $data['answer'] = $answers;
+        $data['answerLast'] = $answerLast;
+        $data['answerIsCorrect'] = $answerIsCorrect;
+      return $data ;
     }
 }

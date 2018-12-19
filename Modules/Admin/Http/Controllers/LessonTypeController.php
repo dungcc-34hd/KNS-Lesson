@@ -56,10 +56,10 @@ class LessonTypeController extends Controller
         $id=null;
          $this->validation($request,$id);
         try {
-            $index=LessonType::max('id_qualify');
+            $index=LessonType::max('id_type');
             $array = $request->all();
             if($request->id == null){
-                $array['id_qualify']=$index+1;
+                $array['id_type']=$index+1;
             }
             $this->repository->create($array);
             message($request, 'success', 'Thêm mới thành công.');
@@ -142,7 +142,7 @@ class LessonTypeController extends Controller
         ];
         $validatedData = $request->validate([
         'name' => 'required',
-        'id_qualify'=>'unique:lesson_types,id_qualify,'.$id,
+        'id_type'=>'unique:lesson_types,id_type,'.$id,
         ],$message);
     }
 }

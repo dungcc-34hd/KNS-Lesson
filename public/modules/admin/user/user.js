@@ -38,6 +38,9 @@ $(function () {
     $("#areas").change(function(){
         var area = $(this).val();
         console.log(area);
+        var table = $(this).data('table');
+        var records = $('#show-records').val();
+        
         if (area!=''){
 
             $.ajax({
@@ -50,8 +53,9 @@ $(function () {
                     $('#provinces').html(data.select);
                     // if(area==""){}
                     $('#tbody').html(data.user);
-                    $("#districts").html('<option>Chọn Quận/Huyện</option>');
-                    $("#schools").html('<option>Chọn Trường </option>');
+                    $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
+                    $("#schools").html('<option value="">Chọn Trường </option>');
+                    ajaxLoadDataForSelect(records, 1, area,table);
                 }
              });
         }else{
@@ -62,10 +66,12 @@ $(function () {
                     'area' : area,
                 },
                 success:function(data) {
-                    $('#provinces').html('<option>Chọn Tỉnh/thành phố</option>');
+
+                    $('#provinces').html('<option value="">Chọn Tỉnh</option>');
+
                     $('#tbody').html(data.user);
-                     $("#districts").html('<option>Chọn Quận/Huyện</option>');
-                    $("#schools").html('<option>Chọn Trường </option>');
+                    $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
+                    $("#schools").html('<option value="">Chọn Trường </option>');
                 }
              });
         }
@@ -75,6 +81,9 @@ $(function () {
     // select provinces
     $("#provinces").change(function(){
         var province = $(this).val();
+        var table = $(this).data('table');
+        var records = $('#show-records').val();
+        
         if(province!=''){
             $.ajax({
             type:'GET',
@@ -85,8 +94,8 @@ $(function () {
             success:function(data) {
                 $('#districts').html(data.select);
                 $('#tbody').html(data.user);
-                $("#schools").html('<option>Chọn Trường </option>');
-                // ajaxLoadData(records,1,$('#nav-search-input').val());
+                $("#schools").html('<option value="">Chọn Trường </option>');
+                ajaxLoadDataForSelect(records, 1, province,table);
             }
          });
         }else{
@@ -98,8 +107,8 @@ $(function () {
                 },
                 success:function(data) {
                     $('#tbody').html(data.user);
-                     $("#districts").html('<option>Chọn Quận/Huyện</option>');
-                    $("#schools").html('<option>Chọn Trường </option>');
+                     $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
+                    $("#schools").html('<option value="">Chọn Trường </option>');
                 }
              });
         }
@@ -109,6 +118,9 @@ $(function () {
     // select districts
     $("#districts").change(function(){
         var district = $(this).val();
+        var table = $(this).data('table');
+        var records = $('#show-records').val();
+        
         if(district!=''){
             $.ajax({
             type:'GET',
@@ -119,6 +131,7 @@ $(function () {
             success:function(data) {
                 $('#tbody').html(data.user);
                 $('#schools').html(data.select);
+                ajaxLoadDataForSelect(records, 1, district,table);
             }
          });
         }else{
@@ -130,7 +143,7 @@ $(function () {
                 },
                 success:function(data) {
                     $('#tbody').html(data.user);
-                    $("#schools").html('<option>Chọn Trường </option>');
+                    $("#schools").html('<option  value="">Chọn Trường </option>');
                 
                 }
              });
@@ -140,6 +153,9 @@ $(function () {
     });
     $("#schools").change(function(){
         var school = $(this).val();
+        var table = $(this).data('table');
+        var records = $('#show-records').val();
+
         if(school!=''){
             $.ajax({
             type:'GET',
@@ -149,6 +165,7 @@ $(function () {
             },
             success:function(data) {
                 $('#tbody').html(data.user);
+                ajaxLoadDataForSelect(records, 1, school,table);
             }
          });
         }else{
