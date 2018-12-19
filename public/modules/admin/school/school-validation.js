@@ -1,3 +1,10 @@
+
+jQuery.validator.addMethod("VldHtml", function(value, element) {
+    // allow any non-whitespace characters as the host part
+    return this.optional( element ) || /<(.|\n)*?>/g.test( value )==true?false:true;
+  }, 'Không được nhập kí tự đặc biệt');
+  
+
 $('.validation-form').validate({
     errorElement: 'div',
     errorClass: 'help-block',
@@ -6,7 +13,8 @@ $('.validation-form').validate({
     rules: {
         name: {
             required: true,
-            minlength: 3
+            minlength: 3,
+            VldHtml:true
         },
       
         school_level_id: {
@@ -15,10 +23,10 @@ $('.validation-form').validate({
         area_id: {
             required: true
         },
-        province_id: {
+        district_id: {
             required: true
         },
-        district_id: {
+        province_id: {
             required: true
         },
     },

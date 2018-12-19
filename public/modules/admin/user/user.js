@@ -1,3 +1,5 @@
+
+
 $(function () {
    activeMenu('users','user', true);
 
@@ -74,6 +76,7 @@ $(function () {
                     $("#schools").html('<option value="">Chọn Trường </option>');
                 }
              });
+            ajaxLoadData(records,1,$('#nav-search-input').val());
         }
             
     });
@@ -111,6 +114,7 @@ $(function () {
                     $("#schools").html('<option value="">Chọn Trường </option>');
                 }
              });
+            ajaxLoadDataForSelect(records, 1, $(".areas_S").val(),$(".areas_S").data('table'));
         }
 
     });
@@ -147,6 +151,7 @@ $(function () {
                 
                 }
              });
+            ajaxLoadDataForSelect(records, 1, $(".provinces_S").val(),$(".provinces_S").data('table'));
         }
        
         
@@ -179,6 +184,7 @@ $(function () {
                     $('#tbody').html(data.user);
                 }
              });
+            ajaxLoadDataForSelect(records, 1, $(".district_S").val(),$(".district_S").data('table'));
         }
        
         

@@ -147,7 +147,9 @@
                                     <th>Quyền</th>
                                     <th>IP</th>
                                     <th>Lượt tải về</th>
+
                                     <th class="item-action-3">Trạng thái</th>
+                                   
                                 </tr>
                                 </thead>
                                 <tbody id="tbody">
@@ -162,8 +164,10 @@
                                                 <td>{{$user->lsClass['name']}}</td>
                                                 <td>{{$user->quantity_student}}</td>
                                                 <td>{{$user->role->name}}</td>
+                                                
                                                 <td>{{$user->IP}}</td>
                                                 <td>{{$user->download}}</td>
+                                                
                                             <td>
                                                 <div class="btn-group btn-group-sm">
                                                     <a class="btn btn-success"
@@ -213,7 +217,7 @@
                                                 <option value="100">100</option>
                                             </select>
                                         </label>
-                                    </div>
+                                    </div> 
                                 </div>
                             </div>
                         </div>
