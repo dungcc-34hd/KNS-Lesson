@@ -65,8 +65,10 @@ class DistrictController extends Controller
     public function edit($id)
     {
         $district =  District::findOrFail($id);
-        $provincials =  Province::all();
-        return view ('admin::districts.edit', compact('district','provincials'));
+        $area_current=Province::find($district->province_id);
+         $areas= Area::all();
+        $provincials=$this->repository->province($area_current->area_id);
+        return view ('admin::districts.edit', compact('district','provincials','areas','area_current'));
     }
 
     /**

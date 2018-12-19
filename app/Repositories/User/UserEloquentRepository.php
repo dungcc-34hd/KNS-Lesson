@@ -18,8 +18,8 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
     {
         return User::class;
     }
-    public $properties='users.*,areas.name as name_area,provinces.name as name_province, districts.name as name_district, schools.name as name_school, class.name as name_class, grades.name as name_grade, roles.display_name as name_role';
-    public $attr = 'users.id as user_id';
+    // public $properties='users.*,areas.name as name_area,provinces.name as name_province, districts.name as name_district, schools.name as name_school, class.name as name_class, grades.name as name_grade, roles.display_name as name_role';
+    // public $attr = 'users.id as user_id';
 
     /**
      * Get pages
@@ -27,39 +27,30 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
      * @date 17/04/2018
      * @return mixed
      */
-    public function getPages($records, $search = null)
+   
+     public function getPages($records, $search = null)
     {
-        if(!is_null($search)){
-            $total=count(User::join('areas','users.area_id','=','areas.id')->join('provinces','users.province_id','=','provinces.id')->join('districts','users.district_id','=','districts.id')->join('schools','users.school_id','=','schools.id')->join('class','users.class_id','=','class.id')->join('grades','users.grade_id','=','grades.id')->join('roles','users.role_id','=','roles.id')->where(function ($q) use ($search) {
-                $q->where('users.name', 'like', '%' . $search . '%');
-                $q->orWhere('users.email', 'like', '%' . $search . '%');
-                })->selectRaw($this->properties)->get());
+      if(!is_null($search)){
+            $total=count(User::where('users.name', 'like', '%' . $search . '%')
+                          ->orWhere('users.email', 'like', '%' . $search . '%')
+                           ->whereNotNull('role_id')->get());
 
         }else{
-            $total=count(User::join('areas','users.area_id','=','areas.id')->join('provinces','users.province_id','=','provinces.id')->join('districts','users.district_id','=','districts.id')->join('schools','users.school_id','=','schools.id')->join('class','users.class_id','=','class.id')->join('grades','users.grade_id','=','grades.id')->join('roles','users.role_id','=','roles.id')->selectRaw($this->properties)->get());
+            $total=count(User::whereNotNull('role_id')->get());
         }
-        return ceil($total / $records);
+        return ceil($total / $records); 
     }
-
-    /**
-     * Get all
-     * @author Minhpt
-     * @date 17/04/2018
-     * @return mixed
-     */
-    public function getObjects($records, $search = null)
+     public function getObjects($records, $search = null)
     {
         if(is_null($search)){
-            $resulut= User::join('areas','users.area_id','=','areas.id')->join('provinces','users.province_id','=','provinces.id')->join('districts','users.district_id','=','districts.id')->join('schools','users.school_id','=','schools.id')->join('class','users.class_id','=','class.id')->join('grades','users.grade_id','=','grades.id')->join('roles','users.role_id','=','roles.id')->selectRaw($this->properties)->paginate($records)->items();
-            // dd($resulut);
+            $result = User::whereNotNull('role_id')->paginate($records)->items();
         }else{
-            $resulut= User::join('areas','users.area_id','=','areas.id')->join('provinces','users.province_id','=','provinces.id')->join('districts','users.district_id','=','districts.id')->join('schools','users.school_id','=','schools.id')->join('class','users.class_id','=','class.id')->join('grades','users.grade_id','=','grades.id')->join('roles','users.role_id','=','roles.id')->where(function ($q) use ($search) {
-                $q->where('users.name', 'like', '%' . $search . '%');
-                $q->orWhere('users.email', 'like', '%' . $search . '%');
-                })->selectRaw($this->properties)->paginate($records)->items();
+            $result = User::where('users.name', 'like', '%' . $search . '%')
+                          ->orWhere('users.email', 'like', '%' . $search . '%')
+                           ->whereNotNull('role_id')->paginate($records)->items();
         }
-        return $resulut;
-    }
+         return $result;
+    }                
 
     /**
      * Get roles
@@ -113,7 +104,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
     }
 
     public function show($id){
-       return User::join('areas','users.area_id','=','areas.id')->join('provinces','users.province_id','=','provinces.id')->join('districts','users.district_id','=','districts.id')->join('schools','users.school_id','=','schools.id')->join('class','users.class_id','=','class.id')->join('grades','users.grade_id','=','grades.id')->join('roles','users.role_id','=','roles.id')->where('users.id','=',$id)->selectRaw($this->properties)->first();
+       return $this->_model->find($id);
     }
 
 
@@ -121,16 +112,37 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
 
     public function getAreaPages($records,$id,$tableID, $search = null)
     {
-        $total = !is_null($search) ? 
-        count(User::join('areas','users.area_id','=','areas.id')->join('provinces','users.province_id','=','provinces.id')->join('districts','users.district_id','=','districts.id')->join('schools','users.school_id','=','schools.id')->join('class','users.class_id','=','class.id')->join('grades','users.grade_id','=','grades.id')->join('roles','users.role_id','=','roles.id')->where(function ($q) use ($search) {
-        $q->where('name', 'like', '%' . $search . '%')->Where($tableID,$id); })->selectRaw($this->properties)->get()) :
-        count( User::join('areas','users.area_id','=','areas.id')->join('provinces','users.province_id','=','provinces.id')->join('districts','users.district_id','=','districts.id')->join('schools','users.school_id','=','schools.id')->join('class','users.class_id','=','class.id')->join('grades','users.grade_id','=','grades.id')->join('roles','users.role_id','=','roles.id')->where($tableID,$id)->selectRaw($this->properties)->get());
-        return ceil($total / $records);
+       if(!is_null($search)){
+            $total=count(User::where('users.name', 'like', '%' . $search . '%')
+                          ->orWhere('users.email', 'like', '%' . $search . '%')
+                           ->whereNotNull('role_id')->where($tableID,$id)->get());
+
+        }else{
+            $total=count(User::whereNotNull('role_id')->where($tableID,$id)->get());
+        }
+        return ceil($total / $records); 
+      
     }
 
   
     public function getAreaObjects($records,$id,$tableID, $search = null)
     {
+<<<<<<< HEAD
+      if(is_null($search)){
+            $User = User::whereNotNull('role_id')
+                    ->where($tableID,$id)
+                    ->paginate($records)->items();
+        }else{
+            $User = User::where('users.name', 'like', '%' . $search . '%')
+                          ->orWhere('users.email', 'like', '%' . $search . '%')
+                          ->whereNotNull('role_id')
+                          ->where($tableID,$id)
+                          ->paginate($records)->items();
+        }
+         return $User;
+
+       
+=======
         if(is_null($search)){
             $User = User::join('areas','users.area_id','=','areas.id')
             ->join('provinces','users.province_id','=','provinces.id')
@@ -157,6 +169,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
                 })->paginate($records)->items();
         
         return $User;
+>>>>>>> c7d59f6f84e8adf9d1e08dda5480327cf43d143a
         
        
     }

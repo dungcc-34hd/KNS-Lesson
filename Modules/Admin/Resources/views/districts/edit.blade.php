@@ -35,7 +35,7 @@
                                     <select  class="form-control" name="area_id" id="selectArea">
                                         <option value="">Chọn khu vực</option>
                                         @foreach ($areas as $key => $area)
-                                            <option value="{{$area->id}}">{{$area->name}}</option>
+                                            <option value="{{$area->id}}" {{ $area_current->area_id == $area->id ? "selected" : '' }}>{{$area->name}}</option>
                                         @endforeach
                                     </select>
                                     @if($errors)
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Tỉnh/Thành phố @include('common.require')</label>
-                                    <select class="form-control" name="province_id">
+                                    <select class="form-control" name="province_id" id="selectProvince">
                                         @foreach ($provincials as $key => $provincial)
                                             <option value="{{$provincial->id}}" {{ $district->province_id == $provincial->id ? "selected" : '' }}>{{$provincial->name}}</option>
                                         @endforeach

@@ -14,7 +14,9 @@ class CreateLessonTypesTable extends Migration
     public function up()
     {
         Schema::create('lesson_types', function (Blueprint $table) {
-            $table->integer('id');
+            $table->increments('id');
+            $table->integer('id_type')->unique();
+            $table->integer('type')->nullable();
             $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();

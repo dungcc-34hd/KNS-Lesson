@@ -274,8 +274,8 @@ class UserController extends Controller
         $title          = "Chọn Tỉnh";
         $records        = 10;
         $area_id        = $req->area;
-        $Users          = $this->repository->getAreaObjects($records,$area_id,'users.area_id');
-        $page           = $this->repository->getAreaPages($records,$area_id,'users.area_id');
+        $Users          = $this->repository->getAreaObjects($records,$area_id,'area_id');
+        $page           = $this->repository->getAreaPages($records,$area_id,'area_id');
         $provinces      = Province::where('area_id',$area_id)->get();
         
         $select         = $this->returnOption($provinces,$title );
