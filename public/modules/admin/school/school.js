@@ -9,11 +9,16 @@ $(document).ready(function () {
             e.preventDefault();
             var object_name = $(this).attr('object_name');
             var object_id = $(this).attr('object_id');
+            $('#alert_box').text('Bạn có muốn xóa: ' + object_name + '?');
+
+
+
             var row = $(this).closest('tr');
+
 
             $.confirm({
                 title: 'Confirm!',
-                content: 'Bạn có muốn xóa: ' + object_name + '?',
+                content: $('#alert_box').text(),
                 buttons: { 
                     confirm: function () {
                         $.ajax({

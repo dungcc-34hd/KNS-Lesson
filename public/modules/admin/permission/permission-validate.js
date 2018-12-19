@@ -1,3 +1,9 @@
+
+jQuery.validator.addMethod("VldHtml", function(value, element) {
+    // allow any non-whitespace characters as the host part
+    return this.optional( element ) || /<(.|\n)*?>/g.test( value )==true?false:true;
+  }, 'Không được nhập kí tự đặc biệt');
+  
 $('.validation-form').validate({
     errorElement: 'div',
     errorClass: 'help-block',
@@ -6,7 +12,8 @@ $('.validation-form').validate({
     rules: {
         name: {
             required: true,
-            minlength: 3
+            minlength: 3,
+            VldHtml:true
         },
         display_name: {
             required: true,

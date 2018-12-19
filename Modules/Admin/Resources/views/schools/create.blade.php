@@ -23,7 +23,7 @@
                                 <div class="form-group">
                                     <label>Tên trường @include('common.require')</label>
                                     <div class="clearfix">
-                                        <input type="text" class="form-control" name="name">
+                                        <input type="text" class="form-control" name="name" id="names">
                                     </div>
                                 </div>
 
@@ -83,7 +83,7 @@
                         <!-- /.box-body -->
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Tạo trường</button>
+                        <button type="submit" class="btn btn-primary" id="bt">Tạo trường</button>
                         <a href="{{route('admin.school.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>
