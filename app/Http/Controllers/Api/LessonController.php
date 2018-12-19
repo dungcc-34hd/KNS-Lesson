@@ -28,13 +28,19 @@ class LessonController extends Controller
     	}
     }
 
-    public function downloadZip($lessonId = null)
+    public function downloadZip(Request $request)
     {
-        // $this->updateAmountDownload();
-        $lesson = Lesson::find($lessonId);
-        isset($lesson) ? $name = $lesson->name : '';
-        $path = path.$name.'.zip';
-        return response()->file($path);
+        $lessonId = $request->lessonId;
+        if(!is_null($lessonId)){
+            $this->updateAmountDownload();
+            $lesson = Lesson::find($lessonId);
+            isset($lesson) ? $name = $lesson->name : '';
+            $path = path.$name.'.zip';
+            return response()->file($path);
+        }else{
+            return response()->json(['cannot download']);
+        }
+        
     }
 
     public function updateAmountDownload()
