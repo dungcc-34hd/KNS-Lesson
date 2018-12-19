@@ -157,7 +157,10 @@ class ManagerLessonController extends Controller
     public function editLessonDetail(Request $request, $id)
     {
         $lessonDetail = LessonDetail::find($id);
-        return view('admin::managerLesson.addDetailLesson', compact('lessonDetail'));
+
+        $types = LessonType::select('type')->distinct()->get();
+         // dd($lessonDetail->type,$types);
+        return view('admin::managerLesson.addDetailLesson', compact('lessonDetail','types'));
     }
 
 
@@ -187,7 +190,8 @@ class ManagerLessonController extends Controller
         $lesson = Lesson::find($id);
         $lessonId = $id;
         $lessonName = $lesson->name;
-         $types = LessonType::all();
+         $types = LessonType::select('type')->distinct()->get();
+         // dd($types[0]->type);
         return view('admin::managerLesson.addDetailLesson', compact('lessonId', 'lessonName','types'));
     }
 

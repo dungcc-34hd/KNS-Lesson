@@ -2,7 +2,7 @@
     <th class="order-number">STT</th>
     <th>Id </th>
     <th>Tên </th>
-    <th>Định dạng</th>
+    <th>Kiểu định dạng</th>
     <th>Mô tả</th>
     <th class="item-action-3">Trạng thái</th>
 </tr>

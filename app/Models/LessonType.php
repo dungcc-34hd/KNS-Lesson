@@ -10,7 +10,7 @@ class LessonType extends Model
     const TYPE = [
         '1' => 'Ảnh',
         '2' => 'Video',
-        '3' => 'Câu hỏi-tr',
+        '3' => 'Câu hỏi-trả lời',
     ];
 
 }
