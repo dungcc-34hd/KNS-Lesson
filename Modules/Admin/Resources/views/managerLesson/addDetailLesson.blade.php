@@ -40,12 +40,10 @@
                 <label>Kiểu định dạng @include('common.require')</label>
                 <div class="clearfix">
                     <select class="form-control" name="type" id="type" >
-                        @if(isset($lessonDetail))
-                        <option value="{{$lessonDetail->type}}" {{\App\Models\LessonDetail::TYPE[$lessonDetail->type] ? "selected" : ''}}>{{\App\Models\LessonDetail::TYPE[$lessonDetail->type]}}</option>
-                        @else
-                        @foreach($types as $type)
-                        <option value={{$type->id}}>{{$type->name}}</option>
-                        @endforeach      
+                        @if(count($types) > 0)
+                            @foreach($types as $key => $type)
+                            <option value={{$type}} @if(isset($lessonDetail) && $type->type== $lessonDetail->type) selected @endif>{{\App\Models\LessonType::TYPE[$type->type]}}</option>
+                            @endforeach      
                         @endif
                     </select>
                 </div>

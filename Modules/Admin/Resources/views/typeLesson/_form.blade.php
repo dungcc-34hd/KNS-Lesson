@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label> Định dạng</label>
+            <label>Kiểu định dạng</label>
             <div class="clearfix">
                 <select  class="form-control" name="type" >
                     <option value="1" @if(isset($type) && $type->type == 1) selected @endif>Ảnh</option>
