@@ -65,15 +65,15 @@
                            value="">
                 </div>
             </div>
-            @if($typeId != 3)
+            @if($lessonType->type != 3)
                 <div class="col-md-12">
                     <div id="field">
                         <div id="field0">
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="control-label label-name"
-                                       for="action_id"></label>
-                                <h6>(Chọn nhiều )</h6><br>
+                                       for="action_id">{{\App\Models\LessonType::TYPE[$lessonType->type]}}</label>
+                                <h6>(Chọn nhiều {{\App\Models\LessonType::TYPE[$lessonType->type]}})</h6><br>
                                 <div class="col-md-12 clearfix">
                                     @if(isset($audios))
                                         @foreach($audios as $audio)
@@ -83,9 +83,15 @@
                                                name="background-image[]"
                                                id="background-image" multiple>
                                     @else
-                                        <input type="file" class="add_field_button form-control "
-                                               name="background-image[]"
-                                               id="background-image" multiple>
+                                        @if($lessonType->type == 1)
+                                            <input type="file" accept="image/*" class="add_field_button form-control "
+                                                   name="background-image[]"
+                                                   id="background-image" multiple>
+                                        @elseif($lessonType->type == 2)
+                                            <input type="file" accept="video/*" class="add_field_button form-control "
+                                                   name="background-image[]"
+                                                   id="background-image" multiple>
+                                        @endif
                                     @endif
                                 </div>
                                 <br><br>
@@ -95,7 +101,7 @@
                     </div>
                 </div>
             @endif
-            @if($typeId == 3)
+            @if($lessonType->type == 3)
                 <div class="show-request-answer">
                     <div class="form-group">
                         <label>Câu hỏi @include('common.require')</label>
@@ -210,8 +216,8 @@
         // });
 
         $('.answer_last').click(function () {
-            $(this).attr('value',0);
-            if ($(this).is(':checked')){
+            $(this).attr('value', 0);
+            if ($(this).is(':checked')) {
                 $(this).attr('value', 1);
             }
         });

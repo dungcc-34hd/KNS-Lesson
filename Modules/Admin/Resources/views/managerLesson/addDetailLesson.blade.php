@@ -42,7 +42,7 @@
                     <select class="form-control" name="type" id="type" >
                         @if(count($types) > 0)
                             @foreach($types as $key => $type)
-                            <option value={{$type->type}} @if(isset($lessonDetail) && $type->type== $lessonDetail->type) selected @endif>{{\App\Models\LessonType::TYPE[$type->type]}}</option>
+                            <option value={{$type->id}} @if(isset($lessonDetail) && $type->id== $lessonDetail->type) selected @endif>{{$type->name}}</option>
                             @endforeach      
                         @endif
                     </select>
