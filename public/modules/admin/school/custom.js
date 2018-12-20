@@ -43,7 +43,7 @@ function process(areaId) {
         {
             
             var option = '<option>Không có dữ liệu</option>'
-            $('#selectDistrict').append(option)
+            $('#selectDistrict').html(option)
             
         }
         else
@@ -52,7 +52,7 @@ function process(areaId) {
             $.each(data['districts'], function (i, value) {
                 var option = '<option value='+value.id+'>'+value.name+'</option>'
 
-                $('#selectDistrict').append(option)
+                $('#selectDistrict').html(option)
             });
         }
          
@@ -69,17 +69,17 @@ function changeProvince(provinceId){
         if($.isEmptyObject(data['districts']))
         {
             
-            var option = '<option>Không có dữ liệu</option>'
-            $('#selectDistrict').append(option)
+            var option = '<option>Không có dữ liệu</option>';
+            $('#selectDistrict').html(option);
             
         }
         else
         {
            
             $.each(data['districts'], function (i, value) {
-                var option = '<option value='+value.id+'>'+value.name+'</option>'
+                var option = '<option value='+value.id+'>'+value.name+'</option>';
 
-                $('#selectDistrict').append(option)
+                $('#selectDistrict').html(option);
             }); 
         }
         // ajaxLoadData($('#show-records').val(), $('#pages-current').val(), $('#nav-search-input').val());

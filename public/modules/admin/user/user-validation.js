@@ -1,3 +1,6 @@
+jQuery.validator.addMethod("VldHtml", function(value, element) {
+    return this.optional( element ) || /^([a-zA-Z])+$/ig.test( value );
+  }, 'Không được nhập kí tự đặc biệt');
 $('.validation-form').validate({
     errorElement: 'div',
     errorClass: 'help-block',
@@ -6,7 +9,8 @@ $('.validation-form').validate({
     rules: {
         name: {
             required: true,
-            minlength: 3
+            minlength: 3,
+            VldHtml:true
         },
         email: {
             required: true,

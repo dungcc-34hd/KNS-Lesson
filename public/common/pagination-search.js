@@ -85,7 +85,7 @@ $(function () {
             var nameProvinces   = $(".provinces_S").data('table');
             var nameDistricts   = $(".districts_S").data('table');
             var nameSchools     = $('.schools_S').data('table');
-       
+            
             if(area !='' && area!=undefined ){
                 if(provinces !=''&&provinces!=undefined ){
                     if(districts != ""&&provinces!=undefined ){
