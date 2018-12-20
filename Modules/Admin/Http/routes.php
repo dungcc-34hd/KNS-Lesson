@@ -33,6 +33,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', 'UserController@index')->name('admin.user.index');
         Route::get('/pagination/{records}/{search?}', 'UserController@pagination')->name('admin.user.pagination');
+        Route::get('/pagination_Select/{records}/{table}/{id}', 'UserController@pagination_Select')->name('admin.user.paginationSelect');
         Route::get('/show/{id}', 'UserController@show')->name('admin.user.show');
         Route::get('/edit/{id}', 'UserController@edit')->name('admin.user.edit');
         Route::post('/edit/{id}', 'UserController@update')->name('admin.user.update');
@@ -101,15 +102,16 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::post('/update/{id}', 'SchoolController@update')->name('admin.school.update');
         Route::get('/delete/{id}', 'SchoolController@delete')->name('admin.school.delete');
         Route::get('/pagination/{records}/{search?}', 'SchoolController@pagination')->name('admin.school.pagination');
+        Route::get('/pagination_Select/{records}/{table}/{id}', 'SchoolController@pagination_Select')->name('admin.school.paginationSelect');
         Route::get('/treeView','SchoolController@treeView')->name('admin.school.treeView');
-           Route::get('change-area/{areaId}','SchoolController@changeArea')->name('admin.school.change-area');
-           Route::get('change-province/{provinceId}','SchoolController@changeProvince')->name('admin.school.change-province');
-           Route::get('change-district/{districtId}','SchoolController@changeDistrict')->name('admin.school.change-district');
-
+        Route::get('change-area/{areaId}','SchoolController@changeArea')->name('admin.school.change-area');
+        Route::get('change-province/{provinceId}','SchoolController@changeProvince')->name('admin.school.change-province');
+        Route::get('change-district/{districtId}','SchoolController@changeDistrict')->name('admin.school.change-district');
+// ajax
         Route::get('/hanlding-area','SchoolController@hanldingArea')->name('admin.school.hanldingArea');
         Route::get('/hanlding-province','SchoolController@hanldingProvince')->name('admin.school.hanldingProvince');
         Route::get('/hanlding-district','SchoolController@hanldingDistrict')->name('admin.school.hanldingDistrict');
-         Route::get('/select','SchoolController@select')->name('admin.school.select');
+        Route::get('/select','SchoolController@select')->name('admin.school.select');
 
 
 
@@ -205,6 +207,16 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
 
 
 
+    });
+
+    Route::group(['prefix'=>'type-lesson'],function(){
+        Route::get('/','LessonTypeController@index')->name('admin.typeLesson.index');
+        Route::get('/pagination/{records}/{search?}', 'LessonTypeController@pagination')->name('admin.typeLesson.pagination');
+        Route::get('/create','LessonTypeController@create')->name('admin.typeLesson.create');
+        Route::post('/store','LessonTypeController@store')->name('admin.typeLesson.store');
+        Route::get('/edit/{id}','LessonTypeController@edit')->name('admin.typeLesson.edit');
+        Route::post('/update/{id}','LessonTypeController@update')->name('admin.typeLesson.update');
+        Route::get('/delete/{id}','LessonTypeController@destroy')->name('admin.typeLesson.delete');
     });
 
     Route::group(['prefix'=>'manager-area'],function(){
