@@ -18,7 +18,7 @@ $.fn.extend({
         tree.addClass("tree");
         tree.find('li').has("ul").each(function () {
             var branch = $(this); //li with children ul
-            branch.prepend("<i class='indicator glyphicon " + closedClass + "'></i>");
+            branch.prepend("<i class='" + closedClass + "'></i>");
             branch.addClass('branch');
             branch.on('click', function (e) {
                 if (this == e.target) {
@@ -56,7 +56,7 @@ $.fn.extend({
 
 $('#tree1').treed();
 
-$('#tree2').treed({openedClass:'glyphicon-folder-open', closedClass:'glyphicon-folder-close'});
+$('#tree2').treed({openedClass:'fas fa-chart-area', closedClass:'fas fa-chart-area'});
 
-$('#tree3').treed({openedClass:'glyphicon-chevron-right', closedClass:'glyphicon-chevron-down'});
+$('#tree3').treed({openedClass:'fas fa-chart-area', closedClass:'fas fa-chart-area'});
 

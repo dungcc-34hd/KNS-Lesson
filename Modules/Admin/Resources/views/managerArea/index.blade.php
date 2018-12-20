@@ -44,7 +44,7 @@
                 <section class="col-lg-12 connectedSortable">
                     <!-- TO DO List -->
                     <div class="box box-primary">
-                        <div class="col-md-4">
+                        <div class="col-md-12 col-sm-12">
                             <ul id="tree2" style="font-size: 20px">
                                 @foreach($areas as $area)
                                     <li>

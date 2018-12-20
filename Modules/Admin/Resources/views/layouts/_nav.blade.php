@@ -38,9 +38,9 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="area"><a href="{{route('admin.area.index')}}"><i class="fa fa-users"></i> <span>Khu vực</span></a></li>
-                    <li class="provincial"><a href="{{route('admin.province.index')}}"><i class="fa fa-users"></i> <span>Tỉnh</span></a></li>
-                    <li class="district"><a href="{{route('admin.district.index')}}"><i class="fa fa-users"></i> <span>Quận /Huyện</span></a></li>
+                    {{--<li class="area"><a href="{{route('admin.area.index')}}"><i class="fa fa-users"></i> <span>Khu vực</span></a></li>--}}
+                    {{--<li class="provincial"><a href="{{route('admin.province.index')}}"><i class="fa fa-users"></i> <span>Tỉnh</span></a></li>--}}
+                    {{--<li class="district"><a href="{{route('admin.district.index')}}"><i class="fa fa-users"></i> <span>Quận /Huyện</span></a></li>--}}
                     <li class="school"><a href="{{route('admin.school.index')}}"><i class="fa fa-users"></i> <span>Trường</span></a></li>
                     <li class="grade-level"><a href="{{route('admin.grade.index')}}"><i class="fa fa-users"></i> <span>Khối</span></a></li>
                     <li class="class"><a href="{{route('admin.class.index')}}"><i class="fa fa-users"></i> <span>Lớp</span></a></li>
