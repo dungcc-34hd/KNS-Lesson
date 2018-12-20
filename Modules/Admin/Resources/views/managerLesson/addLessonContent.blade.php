@@ -79,9 +79,15 @@
                                         @foreach($audios as $audio)
                                             {{$audio}}
                                         @endforeach
-                                        <input type="file" class="add_field_button form-control "
-                                               name="background-image[]"
-                                               id="background-image" multiple>
+                                            @if($lessonType->type == 1)
+                                                <input type="file" accept="image/*" class="add_field_button form-control "
+                                                       name="background-image[]"
+                                                       id="background-image" multiple>
+                                            @elseif($lessonType->type == 2)
+                                                <input type="file" accept="video/*" class="add_field_button form-control "
+                                                       name="background-image[]"
+                                                       id="background-image" multiple>
+                                            @endif
                                     @else
                                         @if($lessonType->type == 1)
                                             <input type="file" accept="image/*" class="add_field_button form-control "

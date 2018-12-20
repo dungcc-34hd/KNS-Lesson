@@ -299,6 +299,8 @@ class ManagerLessonController extends Controller
     public function editLessonContent($id)
     {
         $lessonContent = LessonContent::find($id);
+        $lessonType= LessonDetail::where('id','=',$lessonContent->lesson_detail_id)->first();
+
         $typeId = $this->repository->getTypeById($lessonContent->lesson_detail_id);
         $lessonDetail = $this->repository->getTitleById($lessonContent->lesson_detail_id);
         $lesson = $this->repository->getLessonNameById($lessonContent->lesson_detail_id);
@@ -309,7 +311,7 @@ class ManagerLessonController extends Controller
         $contents = json_decode($lessonContent->content);
         $audios = json_decode($lessonContent->audio);
 
-        return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail', 'lessonContent', 'contents', 'lessonAnswer', 'audios'));
+        return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail', 'lessonContent', 'contents', 'lessonAnswer', 'audios','lessonType'));
     }
 
     /**
@@ -326,7 +328,7 @@ class ManagerLessonController extends Controller
         //make directory
         $directory = public_path() . "/modules/managerContent/" . $request['lesson'] . '/' . $request['lesson-detail'];
         $contentLesson->path = $directory;
-//        dd($directoryMusic);
+
         if (!is_null($request->file('background-music'))) {
             if ($request->file('background-music')) {
                 $music = $request['background-music']->getClientOriginalName();
@@ -366,7 +368,7 @@ class ManagerLessonController extends Controller
         if ($request['type'] == 3) {
             //$is_correct = isset($request['is-correct']) ? $request['is-correct'][0] : null;
             foreach ($request['answer'] as $key => $item) {
-                $lessonAnswer = LessonAnswer::find($id);
+                $lessonAnswer = LessonAnswer::find($contentLesson->id);
                 $lessonAnswer->answer = $item;
                 $lessonAnswer->is_correct = false;
                 $lessonAnswer->answer_last = false;
@@ -376,6 +378,28 @@ class ManagerLessonController extends Controller
                     $lessonAnswer->answer_last = 1;
                 $lessonAnswer->save();
             }
+
+            $dataDapAn = $this->repository->getQuizDapAn( $contentLesson->id);
+            //create json trac nghiem
+            $answerDataList = [];
+            foreach ($dataDapAn->answer as $key => $item )
+            {
+                if($key != 0){
+                    $answerWrong[] = $item;
+                }
+            }
+            $lessonAnswerData = [
+                "answer_last" => ($dataDapAn->answerLast == 1) ? true : false,
+                "question" => $dataDapAn->question,
+                "answer" => $dataDapAn->answer[0],
+                "wrong" => $answerWrong
+
+            ];
+            array_push($answerDataList, $lessonAnswerData);
+            $jsonData = ["data" => $answerDataList];
+            $directory = public_path() . "/modules/managerContent/" .'/'.$request['lesson'].'/'.$request['lesson-detail'];
+
+            File::put($directory . "/tncc.json", json_encode($jsonData,JSON_UNESCAPED_UNICODE));
         }
         return redirect('admin/manager-lesson/index');
     }
