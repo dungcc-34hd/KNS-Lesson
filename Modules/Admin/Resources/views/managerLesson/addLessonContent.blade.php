@@ -61,7 +61,7 @@
                 <label>Nhạc nền</label>
                 <div class="clearfix">
                     @isset($lessonContent){{$lessonContent->background_music}}@endisset
-                    <input type="file" class="form-control background-music" name="background-music"
+                    <input type="file" accept="audio/*" class="form-control background-music" name="background-music"
                            value="">
                 </div>
             </div>
@@ -72,8 +72,8 @@
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="control-label label-name"
-                                       for="action_id">{{\App\Models\LessonDetail::TYPE[$typeId]}}</label>
-                                <h6>(Chọn nhiều {{\App\Models\LessonDetail::TYPE[$typeId]}})</h6><br>
+                                       for="action_id"></label>
+                                <h6>(Chọn nhiều )</h6><br>
                                 <div class="col-md-12 clearfix">
                                     @if(isset($audios))
                                         @foreach($audios as $audio)

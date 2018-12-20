@@ -4,6 +4,12 @@ $('.validation-form').validate({
     focusInvalid: false,
     ignore: "",
     rules: {
+        'detail-lesson':{
+          required:true,
+        },
+        name:{
+            required:true,
+        },
         type: {
             required: true,
         },
@@ -11,9 +17,18 @@ $('.validation-form').validate({
             required: true,
         },
 
+        'background-music':{
+
+        }
     },
 
     messages: {
+        'detail-lesson':{
+            required:"Mời bạn nhập vào trường này",
+        },
+        name: {
+            required:"Mời bạn nhập tiêu đề.",
+        },
         type: {
             required: "Mời bạn chọn kiểu."
         },
