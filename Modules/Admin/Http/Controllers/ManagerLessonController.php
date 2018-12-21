@@ -303,13 +303,14 @@ class ManagerLessonController extends Controller
         $lessonDetail = $this->repository->getTitleById($lessonContent->lesson_detail_id);
         $lesson = $this->repository->getLessonNameById($lessonContent->lesson_detail_id);
         $lessonAnswer = LessonAnswer::findLessonContentByID($id);
+        $lessonIscorrect = LessonAnswer::findLessonContentByID($id)->first();
         if (is_null($lessonContent)) {
             return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail'));
         }
         $contents = json_decode($lessonContent->content);
         $audios = json_decode($lessonContent->audio);
 
-        return view('admin::managerLesson.editLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail', 'lessonContent', 'contents', 'lessonAnswer', 'audios', 'lessonType'));
+        return view('admin::managerLesson.editLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail', 'lessonContent', 'contents', 'lessonAnswer', 'audios', 'lessonType','lessonIscorrect'));
     }
 
     /**
@@ -319,7 +320,6 @@ class ManagerLessonController extends Controller
      */
     public function updateLessonContent(Request $request, $id)
     {
-        dd($request->all());
         $contentLesson = LessonContent::find($id);
         $contentLesson->title = $request['title'];
         $contentLesson->question = $request['question'];

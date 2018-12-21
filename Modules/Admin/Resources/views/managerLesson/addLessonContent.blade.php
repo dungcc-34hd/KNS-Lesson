@@ -124,14 +124,7 @@
                                name="answer[]"
                                value="@isset($lessonAnswer)@foreach($lessonAnswer as $answer)@if($answer->is_correct == 1){{$answer->answer}}@endif @endforeach @endisset">
                         <input type="checkbox" class=" answer_last" name="answer_last"
-                               @if(isset($lessonAnswer))
-                               @foreach($lessonAnswer as $answer)
-                               {{($answer->answer_last == 1) ? 'checked' :''}}
-                               @endforeach
-                               value="1"><label>Câu trả lời đúng ở cuối</label>
-                        @else
                             value="0"><label>Câu trả lời đúng ở cuối</label>
-                        @endif
                     </div>
                     <br/>
                     <div class="answer-wrapper">
