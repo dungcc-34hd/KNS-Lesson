@@ -103,7 +103,6 @@
                                 <br><br>
                             </div>
                         </div>
-                        {{--<button id="add-more" name="add-more" class="btn btn-primary">Thêm</button>--}}
                     </div>
                 </div>
             @endif
@@ -130,25 +129,28 @@
                     <div class="answer-wrapper">
                         <label>Câu trả lời Sai @include('common.require') </label>
                         <div class="input-group control-group after-add-more" style="width: 100%">
-                            @if(isset($lessonAnswer))
-                                @foreach($lessonAnswer as $answer)
-                                    @if($answer->is_correct == 0)
-                                        <input type="text" name="answer[]" class="form-control"
-                                               placeholder="Nhập câu trả lời sai"
-                                               value=" {{$answer->answer}}">
-                                    @endif
-                                @endforeach
-                            @else
                                 <input type="text" name="answer[]" class="form-control"
                                        placeholder="Nhập câu trả lời sai">
-                            @endif
+                        </div>
+                        <div id="form_answer_false">
+                            <div style="display:none" id="answer_false">
+                                <div class="control-group input-group" style="margin-top:10px">
+                                    <input type="text" name="answer[]" class="form-control"
+                                           placeholder="Nhập câu trả lời sai">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-danger remove" type="button"><i
+                                                    class="glyphicon glyphicon-remove"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="input-group-btn">
                             <button class="btn btn-success add-more" type="button"><i
                                         class="glyphicon glyphicon-plus"></i>
                             </button>
                         </div>
-                        </label>
+
                     </div>
                 </div>
             @endif
@@ -171,47 +173,6 @@
     $(document).ready(function () {
         //@naresh action dynamic childs
         var next = 0;
-        $("#add-more").click(function (e) {
-            e.preventDefault();
-            var addto = "#field" + next;
-            var addRemove = "#field" + (next);
-            var label_name = $('.label-name').text();
-            next = next + 1;
-            var newIn = '<div id="field' + next + '" name="field' + next + '">' +
-                '<!-- Text input--><div class="form-group"> ' +
-                '<label class="col-md-4 control-label" for="action_id">' + label_name + '</label> ' +
-                '<div class="col-md-5"> ' +
-                '<input type="file" class="form-control add_field_button" name="background-image[]"\n' +
-                '                               id="background-image"> ' +
-                '</div>' +
-                '</div></div>' +
-                '<div class="form-group"> </div></div></div>';
-            var newInput = $(newIn);
-            var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >Xóa</button></div></div><div id="field">';
-            var removeButton = $(removeBtn);
-            $(addto).after(newInput);
-            $(addRemove).after(removeButton);
-            $("#field" + next).attr('data-source', $(addto).attr('data-source'));
-            $("#count").val(next);
-
-            $('.remove-me').click(function (e) {
-                e.preventDefault();
-                var fieldNum = this.id.charAt(this.id.length - 1);
-                var fieldID = "#field" + fieldNum;
-                $(this).remove();
-                $(fieldID).remove();
-            });
-        });
-
-        // $('.is-correct').each(function(index){
-        //     $(this).click(function () {
-        //         $('.is-correct').attr('value', 0);
-        //         if ($(this).is(':checked')){
-        //             $(this).attr('value', 1);
-        //         }
-        //     })
-        //
-        // });
 
         $('.answer_last').click(function () {
             $(this).attr('value', 0);
@@ -251,17 +212,8 @@
 
         //add answer
         $(".add-more").click(function () {
-            var html = '<div class="copy">\n' +
-                '                        <div class="control-group input-group" style="margin-top:10px">\n' +
-                '                            <input type="text" name="answer[]" class="form-control" placeholder="Nhập câu trả lời sai">\n' +
-                '                            <div class="input-group-btn">\n' +
-                '                                <button class="btn btn-danger remove" type="button"><i\n' +
-                '                                            class="glyphicon glyphicon-remove"></i>\n' +
-                '                                </button>\n' +
-                '                            </div>\n' +
-                '                        </div>\n' +
-                '                    </div>';
-            $(".after-add-more").after(html);
+            var html = $('#answer_false').clone().removeAttr("style");
+            $('#form_answer_false').append(html);
         });
 
         $("body").on("click", ".remove", function () {
