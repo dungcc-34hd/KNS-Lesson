@@ -5,27 +5,10 @@
 
     </div>
 
-    <form id="add-lesson-content" @if(isset($lessonContent))
-    action="{{route('admin.managerLesson.updateLessonContent',$lessonContent->id)}}"
-          @else
-          action="{{route('admin.managerLesson.storeLessonContent')}}"
-          @endif
+    <form id="add-lesson-content" action="{{route('admin.managerLesson.updateLessonContent',$lessonContent->id)}}"
           method="post"
           enctype="multipart/form-data">
-
         {{csrf_field()}}
-        @isset($typeId)
-            <input type="hidden" value="{{$typeId}}" name="type">
-        @endisset
-        @isset($lessonDetail)
-            <input type="hidden" value="{{$lessonDetail}}" name="lesson-detail">
-        @endisset
-        @isset($id)
-            <input type="hidden" value="{{$id}}" name="lesson-detail-id">
-        @endisset
-        @isset($lesson)
-            <input type="hidden" value="{{$lesson}}" name="lesson">
-        @endisset
 
         <div class="modal-body">
             <div class="form-group">
@@ -124,7 +107,7 @@
                                name="answer[]"
                                value="@isset($lessonAnswer)@foreach($lessonAnswer as $answer)@if($answer->is_correct == 1){{$answer->answer}}@endif @endforeach @endisset">
                         <input type="checkbox" class=" answer_last" name="answer_last"
-                               @if(isset($lessonAnswer))
+                               @if($lessonAnswer)
                                @foreach($lessonAnswer as $answer)
                                {{($answer->answer_last == 1) ? 'checked' :''}}
                                @endforeach
