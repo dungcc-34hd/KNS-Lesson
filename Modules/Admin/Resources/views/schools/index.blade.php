@@ -37,7 +37,7 @@
                         </div>     
                     </div>
                     <div class="form-group col-md-4">
-                        <label>Tỉnh/thành phố </label>
+                        <label>Tỉnh </label>
                         <div class="clearfix">
                             <select  class="form-control provinces_S" name="province_id" id="provinces" data-table="province_id" >
                                 <option value="">Chọn Tỉnh</option>
@@ -51,7 +51,7 @@
                         <label>Quận/Huyện </label>
                         <div class="clearfix">
                             <select  class="form-control districts_S" name="district_id" id="districts" data-table="district_id">
-                                <option value="">Chọn quận/huyện</option>
+                                <option value="">Chọn Quận/Huyện</option>
                                 @foreach ($districts as $key => $district)
                                     <option value="{{$district->id}}">{{$district->name}}</option>
                                 @endforeach
@@ -74,7 +74,8 @@
                     <div class="box box-primary">
                         <div class="box-header">
                             <h3 class="box-title">Danh sách trường</h3>
-
+                            <br>
+                             <h4 class="box-title" > <small id="countTable"> </small> </h4>
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
                                     <input type="text" id="nav-search-input" name="table_search" class="form-control pull-right" placeholder="Tìm kiếm">

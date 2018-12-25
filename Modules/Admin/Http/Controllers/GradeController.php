@@ -115,7 +115,7 @@ class GradeController extends Controller
         $grade->save();
 
         Session::flash('flash_level', 'success');
-        Session::flash('flash_message', 'Xoá thành công');
+        Session::flash('flash_message', 'Cập nhập thành công');
 
         return redirect('admin/grade/index');
 

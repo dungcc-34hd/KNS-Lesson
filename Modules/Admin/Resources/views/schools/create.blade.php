@@ -19,7 +19,7 @@
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-6">
-
+                                
                                 <div class="form-group">
                                     <label>Tên trường @include('common.require')</label>
                                     <div class="clearfix">

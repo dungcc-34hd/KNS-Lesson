@@ -115,6 +115,8 @@ $(function () {
     });
     $('#nav-search-input').keyup(function () {
 
+        var status          = /<(.|\n)*?>/g.test( $('#nav-search-input').val());
+        var status1         = /<[<]*>/g.test( $('#nav-search-input').val());
         var area            = $(".areas_S").val();
         var provinces       = $(".provinces_S").val();
         var districts       = $(".districts_S").val();
@@ -134,7 +136,10 @@ $(function () {
         }
 
         var records = $('#show-records').val();
-        ajaxLoadData(records,1,$(this).val());
+        if(!status){
+            ajaxLoadData(records,1,$(this).val());
+        }
+        
     });
 
     $(document).on('click','.sorting', function () {
@@ -165,6 +170,7 @@ $(function () {
  
 }); 
 function ajaxLoadData(records,  current_page,search) {
+    $('#countTable').empty();
     var url_controller = $('#url-ajax').val();
     var url = url_controller + records +"?page=" + current_page;
     if(search !== null && search !== '')
@@ -212,6 +218,8 @@ function ajaxLoadDataForSelect(records,  current_page,id,table) {
             //append data in table
             $('.results-table tbody').empty();
             $('.results-table tbody').append(result);
+            var count = $('#countT').val();
+            $('#countTable').html("Tìm thấy : "+count+" bản ghi");
 
             //append pagination 
             $.ajax({

@@ -1,6 +1,11 @@
 jQuery.validator.addMethod("VldHtml", function(value, element) {
     return this.optional( element ) || /^([a-zA-Z])+$/ig.test( value );
   }, 'Không được nhập kí tự đặc biệt');
+  jQuery.validator.addMethod("biggerO", function(value, element) {
+    // allow any non-whitespace characters as the host part
+    return this.optional( element ) || value==""?false:true;
+  }, 'Bạn chưa chọn.');
+  
 $('.validation-form').validate({
     errorElement: 'div',
     errorClass: 'help-block',
@@ -23,29 +28,28 @@ $('.validation-form').validate({
         },
        
         tel: {
-            required: true,
             maxlength:11,
         },
         role_id:{
-            required: true
+            biggerO:true
         },
         area_id:{
-            required: true,
+            biggerO:true
         },
         province_id:{
-            required: true,
+            biggerO:true
         },
         district_id:{
-            required: true,
+            biggerO:true
         },
         school_id:{
-            required: true,
+            biggerO:true
         },
         grade_id:{
-            required: true,
+            biggerO:true
         },
         class_id:{
-            required: true,
+            biggerO:true
         }
 
 
@@ -70,25 +74,25 @@ $('.validation-form').validate({
             required: "Xin vui lòng nhập số điện thoại."
         },
         role_id:{
-            required: "Xin vui lòng chọn quyền ."
+            biggerO: "Xin vui lòng chọn quyền ."
         },
         area_id:{
-            required: "Xin vui lòng chọn khu vực ."
+            biggerO: "Xin vui lòng chọn khu vực ."
         },
         province_id:{
-            required: "Xin vui lòng chọn tỉnh."
+            biggerO: "Xin vui lòng chọn tỉnh."
         },
         district_id:{
-            required: "Xin vui lòng chọn quận/huyện."
+            biggerO: "Xin vui lòng chọn quận/huyện."
         },
         school_id:{
-            required: "Xin vui lòng chọn trường."
+            biggerO: "Xin vui lòng chọn trường."
         },
         grade_id:{
-            required: "Xin vui lòng chọn khối."
+            biggerO: "Xin vui lòng chọn khối."
         },
         class_id:{
-            required: "Xin vui lòng chọn lớp."
+            biggerO: "Xin vui lòng chọn lớp."
         },
         
 
