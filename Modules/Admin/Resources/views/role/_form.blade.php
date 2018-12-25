@@ -1,5 +1,5 @@
 @isset($role)
-    <input type="hidden" name="id" value="{{$role->role_id}}">
+    <input type="hidden" name="id" value="{{$role->role_id}}" id="id">
 @endisset
 <div class="col-md-6">
     <div class="form-group">
@@ -7,9 +7,7 @@
         <div class="clearfix">
             <input type="text" class="form-control" name="name"
                    value="@isset($role) {{ $role->name_role }} @endisset">
-            @if($errors)
-                <span style="color: #dd4b39;" >{{$errors->first('name')}}</span> 
-            @endif
+            
         </div>
     </div>
     <!-- /.form-group -->
@@ -18,9 +16,7 @@
         <div class="clearfix">
             <input type="text" class="form-control name" name="display_name"
                    value="@isset($role) {{ $role->display_role }} @endisset">
-            @if($errors)
-                <span style="color: #dd4b39;" class="text-danger">{{$errors->first('display_name')}}</span> 
-            @endif
+           
         </div>
     </div>
     <!-- /.form-group -->
@@ -37,9 +33,6 @@
 
                 @endforeach
             </select>
-             @if($errors)
-                <span style="color: #dd4b39;" class="text-danger">{{$errors->first('permission_id')}}</span> 
-            @endif
         </div>
         
     </div>
@@ -54,5 +47,5 @@
     <!-- /.form-group -->
 </div>
 @push('scripts')
-    {{-- <script src="{{ asset('modules/admin/role/role-validation.js') }}"></script> --}}
+    <script src="{{ asset('modules/admin/role/role-validation.js') }}"></script>
 @endpush

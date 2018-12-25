@@ -157,10 +157,9 @@ class ManagerLessonController extends Controller
     public function editLessonDetail(Request $request, $id)
     {
         $lessonDetail = LessonDetail::find($id);
+        $types = LessonType::find($lessonDetail->type);
 
-        $types = LessonType::select('type')->distinct()->get();
-         // dd($lessonDetail->type,$types);
-        return view('admin::managerLesson.addDetailLesson', compact('lessonDetail','types'));
+        return view('admin::managerLesson.editDetailLesson', compact('lessonDetail', 'types'));
     }
 
 
@@ -190,9 +189,9 @@ class ManagerLessonController extends Controller
         $lesson = Lesson::find($id);
         $lessonId = $id;
         $lessonName = $lesson->name;
-         $types = LessonType::select('type')->distinct()->get();
-         // dd($types[0]->type);
-        return view('admin::managerLesson.addDetailLesson', compact('lessonId', 'lessonName','types'));
+        $types = LessonType::all();
+        // dd($types[0]->type);
+        return view('admin::managerLesson.addDetailLesson', compact('lessonId', 'lessonName', 'types'));
     }
 
     /**
@@ -204,9 +203,9 @@ class ManagerLessonController extends Controller
         $typeId = $this->repository->getTypeById($id);
         $lessonDetail = $this->repository->getTitleById($id);
         $lesson = $this->repository->getLessonNameById($id);
-        return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail'));
+        $lessonType = LessonType::find($typeId);
+        return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail', 'lessonType'));
     }
-
 
     /**
      * @param Request $request
@@ -267,12 +266,11 @@ class ManagerLessonController extends Controller
                     $lessonAnswer->answer_last = 1;
                 $lessonAnswer->save();
             }
-            $dataDapAn = $this->repository->getQuizDapAn( $contentLesson->id);
+            $dataDapAn = $this->repository->getQuizDapAn($contentLesson->id);
             //create json trac nghiem
             $answerDataList = [];
-            foreach ($dataDapAn->answer as $key => $item )
-            {
-                if($key != 0){
+            foreach ($dataDapAn->answer as $key => $item) {
+                if ($key != 0) {
                     $answerWrong[] = $item;
                 }
             }
@@ -285,9 +283,9 @@ class ManagerLessonController extends Controller
             ];
             array_push($answerDataList, $lessonAnswerData);
             $jsonData = ["data" => $answerDataList];
-            $directory = public_path() . "/modules/managerContent/" .'/'.$request['lesson'].'/'.$request['lesson-detail'];
+            $directory = public_path() . "/modules/managerContent/" . '/' . $request['lesson'] . '/' . $request['lesson-detail'];
 
-            File::put($directory . "/tncc.json", json_encode($jsonData,JSON_UNESCAPED_UNICODE));
+            File::put($directory . "/tncc.json", json_encode($jsonData, JSON_UNESCAPED_UNICODE));
 
         }
         return redirect('admin/manager-lesson/index');
@@ -300,17 +298,19 @@ class ManagerLessonController extends Controller
     public function editLessonContent($id)
     {
         $lessonContent = LessonContent::find($id);
+        $lessonType = LessonDetail::where('id', '=', $lessonContent->lesson_detail_id)->first();
         $typeId = $this->repository->getTypeById($lessonContent->lesson_detail_id);
         $lessonDetail = $this->repository->getTitleById($lessonContent->lesson_detail_id);
         $lesson = $this->repository->getLessonNameById($lessonContent->lesson_detail_id);
         $lessonAnswer = LessonAnswer::findLessonContentByID($id);
+        $lessonIscorrect = LessonAnswer::findLessonContentByID($id)->first();
         if (is_null($lessonContent)) {
             return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail'));
         }
         $contents = json_decode($lessonContent->content);
         $audios = json_decode($lessonContent->audio);
 
-        return view('admin::managerLesson.addLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail', 'lessonContent', 'contents', 'lessonAnswer', 'audios'));
+        return view('admin::managerLesson.editLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail', 'lessonContent', 'contents', 'lessonAnswer', 'audios', 'lessonType','lessonIscorrect'));
     }
 
     /**
@@ -327,7 +327,7 @@ class ManagerLessonController extends Controller
         //make directory
         $directory = public_path() . "/modules/managerContent/" . $request['lesson'] . '/' . $request['lesson-detail'];
         $contentLesson->path = $directory;
-//        dd($directoryMusic);
+
         if (!is_null($request->file('background-music'))) {
             if ($request->file('background-music')) {
                 $music = $request['background-music']->getClientOriginalName();
@@ -367,7 +367,7 @@ class ManagerLessonController extends Controller
         if ($request['type'] == 3) {
             //$is_correct = isset($request['is-correct']) ? $request['is-correct'][0] : null;
             foreach ($request['answer'] as $key => $item) {
-                $lessonAnswer = LessonAnswer::find($id);
+                $lessonAnswer = LessonAnswer::find($contentLesson->id);
                 $lessonAnswer->answer = $item;
                 $lessonAnswer->is_correct = false;
                 $lessonAnswer->answer_last = false;
@@ -377,6 +377,27 @@ class ManagerLessonController extends Controller
                     $lessonAnswer->answer_last = 1;
                 $lessonAnswer->save();
             }
+
+            $dataDapAn = $this->repository->getQuizDapAn($contentLesson->id);
+            //create json trac nghiem
+            $answerDataList = [];
+            foreach ($dataDapAn->answer as $key => $item) {
+                if ($key != 0) {
+                    $answerWrong[] = $item;
+                }
+            }
+            $lessonAnswerData = [
+                "answer_last" => ($dataDapAn->answerLast == 1) ? true : false,
+                "question" => $dataDapAn->question,
+                "answer" => $dataDapAn->answer[0],
+                "wrong" => $answerWrong
+
+            ];
+            array_push($answerDataList, $lessonAnswerData);
+            $jsonData = ["data" => $answerDataList];
+            $directory = public_path() . "/modules/managerContent/" . '/' . $request['lesson'] . '/' . $request['lesson-detail'];
+
+            File::put($directory . "/tncc.json", json_encode($jsonData, JSON_UNESCAPED_UNICODE));
         }
         return redirect('admin/manager-lesson/index');
     }
@@ -436,7 +457,8 @@ class ManagerLessonController extends Controller
     }
 
 
-    public function publicObject($id){
+    public function publicObject($id)
+    {
         try {
             $lesson = $this->repository->find($id);
             $lesson->update(['is_public' => !$lesson->is_public]);
@@ -446,28 +468,30 @@ class ManagerLessonController extends Controller
             return response()->json(['status' => false, 'info' => __('system.error')]);
         }
     }
-    public function testObject($id){
+
+    public function testObject($id)
+    {
         try {
             $lesson = $this->repository->find($id);
             $lesson->update(['is_public' => 1]);
-             
+
         } catch (QueryException $exception) {
-            Log::error($exception->getMessage());      
+            Log::error($exception->getMessage());
 
         }
     }
 
     public function zip($id)
     {
-        try{
+        try {
             $this->jsonLesson($id);
             $nameLesson = Lesson::find($id)->name;
 
             $zipper = new \Chumper\Zipper\Zipper;
-            $files = path.$nameLesson;
-            $zipper->make(path.$nameLesson.'.zip')->add($files)->close();
+            $files = path . $nameLesson;
+            $zipper->make(path . $nameLesson . '.zip')->add($files)->close();
             return redirect()->route('admin.managerLesson.index');
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $array = ['error' => 'Không thành công!'];
             return response()->json([
                 $array

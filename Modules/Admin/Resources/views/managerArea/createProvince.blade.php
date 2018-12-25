@@ -19,11 +19,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>khu vực @include('common.require')</label>
+                    <label>Khu vực @include('common.require')</label>
                     <select  class="form-control" name="area_id">
                         <option value="">Chọn khu vực</option>
                         @foreach ($areas as $key => $area)
-                            <option value="{{$area->id}}" {{ $province->area_id == $area->id ? "selected" : '' }}>{{$area->name}}</option>
+                            <option value="{{$area->id}}" @isset($province){{ $province->area_id == $area->id ? "selected" : '' }}@endisset>{{$area->name}}</option>
                         @endforeach
                     </select>
                 </div>

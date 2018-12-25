@@ -6,7 +6,8 @@ use App\Models\RoleUser;
 use App\Repositories\EloquentRepository;
 use App\Role;
 use App\User;
-
+use App\Models\Thematic;
+use App\Models\UserThematic;
 class UserEloquentRepository extends EloquentRepository implements UserRepositoryInterface
 {
 
@@ -18,9 +19,8 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
     {
         return User::class;
     }
-    // public $properties='users.*,areas.name as name_area,provinces.name as name_province, districts.name as name_district, schools.name as name_school, class.name as name_class, grades.name as name_grade, roles.display_name as name_role';
-    // public $attr = 'users.id as user_id';
 
+   
     /**
      * Get pages
      * @author Minhpt
@@ -40,7 +40,6 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         }
         return ceil($total / $records); 
     }
-    
      public function getObjects($records, $search = null)
     {
         if(is_null($search)){
@@ -105,7 +104,10 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
     }
 
     public function show($id){
-       return $this->_model->find($id);
+        $array['user']=$this->_model->find($id);
+        $array['thematic']= UserThematic::leftJoin('thematics','user_thematics.thematic_id','=','thematics.id')->where('user_thematics.user_id',$id)->get();
+        return $array;
+        // select('thematics.name')
     }
 
 
@@ -124,13 +126,6 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         return ceil($total / $records); 
       
     }
-    public function getCount($id,$tableID)
-    {
-      
-        $total=count(User::whereNotNull('role_id')->where($tableID,$id)->get());
-        return  $total; 
-      
-    }
 
   
     public function getAreaObjects($records,$id,$tableID, $search = null)
@@ -147,12 +142,28 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
                           ->where($tableID,$id)
                           ->paginate($records)->items();
         }
-         return $User;
+         return $User; 
+    }
 
-       
+    public function getThematic(){
+        return Thematic::all();
+    }
 
-        
-       
+// create update UserThematic
+    public function addUserThematic($id,$thematics){
+        UserThematic::where('user_id', '=', $id)->delete();
+        foreach ($thematics as $key =>  $thematic) {
+          UserThematic::create(['user_id'=>$id,'thematic_id'=>$thematic]);
+        }
+    }
+// delete UserThematic
+    public function DeleleUserThematic($id){
+        return UserThematic::where('user_id', '=', $id)->delete();
+    }
+
+
+    public function findThematic($id){
+       return UserThematic::where('user_id',$id)->pluck('thematic_id')->toArray();
     }
     
 

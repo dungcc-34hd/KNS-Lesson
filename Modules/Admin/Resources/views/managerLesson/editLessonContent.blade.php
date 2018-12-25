@@ -5,27 +5,10 @@
 
     </div>
 
-    <form id="add-lesson-content" @if(isset($lessonContent))
-    action="{{route('admin.managerLesson.updateLessonContent',$lessonContent->id)}}"
-          @else
-          action="{{route('admin.managerLesson.storeLessonContent')}}"
-          @endif
+    <form id="add-lesson-content" action="{{route('admin.managerLesson.updateLessonContent',$lessonContent->id)}}"
           method="post"
           enctype="multipart/form-data">
-
         {{csrf_field()}}
-        @isset($typeId)
-            <input type="hidden" value="{{$typeId}}" name="type">
-        @endisset
-        @isset($lessonDetail)
-            <input type="hidden" value="{{$lessonDetail}}" name="lesson-detail">
-        @endisset
-        @isset($id)
-            <input type="hidden" value="{{$id}}" name="lesson-detail-id">
-        @endisset
-        @isset($lesson)
-            <input type="hidden" value="{{$lesson}}" name="lesson">
-        @endisset
 
         <div class="modal-body">
             <div class="form-group">
@@ -61,19 +44,19 @@
                 <label>Nhạc nền</label>
                 <div class="clearfix">
                     @isset($lessonContent){{$lessonContent->background_music}}@endisset
-                    <input type="file" class="form-control background-music" name="background-music"
+                    <input type="file" accept="audio/*" class="form-control background-music" name="background-music"
                            value="">
                 </div>
             </div>
-            @if($typeId != 3)
+            @if($lessonType->type != 3)
                 <div class="col-md-12">
                     <div id="field">
                         <div id="field0">
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="control-label label-name"
-                                       for="action_id">{{\App\Models\LessonDetail::TYPE[$typeId]}}</label>
-                                <h6>(Chọn nhiều {{\App\Models\LessonDetail::TYPE[$typeId]}})</h6><br>
+                                       for="action_id">{{\App\Models\LessonType::TYPE[$lessonType->type]}}</label>
+                                <h6>(Chọn nhiều {{\App\Models\LessonType::TYPE[$lessonType->type]}})</h6><br>
                                 <div class="col-md-12 clearfix">
                                     @if(isset($audios))
                                         @foreach($audios as $audio)
@@ -89,9 +72,15 @@
                                                    id="background-image" multiple>
                                         @endif
                                     @else
-                                        <input type="file" class="add_field_button form-control "
-                                               name="background-image[]"
-                                               id="background-image" multiple>
+                                        @if($lessonType->type == 1)
+                                            <input type="file" accept="image/*" class="add_field_button form-control "
+                                                   name="background-image[]"
+                                                   id="background-image" multiple>
+                                        @elseif($lessonType->type == 2)
+                                            <input type="file" accept="video/*" class="add_field_button form-control "
+                                                   name="background-image[]"
+                                                   id="background-image" multiple>
+                                        @endif
                                     @endif
                                 </div>
                                 <br><br>
@@ -101,7 +90,7 @@
                     </div>
                 </div>
             @endif
-            @if($typeId == 3)
+            @if($lessonType->type == 3)
                 <div class="show-request-answer">
                     <div class="form-group">
                         <label>Câu hỏi @include('common.require')</label>
@@ -118,7 +107,10 @@
                                name="answer[]"
                                value="@isset($lessonAnswer)@foreach($lessonAnswer as $answer)@if($answer->is_correct == 1){{$answer->answer}}@endif @endforeach @endisset">
                         <input type="checkbox" class=" answer_last" name="answer_last"
-                            value="0"><label>Câu trả lời đúng ở cuối</label>
+                               @if($lessonIscorrect)
+                               {{($lessonIscorrect->answer_last == 1) ? 'checked' :''}}
+                               value="{{$lessonIscorrect->answer_last}}"><label>Câu trả lời đúng ở cuối</label>
+                        @endif
                     </div>
                     <br/>
                     <div class="answer-wrapper">
@@ -208,8 +200,8 @@
         // });
 
         $('.answer_last').click(function () {
-            $(this).attr('value',0);
-            if ($(this).is(':checked')){
+            $(this).attr('value', 0);
+            if ($(this).is(':checked')) {
                 $(this).attr('value', 1);
             }
         });

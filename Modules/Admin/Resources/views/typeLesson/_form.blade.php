@@ -27,7 +27,7 @@
                 <select  class="form-control" name="type" >
                     <option value="1" @if(isset($type) && $type->type == 1) selected @endif>Ảnh</option>
                     <option value="2" @if(isset($type) && $type->type == 2) selected @endif>Video</option>
-                    <option value="1" @if(isset($type) && $type->type == 3) selected @endif>Câu hỏi-trả lời</option>
+                    <option value="3" @if(isset($type) && $type->type == 3) selected @endif>Câu hỏi-trả lời</option>
                 </select>
             </div>
         </div>
