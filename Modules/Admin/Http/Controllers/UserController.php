@@ -155,8 +155,6 @@ class UserController extends Controller
         }
         return redirect()->route('admin.user.show',['id'=>$request->id]); 
     }
-
-
     /**
      * Create of user
      * @author minhpt
@@ -209,8 +207,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // $id=$request->id;
-        // $this->validation($request,$id==null);
         try
         {
             $array = $request->all();
