@@ -1,17 +1,7 @@
 $(function () {
     activeMenu('data', 'area', true);
-    // $('.select2').select2();
     var areaID = $('#area-id').val();
-    // if(areaID !== undefined)
-    // {
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: '/admin/area/get-roles/' + areaID,
-    //         success: function (result) {
-    //             $('.select2').val(result).change();
-    //         }
-    //     });
-    // }
+
     $(document).on('click', '.delete-object', function (e) {
         e.preventDefault();
         var object_name = $(this).attr('object_name');

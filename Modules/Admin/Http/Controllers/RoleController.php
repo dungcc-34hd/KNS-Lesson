@@ -171,6 +171,19 @@ class RoleController extends Controller
         ],$message);
     }
 
+     public function checkName(Request $rq,$id){
+        if($id<=0){
+        // var_dump($id);
+            $name = Role::where('name','=',$rq->name)->exists();
+            return response()->json(!$name);
+        }
+        else{
+            $name = Role::where('name','=',$rq->name)->whereNotIn('id',[$rq->id])->exists();
+            return response()->json(!$name);
+        }
+       
+    }
+
  }
    
 

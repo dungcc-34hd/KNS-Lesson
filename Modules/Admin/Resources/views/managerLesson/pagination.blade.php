@@ -9,10 +9,24 @@
                 dung {{$lesson->name}}</button>
             <div class="box-tools pull-right">
                 <div class="btn-group btn-group-sm">
+                    <a href="{{ route('admin.managerLesson.zip',$lesson->id) }}" class="btn btn-info test-object  "
+                       title=""
+                       is_public="{{$lesson->is_public}}"
+                       object_id="{{$lesson->id}}"
+                       object_name="{{$lesson->name}}">
+                        Thử nghiệm
+                    </a>
+                    <a href="#" class="btn btn-success is_public"  @if($lesson->is_public==1) style="opacity: 0.6;" @endif
+                    title="Public"
+                       is_public="{{$lesson->is_public}}"
+                       object_id="{{$lesson->id}}"
+                       object_name="{{$lesson->name}}">
+                        Public
+                    </a>
+
                     <button type="button" class="btn btn-primary  modal-show"
                             data-url="/admin/manager-lesson/edit-lesson/{{$lesson->id}}"
                     ><i class="ace-icon fa fa-pencil"></i></button>
-
                     <a href="#" class="btn btn-danger delete-lesson"
                        title="Delete"
                        object_id="{{$lesson->id}}"

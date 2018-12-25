@@ -1,14 +1,8 @@
 <div class="modal-content">
-    <form action="{{route('admin.managerLesson.storeLessonDetail')}}"
+    <form action="{{route('admin.managerLesson.updateLessonDetail',[$lessonDetail->id])}}"
           method="post" class="validation-form"
           enctype="multipart/form-data" id="formAddDetailLesson">
         {{csrf_field()}}
-        @isset($lessonId)
-            <input type="hidden" value="{{$lessonId}}" name="lesson-id"/>
-        @endisset
-        @isset($lessonName)
-            <input type="hidden" value="{{$lessonName}}" name="lesson-detail"/>
-    @endisset
     <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -20,7 +14,7 @@
                     <label>Tên bài học @include('common.require')</label>
                     <div class="clearfix">
                         <input type="text" class="form-control" name="detail-lesson" id="detail-lesson"
-                               value="@isset($lessonDetail) {{$lessonDetail->title}} @endisset">
+                               value="{{$lessonDetail->title}} ">
                     </div>
                 </div>
 
@@ -28,7 +22,7 @@
                     <label>Tên tiêu đề bài học @include('common.require')</label>
                     <div class="clearfix">
                         <input type="text" class="form-control" name="name" id="name"
-                               value="@isset($lessonDetail) {{$lessonDetail->name}} @endisset">
+                               value="{{$lessonDetail->name}}">
                     </div>
                 </div>
 
@@ -36,9 +30,7 @@
                     <label>Kiểu định dạng </label>
                     <div class="clearfix">
                         <select class="form-control" name="type" id="type">
-                                @foreach($types as $key => $type)
-                                    <option value={{$type->type}} @if(isset($lessonDetail) && $type->id== $lessonDetail->type) selected @endif>{{$type->name}}</option>
-                                @endforeach
+                                <option value={{$types->type}}>{{$types->name}}</option>
                         </select>
                     </div>
                 </div>
@@ -47,18 +39,14 @@
                     <label>Outline @include('common.require')</label>
                     <div class="clearfix">
                         <input type="text" class="form-control" name="outline" id="outline"
-                               value="@isset($lessonDetail) {{$lessonDetail->outline}} @endisset">
+                               value=" {{$lessonDetail->outline}} ">
                     </div>
                 </div>
             </div>
 
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary create-detail-lesson" id="create-detail-lesson">
-                    @if(isset($lessonDetail))
                         Sửa nội dung
-                    @else
-                        Tạo bài học
-                    @endif
                 </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>

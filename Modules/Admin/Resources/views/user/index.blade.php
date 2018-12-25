@@ -121,6 +121,8 @@
                     <div class="box box-primary">
                         <div class="box-header">
                             <h3 class="box-title">User Lists</h3>
+                            <br>
+                             <h4 class="box-title" > <small id="countTable"> </small> </h4>
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">

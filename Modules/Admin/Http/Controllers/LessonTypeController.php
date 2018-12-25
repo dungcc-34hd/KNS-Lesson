@@ -56,11 +56,15 @@ class LessonTypeController extends Controller
         $id=null;
          $this->validation($request,$id);
         try {
-            $index=LessonType::max('id_type');
-            $array = $request->all();
-            if($request->id == null){
-                $array['id_type']=$index+1;
+             $array = $request->all();
+            if ($request->id_type==null) {
+                $index=LessonType::max('id_type');  
+                    $array['id_type']=$index+1;      
+            }else{
+                $array['id_type']=$request->id_type;
             }
+            // dd($array['id_type']);
+            
             $this->repository->create($array);
             message($request, 'success', 'Thêm mới thành công.');
 

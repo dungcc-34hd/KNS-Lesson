@@ -26,6 +26,7 @@ $(function () {
                                 $('.alert-success').hide();
                                 $('.alert-danger').show();
                             }
+                             window.location.href = '/admin/user/';
                         }
                     });
                 },
@@ -57,6 +58,7 @@ $(function () {
                     $('#tbody').html(data.user);
                     $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
                     $("#schools").html('<option value="">Chọn Trường </option>');
+                    // $("#countUs").html(" Tìm thấy : " +data.count+" tài khoản");
                     ajaxLoadDataForSelect(records, 1, area,table);
                 }
              });
@@ -98,6 +100,7 @@ $(function () {
                 $('#districts').html(data.select);
                 $('#tbody').html(data.user);
                 $("#schools").html('<option value="">Chọn Trường </option>');
+                
                 ajaxLoadDataForSelect(records, 1, province,table);
             }
          });
@@ -110,7 +113,8 @@ $(function () {
                 },
                 success:function(data) {
                     $('#tbody').html(data.user);
-                     $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
+                    $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
+                    
                     $("#schools").html('<option value="">Chọn Trường </option>');
                 }
              });

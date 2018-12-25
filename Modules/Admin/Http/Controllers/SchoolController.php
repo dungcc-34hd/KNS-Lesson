@@ -46,11 +46,13 @@ class SchoolController extends Controller
         $areaId              = session()->has($this->areaId) ? session($this->areaId) : 0;
         $schools             = $this->repository->getAreaObjects($records,$id,$table);
         $pages               = $this->repository->getAreaPages($records,$id ,$table); 
+        $count               = $this->repository->getCount($id,$table);
         // dd($request->page);
         return view('admin::schools.pagination',
             [
                 'schools'       => $schools,
                 'pages'         => $pages,
+                'count'         => $count, 
                 'records'       => $per_page,
                 'currentPage'   => $request->page
             ]);
@@ -139,7 +141,7 @@ class SchoolController extends Controller
         
         $arrayUser      =  array();
         if($Users!=null){
-            foreach ($Users as $key =>  $user) {
+            foreach ($Users as $key =>  $user) { 
                 $key = $key+1;
                 $option = " 
                 <tr>

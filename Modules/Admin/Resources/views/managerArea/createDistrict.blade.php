@@ -27,7 +27,7 @@
                     <select class="form-control" name="area_id" id="selectArea">
                         <option value="">Chọn khu vực</option>
                         @foreach ($areas as $key => $area)
-                            <option value="{{$area->id}}" {{$provinceId->area_id == $area->id ? "selected" : '' }}>{{$area->name}}</option>
+                            <option value="{{$area->id}}"@isset($provinceId) {{$provinceId->area_id == $area->id ? "selected" : '' }}@endisset>{{$area->name}}</option>
                         @endforeach
                     </select>
                     @if($errors)
@@ -40,7 +40,7 @@
                     <select class="form-control" name="province_id" id="provinces">
                         <option value="">Chọn tỉnh/thành phố</option>
                         @foreach ($provinces as $key => $province)
-                            <option value="{{$province->id}}" {{$district->province_id == $province->id ? "selected" : '' }}>{{$province->name}}</option>
+                            <option value="{{$province->id}}" @isset($district){{$district->province_id == $province->id ? "selected" : '' }}@endisset>{{$province->name}}</option>
                         @endforeach
                     </select>
                     @if($errors)

@@ -3,6 +3,7 @@ jQuery.validator.addMethod("VldHtml", function(value, element) {
     return this.optional( element ) || /<(.|\n)*?>/g.test( value )==true?false:true;
   }, 'Không được nhập kí tự đặc biệt');
   
+  var id= $('#id').val();
 $('.validation-form').validate({
     errorElement: 'div',
     errorClass: 'help-block',
@@ -10,7 +11,7 @@ $('.validation-form').validate({
     ignore: "",
     rules: {
         name: {
-            // unique: true,
+            remote:"/admin/role/checkName/"+id,
             required: true,
             minlength: 3,
             VldHtml :true
@@ -28,7 +29,7 @@ $('.validation-form').validate({
 
     messages: {
         name: {
-            // unique: "Tên đã tồn tại",
+            remote: "Tên đã tồn tại",
             required: "Xin vui lòng nhập tên .",
             minlength: "Độ dài tối thiểu là 3",
             
@@ -46,7 +47,7 @@ $('.validation-form').validate({
 
 
     highlight: function (e) {
-        // $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
     },
 
     success: function (e) {
