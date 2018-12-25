@@ -15,6 +15,7 @@ use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use App\Models\LessonType;
@@ -75,7 +76,7 @@ class ManagerLessonController extends Controller
     {
         $lesson = Lesson::findorfail($id);
         $grades = Grade::all();
-        return view('admin::managerLesson.addLesson', compact('grades', 'lesson'));
+        return view('admin::managerLesson.editLesson', compact('grades', 'lesson'));
     }
 
     /**
@@ -105,6 +106,7 @@ class ManagerLessonController extends Controller
             File::makeDirectory($directory);
         }
         $lesson->save();
+        $request->session()->flash('success', 'Record successfully added!');
         return redirect('admin/manager-lesson/index');
     }
 
@@ -122,6 +124,7 @@ class ManagerLessonController extends Controller
         $lesson->name = $request->name;
         $lesson->grade_id = $request->grade;
         $lesson->save();
+        message($request, 'success', 'Cập nhật thành công.');
         return redirect('admin/manager-lesson/index');
     }
 
@@ -146,6 +149,7 @@ class ManagerLessonController extends Controller
             File::makeDirectory($directory);
         }
         $detailLesson->save();
+        message($request, 'success', 'Thêm mới thành công.');
         return redirect('admin/manager-lesson/index');
     }
 
@@ -181,6 +185,7 @@ class ManagerLessonController extends Controller
         $detailLesson->outline = $request['outline'];
         $detailLesson->name = $request['name'];
         $detailLesson->save();
+        message($request, 'success', 'Cập nhật thành công.');
         return redirect('admin/manager-lesson/index');
     }
 
@@ -190,7 +195,7 @@ class ManagerLessonController extends Controller
         $lessonId = $id;
         $lessonName = $lesson->name;
         $types = LessonType::all();
-        // dd($types[0]->type);
+
         return view('admin::managerLesson.addDetailLesson', compact('lessonId', 'lessonName', 'types'));
     }
 
@@ -254,7 +259,9 @@ class ManagerLessonController extends Controller
         if ($request['type'] == 3) {
 
             //$is_correct = isset($request['is-correct']) ? $request['is-correct'][0] : null;
-            foreach ($request['answer'] as $key => $item) {
+            $arrayAnswers = $request->answer;
+            unset($arrayAnswers[2]);
+            foreach ($arrayAnswers as $key => $item) {
                 $lessonAnswer = new LessonAnswer();
                 $lessonAnswer->lesson_content_id = $contentLesson->id;
                 $lessonAnswer->answer = $item;
@@ -288,6 +295,7 @@ class ManagerLessonController extends Controller
             File::put($directory . "/tncc.json", json_encode($jsonData, JSON_UNESCAPED_UNICODE));
 
         }
+        message($request, 'success', 'Thêm mới thành công.');
         return redirect('admin/manager-lesson/index');
     }
 
@@ -310,7 +318,20 @@ class ManagerLessonController extends Controller
         $contents = json_decode($lessonContent->content);
         $audios = json_decode($lessonContent->audio);
 
-        return view('admin::managerLesson.editLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail', 'lessonContent', 'contents', 'lessonAnswer', 'audios', 'lessonType','lessonIscorrect'));
+        return view('admin::managerLesson.editLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail', 'lessonContent', 'contents', 'lessonAnswer', 'audios', 'lessonType', 'lessonIscorrect'));
+    }
+
+
+    /**
+     * @param $array
+     * @param $value
+     *  remove $key => value 'null'
+     */
+    function remove_element(&$array, $value)
+    {
+        if (($key = array_search($value, $array)) !== false) {
+            unset($array[$key]);
+        }
     }
 
     /**
@@ -365,17 +386,27 @@ class ManagerLessonController extends Controller
 
         //nếu là trắc nghiệm
         if ($request['type'] == 3) {
-            //$is_correct = isset($request['is-correct']) ? $request['is-correct'][0] : null;
-            foreach ($request['answer'] as $key => $item) {
-                $lessonAnswer = LessonAnswer::find($contentLesson->id);
-                $lessonAnswer->answer = $item;
-                $lessonAnswer->is_correct = false;
-                $lessonAnswer->answer_last = false;
+            // get id and answer from db
+            $lessonAnswer = LessonAnswer::where('lesson_content_id', $contentLesson->id)->get();
+            foreach ($lessonAnswer as $item)
+            {
+                $item->delete();
+            }
+
+            //get data answer from request
+            $arrayAnswers = $request->answer;
+            $this->remove_element($arrayAnswers, '');
+
+            foreach ($arrayAnswers as $key => $item) {
+                $answer = new LessonAnswer();
+                $answer->answer = $item;
+                $answer->lesson_content_id = $request['lesson-detail-id'];
+                $answer->is_correct = false;
+                $answer->answer_last = $request['answer_last'];
                 if ($key == 0)
-                    $lessonAnswer->is_correct = true;
-                if ($request->answer_last == 1)
-                    $lessonAnswer->answer_last = 1;
-                $lessonAnswer->save();
+                    $answer->is_correct = true;
+
+                $answer->save();
             }
 
             $dataDapAn = $this->repository->getQuizDapAn($contentLesson->id);
@@ -399,6 +430,7 @@ class ManagerLessonController extends Controller
 
             File::put($directory . "/tncc.json", json_encode($jsonData, JSON_UNESCAPED_UNICODE));
         }
+        message($request, 'success', 'Cập nhật thành công.');
         return redirect('admin/manager-lesson/index');
     }
 
@@ -499,4 +531,25 @@ class ManagerLessonController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * check lesson nam exits
+     */
+    public function checkLessonName()
+    {
+        $lessonName = Lesson::where('name', '=', Input::get('name'))->exists();
+
+        return response()->json(!$lessonName);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * check lesson detail name exits
+     */
+    public function checkLessonDetailName()
+    {
+        $lessonDetailName = LessonDetail::where('name', '=', Input::get('detail-lesson'))->exists();
+
+        return response()->json(!$lessonDetailName);
+    }
 }

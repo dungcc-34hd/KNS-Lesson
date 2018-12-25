@@ -2,7 +2,7 @@
     <form action="{{route('admin.managerLesson.updateLessonDetail',[$lessonDetail->id])}}"
           method="post" class="validation-form"
           enctype="multipart/form-data" id="formAddDetailLesson">
-        {{csrf_field()}}
+    {{csrf_field()}}
     <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -30,7 +30,7 @@
                     <label>Kiểu định dạng </label>
                     <div class="clearfix">
                         <select class="form-control" name="type" id="type">
-                                <option value={{$types->type}}>{{$types->name}}</option>
+                            <option value={{$types->type}}>{{$types->name}}</option>
                         </select>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
 
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary create-detail-lesson" id="create-detail-lesson">
-                        Sửa nội dung
+                    Sửa nội dung
                 </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>
@@ -55,7 +55,7 @@
 </div>
 
 </div>
-</div>
+
 <script src="{{ asset('modules/admin/managerContent/lessonDetail-validation.js')}}"></script>
 <script>
     $('.modalDetailLesson').on('click', function () {

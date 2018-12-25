@@ -10,6 +10,19 @@
           enctype="multipart/form-data">
         {{csrf_field()}}
 
+        @isset($typeId)
+            <input type="hidden" value="{{$typeId}}" name="type">
+        @endisset
+        @isset($lessonDetail)
+            <input type="hidden" value="{{$lessonDetail}}" name="lesson-detail">
+        @endisset
+        @isset($id)
+            <input type="hidden" value="{{$id}}" name="lesson-detail-id">
+        @endisset
+        @isset($lesson)
+            <input type="hidden" value="{{$lesson}}" name="lesson">
+        @endisset
+
         <div class="modal-body">
             <div class="form-group">
                 <label>Tiêu đề@include('common.require')</label>
@@ -113,11 +126,12 @@
                         @endif
                     </div>
                     <br/>
+
                     <div class="answer-wrapper">
                         <label>Câu trả lời Sai @include('common.require') </label>
                         <div class="input-group control-group after-add-more" style="width: 100%">
                             @if(isset($lessonAnswer))
-                                @foreach($lessonAnswer as $answer)
+                                @foreach($lessonAnswer as $key => $answer)
                                     @if($answer->is_correct == 0)
                                         <input type="text" name="answer[]" class="form-control"
                                                placeholder="Nhập câu trả lời sai"
@@ -129,12 +143,24 @@
                                        placeholder="Nhập câu trả lời sai">
                             @endif
                         </div>
+                        <div id="form_answer_false">
+                            <div style="display:none" id="answer_false">
+                                <div class="control-group input-group" style="margin-top:10px">
+                                    <input type="text" name="answer[]" class="form-control"
+                                           placeholder="Nhập câu trả lời sai">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-danger remove" type="button"><i
+                                                    class="glyphicon glyphicon-remove"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="input-group-btn">
                             <button class="btn btn-success add-more" type="button"><i
                                         class="glyphicon glyphicon-plus"></i>
                             </button>
                         </div>
-                        </label>
                     </div>
                 </div>
             @endif
@@ -189,16 +215,6 @@
             });
         });
 
-        // $('.is-correct').each(function(index){
-        //     $(this).click(function () {
-        //         $('.is-correct').attr('value', 0);
-        //         if ($(this).is(':checked')){
-        //             $(this).attr('value', 1);
-        //         }
-        //     })
-        //
-        // });
-
         $('.answer_last').click(function () {
             $(this).attr('value', 0);
             if ($(this).is(':checked')) {
@@ -237,17 +253,8 @@
 
         //add answer
         $(".add-more").click(function () {
-            var html = '<div class="copy">\n' +
-                '                        <div class="control-group input-group" style="margin-top:10px">\n' +
-                '                            <input type="text" name="answer[]" class="form-control" placeholder="Nhập câu trả lời sai">\n' +
-                '                            <div class="input-group-btn">\n' +
-                '                                <button class="btn btn-danger remove" type="button"><i\n' +
-                '                                            class="glyphicon glyphicon-remove"></i>\n' +
-                '                                </button>\n' +
-                '                            </div>\n' +
-                '                        </div>\n' +
-                '                    </div>';
-            $(".after-add-more").after(html);
+            var html = $('#answer_false').clone().removeAttr("style");
+            $('#form_answer_false').append(html);
         });
 
         $("body").on("click", ".remove", function () {

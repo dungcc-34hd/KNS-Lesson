@@ -123,14 +123,14 @@
                                name="answer[]"
                                value="@isset($lessonAnswer)@foreach($lessonAnswer as $answer)@if($answer->is_correct == 1){{$answer->answer}}@endif @endforeach @endisset">
                         <input type="checkbox" class=" answer_last" name="answer_last"
-                            value="0"><label>Câu trả lời đúng ở cuối</label>
+                               value="0"><label>Câu trả lời đúng ở cuối</label>
                     </div>
                     <br/>
                     <div class="answer-wrapper">
                         <label>Câu trả lời Sai @include('common.require') </label>
                         <div class="input-group control-group after-add-more" style="width: 100%">
-                                <input type="text" name="answer[]" class="form-control"
-                                       placeholder="Nhập câu trả lời sai">
+                            <input type="text" name="answer[]" class="form-control"
+                                   placeholder="Nhập câu trả lời sai">
                         </div>
                         <div id="form_answer_false">
                             <div style="display:none" id="answer_false">
@@ -150,7 +150,6 @@
                                         class="glyphicon glyphicon-plus"></i>
                             </button>
                         </div>
-
                     </div>
                 </div>
             @endif

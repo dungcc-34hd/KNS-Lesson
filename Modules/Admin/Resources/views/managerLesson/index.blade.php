@@ -11,6 +11,7 @@
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Trang chủ</a></li>
             <li class="breadcrumb-item active">Quản lý bài học</li>
         </ol>
+        {{Session::get('success')}}
         <section class="content">
             <div class="clearfix">
                 <button type="button" class="btn btn-primary  modal-show"
