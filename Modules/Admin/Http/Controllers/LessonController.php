@@ -122,7 +122,7 @@ class LessonController extends Controller
         $school->quantity_student = $request->quantity;
         $school->save();
 
-        Session::flash('message', 'Successfully created provicial!');
+        Session::flash('message', 'Tạo mới thành cồng');
         return redirect('admin/school/index');
     }
 

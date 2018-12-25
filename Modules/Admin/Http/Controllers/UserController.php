@@ -55,11 +55,13 @@ class UserController extends Controller
        
         // getAreaObjects($records,$area_id,'users.area_id')
         $pages               = $this->repository->getAreaPages($records,$id,"users.$table"); 
+        $count               = $this->repository->getCount($id,"users.$table");
         // dd($request->page);
         return view('admin::user.pagination',
             [
                 'users'         => $users,
                 'pages'         => $pages,
+                'count'         => $count,
                 'records'       => $per_page,
                 'currentPage'   => $request->page
             ]);
@@ -289,13 +291,15 @@ class UserController extends Controller
         $area_id        = $req->area;
         $Users          = $this->repository->getAreaObjects($records,$area_id,'area_id');
         $page           = $this->repository->getAreaPages($records,$area_id,'area_id');
+        $count          = $this->repository->getCount($area_id,'area_id');
         $provinces      = Province::where('area_id',$area_id)->get();
         
+
         $select         = $this->returnOption($provinces,$title );
 
         $user           = $this->returnTr($Users);
         
-        return response()->json(['select' => $select,'user'=>$user]);  
+        return response()->json(['select' => $select,'user'=>$user,'count'=>$count]);  
     }
 
      /**
@@ -320,15 +324,15 @@ class UserController extends Controller
      * hanlding ajax for Province reutrn district
      */
     public function select(){
-        $records=10;
-        $data        = $this->repository->getObjects($records);
-         $user           = $this->returnTr($data);
-         return response()->json(['user'=>$user]); 
+        $records            =10;
+        $data               = $this->repository->getObjects($records);
+        $user              = $this->returnTr($data);
+        return response()->json(['user'=>$user]); 
     }
     public function hanldingDistrict(Request $req)
     {
         $title          = "Chọn Trường";
-        $records        =10;
+        $records        = 10;
         $district_id    = $req->district;
         $Users          = $this->repository->getAreaObjects($records,$district_id ,'users.district_id');
         $page           = $this->repository->getAreaPages($records,$district_id ,'users.district_id');

@@ -46,4 +46,5 @@
     <td colspan="5">Không có bản ghi nào</td>
 </tr>
 @endif
+<input type="hidden" id="countT" value="{{ isset($count) ? $count : 0 }}">
 <input id="total-pages-current" type="hidden" value="{{ isset($pages) ? $pages : 0 }}">

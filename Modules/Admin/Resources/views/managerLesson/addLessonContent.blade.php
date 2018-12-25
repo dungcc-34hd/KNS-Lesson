@@ -61,19 +61,19 @@
                 <label>Nhạc nền</label>
                 <div class="clearfix">
                     @isset($lessonContent){{$lessonContent->background_music}}@endisset
-                    <input type="file" accept="audio/*" class="form-control background-music" name="background-music"
+                    <input type="file" class="form-control background-music" name="background-music"
                            value="">
                 </div>
             </div>
-            @if($lessonType->type != 3)
+            @if($typeId != 3)
                 <div class="col-md-12">
                     <div id="field">
                         <div id="field0">
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="control-label label-name"
-                                       for="action_id">{{\App\Models\LessonType::TYPE[$lessonType->type]}}</label>
-                                <h6>(Chọn nhiều {{\App\Models\LessonType::TYPE[$lessonType->type]}})</h6><br>
+                                       for="action_id">{{\App\Models\LessonDetail::TYPE[$typeId]}}</label>
+                                <h6>(Chọn nhiều {{\App\Models\LessonDetail::TYPE[$typeId]}})</h6><br>
                                 <div class="col-md-12 clearfix">
                                     @if(isset($audios))
                                         @foreach($audios as $audio)
@@ -89,15 +89,9 @@
                                                    id="background-image" multiple>
                                         @endif
                                     @else
-                                        @if($lessonType->type == 1)
-                                            <input type="file" accept="image/*" class="add_field_button form-control "
-                                                   name="background-image[]"
-                                                   id="background-image" multiple>
-                                        @elseif($lessonType->type == 2)
-                                            <input type="file" accept="video/*" class="add_field_button form-control "
-                                                   name="background-image[]"
-                                                   id="background-image" multiple>
-                                        @endif
+                                        <input type="file" class="add_field_button form-control "
+                                               name="background-image[]"
+                                               id="background-image" multiple>
                                     @endif
                                 </div>
                                 <br><br>
@@ -107,7 +101,7 @@
                     </div>
                 </div>
             @endif
-            @if($lessonType->type == 3)
+            @if($typeId == 3)
                 <div class="show-request-answer">
                     <div class="form-group">
                         <label>Câu hỏi @include('common.require')</label>
@@ -214,8 +208,8 @@
         // });
 
         $('.answer_last').click(function () {
-            $(this).attr('value', 0);
-            if ($(this).is(':checked')) {
+            $(this).attr('value',0);
+            if ($(this).is(':checked')){
                 $(this).attr('value', 1);
             }
         });
