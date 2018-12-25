@@ -58,7 +58,9 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="type"><a href="{{route('admin.typeLesson.index')}}"><i class="fa fa-users"></i> <span>Quản lý dạng nội dung</span></a></li>
+                    <li class="thematic"><a href="{{route('admin.thematic.index')}}"><i class="fa fa-users"></i> <span>Quản lý chuyên đề</span></a></li>
                     <li class="lesson"><a href="{{route('admin.managerLesson.index')}}"><i class="fa fa-users"></i> <span>Quản lý bài học</span></a></li>
+
                 </ul>
                 
             </li>

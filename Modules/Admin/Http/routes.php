@@ -13,6 +13,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/create', 'RoleController@create')->name('admin.role.create');
         Route::post('/store', 'RoleController@store')->name('admin.role.store');
         Route::get('/delete/{id}', 'RoleController@delete')->name('admin.role.delete');
+        Route::get('/checkName/{id?}', 'RoleController@checkName')->name('admin.role.checkName');
 
     });
 
@@ -53,6 +54,8 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/hanlding-province','UserController@hanldingProvince')->name('admin.statistic.hanldingProvince');
         Route::get('/hanlding-district','UserController@hanldingDistrict')->name('admin.statistic.hanldingDistrict');
         Route::get('/hanlding-school','UserController@hanldingSchool')->name('admin.statistic.hanldingSchool');
+        Route::get('/checkEmail/{id?}','UserController@checkEmail')->name('admin.user.checkEmail');
+
     });
 
     // Area
@@ -140,7 +143,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete/{id}', 'LessonController@delete')->name('admin.lesson.delete');
         Route::get('/pagination/{records}/{search?}', 'LessonController@pagination')->name('admin.lesson.pagination');
     });
-
+// grade
     Route::group(['prefix' => 'grade'], function () {
         Route::get('/index', 'GradeController@index')->name('admin.grade.index');
         Route::get('/create', 'GradeController@create')->name('admin.grade.create');
@@ -236,6 +239,18 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete-area/{id}','ManagerAreaController@deleteArea')->name('admin.managerArea.deleteArea');
         Route::get('/delete-province/{id}','ManagerAreaController@deleteProvince')->name('admin.managerArea.deleteProvince');
         Route::get('/delete-district/{id}','ManagerAreaController@deleteDistrict')->name('admin.managerArea.deleteDistrict');
+    });
+
+    // thematic
+    Route::group(['prefix' => 'thematic'], function () {
+        Route::get('/', 'ThematicController@index')->name('admin.thematic.index');
+        Route::get('/create', 'ThematicController@create')->name('admin.thematic.create');
+        Route::post('/store', 'ThematicController@store')->name('admin.thematic.store');
+        Route::get('/edit/{id}', 'ThematicController@edit')->name('admin.thematic.edit');
+        Route::post('/update/{id}', 'ThematicController@update')->name('admin.thematic.update');
+        Route::get('/delete/{id}', 'ThematicController@delete')->name('admin.thematic.delete');
+        Route::get('/pagination/{records}/{search?}', 'ThematicController@pagination')->name('admin.thematic.pagination');
+        Route::get('/checkName/{id?}','ThematicController@checkName')->name('admin.thematic.checkName');
     });
 });
 //Login

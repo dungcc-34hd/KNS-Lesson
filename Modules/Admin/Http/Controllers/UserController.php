@@ -8,6 +8,7 @@ use App\Models\LsClass;
 use App\Models\District;
 use App\Models\School;
 use App\Models\Province;
+use App\Models\UserThematic;
 use App\User;
 use App\Repositories\User\UserEloquentRepository;
 use App\Repositories\User\UserRepositoryInterface;
@@ -93,17 +94,21 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+
         $users=$this->repository->find($id);
         $gradeId=$users->grade_id;
         return view('admin::user.edit',[
             'user'=>$users,
             'areas' => Area::all(),
-             'provinces'=>Province::where('area_id','=',$users->area_id)->get(),
+            'provinces'=>Province::where('area_id','=',$users->area_id)->get(),
             'districts'=>District::where('province_id','=',$users->province_id)->get(),
             'schools'=> School::where('district_id','=',$users->district_id)->get(),
             'grades' => $this->repository->grade(),
             'class' =>  $this->repository->getClass($gradeId),
             'roles' =>$this->repository->getRoles(),
+            'thematics'=>$this->repository->getThematic(),
+            'findThematics'=>$this->repository->findThematic($id),
+
         ]);
         
     }
@@ -118,12 +123,12 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-        $id=$request->id;
-        $this->validation($request,$id);
+       
         try {
             $array = $request->all();
             $array['password'] = Hash::make($request->password);
             $this->repository->update($request->id, $array);
+            $this->repository->addUserThematic($request->id,$array['thematics']);
             message($request, 'success', 'Cập nhật thành công.');
         }
         catch (QueryException $exception)
@@ -174,6 +179,7 @@ class UserController extends Controller
             'grades' => $grades,
             'class' =>  $this->repository->getClass($gradeId),
             'roles' =>$this->repository->getRoles(),
+            'thematics'=>$this->repository->getThematic(),
         ]);
     }
     public function changeSelect($areaId){
@@ -202,13 +208,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $id=$request->id;
-        $this->validation($request,$id==null);
+        // $id=$request->id;
+        // $this->validation($request,$id==null);
         try
         {
             $array = $request->all();
             $array['password'] = Hash::make($request->password);
-            $this->repository->create($array);
+            $id=$this->repository->create($array)->id;
+            $this->repository->addUserThematic($id,$array['thematics']);
             message($request, 'success', 'Thêm mới thành công.');
         }
         catch (QueryException $exception)
@@ -232,7 +239,9 @@ class UserController extends Controller
         try
         {
             $this->repository->delete($id);
-            return response()->json(['status' => true]);
+            $this->respository->DeleleUserThematic($id);
+           Session::flash('flash_level', 'success');
+          Session::flash('flash_message', 'Xoá thành công');
         }
         catch (QueryException $exception)
         {
@@ -251,8 +260,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
-       $user = $this->repository->show($id);
-       return view('admin::user.detail', compact('user'));
+
+       $array=$this->repository->show($id);
+       $user=$array['user'];
+       $thematics=$array['thematic'];
+       // dd($user,$thematic);
+       return view('admin::user.detail', compact('user','thematics'));
     }
 
     public function delete($id)
@@ -396,24 +409,15 @@ class UserController extends Controller
         return $user;
  
     }
-    public function validation($request,$id=null){
-        $message=[
-            'unique'=>'Trường này đã tồn tại.', 
-            'required'=> 'Trường này không được để trống.',
-            'min'       => 'Độ dài tối thiểu là 3 ký tự',
-            'max'       => 'Trường này không quá 11 ký tự '
-        ];
-        $validatedData = $request->validate([
-        'name' => 'required',
-        'email'=>'required|email|unique:users,email,'.$id,
-        'tel' => 'required|max:11|',
-         'role_id' =>'required',
-         'area_id' =>'required',
-         'province_id' =>'required',
-         'district_id' =>'required',
-         'school_id' =>'required',
-         'grade_id' =>'required',
-         'class_id' =>'required',
-        ],$message);
+
+    public function checkEmail(Request $rq ,$id){
+        if($id<=0){
+            $email = User::where('email',$rq->email)->exists();
+            return response()->json(!$email);
+        }else{
+            $email = User::where('email',$rq->email)->whereNotIn('id',[$rq->id])->exists();
+             return response()->json(!$email);
+        } 
     }
+ 
 }
