@@ -32,7 +32,6 @@ class DistrictController extends Controller
                 'currentPage' => $request->page
             ]);
     }
-
     /**
      * Display a listing of the resource.
      *
