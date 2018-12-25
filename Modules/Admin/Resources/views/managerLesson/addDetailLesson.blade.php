@@ -42,13 +42,13 @@
                     <select class="form-control" name="type" id="type" >
                         @if(count($types) > 0)
                             @foreach($types as $key => $type)
-                            <option value={{$type->id}} @if(isset($lessonDetail) && $type->id== $lessonDetail->type) selected @endif>{{$type->name}}</option>
+                            <option value={{$type}} @if(isset($lessonDetail) && $type->type== $lessonDetail->type) selected @endif>{{\App\Models\LessonType::TYPE[$type->type]}}</option>
                             @endforeach      
                         @endif
                     </select>
                 </div>
             </div>
-
+        
             <div class="form-group">
                 <label>Outline @include('common.require')</label>
                 <div class="clearfix">

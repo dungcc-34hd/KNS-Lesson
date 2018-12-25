@@ -77,11 +77,11 @@
                                                         <i class="ace-icon fa fa-pencil"></i>
                                                     </a>
                                                     <a href="#" class="btn btn-danger delete-object"
-                                                       title="Delete"
-                                                       object_id="{{$school->id}}"
-                                                       object_name="{{$school->name}}">
-                                                        <i class="fa fa-trash-o"></i>
-                                                    </a>
+                                                    title="Delete"
+                                                    object_id="{{$school->id}}"
+                                                    object_name="{{$school->name}}">
+                                                     <i class="fa fa-trash-o"></i>
+                                                 </a>
 
                                                 </div>
                                             </td>
@@ -101,3 +101,8 @@
         </section>
     </div>
 @endsection
+@push('scripts')
+    {{--    <script src="{{ asset('assets/admin/plugins/iCheck/icheck.min.js') }}"></script>--}}
+    {{-- <script src="{{ asset('common/pagination-search.js') }}"></script> --}}
+    <script src="{{ asset('modules/admin/school/school.js') }}"></script>
+@endpush

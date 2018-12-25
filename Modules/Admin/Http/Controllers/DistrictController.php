@@ -65,11 +65,10 @@ class DistrictController extends Controller
     public function edit($id)
     {
         $district =  District::findOrFail($id);
-        $provincials =  Province::all();
-        $provinceId= Province::where('id','=',$district->province_id)->first();
-        $areaId =Area::where('id','=',$provinceId->area_id)->get();
-        $areas = Area::all();
-        return view ('admin::districts.edit', compact('district','provincials','areas','areaId','provinceId'));
+        $area_current=Province::find($district->province_id);
+         $areas= Area::all();
+        $provincials=$this->repository->province($area_current->area_id);
+        return view ('admin::districts.edit', compact('district','provincials','areas','area_current'));
     }
 
     /**
@@ -111,7 +110,7 @@ class DistrictController extends Controller
         $district->province_id	 = $request->input('province_id');
         $district->save();
 
-        message($request, 'success', 'Thêm mới thành công.');
+        message($request, 'success', 'Tạo mới thành công.');
         return redirect('admin/district/index');
     }
 
