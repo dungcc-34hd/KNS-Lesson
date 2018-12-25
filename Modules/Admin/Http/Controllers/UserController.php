@@ -53,7 +53,6 @@ class UserController extends Controller
         $areaId              = Area::all();
         $users               = $this->repository->getAreaObjects($records,$id,"users.$table");
        
-        // getAreaObjects($records,$area_id,'users.area_id')
         $pages               = $this->repository->getAreaPages($records,$id,"users.$table"); 
         $count               = $this->repository->getCount($id,"users.$table");
         // dd($request->page);
