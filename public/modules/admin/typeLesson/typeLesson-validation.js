@@ -11,6 +11,9 @@ $('.validation-form').validate({
             
             
         },
+        id_type:{
+             remote:"/admin/type-lesson/checkId/"+id,
+        }
          
 
     },
@@ -19,6 +22,8 @@ $('.validation-form').validate({
         name: {
             remote: "Tên đã tồn tại",
             required: "Xin vui lòng nhập tên .",
+        }, id_type:{
+            remote: "Tên đã tồn tại",
         }
        
 
