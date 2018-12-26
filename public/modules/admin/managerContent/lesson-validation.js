@@ -1,14 +1,18 @@
+
+var lessonId = $('#lesson-name').val();
+
 $('.validation-form-lesson').validate({
     errorElement: 'div',
     errorClass: 'help-block',
     focusInvalid: false,
-    ignore: "",
+    ignore: "hidden",
     rules: {
         grade: {
             required: true,
         },
         name: {
             required: true,
+            remote: '/admin/manager-lesson/check-lesson-name/' + lessonId,
         },
 
     },
@@ -18,7 +22,8 @@ $('.validation-form-lesson').validate({
             required: "Mời bạn nhập vào trường này."
         },
         name: {
-            required: "Mời bạn nhập vào trường này."
+            required: "Mời bạn nhập vào trường này.",
+            remote: "Bài học đã tồn tại"
         }
     },
 
