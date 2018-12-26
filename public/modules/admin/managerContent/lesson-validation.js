@@ -1,3 +1,6 @@
+
+var lessonId = $('#lesson-name').val();
+
 $('.validation-form-lesson').validate({
     errorElement: 'div',
     errorClass: 'help-block',
@@ -7,10 +10,10 @@ $('.validation-form-lesson').validate({
         grade: {
             required: true,
         },
-        // name: {
-        //     required: true,
-        //     remote: '/admin/manager-lesson/check-lesson-name'
-        // },
+        name: {
+            required: true,
+            remote: '/admin/manager-lesson/check-lesson-name/' + lessonId,
+        },
 
     },
 

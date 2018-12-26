@@ -99,6 +99,7 @@ class ManagerLessonController extends Controller
         $lesson = new Lesson();
         $lesson->name = $request->name;
         $lesson->grade_id = $request->grade;
+        $lesson->thematic_id = $request->thematic;
 
         //make directory
         $directory = public_path() . "/modules/managerContent/" . $lesson->name;
@@ -120,7 +121,10 @@ class ManagerLessonController extends Controller
         //edit directory
         $newDirectory = public_path() . "/modules/managerContent/" . $request->name;
         $directoryOld = public_path() . "/modules/managerContent/" . $lesson->name;
-        rename($directoryOld, $newDirectory);
+
+        if (File::exists($directoryOld)) {
+            rename($directoryOld, $newDirectory);
+        }
         $lesson->name = $request->name;
         $lesson->grade_id = $request->grade;
         $lesson->save();
@@ -219,6 +223,9 @@ class ManagerLessonController extends Controller
      */
     public function storeLessonContent(Request $request)
     {
+        $arrayContents = $request['content'];
+        $this->remove_element($arrayContents, '');
+
         $contentLesson = new LessonContent();
         $contentLesson->title = $request['title'];
         $contentLesson->lesson_detail_id = $request['lesson-detail-id'];
@@ -251,22 +258,24 @@ class ManagerLessonController extends Controller
         foreach ($request['content'] as $item) {
             array_push($content, $item);
         }
-        $contentLesson->content = json_encode($content, JSON_UNESCAPED_UNICODE);
-
+        $arrayContents = $request['content'];
+        $fillterContent = array_filter($arrayContents, function ($value) {
+            return !is_null($value);
+        });
+        $contentLesson->content = json_encode($fillterContent, JSON_UNESCAPED_UNICODE);
         $contentLesson->save();
 
         //nếu là trắc nghiệm
         if ($request['type'] == 3) {
-
-            //$is_correct = isset($request['is-correct']) ? $request['is-correct'][0] : null;
             $arrayAnswers = $request->answer;
-            unset($arrayAnswers[2]);
+            $this->remove_element($arrayAnswers, '');
+
             foreach ($arrayAnswers as $key => $item) {
                 $lessonAnswer = new LessonAnswer();
                 $lessonAnswer->lesson_content_id = $contentLesson->id;
                 $lessonAnswer->answer = $item;
                 $lessonAnswer->is_correct = false;
-                $lessonAnswer->answer_last = false;
+                $lessonAnswer->answer_last = 0;
                 if ($key == 0)
                     $lessonAnswer->is_correct = true;
                 if ($request->answer_last == 1)
@@ -335,6 +344,18 @@ class ManagerLessonController extends Controller
     }
 
     /**
+     * @param $array
+     * @param $value
+     *  remove $key => value 'null'
+     */
+    function remove_element_null(&$array, $value)
+    {
+        if (($key = array_search($value, $array)) !== false) {
+            unset($array[$key][$value]);
+        }
+    }
+
+    /**
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -380,16 +401,18 @@ class ManagerLessonController extends Controller
         foreach ($request['content'] as $item) {
             array_push($content, $item);
         }
-        $contentLesson->content = json_encode($content, JSON_UNESCAPED_UNICODE);
-
+        $arrayContents = $request['content'];
+        $fillterContent = array_filter($arrayContents, function ($value) {
+            return !is_null($value);
+        });
+        $contentLesson->content = json_encode($fillterContent, JSON_UNESCAPED_UNICODE);
         $contentLesson->save();
 
         //nếu là trắc nghiệm
         if ($request['type'] == 3) {
             // get id and answer from db
             $lessonAnswer = LessonAnswer::where('lesson_content_id', $contentLesson->id)->get();
-            foreach ($lessonAnswer as $item)
-            {
+            foreach ($lessonAnswer as $item) {
                 $item->delete();
             }
 
@@ -398,15 +421,16 @@ class ManagerLessonController extends Controller
             $this->remove_element($arrayAnswers, '');
 
             foreach ($arrayAnswers as $key => $item) {
-                $answer = new LessonAnswer();
-                $answer->answer = $item;
-                $answer->lesson_content_id = $request['lesson-detail-id'];
-                $answer->is_correct = false;
-                $answer->answer_last = $request['answer_last'];
+                $lessonAnswer = new LessonAnswer();
+                $lessonAnswer->lesson_content_id = $contentLesson->id;
+                $lessonAnswer->answer = $item;
+                $lessonAnswer->is_correct = false;
+                $lessonAnswer->answer_last = 0;
                 if ($key == 0)
-                    $answer->is_correct = true;
-
-                $answer->save();
+                    $lessonAnswer->is_correct = true;
+                if ($request->answer_last == 1)
+                    $lessonAnswer->answer_last = 1;
+                $lessonAnswer->save();
             }
 
             $dataDapAn = $this->repository->getQuizDapAn($contentLesson->id);
@@ -535,10 +559,14 @@ class ManagerLessonController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * check lesson nam exits
      */
-    public function checkLessonName()
+    public function checkLessonName(Request $request, $id)
     {
-        $lessonName = Lesson::where('name', '=', Input::get('name'))->exists();
-
+        if ($id <= 0) {
+            $lessonName = Lesson::where('name', '=', $request->name)->exists();
+            return response()->json(!$lessonName);
+        } else {
+            $lessonName = Lesson::where('name', '=', $request->name)->whereNotIn('id', [$request->id])->exists();
+        }
         return response()->json(!$lessonName);
     }
 
@@ -546,10 +574,15 @@ class ManagerLessonController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * check lesson detail name exits
      */
-    public function checkLessonDetailName()
+    public function checkLessonDetailName(Request $request, $lessonId, $lessonDetailId)
     {
-        $lessonDetailName = LessonDetail::where('name', '=', Input::get('detail-lesson'))->exists();
-
+        if ($lessonDetailId <= 0) {
+            $lessonDetailName = LessonDetail::where('lesson_id', '=', $lessonId)->where('title', '=', Input::get('detail-lesson'))->exists();
+            return response()->json(!$lessonDetailName);
+        } else {
+            $lessonId = LessonDetail::find($lessonDetailId)->lesson_id;
+            $lessonDetailName = LessonDetail::where('lesson_id', '=', $lessonId)->where('title', '=', Input::get('detail-lesson'))->whereNotIn('id', [$lessonDetailId])->exists();
+        }
         return response()->json(!$lessonDetailName);
     }
 }

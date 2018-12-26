@@ -3,6 +3,12 @@
           method="post" class="validation-form"
           enctype="multipart/form-data" id="formAddDetailLesson">
     {{csrf_field()}}
+        @isset($lessonId)
+            <input type="hidden" value="{{$lessonId}}" name="lesson-id" class="lesson-id"/>
+        @endisset
+        @isset($lessonName)
+            <input type="hidden" value="{{$lessonName}}" name="lesson-detail"/>
+    @endisset
     <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -15,6 +21,8 @@
                     <div class="clearfix">
                         <input type="text" class="form-control" name="detail-lesson" id="detail-lesson"
                                value="{{$lessonDetail->title}} ">
+                        <input type="hidden" class="form-control" name="detail-lesson-id" id="detail-lesson-id"
+                               value="{{$lessonDetail->id}}">
                     </div>
                 </div>
 

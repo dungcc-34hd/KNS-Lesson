@@ -1,7 +1,7 @@
 <div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Tạo nội dung chi tiết</h4>
+        <h4 class="modal-title">Sửa nội dung chi tiết</h4>
 
     </div>
 
@@ -32,25 +32,30 @@
                 </div>
             </div>
 
-            <div class="form-group field_wrapper">
-                @if(isset($contents))
-                    @foreach($contents as  $content)
+            <div class="form-group field_wrapper" id="form-content">
+                @foreach($contents as  $content)
+                    <div style="margin-top: 1em ">
                         <label>Nội dung @include('common.require')</label>
-                        <div class="clearfix">
-                            <textarea type="text" id="content" class="md-textarea form-control " rows="2"
-                                      name="content[]"
-                                      value="{{$content}}">{{$content}}</textarea></div>
-                    @endforeach
-                @else
-                    <label>Nội dung @include('common.require')</label>
-                    <div class="clearfix">
-                            <textarea type="text" id="content" class="md-textarea form-control " rows="2"
-                                      name="content[]"
-                            ></textarea></div>
-                @endif
+                        <textarea type="text" class="md-textarea form-control " rows="2"
+                                  name="content[]" style="margin-top: 15px;" value="{{$content}}"
+                            >{{$content}}</textarea>
+                        <a href="javascript:void(0);" style="margin-top: 1em"
+                           class="btn btn-danger remove_content">Xóa</a>
+                    </div>
+                @endforeach
+                <div class="form-group">
+                    <div style="margin-top: 1em ; display:none" id="content">
+                        <label>Nội dung @include('common.require')</label>
+                        <textarea type="text" class="md-textarea form-control " rows="2"
+                                  name="content[]" style="margin-top: 15px;"></textarea>
+                        <a href="javascript:void(0);" style="margin-top: 1em"
+                           class="btn btn-danger remove_content">Xóa</a>
+                    </div>
+                </div>
 
-                <br/>
-                <a href="javascript:void(0);" class="add_button btn btn-primary" title="Add field">Thêm</a>
+                <a href="javascript:void(0);" class="add_content btn btn-primary" title="Add field">
+                    Thêm
+                </a>
             </div>
 
             <div class="form-group">
@@ -119,7 +124,7 @@
                                placeholder="Nhập câu trả lời đúng"
                                name="answer[]"
                                value="@isset($lessonAnswer)@foreach($lessonAnswer as $answer)@if($answer->is_correct == 1){{$answer->answer}}@endif @endforeach @endisset">
-                        <input type="checkbox" class=" answer_last" name="answer_last"
+                        <input type="checkbox" class="answer_last" name="answer_last"
                                @if($lessonIscorrect)
                                {{($lessonIscorrect->answer_last == 1) ? 'checked' :''}}
                                value="{{$lessonIscorrect->answer_last}}"><label>Câu trả lời đúng ở cuối</label>
@@ -130,19 +135,29 @@
                     <div class="answer-wrapper">
                         <label>Câu trả lời Sai @include('common.require') </label>
                         <div class="input-group control-group after-add-more" style="width: 100%">
+
                             @if(isset($lessonAnswer))
                                 @foreach($lessonAnswer as $key => $answer)
                                     @if($answer->is_correct == 0)
-                                        <input type="text" name="answer[]" class="form-control"
-                                               placeholder="Nhập câu trả lời sai"
-                                               value=" {{$answer->answer}}">
+                                        <div class="control-group input-group  answer-by-id" style="margin-top:10px">
+                                            <input type="text" name="answer[]" class="form-control"
+                                                   placeholder="Nhập câu trả lời sai" value="{{$answer->answer}}">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-danger remove-by-id" type="button"
+                                                        id="{{$answer->id}}">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     @endif
                                 @endforeach
                             @else
                                 <input type="text" name="answer[]" class="form-control"
                                        placeholder="Nhập câu trả lời sai">
                             @endif
+
                         </div>
+
                         <div id="form_answer_false">
                             <div style="display:none" id="answer_false">
                                 <div class="control-group input-group" style="margin-top:10px">
@@ -167,11 +182,7 @@
             <br/>
             <div class="modal-footer" style="margin-top: 25px;">
                 <button type="submit" class="btn btn-primary create-content-lesson " id="create-content-lesson">
-                    @if(isset($lessonContent))
                         Cập nhật nội dung
-                    @else
-                        Tạo nội dung
-                    @endif
                 </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>
@@ -181,44 +192,11 @@
 <script src="{{asset('modules/admin/managerContent/lessonContent-validation.js')}}"></script>
 <script>
     $(document).ready(function () {
-        //@naresh action dynamic childs
-        var next = 0;
-        $("#add-more").click(function (e) {
-            e.preventDefault();
-            var addto = "#field" + next;
-            var addRemove = "#field" + (next);
-            var label_name = $('.label-name').text();
-            next = next + 1;
-            var newIn = '<div id="field' + next + '" name="field' + next + '">' +
-                '<!-- Text input--><div class="form-group"> ' +
-                '<label class="col-md-4 control-label" for="action_id">' + label_name + '</label> ' +
-                '<div class="col-md-5"> ' +
-                '<input type="file" class="form-control add_field_button" name="background-image[]"\n' +
-                '                               id="background-image"> ' +
-                '</div>' +
-                '</div></div>' +
-                '<div class="form-group"> </div></div></div>';
-            var newInput = $(newIn);
-            var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >Xóa</button></div></div><div id="field">';
-            var removeButton = $(removeBtn);
-            $(addto).after(newInput);
-            $(addRemove).after(removeButton);
-            $("#field" + next).attr('data-source', $(addto).attr('data-source'));
-            $("#count").val(next);
-
-            $('.remove-me').click(function (e) {
-                e.preventDefault();
-                var fieldNum = this.id.charAt(this.id.length - 1);
-                var fieldID = "#field" + fieldNum;
-                $(this).remove();
-                $(fieldID).remove();
-            });
-        });
 
         $('.answer_last').click(function () {
-            $(this).attr('value', 0);
+            $(this).val(0);
             if ($(this).is(':checked')) {
-                $(this).attr('value', 1);
+                $(this).val(1);
             }
         });
 
@@ -228,27 +206,14 @@
             });
         }
 
-        var maxField = 10; //Input fields increment limitation
-        var addButton = $('.add_button'); //Add button selector
-        var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div style="margin-top: 1em"> <textarea type="text" id="content" class="md-textarea form-control " rows="2"\n' +
-            '                              name="content[]"></textarea><a href="javascript:void(0);" style="margin-top: 1em" class="btn btn-danger remove_button">Xóa</a></div>'; //New input field html
-        var x = 1; //Initial field counter is 1
-
-        //Once add button is clicked
-        $(addButton).click(function () {
-            //Check maximum number of input fields
-            if (x < maxField) {
-                x++; //Increment field counter
-                $(wrapper).append(fieldHTML); //Add field html
-            }
+        //add content
+        $(".add_content").click(function () {
+            var content = $('#content').clone().removeAttr("style");
+            $('#form-content').append(content);
         });
 
-        //Once remove button is clicked
-        $(wrapper).on('click', '.remove_button', function (e) {
-            e.preventDefault();
-            $(this).parent('div').remove(); //Remove field html
-            x--; //Decrement field counter
+        $('.field_wrapper').on("click", ".remove_content", function () {
+            $(this).parent('div').remove();
         });
 
         //add answer
@@ -259,6 +224,9 @@
 
         $("body").on("click", ".remove", function () {
             $(this).parents(".control-group").remove();
+        });
+        $("body").on("click", ".remove-by-id", function () {
+            $(this).parents(".answer-by-id").remove();
         });
 
     });

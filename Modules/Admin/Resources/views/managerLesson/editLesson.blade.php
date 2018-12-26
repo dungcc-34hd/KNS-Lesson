@@ -50,7 +50,8 @@
                 <div class="form-group">
                     <label>Tên bài học @include('common.require')</label>
                     <div class="clearfix">
-                        <input type="text" class="form-control" name="name" id="name" value="@isset($lesson){{$lesson->name}}@endisset">
+                        <input type="text" class="form-control" name="name" value="{{$lesson->name}}">
+                        <input type="hidden" class="form-control" name="lesson-name" id="lesson-name" value="{{$lesson->id}}">
                     </div>
                 </div>
             </div>

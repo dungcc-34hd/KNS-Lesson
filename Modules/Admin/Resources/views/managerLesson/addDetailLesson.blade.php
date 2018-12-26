@@ -4,7 +4,7 @@
           enctype="multipart/form-data" id="formAddDetailLesson">
         {{csrf_field()}}
         @isset($lessonId)
-            <input type="hidden" value="{{$lessonId}}" name="lesson-id"/>
+            <input type="hidden" value="{{$lessonId}}" name="lesson-id" class="lesson-id"/>
         @endisset
         @isset($lessonName)
             <input type="hidden" value="{{$lessonName}}" name="lesson-detail"/>
