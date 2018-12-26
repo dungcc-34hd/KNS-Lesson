@@ -123,6 +123,12 @@
                             <h3 class="box-title">User Lists</h3>
                             <br>
                              <h4 class="box-title" > <small id="countTable"> </small> </h4>
+                             &#160; &#160; &#160; 
+                             <h4 class="box-title">
+                                <small id="countApd">
+                                    
+                                </small>
+                             </h4>
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -233,6 +239,11 @@
 
 
     </div>
+
+    <input type="hidden" id="CountProvince" value="">
+    <input type="hidden" id="CountDistrict" value="">
+    <input type="hidden" id="CountSchool" value="">
+
     <input type="hidden" id="url-ajax" value="/admin/user/pagination/">
     <input type="hidden" id="pagination_Select" value="/admin/user/pagination_Select/">
 @endsection

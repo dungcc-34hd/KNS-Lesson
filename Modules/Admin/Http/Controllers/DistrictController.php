@@ -95,7 +95,6 @@ class DistrictController extends Controller
         $provincials=$this->repository->province($areaId);
         return view('admin::districts.create',compact('provincials','areas'));
     }
-
     /**
      * store
      * @param Request $request

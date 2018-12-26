@@ -43,8 +43,9 @@
                     <li class="district"><a href="{{route('admin.district.index')}}"><i class="fa fa-users"></i> <span>Quận /Huyện</span></a></li>
                     <li class="school"><a href="{{route('admin.school.index')}}"><i class="fa fa-users"></i> <span>Trường</span></a></li>
                     <li class="grade-level"><a href="{{route('admin.grade.index')}}"><i class="fa fa-users"></i> <span>Khối</span></a></li>
-                   {{--  <li class="class"><a href="{{route('admin.class.index')}}"><i class="fa fa-users"></i> <span>Lớp</span></a></li> --}}
-                    
+
+                    <li class="class"><a href="{{route('admin.class.index')}}"><i class="fa fa-users"></i> <span>Lớp</span></a></li>
+
                 </ul>
                 
             </li>
