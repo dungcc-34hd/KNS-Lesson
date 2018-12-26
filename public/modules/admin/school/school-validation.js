@@ -21,9 +21,7 @@ $(document).ready(function () {
                 required: true,
                 minlength: 3,
                 VldHtml:true,
-                
             },
-          
             school_level_id: {
                 biggerO: true
             },
@@ -40,7 +38,7 @@ $(document).ready(function () {
     
         messages: {
             name: {
-                biggerO: "Xin vui lòng nhập tên trường.",
+                required: "Xin vui lòng nhập tên trường.",
                 minlength: "Độ dài tối thiểu là 3."
             },
             school_level_id:{

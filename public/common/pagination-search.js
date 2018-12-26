@@ -171,6 +171,8 @@ $(function () {
 }); 
 function ajaxLoadData(records,  current_page,search) {
     $('#countTable').empty();
+    $('#countApd').empty();
+    
     var url_controller = $('#url-ajax').val();
     var url = url_controller + records +"?page=" + current_page;
     if(search !== null && search !== '')
@@ -218,9 +220,26 @@ function ajaxLoadDataForSelect(records,  current_page,id,table) {
             //append data in table
             $('.results-table tbody').empty();
             $('.results-table tbody').append(result);
-            var count = $('#countT').val();
-            $('#countTable').html("Tìm thấy : "+count+" bản ghi");
 
+            var count           = $('#countT').val();
+            var CountProvince   = $('#CountProvince').val()!=''?$('#CountProvince').val():"";
+            var CountDistrict   = $('#CountDistrict').val()!=''?$('#CountDistrict').val():"";
+            var CountSchool     = $('#CountSchool').val()!=''?$('#CountSchool').val():"";
+            
+            $('#countApd').empty();
+            $('#countTable').html("Tìm thấy : "+count+" bản ghi");
+            
+
+            if(CountProvince != ""){
+                $('#countApd').append("Tỉnh : "+ CountProvince );
+            }
+            if(CountDistrict != ""){
+                $('#countApd').append("  &#160; &#160; &#160; Quận/Huyện : "+ CountDistrict );
+            }
+            if(CountSchool != ""){
+                $('#countApd').append(" &#160; &#160; &#160; Trường : "+ CountSchool );
+            }
+            
             //append pagination 
             $.ajax({
                 type: 'GET',

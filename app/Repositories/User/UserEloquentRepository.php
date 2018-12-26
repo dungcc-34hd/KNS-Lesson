@@ -126,7 +126,12 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         return ceil($total / $records); 
       
     }
-
+    public function getCount($id,$tableID)
+    {
+      
+        return  count(User::whereNotNull('role_id')->where($tableID,$id)->get());
+      
+    }
   
     public function getAreaObjects($records,$id,$tableID, $search = null)
     {
