@@ -1,10 +1,14 @@
 <div class="box-body">
 <div class="row">
     <div class="col-md-6">
+        @isset($type)
+              <input type="hidden" name="id" value="{{$type->id}}" id="type-id">
+        @endisset
+        <input type="hidden" value="">
         <div class="form-group">
             <label>Id </label>
             <div class="clearfix">
-                <input type="text" class="form-control" name="id_type"
+                <input type="number" class="form-control" name="id_type"
                        value="@isset($type){{$type->id_type}}@endisset">
                 @if($errors)
                     <span style="color: #dd4b39;" class="text-danger">{{$errors->first('id_qualify')}}</span> 
@@ -40,3 +44,6 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script src="{{ asset('modules/admin/typeLesson/typeLesson-validation.js') }}"></script>
+@endpush

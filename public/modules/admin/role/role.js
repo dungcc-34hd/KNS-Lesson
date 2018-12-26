@@ -1,12 +1,5 @@
 $(function () {
     activeMenu('users', 'role', true);
-
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass   : 'iradio_flat-green'
-    });
-
     $(document).on('click', '.delete-role', function (e) {
         e.preventDefault();
         var role_name = $(this).attr('role_name');
