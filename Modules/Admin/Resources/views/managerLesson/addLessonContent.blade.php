@@ -36,25 +36,23 @@
                 </div>
             </div>
 
-            <div class="form-group field_wrapper">
-                @if(isset($contents))
-                    @foreach($contents as  $content)
-                        <label>Nội dung @include('common.require')</label>
-                        <div class="clearfix">
-                            <textarea type="text" id="content" class="md-textarea form-control " rows="2"
-                                      name="content[]"
-                                      value="{{$content}}">{{$content}}</textarea></div>
-                    @endforeach
-                @else
+            <div class="form-group field_wrapper" id="form-content">
+                <div class="form-group">
                     <label>Nội dung @include('common.require')</label>
                     <div class="clearfix">
-                            <textarea type="text" id="content" class="md-textarea form-control " rows="2"
-                                      name="content[]"
-                            ></textarea></div>
-                @endif
+                            <textarea type="text" class="md-textarea form-control " rows="2"
+                                      name="content[]"></textarea>
+                    </div>
+                    <div style="margin-top: 1em ; display:none" id="content">
+                        <label>Nội dung @include('common.require')</label>
+                        <textarea type="text" class="md-textarea form-control " rows="2"
+                                  name="content[]" style="margin-top: 15px;"></textarea>
+                        <a href="javascript:void(0);" style="margin-top: 1em"
+                           class="btn btn-danger remove_content">Xóa</a>
+                    </div>
+                </div>
 
-                <br/>
-                <a href="javascript:void(0);" class="add_button btn btn-primary" title="Add field">Thêm</a>
+                <a href="javascript:void(0);" class="add_content btn btn-primary" title="Add field">Thêm</a>
             </div>
 
             <div class="form-group">
@@ -75,21 +73,12 @@
                                        for="action_id">{{\App\Models\LessonDetail::TYPE[$typeId]}}</label>
                                 <h6>(Chọn nhiều {{\App\Models\LessonDetail::TYPE[$typeId]}})</h6><br>
                                 <div class="col-md-12 clearfix">
-                                    @if(isset($audios))
-                                        @foreach($audios as $audio)
-                                            {{$audio}}
-                                        @endforeach
-                                        @if($lessonType->type == 1)
-                                            <input type="file" accept="image/*" class="add_field_button form-control "
-                                                   name="background-image[]"
-                                                   id="background-image" multiple>
-                                        @elseif($lessonType->type == 2)
-                                            <input type="file" accept="video/*" class="add_field_button form-control "
-                                                   name="background-image[]"
-                                                   id="background-image" multiple>
-                                        @endif
-                                    @else
-                                        <input type="file" class="add_field_button form-control "
+                                    @if($lessonType->type == 1)
+                                        <input type="file" accept="image/*" class="add_field_button form-control "
+                                               name="background-image[]"
+                                               id="background-image" multiple>
+                                    @elseif($lessonType->type == 2)
+                                        <input type="file" accept="video/*" class="add_field_button form-control "
                                                name="background-image[]"
                                                id="background-image" multiple>
                                     @endif
@@ -97,7 +86,6 @@
                                 <br><br>
                             </div>
                         </div>
-                        {{--<button id="add-more" name="add-more" class="btn btn-primary">Thêm</button>--}}
                     </div>
                 </div>
             @endif
@@ -108,7 +96,7 @@
                         <div class="clearfix">
                             <input type="text" id="question" class="form-control"
                                    name="question"
-                                   value="@isset($lessonContent){{$lessonContent->question}}@endisset">
+                                   value="">
                         </div>
                     </div>
                     <div class="answer-wrapper">
@@ -116,44 +104,42 @@
                         <input type="text" id="answer" class="form-control"
                                placeholder="Nhập câu trả lời đúng"
                                name="answer[]"
-                               value="@isset($lessonAnswer)@foreach($lessonAnswer as $answer)@if($answer->is_correct == 1){{$answer->answer}}@endif @endforeach @endisset">
+                               value="">
                         <input type="checkbox" class=" answer_last" name="answer_last"
-                            value="0"><label>Câu trả lời đúng ở cuối</label>
+                               value="5"><label>Câu trả lời đúng ở cuối</label>
                     </div>
                     <br/>
                     <div class="answer-wrapper">
                         <label>Câu trả lời Sai @include('common.require') </label>
                         <div class="input-group control-group after-add-more" style="width: 100%">
-                            @if(isset($lessonAnswer))
-                                @foreach($lessonAnswer as $answer)
-                                    @if($answer->is_correct == 0)
-                                        <input type="text" name="answer[]" class="form-control"
-                                               placeholder="Nhập câu trả lời sai"
-                                               value=" {{$answer->answer}}">
-                                    @endif
-                                @endforeach
-                            @else
-                                <input type="text" name="answer[]" class="form-control"
-                                       placeholder="Nhập câu trả lời sai">
-                            @endif
+                            <input type="text" name="answer[]" class="form-control"
+                                   placeholder="Nhập câu trả lời sai">
+                        </div>
+                        <div id="form_answer_false">
+                            <div style="display:none" id="answer_false">
+                                <div class="control-group input-group" style="margin-top:10px">
+                                    <input type="text" name="answer[]" class="form-control"
+                                           placeholder="Nhập câu trả lời sai">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-danger remove" type="button"><i
+                                                    class="glyphicon glyphicon-remove"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="input-group-btn">
                             <button class="btn btn-success add-more" type="button"><i
                                         class="glyphicon glyphicon-plus"></i>
                             </button>
                         </div>
-                        </label>
                     </div>
                 </div>
             @endif
             <br/>
             <div class="modal-footer" style="margin-top: 25px;">
                 <button type="submit" class="btn btn-primary create-content-lesson " id="create-content-lesson">
-                    @if(isset($lessonContent))
-                        Cập nhật nội dung
-                    @else
-                        Tạo nội dung
-                    @endif
+                    Tạo nội dung
                 </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>
@@ -163,49 +149,6 @@
 <script src="{{asset('modules/admin/managerContent/lessonContent-validation.js')}}"></script>
 <script>
     $(document).ready(function () {
-        //@naresh action dynamic childs
-        var next = 0;
-        $("#add-more").click(function (e) {
-            e.preventDefault();
-            var addto = "#field" + next;
-            var addRemove = "#field" + (next);
-            var label_name = $('.label-name').text();
-            next = next + 1;
-            var newIn = '<div id="field' + next + '" name="field' + next + '">' +
-                '<!-- Text input--><div class="form-group"> ' +
-                '<label class="col-md-4 control-label" for="action_id">' + label_name + '</label> ' +
-                '<div class="col-md-5"> ' +
-                '<input type="file" class="form-control add_field_button" name="background-image[]"\n' +
-                '                               id="background-image"> ' +
-                '</div>' +
-                '</div></div>' +
-                '<div class="form-group"> </div></div></div>';
-            var newInput = $(newIn);
-            var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >Xóa</button></div></div><div id="field">';
-            var removeButton = $(removeBtn);
-            $(addto).after(newInput);
-            $(addRemove).after(removeButton);
-            $("#field" + next).attr('data-source', $(addto).attr('data-source'));
-            $("#count").val(next);
-
-            $('.remove-me').click(function (e) {
-                e.preventDefault();
-                var fieldNum = this.id.charAt(this.id.length - 1);
-                var fieldID = "#field" + fieldNum;
-                $(this).remove();
-                $(fieldID).remove();
-            });
-        });
-
-        // $('.is-correct').each(function(index){
-        //     $(this).click(function () {
-        //         $('.is-correct').attr('value', 0);
-        //         if ($(this).is(':checked')){
-        //             $(this).attr('value', 1);
-        //         }
-        //     })
-        //
-        // });
 
         $('.answer_last').click(function () {
             $(this).attr('value',0);
@@ -220,42 +163,21 @@
             });
         }
 
-        var maxField = 10; //Input fields increment limitation
-        var addButton = $('.add_button'); //Add button selector
-        var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div style="margin-top: 1em"> <textarea type="text" id="content" class="md-textarea form-control " rows="2"\n' +
-            '                              name="content[]"></textarea><a href="javascript:void(0);" style="margin-top: 1em" class="btn btn-danger remove_button">Xóa</a></div>'; //New input field html
-        var x = 1; //Initial field counter is 1
 
-        //Once add button is clicked
-        $(addButton).click(function () {
-            //Check maximum number of input fields
-            if (x < maxField) {
-                x++; //Increment field counter
-                $(wrapper).append(fieldHTML); //Add field html
-            }
+        //add content
+        $(".add_content").click(function () {
+            var content = $('#content').clone().removeAttr("style");
+            $('#form-content').append(content);
         });
 
-        //Once remove button is clicked
-        $(wrapper).on('click', '.remove_button', function (e) {
-            e.preventDefault();
-            $(this).parent('div').remove(); //Remove field html
-            x--; //Decrement field counter
+        $('.field_wrapper').on("click", ".remove_content", function () {
+            $(this).parent('div').remove();
         });
 
         //add answer
         $(".add-more").click(function () {
-            var html = '<div class="copy">\n' +
-                '                        <div class="control-group input-group" style="margin-top:10px">\n' +
-                '                            <input type="text" name="answer[]" class="form-control" placeholder="Nhập câu trả lời sai">\n' +
-                '                            <div class="input-group-btn">\n' +
-                '                                <button class="btn btn-danger remove" type="button"><i\n' +
-                '                                            class="glyphicon glyphicon-remove"></i>\n' +
-                '                                </button>\n' +
-                '                            </div>\n' +
-                '                        </div>\n' +
-                '                    </div>';
-            $(".after-add-more").after(html);
+            var answer = $('#answer_false').clone().removeAttr("style");
+            $('#form_answer_false').append(answer);
         });
 
         $("body").on("click", ".remove", function () {

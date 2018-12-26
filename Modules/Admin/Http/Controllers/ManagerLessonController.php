@@ -15,6 +15,7 @@ use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use App\Models\LessonType;
@@ -75,7 +76,7 @@ class ManagerLessonController extends Controller
     {
         $lesson = Lesson::findorfail($id);
         $grades = Grade::all();
-        return view('admin::managerLesson.addLesson', compact('grades', 'lesson'));
+        return view('admin::managerLesson.editLesson', compact('grades', 'lesson'));
     }
 
     /**
@@ -98,6 +99,7 @@ class ManagerLessonController extends Controller
         $lesson = new Lesson();
         $lesson->name = $request->name;
         $lesson->grade_id = $request->grade;
+        $lesson->thematic_id = $request->thematic;
 
         //make directory
         $directory = public_path() . "/modules/managerContent/" . $lesson->name;
@@ -105,6 +107,7 @@ class ManagerLessonController extends Controller
             File::makeDirectory($directory);
         }
         $lesson->save();
+        $request->session()->flash('success', 'Record successfully added!');
         return redirect('admin/manager-lesson/index');
     }
 
@@ -118,10 +121,14 @@ class ManagerLessonController extends Controller
         //edit directory
         $newDirectory = public_path() . "/modules/managerContent/" . $request->name;
         $directoryOld = public_path() . "/modules/managerContent/" . $lesson->name;
-        rename($directoryOld, $newDirectory);
+
+        if (File::exists($directoryOld)) {
+            rename($directoryOld, $newDirectory);
+        }
         $lesson->name = $request->name;
         $lesson->grade_id = $request->grade;
         $lesson->save();
+        message($request, 'success', 'Cập nhật thành công.');
         return redirect('admin/manager-lesson/index');
     }
 
@@ -146,6 +153,7 @@ class ManagerLessonController extends Controller
             File::makeDirectory($directory);
         }
         $detailLesson->save();
+        message($request, 'success', 'Thêm mới thành công.');
         return redirect('admin/manager-lesson/index');
     }
 
@@ -181,6 +189,7 @@ class ManagerLessonController extends Controller
         $detailLesson->outline = $request['outline'];
         $detailLesson->name = $request['name'];
         $detailLesson->save();
+        message($request, 'success', 'Cập nhật thành công.');
         return redirect('admin/manager-lesson/index');
     }
 
@@ -190,7 +199,7 @@ class ManagerLessonController extends Controller
         $lessonId = $id;
         $lessonName = $lesson->name;
         $types = LessonType::all();
-        // dd($types[0]->type);
+
         return view('admin::managerLesson.addDetailLesson', compact('lessonId', 'lessonName', 'types'));
     }
 
@@ -214,6 +223,9 @@ class ManagerLessonController extends Controller
      */
     public function storeLessonContent(Request $request)
     {
+        $arrayContents = $request['content'];
+        $this->remove_element($arrayContents, '');
+
         $contentLesson = new LessonContent();
         $contentLesson->title = $request['title'];
         $contentLesson->lesson_detail_id = $request['lesson-detail-id'];
@@ -246,20 +258,24 @@ class ManagerLessonController extends Controller
         foreach ($request['content'] as $item) {
             array_push($content, $item);
         }
-        $contentLesson->content = json_encode($content, JSON_UNESCAPED_UNICODE);
-
+        $arrayContents = $request['content'];
+        $fillterContent = array_filter($arrayContents, function ($value) {
+            return !is_null($value);
+        });
+        $contentLesson->content = json_encode($fillterContent, JSON_UNESCAPED_UNICODE);
         $contentLesson->save();
 
         //nếu là trắc nghiệm
         if ($request['type'] == 3) {
+            $arrayAnswers = $request->answer;
+            $this->remove_element($arrayAnswers, '');
 
-            //$is_correct = isset($request['is-correct']) ? $request['is-correct'][0] : null;
-            foreach ($request['answer'] as $key => $item) {
+            foreach ($arrayAnswers as $key => $item) {
                 $lessonAnswer = new LessonAnswer();
                 $lessonAnswer->lesson_content_id = $contentLesson->id;
                 $lessonAnswer->answer = $item;
                 $lessonAnswer->is_correct = false;
-                $lessonAnswer->answer_last = false;
+                $lessonAnswer->answer_last = 0;
                 if ($key == 0)
                     $lessonAnswer->is_correct = true;
                 if ($request->answer_last == 1)
@@ -288,6 +304,7 @@ class ManagerLessonController extends Controller
             File::put($directory . "/tncc.json", json_encode($jsonData, JSON_UNESCAPED_UNICODE));
 
         }
+        message($request, 'success', 'Thêm mới thành công.');
         return redirect('admin/manager-lesson/index');
     }
 
@@ -310,7 +327,33 @@ class ManagerLessonController extends Controller
         $contents = json_decode($lessonContent->content);
         $audios = json_decode($lessonContent->audio);
 
-        return view('admin::managerLesson.editLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail', 'lessonContent', 'contents', 'lessonAnswer', 'audios', 'lessonType','lessonIscorrect'));
+        return view('admin::managerLesson.editLessonContent', compact('typeId', 'id', 'lesson', 'lessonDetail', 'lessonContent', 'contents', 'lessonAnswer', 'audios', 'lessonType', 'lessonIscorrect'));
+    }
+
+
+    /**
+     * @param $array
+     * @param $value
+     *  remove $key => value 'null'
+     */
+    function remove_element(&$array, $value)
+    {
+        if (($key = array_search($value, $array)) !== false) {
+            unset($array[$key]);
+        }
+    }
+
+    /**
+     * @param $array
+     * @param $value
+     *  remove $key => value 'null'
+     */
+    function remove_element_null(&$array, $value)
+    {
+        if (($key = array_search($value, $array)) !== false) {
+            unset($array[$key][$value]);
+        }
+
     }
 
     /**
@@ -359,18 +402,32 @@ class ManagerLessonController extends Controller
         foreach ($request['content'] as $item) {
             array_push($content, $item);
         }
-        $contentLesson->content = json_encode($content, JSON_UNESCAPED_UNICODE);
-
+        $arrayContents = $request['content'];
+        $fillterContent = array_filter($arrayContents, function ($value) {
+            return !is_null($value);
+        });
+        $contentLesson->content = json_encode($fillterContent, JSON_UNESCAPED_UNICODE);
         $contentLesson->save();
 
         //nếu là trắc nghiệm
         if ($request['type'] == 3) {
-            //$is_correct = isset($request['is-correct']) ? $request['is-correct'][0] : null;
-            foreach ($request['answer'] as $key => $item) {
-                $lessonAnswer = LessonAnswer::find($contentLesson->id);
+            // get id and answer from db
+            $lessonAnswer = LessonAnswer::where('lesson_content_id', $contentLesson->id)->get();
+            foreach ($lessonAnswer as $item) {
+                $item->delete();
+            }
+
+            //get data answer from request
+            $arrayAnswers = $request->answer;
+            $this->remove_element($arrayAnswers, '');
+
+            foreach ($arrayAnswers as $key => $item) {
+                $lessonAnswer = new LessonAnswer();
+                $lessonAnswer->lesson_content_id = $contentLesson->id;
+
                 $lessonAnswer->answer = $item;
                 $lessonAnswer->is_correct = false;
-                $lessonAnswer->answer_last = false;
+                $lessonAnswer->answer_last = 0;
                 if ($key == 0)
                     $lessonAnswer->is_correct = true;
                 if ($request->answer_last == 1)
@@ -399,6 +456,7 @@ class ManagerLessonController extends Controller
 
             File::put($directory . "/tncc.json", json_encode($jsonData, JSON_UNESCAPED_UNICODE));
         }
+        message($request, 'success', 'Cập nhật thành công.');
         return redirect('admin/manager-lesson/index');
     }
 
@@ -499,4 +557,34 @@ class ManagerLessonController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * check lesson nam exits
+     */
+    public function checkLessonName(Request $request, $id)
+    {
+        if ($id <= 0) {
+            $lessonName = Lesson::where('name', '=', $request->name)->exists();
+            return response()->json(!$lessonName);
+        } else {
+            $lessonName = Lesson::where('name', '=', $request->name)->whereNotIn('id', [$request->id])->exists();
+        }
+        return response()->json(!$lessonName);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * check lesson detail name exits
+     */
+    public function checkLessonDetailName(Request $request, $lessonId, $lessonDetailId)
+    {
+        if ($lessonDetailId <= 0) {
+            $lessonDetailName = LessonDetail::where('lesson_id', '=', $lessonId)->where('title', '=', Input::get('detail-lesson'))->exists();
+            return response()->json(!$lessonDetailName);
+        } else {
+            $lessonId = LessonDetail::find($lessonDetailId)->lesson_id;
+            $lessonDetailName = LessonDetail::where('lesson_id', '=', $lessonId)->where('title', '=', Input::get('detail-lesson'))->whereNotIn('id', [$lessonDetailId])->exists();
+        }
+        return response()->json(!$lessonDetailName);
+    }
 }

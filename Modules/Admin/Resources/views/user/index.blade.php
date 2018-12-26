@@ -169,7 +169,7 @@
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->school['name']}}</td>
                                                 <td>{{$user->grade['name']}}</td>
-                                                <td>{{$user->lsClass['name']}}</td>
+                                                <td>{{$user->class_name}}</td>
                                                 <td>{{$user->quantity_student}}</td>
                                                 <td>{{$user->role->name}}</td>
                                                 

@@ -161,11 +161,13 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
 
         Route::get('/add-lesson', 'ManagerLessonController@addLesson')->name('admin.managerLesson.addLesson');
         Route::get('/edit-lesson/{id}', 'ManagerLessonController@editLesson')->name('admin.managerLesson.editLesson');
+        Route::get('/check-lesson-name/{id?}', 'ManagerLessonController@checkLessonName')->name('admin.managerLesson.checkLessonName');
 
         Route::post('/store-lesson', 'ManagerLessonController@storeLesson')->name('admin.managerLesson.storeLesson');
         Route::post('/update-lesson/{id}', 'ManagerLessonController@updateLesson')->name('admin.managerLesson.updateLesson');
 
         Route::post('/store-lesson-detail', 'ManagerLessonController@storeLessonDetail')->name('admin.managerLesson.storeLessonDetail');
+        Route::get('/check-lesson-detail-name/{lessonId}/{detailLesson?}', 'ManagerLessonController@checkLessonDetailName')->name('admin.managerLesson.checkLessonDetailName');
         Route::get('/edit-lesson-detail/{id}', 'ManagerLessonController@editLessonDetail')->name('admin.managerLesson.editLessonDetail');
         Route::post('/update-lesson-detail/{id}', 'ManagerLessonController@updateLessonDetail')->name('admin.managerLesson.updateLessonDetail');
 
@@ -206,6 +208,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/hanlding-school','StatisticController@hanldingSchool')->name('admin.statistic.hanldingSchool');
 
     });
+    // type-lesson
      Route::group(['prefix'=>'type-lesson'],function(){
         Route::get('/','LessonTypeController@index')->name('admin.typeLesson.index');
         Route::get('/pagination/{records}/{search?}', 'LessonTypeController@pagination')->name('admin.typeLesson.pagination');
@@ -214,6 +217,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/edit/{id}','LessonTypeController@edit')->name('admin.typeLesson.edit');
         Route::post('/update/{id}','LessonTypeController@update')->name('admin.typeLesson.update');
         Route::get('/delete/{id}','LessonTypeController@destroy')->name('admin.typeLesson.delete');
+        Route::get('/checkName/{id?}','LessonTypeController@checkName')->name('admin.typeLesson.checkName');
     });
 
     Route::group(['prefix'=>'manager-area'],function(){

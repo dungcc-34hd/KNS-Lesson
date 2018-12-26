@@ -11,6 +11,7 @@
             <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Trang chủ</a></li>
             <li class="breadcrumb-item active">Quản lý bài học</li>
         </ol>
+        {{Session::get('success')}}
         <section class="content">
             <div class="clearfix">
                 <button type="button" class="btn btn-primary  modal-show"
@@ -247,6 +248,7 @@
 @endsection
 @push('scripts')
     {{--<script src="{{ asset('modules/admin/managerContent/managerContent.js') }}"></script>--}}
+   
     <script src="{{ asset('modules/admin/managerContent/lessonDelete.js') }}"></script>
     <script src="{{ asset('modules/admin/managerContent/lessonPublic.js') }}"></script>
     <script src="{{ asset('modules/admin/managerContent/lessonDetailDelete.js') }}"></script>
