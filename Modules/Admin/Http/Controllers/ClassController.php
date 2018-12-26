@@ -21,7 +21,6 @@ class ClassController extends Controller
     public function __construct(LsClassEloquentRepository $repository)
     {
         $this->repository = $repository;
-      
     }
 
     public function pagination(Request $request, $records, $search = null)
@@ -87,7 +86,6 @@ class ClassController extends Controller
         Session::flash('flash_level', 'success');
         Session::flash('flash_message', 'Cập nhật thành công');
         
-
         return redirect('admin/class/index');
     }
 
