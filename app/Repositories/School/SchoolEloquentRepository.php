@@ -40,6 +40,7 @@ class SchoolEloquentRepository extends EloquentRepository implements SchoolRepos
 
         return ceil($total / $records);
     }
+    
 
     /**
      * Get all
@@ -68,7 +69,12 @@ class SchoolEloquentRepository extends EloquentRepository implements SchoolRepos
 
         return ceil($total / $records);
     }
-
+    public function getCount($id,$tableID)
+    {
+      
+        return  count( School::where($tableID,$id)->get());; 
+      
+    }
   
     public function getAreaObjects($records,$id,$tableID, $search = null)
     {

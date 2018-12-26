@@ -83,6 +83,14 @@
                                                
                                             </td>
                                         </tr>
+                                         <tr>
+                                            <td>Chuyên đề</td>
+                                            <td>
+                                                @foreach($thematics as $thematic)
+                                                    {{$thematic->name}} <br>
+                                                @endforeach
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td>Khối</td>
                                             <td>
@@ -159,7 +167,7 @@
                                 <div class="form-group">
                                     <label>Mật khẩu mới @include('common.require')</label>
                                     <div class="clearfix">
-                                        <input type="text" class="form-control" id="password" name="password">
+                                        <input type="password" class="form-control" id="password" name="password">
                                     </div>
                                 </div>
                                 <!-- /.form-group -->

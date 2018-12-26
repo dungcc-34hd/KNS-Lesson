@@ -2,7 +2,6 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Sửa nội dung chi tiết</h4>
-
     </div>
 
     <form id="add-lesson-content" action="{{route('admin.managerLesson.updateLessonContent',$lessonContent->id)}}"
@@ -22,6 +21,7 @@
         @isset($lesson)
             <input type="hidden" value="{{$lesson}}" name="lesson">
         @endisset
+
 
         <div class="modal-body">
             <div class="form-group">
@@ -124,14 +124,14 @@
                                placeholder="Nhập câu trả lời đúng"
                                name="answer[]"
                                value="@isset($lessonAnswer)@foreach($lessonAnswer as $answer)@if($answer->is_correct == 1){{$answer->answer}}@endif @endforeach @endisset">
-                        <input type="checkbox" class="answer_last" name="answer_last"
+
+                        <input type="checkbox" class=" answer_last" name="answer_last"
                                @if($lessonIscorrect)
                                {{($lessonIscorrect->answer_last == 1) ? 'checked' :''}}
                                value="{{$lessonIscorrect->answer_last}}"><label>Câu trả lời đúng ở cuối</label>
                         @endif
                     </div>
                     <br/>
-
                     <div class="answer-wrapper">
                         <label>Câu trả lời Sai @include('common.require') </label>
                         <div class="input-group control-group after-add-more" style="width: 100%">
@@ -149,6 +149,7 @@
                                                 </button>
                                             </div>
                                         </div>
+
                                     @endif
                                 @endforeach
                             @else
@@ -170,12 +171,15 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="input-group-btn">
                             <button class="btn btn-success add-more" type="button"><i
                                         class="glyphicon glyphicon-plus"></i>
                             </button>
                         </div>
+
+                        </label>
                     </div>
                 </div>
             @endif
@@ -192,7 +196,6 @@
 <script src="{{asset('modules/admin/managerContent/lessonContent-validation.js')}}"></script>
 <script>
     $(document).ready(function () {
-
         $('.answer_last').click(function () {
             $(this).val(0);
             if ($(this).is(':checked')) {
@@ -214,6 +217,7 @@
 
         $('.field_wrapper').on("click", ".remove_content", function () {
             $(this).parent('div').remove();
+
         });
 
         //add answer
@@ -228,7 +232,6 @@
         $("body").on("click", ".remove-by-id", function () {
             $(this).parents(".answer-by-id").remove();
         });
-
     });
 </script>
 

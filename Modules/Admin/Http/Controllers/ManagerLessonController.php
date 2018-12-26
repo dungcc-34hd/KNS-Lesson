@@ -353,6 +353,7 @@ class ManagerLessonController extends Controller
         if (($key = array_search($value, $array)) !== false) {
             unset($array[$key][$value]);
         }
+
     }
 
     /**
@@ -423,6 +424,7 @@ class ManagerLessonController extends Controller
             foreach ($arrayAnswers as $key => $item) {
                 $lessonAnswer = new LessonAnswer();
                 $lessonAnswer->lesson_content_id = $contentLesson->id;
+
                 $lessonAnswer->answer = $item;
                 $lessonAnswer->is_correct = false;
                 $lessonAnswer->answer_last = 0;

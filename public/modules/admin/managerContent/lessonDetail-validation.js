@@ -8,6 +8,7 @@ $('.validation-form').validate({
     focusInvalid: false,
     ignore: "",
     rules: {
+
         'detail-lesson': {
             required: true,
             remote: '/admin/manager-lesson/check-lesson-detail-name/' + lessonId + '/' + lessonDetailId ,
@@ -31,6 +32,7 @@ $('.validation-form').validate({
         name: {
             required: "Mời bạn nhập tiêu đề.",
         },
+
         type: {
             required: "Mời bạn chọn kiểu."
         },
