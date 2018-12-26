@@ -35,7 +35,7 @@ $(document).ready(function () {
             // console.log(data);
             $('#selectProvince').empty();
             if ($.isEmptyObject(data['provinces'])) {
-                var option = "<option value=''>Chọn Tỉnh</option>";
+                var option = "<option value=''>Không có dữ liệu</option>";
                 $('#selectProvince').append(option)
 
             }
@@ -49,7 +49,7 @@ $(document).ready(function () {
             $('#selectDistrict').empty();
             if ($.isEmptyObject(data['districts'])) {
 
-                var option = "<option value=''>Chọn Quận/Huyện</option>"
+                var option = "<option value=''>Không có dữ liệu</option>"
                 $('#selectDistrict').html(option)
 
             }
@@ -75,7 +75,7 @@ $(document).ready(function () {
             $('#selectDistrict').empty();
             if ($.isEmptyObject(data['districts'])) {
 
-                var option = '<option>Chọn Quận/Huyện</option>';
+                var option = '<option>Không có dữ liệu</option>';
                 $('#selectDistrict').html(option);
 
             }

@@ -208,6 +208,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/hanlding-school','StatisticController@hanldingSchool')->name('admin.statistic.hanldingSchool');
 
     });
+    // type-lesson
      Route::group(['prefix'=>'type-lesson'],function(){
         Route::get('/','LessonTypeController@index')->name('admin.typeLesson.index');
         Route::get('/pagination/{records}/{search?}', 'LessonTypeController@pagination')->name('admin.typeLesson.pagination');
@@ -216,6 +217,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/edit/{id}','LessonTypeController@edit')->name('admin.typeLesson.edit');
         Route::post('/update/{id}','LessonTypeController@update')->name('admin.typeLesson.update');
         Route::get('/delete/{id}','LessonTypeController@destroy')->name('admin.typeLesson.delete');
+        Route::get('/checkName/{id?}','LessonTypeController@checkName')->name('admin.typeLesson.checkName');
     });
 
     Route::group(['prefix'=>'manager-area'],function(){

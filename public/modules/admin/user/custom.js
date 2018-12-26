@@ -27,7 +27,7 @@ function process(areaId) {
         $('#selectProvince').empty();
         if($.isEmptyObject(data['provinces']))
         {
-            var option = '<option>Không có dữ liệu</option>'
+            var option = "<option value=''>Không có dữ liệu</option>"
             $('#selectProvince').append(option)
              
         }
@@ -44,7 +44,7 @@ function process(areaId) {
         if($.isEmptyObject(data['districts']))
         {
             
-            var option = '<option>Không có dữ liệu</option>'
+            var option = "<option value=''>Không có dữ liệu</option>"
             $('#selectDistrict').append(option)
             
         }
@@ -64,7 +64,7 @@ function process(areaId) {
         if($.isEmptyObject(data['schools']))
         {
             
-            var option = '<option>Không có dữ liệu</option>'
+            var option = "<option value=''>Không có dữ liệu</option>"
             $('#selectSchool').append(option)
             
         }
@@ -88,7 +88,7 @@ function changeProvince(provinceId){
         if($.isEmptyObject(data['districts']))
         {
             
-            var option = '<option>Không có dữ liệu</option>'
+            var option = "<option value=''>Không có dữ liệu</option>"
             $('#selectDistrict').append(option)
             
         }
@@ -105,7 +105,7 @@ function changeProvince(provinceId){
         if($.isEmptyObject(data['schools']))
         {
             
-            var option = '<option>Không có dữ liệu</option>'
+            var option = "<option value=''>Không có dữ liệu</option>"
             $('#selectSchool').append(option)
             
         }
@@ -129,7 +129,7 @@ function changeDistrict(districtId){
         if($.isEmptyObject(data))
         {
             
-            var option = '<option>Không có dữ liệu</option>'
+            var option = "<option value=''>Không có dữ liệu</option>"
             $('#selectSchool').append(option)
             
         }
@@ -154,7 +154,7 @@ function changeGrade(gradeId){
         if($.isEmptyObject(data))
         {
             
-            var option = '<option>Không có dữ liệu</option>'
+            var option = "<option value=''>Không có dữ liệu</option>"
             $('#selectClass').append(option)
             
         }

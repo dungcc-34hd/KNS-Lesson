@@ -40,6 +40,7 @@ $(document).ready(function () {
     
         messages: {
             name: {
+                required: "Xin vui lòng nhập tên.",
                 biggerO: "Xin vui lòng nhập tên trường.",
                 minlength: "Độ dài tối thiểu là 3."
             },
@@ -59,7 +60,7 @@ $(document).ready(function () {
      
     
         highlight: function (e) {
-            // $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
         },
     
         success: function (e) {

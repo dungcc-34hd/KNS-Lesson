@@ -53,8 +53,7 @@ class LessonTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $id=null;
-         $this->validation($request,$id);
+      
         try {
              $array = $request->all();
             if ($request->id_type==null) {
@@ -103,11 +102,16 @@ class LessonTypeController extends Controller
      */
     public function update(Request $request)
     {
-        $id=$request->id;
-         $this->validation($request,$id);
+       
          try {
             
             $array = $request->all();
+             if ($request->id_type==null) {
+                $index=LessonType::max('id_type');  
+                    $array['id_type']=$index+1;      
+            }else{
+                $array['id_type']=$request->id_type;
+            }
             $this->repository->update($request->id,$array);
             message($request, 'success', 'Cập nhật thành công.');
 
@@ -139,14 +143,12 @@ class LessonTypeController extends Controller
         }
     }
 
-    public function validation($request,$id=null){
-        $message=[
-            'unique'=>'Trường này đã tồn tại.', 
-            'required'=> 'Trường này không được để trống.',
-        ];
-        $validatedData = $request->validate([
-        'name' => 'required',
-        'id_type'=>'unique:lesson_types,id_type,'.$id,
-        ],$message);
+    public function checkName(Request $rq){
+        if($rq->id <=0){
+            $name= LessonType::where('name',$rq->name)->exists();
+        }else{
+            $name = LessonType::where('name',$rq->name)->whereNotIn('id',[$rq->id])->exists();
+        }
+        return response()->json(!$name);
     }
 }

@@ -11,7 +11,7 @@ $(function () {
                 confirm: function () {
                     $.ajax({
                         type: 'GET',
-                        url: '/admin/type-lesson/delete/' + object_id,
+                        url: '/admin/thematic/delete/' + object_id,
                         success: function (result) {
                             if (result['status']) {
                                 $('.alert-success').show();
@@ -23,7 +23,7 @@ $(function () {
                                 $('.alert-danger').show();
                                 
                             }
-                            window.location.href = '/admin/type-lesson/';
+                            window.location.href = '/admin/thematic/';
                         }
                     });
                 },

@@ -248,6 +248,7 @@
 @endsection
 @push('scripts')
     {{--<script src="{{ asset('modules/admin/managerContent/managerContent.js') }}"></script>--}}
+   
     <script src="{{ asset('modules/admin/managerContent/lessonDelete.js') }}"></script>
     <script src="{{ asset('modules/admin/managerContent/lessonPublic.js') }}"></script>
     <script src="{{ asset('modules/admin/managerContent/lessonDetailDelete.js') }}"></script>

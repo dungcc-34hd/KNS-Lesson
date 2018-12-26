@@ -25,7 +25,7 @@
                         <div class="box-header with-border">
                             <i class="fa fa-check-square-o text-black"></i>
 
-                            <h3 class="box-title">Information</h3>
+                            <h3 class="box-title">Thông tin</h3>
                         </div>
                         <div class="box-body">
 
@@ -100,7 +100,7 @@
                                         <tr>
                                             <td>Lớp</td>
                                             <td>
-                                                {{$user->lsClass['name']}}
+                                                {{$user->class_name}}
                                             </td>
                                         </tr>
                                         <tr>
