@@ -33,7 +33,7 @@
                     </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Tạo khối</button>
-                        <a href="{{route('admin.class.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
+                        <a href="{{route('admin.grade.index')}}" type="button" class="btn btn-default">Quay trở lại</a>
                     </div>
                 </div>
             </section>
