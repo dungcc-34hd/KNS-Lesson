@@ -146,7 +146,7 @@
         </div>
     </form>
 </div>
-<script src="{{asset('modules/admin/managerContent/lessonContent-validation.js')}}"></script>
+<script src="{{asset('modules/admin/managerContent/addLessonContent-validation.js')}}"></script>
 <script>
     $(document).ready(function () {
 
