@@ -64,10 +64,11 @@ class DistrictController extends Controller
     public function edit($id)
     {
         $district =  District::findOrFail($id);
-        $area_current=Province::find($district->province_id);
-         $areas= Area::all();
-        $provincials=$this->repository->province($area_current->area_id);
-        return view ('admin::districts.edit', compact('district','provincials','areas','area_current'));
+        $provincials =  Province::all();
+        $provinceId= Province::where('id','=',$district->province_id)->first();
+        $areaId =Area::where('id','=',$provinceId->area_id)->get();
+        $areas = Area::all();
+        return view ('admin::districts.edit', compact('district','provincials','areas','areaId','provinceId'));
     }
 
     /**
@@ -95,7 +96,6 @@ class DistrictController extends Controller
         $provincials=$this->repository->province($areaId);
         return view('admin::districts.create',compact('provincials','areas'));
     }
-
     /**
      * store
      * @param Request $request

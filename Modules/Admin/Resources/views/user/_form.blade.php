@@ -92,23 +92,19 @@
         </div>
     </div>
      <div class="form-group">
-        <label>Chuyên đề@include('common.require')</label>
+        <label>Chuyên đề(chọn nhiều chuyên đề)</label>
         <div class="clearfix">
-          <select class="form-control select2" multiple="multiple"  name="thematics[]"
-                    style="width: 100%;">
-
-                    
+          <select class="form-control select-option select2" multiple="multiple"  name="thematics[]"
+                    style="width: 100%;">       
                 @foreach($thematics as $key => $thematic)
                     <option @if(isset($user) && in_array($thematic->id,$findThematics)) selected @endif  value="{{$thematic->id}}">{{$thematic->name}}</option>
                 @endforeach
-               
-
             </select>
         </div>
     </div>  
 
     <div class="form-group">
-        <label>Khối @include('common.require')</label>
+        <label>Khối</label>
         <div class="clearfix">
             <select  name="grade_id" id="selectGrade" class="select-option form-control">
                 <option value="">Chọn khối</option>
@@ -120,14 +116,15 @@
         </div>
     </div>
     <div class="form-group">
-        <label>Lớp @include('common.require')</label>
+        <label>Lớp </label>
           <div class="clearfix">
-            <select name="class_id" id="selectClass" class="select-option form-control">
+            <input type="text" name="class_name" class="form-control" value="@isset($user){{$user->class_name}}@endisset">
+            {{-- <select name="class_id" id="selectClass" class="select-option form-control">
                 <option value="">Chọn lớp</option>
                 @foreach($class as $key => $value)
                     <option @if(isset($user) && $user->class_id == $value->id) selected @endif value="{{$value->id}}">{{$value->name}}</option>
                 @endforeach
-            </select>
+            </select> --}}
            
         </div>
     </div>

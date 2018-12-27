@@ -20,7 +20,7 @@
         <td>{{$user->email}}</td>
         <td>{{$user->school['name']}}</td>
         <td>{{$user->grade['name']}}</td>
-        <td>{{$user->lsClass['name']}}</td>
+        <td>{{$user->class_name}}</td>
         <td>{{$user->quantity_student}}</td>
         <td>{{$user->role['name']}}</td>
         <td>{{$user->IP}}</td>
@@ -46,5 +46,9 @@
     <td colspan="5">Không có bản ghi nào</td>
 </tr>
 @endif
+
+{{-- 'CountProvince'=>$CountProvince,'CountDistrict'=>$CountDistrict,'CountSchool'=>$CountSchool --}}
+
+
 <input type="hidden" id="countT" value="{{ isset($count) ? $count : 0 }}">
 <input id="total-pages-current" type="hidden" value="{{ isset($pages) ? $pages : 0 }}">

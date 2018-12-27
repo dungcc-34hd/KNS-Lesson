@@ -21,45 +21,44 @@ $(document).ready(function () {
                 required: true,
                 minlength: 3,
                 VldHtml:true,
-                
             },
-          
             school_level_id: {
-                biggerO: true
+                required: true,
             },
             area_id: {
-                biggerO:true
+                 required: true,
             },
             province_id: {
-                biggerO:true
+                 required: true,
             },
             district_id: {
-                biggerO:true
+                 required: true,
             },
         },
     
         messages: {
             name: {
-                biggerO: "Xin vui lòng nhập tên trường.",
+                required: "Xin vui lòng nhập tên trường.",
+
                 minlength: "Độ dài tối thiểu là 3."
             },
             school_level_id:{
-                biggerO: "Xin vui lòng chọn cấp ."
+                required: "Xin vui lòng chọn cấp.",
             },
             area_id:{
-                biggerO: "Xin vui lòng chọn khu vực ."
+                required: "Xin vui lòng chọn khu vực.",
             },
             province_id:{
-                biggerO: "Xin vui lòng chọn tỉnh."
+                required: "Xin vui lòng chọn tỉnh/thành phố.",
             },
             district_id:{
-                biggerO: "Xin vui lòng chọn quận/huyện."
+                required: "Xin vui lòng chọn quận/huyện.",
             },
         },
      
     
         highlight: function (e) {
-            // $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
         },
     
         success: function (e) {

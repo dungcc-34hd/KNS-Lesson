@@ -25,8 +25,9 @@ $(function () {
                             else {
                                 $('.alert-success').hide();
                                 $('.alert-danger').show();
+                                window.location.href = '/admin/user';
                             }
-                             window.location.href = '/admin/user/';
+                             
                         }
                     });
                 },
@@ -51,13 +52,18 @@ $(function () {
                 url:'/admin/user/hanlding-area/',
                 'data': {
                     'area' : area,
-                },
+                }, 
                 success:function(data) {
                     $('#provinces').html(data.select);
                     // if(area==""){}
                     $('#tbody').html(data.user);
                     $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
                     $("#schools").html('<option value="">Chọn Trường </option>');
+
+                    $("#CountProvince").val(data.CountProvince);
+                    $("#CountDistrict").val(data.CountDistrict);
+                    $("#CountSchool").val(data.CountSchool);
+                    // 'CountProvince'=>$CountProvince,'CountDistrict'=>$CountDistrict,'CountSchool'=>$CountSchool
                     // $("#countUs").html(" Tìm thấy : " +data.count+" tài khoản");
                     ajaxLoadDataForSelect(records, 1, area,table);
                 }
@@ -76,6 +82,10 @@ $(function () {
                     $('#tbody').html(data.user);
                     $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
                     $("#schools").html('<option value="">Chọn Trường </option>');
+
+                    $("#CountProvince").val("");
+                    $("#CountDistrict").val("");
+                    $("#CountSchool").val("");
                 }
              });
             ajaxLoadData(records,1,$('#nav-search-input').val());
@@ -101,6 +111,10 @@ $(function () {
                 $('#tbody').html(data.user);
                 $("#schools").html('<option value="">Chọn Trường </option>');
                 
+                $("#CountProvince").val("");
+                $("#CountDistrict").val(data.CountDistrict);
+                $("#CountSchool").val(data.CountSchool);
+
                 ajaxLoadDataForSelect(records, 1, province,table);
             }
          });
@@ -114,8 +128,11 @@ $(function () {
                 success:function(data) {
                     $('#tbody').html(data.user);
                     $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
-                    
                     $("#schools").html('<option value="">Chọn Trường </option>');
+
+                    $("#CountProvince").val("");
+                    $("#CountDistrict").val("");
+                    $("#CountSchool").val("");
                 }
              });
             ajaxLoadDataForSelect(records, 1, $(".areas_S").val(),$(".areas_S").data('table'));
@@ -139,6 +156,13 @@ $(function () {
             success:function(data) {
                 $('#tbody').html(data.user);
                 $('#schools').html(data.select);
+
+                
+
+                $("#CountSchool").val(data.CountSchool);
+                $("#CountDistrict").val("");
+                $("#CountProvince").val("");
+
                 ajaxLoadDataForSelect(records, 1, district,table);
             }
          });
@@ -152,6 +176,10 @@ $(function () {
                 success:function(data) {
                     $('#tbody').html(data.user);
                     $("#schools").html('<option  value="">Chọn Trường </option>');
+
+                    $("#CountSchool").val("");
+                    $("#CountDistrict").val("");
+                    $("#CountProvince").val("");
                 
                 }
              });
@@ -174,6 +202,11 @@ $(function () {
             },
             success:function(data) {
                 $('#tbody').html(data.user);
+
+                $("#CountProvince").val("");
+                $("#CountDistrict").val("");
+                $("#CountSchool").val("");
+
                 ajaxLoadDataForSelect(records, 1, school,table);
             }
          });

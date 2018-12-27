@@ -123,6 +123,12 @@
                             <h3 class="box-title">User Lists</h3>
                             <br>
                              <h4 class="box-title" > <small id="countTable"> </small> </h4>
+                             &#160; &#160; &#160; 
+                             <h4 class="box-title">
+                                <small id="countApd">
+                                    
+                                </small>
+                             </h4>
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -163,7 +169,7 @@
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->school['name']}}</td>
                                                 <td>{{$user->grade['name']}}</td>
-                                                <td>{{$user->lsClass['name']}}</td>
+                                                <td>{{$user->class_name}}</td>
                                                 <td>{{$user->quantity_student}}</td>
                                                 <td>{{$user->role->name}}</td>
                                                 
@@ -233,6 +239,11 @@
 
 
     </div>
+
+    <input type="hidden" id="CountProvince" value="">
+    <input type="hidden" id="CountDistrict" value="">
+    <input type="hidden" id="CountSchool" value="">
+
     <input type="hidden" id="url-ajax" value="/admin/user/pagination/">
     <input type="hidden" id="pagination_Select" value="/admin/user/pagination_Select/">
 @endsection

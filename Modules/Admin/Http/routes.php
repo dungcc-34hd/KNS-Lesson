@@ -15,6 +15,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete/{id}', 'RoleController@delete')->name('admin.role.delete');
         Route::get('/checkName/{id?}', 'RoleController@checkName')->name('admin.role.checkName');
 
+
     });
 
     //Permission
@@ -153,6 +154,10 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::post('/update/{id}', 'GradeController@update')->name('admin.grade.update');
         Route::get('/delete/{id}', 'GradeController@delete')->name('admin.grade.delete');
         Route::get('/pagination/{records}/{search?}', 'GradeController@pagination')->name('admin.grade.pagination');
+        Route::get('/checkName/{id?}', 'GradeController@checkName')->name('admin.grade.checkName');
+
+
+
     });
 
     // manager lesson
@@ -186,7 +191,6 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete-lesson-detail/{id}', 'ManagerLessonController@deleteLessonDetail')->name('admin.managerLesson.deleteLessonDetail');
         Route::get('/pagination/{records}/{search?}', 'ManagerLessonController@pagination')->name('admin.managerLesson.pagination');
         Route::get('public/{id}','ManagerLessonController@publicObject')->name('admin.managerLesson.public');
-        Route::get('test/{id}','ManagerLessonController@testObject')->name('admin.managerLesson.test');
         Route::get('zip/{id}','ManagerLessonController@zip')->name('admin.managerLesson.zip');
     });
 
@@ -208,7 +212,20 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/hanlding-school','StatisticController@hanldingSchool')->name('admin.statistic.hanldingSchool');
 
     });
+    // type-lesson
      Route::group(['prefix'=>'type-lesson'],function(){
+        Route::get('/','LessonTypeController@index')->name('admin.typeLesson.index');
+        Route::get('/pagination/{records}/{search?}', 'LessonTypeController@pagination')->name('admin.typeLesson.pagination');
+        Route::get('/create','LessonTypeController@create')->name('admin.typeLesson.create');
+        Route::post('/store','LessonTypeController@store')->name('admin.typeLesson.store');
+        Route::get('/edit/{id}','LessonTypeController@edit')->name('admin.typeLesson.edit');
+        Route::post('/update/{id}','LessonTypeController@update')->name('admin.typeLesson.update');
+        Route::get('/delete/{id}','LessonTypeController@destroy')->name('admin.typeLesson.delete');
+        Route::get('/checkName/{id?}','LessonTypeController@checkName')->name('admin.typeLesson.checkName');
+        Route::get('/checkId/{id?}', 'LessonTypeController@checkId')->name('admin.typeLesson.checkId');
+    });
+
+    Route::group(['prefix'=>'type-lesson'],function(){
         Route::get('/','LessonTypeController@index')->name('admin.typeLesson.index');
         Route::get('/pagination/{records}/{search?}', 'LessonTypeController@pagination')->name('admin.typeLesson.pagination');
         Route::get('/create','LessonTypeController@create')->name('admin.typeLesson.create');
@@ -235,6 +252,10 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete-area/{id}','ManagerAreaController@deleteArea')->name('admin.managerArea.deleteArea');
         Route::get('/delete-province/{id}','ManagerAreaController@deleteProvince')->name('admin.managerArea.deleteProvince');
         Route::get('/delete-district/{id}','ManagerAreaController@deleteDistrict')->name('admin.managerArea.deleteDistrict');
+        // validation
+         Route::get('/checkNameArea/{id?}','ManagerAreaController@checkNameArea')->name('admin.managerArea.checkNameArea');
+         Route::get('/checkNameProvince/{id?}','ManagerAreaController@checkNameProvince')->name('admin.managerArea.checkNameProvince');
+         Route::get('/checkNameDistrict/{id?}','ManagerAreaController@checkNameDistrict')->name('admin.managerArea.checkNameDistrict');
     });
 
     // thematic

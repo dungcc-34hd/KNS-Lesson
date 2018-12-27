@@ -1,6 +1,10 @@
-jQuery.validator.addMethod("VldHtml", function(value, element) {
-    return this.optional( element ) || /^([a-zA-Z])+$/ig.test( value );
-}, 'Không được nhập kí tự đặc biệt');
+jQuery.validator.addMethod("Vemail", function(value, element) {
+    return this.optional( element ) || /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test( value );
+}, 'Định dạng email không đúng');
+jQuery.validator.addMethod("Vphone", function(value, element) {
+    return this.optional( element ) || /^0/.test( value );
+}, 'Số điện thoại bắt đầu bằng 0 ');
+
 var id = $('#user-id').val();
 $('.validation-form').validate({
     errorElement: 'div',
@@ -11,23 +15,24 @@ $('.validation-form').validate({
         name: {
             required: true,
             minlength: 3,
-            VldHtml:true
+            
         },
         email: {
             required: true,
-            email: true,
-            minlength: 3,
             remote:"/admin/user/checkEmail/"+id,
-        },
+            Vemail:true
+        }, 
         password: {
             required: true,
-            minlength: 5
+            minlength: 6
         },
 
         tel: {
             required: true,
             maxlength:10,
+            minlength:10,
             number:true,
+            Vphone:true,
         },
         role_id:{
             required: true
@@ -37,23 +42,31 @@ $('.validation-form').validate({
         },
         province_id:{
             required: true,
+            
         },
         district_id:{
             required: true,
+            
         },
         school_id:{
             required: true,
-        },
-        grade_id:{
-            required: true,
-        },
-        class_id:{
-            required: true,
+
         },
         quantity_student:{
             digits:true,
             number:true,
-        }
+        },
+        // grade_id:{
+        //     required: true,
+        // },
+        // class_id:{
+        //     required: true,
+        // },
+        
+        // 'thematics[]':{
+        //      required: true,
+        // },
+      
     },
 
     messages: {
@@ -74,7 +87,8 @@ $('.validation-form').validate({
 
         tel:{
             maxlength: "Số điện thoại không quá 10 kí tự .",
-            required: "Xin vui lòng nhập số điện thoại."
+            required: "Xin vui lòng nhập số điện thoại.",
+            minlength:"Số điện thoại tối thiểu 10 kí tự."
         },
         role_id:{
             required: "Xin vui lòng chọn quyền ."
@@ -83,24 +97,26 @@ $('.validation-form').validate({
             required: "Xin vui lòng chọn khu vực ."
         },
         province_id:{
-            required: "Xin vui lòng chọn tỉnh."
+            required: "Xin vui lòng chọn tỉnh.",
         },
         district_id:{
-            required: "Xin vui lòng chọn quận/huyện."
+            required: "Xin vui lòng chọn quận/huyện.",
         },
         school_id:{
             required: "Xin vui lòng chọn trường."
         },
-        grade_id:{
-            required: "Xin vui lòng chọn khối."
-        },
-        class_id:{
-            required: "Xin vui lòng chọn lớp."
-        },
+        // grade_id:{
+        //     required: "Xin vui lòng chọn khối."
+        // },
+        // class_id:{
+        //     required: "Xin vui lòng chọn lớp."
+        // },
         quantity_student:{
-            digits:"Sĩ số không được nhập số âm."
-        }
-        
+            digits:"Sĩ số không được nhập số âm hoặc số thập phân."
+        },
+        // 'thematics[]':{
+        //       required: "Xin vui lòng chọn chuyên đề."
+        // },
     },
 
 

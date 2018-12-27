@@ -20,6 +20,7 @@
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-6">
+                                <input type="hidden" id="id" value="{{$grade->name}}">
                                 <div class="form-group">
                                     <label>Tên Khối @include('common.require')</label>
                                     <div class="clearfix">

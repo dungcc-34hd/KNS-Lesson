@@ -3,7 +3,7 @@ jQuery.validator.addMethod("VldHtml", function(value, element) {
     return this.optional( element ) || /<(.|\n)*?>/g.test( value )==true?false:true;
   }, 'Không được nhập kí tự đặc biệt');
   
-
+var id = $('#id').val();
 $('.validation-form').validate({
     errorElement: 'div',
     errorClass: 'help-block',
@@ -12,44 +12,46 @@ $('.validation-form').validate({
     rules: {
         name: {
             required: true,
+            remote:"/admin/grade/checkName/"+id,
             // minlength: 3
-            VldHtml:true
+            // VldHtml:true
         },
-        quantity: {
-            required: true,
-        },
-        'select-grade-level': {
-            required: true
-        },
-        'select-school':{ 
-            required:true
-        },
-        'select-user':{ 
-            required:true
-        }
+        // quantity: {
+        //     required: true,
+        // },
+        // 'select-grade-level': {
+        //     required: true
+        // },
+        // 'select-school':{ 
+        //     required:true
+        // },
+        // 'select-user':{ 
+        //     required:true
+        // }
     },
 
     messages: {
         name: {
-            required: "Vui lòng nhập tên ."
+            required: "Xin vui lòng nhập tên.",
+             remote:"Tên khối đã tồn tại."
         },
-        quantity: {
-            required: "Vui lòng nhập khối ."
-        },
-        'select-school': {
-            required: "Vui lòng nhập trường."
-        },
-        'select-grade-level': {
-            required: "Vui lòng nhập số lượng học sinh ."
-        },
-        'select-user':{ 
-            required:"Vui lòng nhập User ."
-        }
+        // quantity: {
+        //     required: "Vui lòng nhập khối ."
+        // },
+        // 'select-school': {
+        //     required: "Vui lòng nhập trường."
+        // },
+        // 'select-grade-level': {
+        //     required: "Vui lòng nhập số lượng học sinh ."
+        // },
+        // 'select-user':{ 
+        //     required:"Vui lòng nhập User ."
+        // }
     },
  
 
     highlight: function (e) {
-        // $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
     },
 
     success: function (e) {
