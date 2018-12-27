@@ -1,6 +1,9 @@
 <div class="box-body">
     <div class="row">
         <div class="col-md-6">
+            @isset($area)
+            <input type="hidden" value="{{$area->id}}" name="id-area" id="id-area">
+            @endisset
             <div class="form-group">
                 <label>Tên khu vực @include('common.require')</label>
                 <div class="clearfix">
@@ -12,7 +15,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label>Mô tả @include('common.require')</label>
+                <label>Mô tả</label>
                 <div class="clearfix">
                     <input type="text" class="form-control" name="description"
                            value="@isset($area){{$area->description}}@endisset">
