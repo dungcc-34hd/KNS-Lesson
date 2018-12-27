@@ -5,7 +5,7 @@ $('.validation-form-lesson').validate({
     errorElement: 'div',
     errorClass: 'help-block',
     focusInvalid: false,
-    ignore: "grade_thematic,grade",
+    ignore: "",
     rules: {
         thematic: {
             required: true,

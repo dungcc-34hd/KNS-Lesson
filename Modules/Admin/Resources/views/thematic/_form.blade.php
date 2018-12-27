@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label>Mô tả @include('common.require')</label>
+                <label>Mô tả</label>
                 <div class="clearfix">
                     <input type="text" class="form-control" name="description"
                            value="@isset($thematic){{$thematic->description}}@endisset">

@@ -9,7 +9,6 @@
         @isset($lessonName)
             <input type="hidden" value="{{$lessonName}}" name="lesson-detail"/>
     @endisset
-
     <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -24,7 +23,6 @@
                                value="{{$lessonDetail->title}} ">
                         <input type="hidden" class="form-control" name="detail-lesson-id" id="detail-lesson-id"
                                value="{{$lessonDetail->id}}">
-
                     </div>
                 </div>
 
@@ -41,7 +39,6 @@
                     <div class="clearfix">
                         <select class="form-control" name="type" id="type">
                             <option value={{$types->type}}>{{$types->name}}</option>
-
                         </select>
                     </div>
                 </div>

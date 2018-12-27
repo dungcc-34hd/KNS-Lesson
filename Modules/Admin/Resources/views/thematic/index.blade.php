@@ -126,7 +126,10 @@
 @endsection
 
 @push('scripts')
-    {{--    <script src="{{ asset('assets/admin/plugins/iCheck/icheck.min.js') }}"></script>--}}
+    <script>
+         activeMenu('lesson','thematic', true);
+    </script>
     <script src="{{ asset('common/pagination-search.js') }}"></script>
     <script src="{{ asset('modules/admin/thematic/thematic.js') }}"></script>
+    
 @endpush

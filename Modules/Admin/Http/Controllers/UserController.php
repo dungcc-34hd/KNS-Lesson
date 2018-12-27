@@ -10,6 +10,7 @@ use App\Models\School;
 use App\Models\Province;
 use App\Models\UserThematic;
 use App\User;
+use DB;
 use App\Repositories\User\UserEloquentRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Database\QueryException;
@@ -53,7 +54,6 @@ class UserController extends Controller
         $areaId              = Area::all();
         $users               = $this->repository->getAreaObjects($records,$id,"users.$table");
        
-        // getAreaObjects($records,$area_id,'users.area_id')
         $pages               = $this->repository->getAreaPages($records,$id,"users.$table"); 
         $count               = $this->repository->getCount($id,"users.$table");
         // dd($request->page);
@@ -156,8 +156,6 @@ class UserController extends Controller
         }
         return redirect()->route('admin.user.show',['id'=>$request->id]); 
     }
-
-
     /**
      * Create of user
      * @author minhpt
@@ -210,8 +208,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // $id=$request->id;
-        // $this->validation($request,$id==null);
         try
         {
             $array = $request->all();
@@ -285,7 +281,7 @@ class UserController extends Controller
  
      */
     public function hanldingArea(Request $req)
-    {
+    { 
         $title          = "Chọn Tỉnh";
         $records        = 10;
         $area_id        = $req->area;
@@ -293,13 +289,27 @@ class UserController extends Controller
         $page           = $this->repository->getAreaPages($records,$area_id,'area_id');
         $count          = $this->repository->getCount($area_id,'area_id');
         $provinces      = Province::where('area_id',$area_id)->get();
-        
 
+        $CountProvince      = count(Province::where('area_id',$area_id)->get());
+        // dd();
+        $CountDistrict      = count( DB::table('districts')
+                                    ->join('provinces','districts.province_id','=','provinces.id')
+                                    ->join('areas','provinces.area_id','areas.id')
+                                    ->where('provinces.area_id',$area_id)
+                                    ->get());
+                                    
+        $CountSchool        = count( DB::table('schools')
+                                        ->join('districts','schools.district_id','=','districts.id')
+                                        ->join('provinces','districts.province_id','=','provinces.id')
+                                        ->join('areas','provinces.area_id','areas.id')
+                                        ->where('provinces.area_id',$area_id)
+                                        ->get());
+        
         $select         = $this->returnOption($provinces,$title );
 
         $user           = $this->returnTr($Users);
-        
-        return response()->json(['select' => $select,'user'=>$user,'count'=>$count]);  
+
+        return response()->json(['select' => $select,'user'=>$user,'CountProvince'=>$CountProvince,'CountDistrict'=>$CountDistrict,'CountSchool'=>$CountSchool]);  
     }
 
      /**
@@ -313,11 +323,18 @@ class UserController extends Controller
         $Users          = $this->repository->getAreaObjects($records,$province_id ,'users.province_id');
         $page           = $this->repository->getAreaPages($records,$province_id ,'users.province_id');
         $districts      = District::where('province_id',$province_id )->get();
+
+        $CountDistrict      = count(District::where('province_id',$province_id )->get());
+        $CountSchool        = count( DB::table('schools')
+                                ->join('districts','schools.district_id','=','districts.id')
+                                ->join('provinces','districts.province_id','=','provinces.id')
+                                ->where('districts.province_id',$province_id)
+                                ->get());
         
         $select         = $this->returnOption($districts,$title );
         $user           = $this->returnTr($Users);
 
-        return response()->json(['select' => $select,'user'=>$user]);  
+        return response()->json(['select' => $select,'user'=>$user,'CountDistrict'=>$CountDistrict,'CountSchool'=>$CountSchool]);  
     }
 
       /**
@@ -326,7 +343,7 @@ class UserController extends Controller
     public function select(){
         $records            =10;
         $data               = $this->repository->getObjects($records);
-        $user              = $this->returnTr($data);
+        $user               = $this->returnTr($data);
         return response()->json(['user'=>$user]); 
     }
     public function hanldingDistrict(Request $req)
@@ -337,11 +354,13 @@ class UserController extends Controller
         $Users          = $this->repository->getAreaObjects($records,$district_id ,'users.district_id');
         $page           = $this->repository->getAreaPages($records,$district_id ,'users.district_id');
         $school         = School::where('district_id',$district_id)->get();
+
+        $CountSchool        = count(School::where('district_id',$district_id)->get());
         
         $select         = $this->returnOption($school,$title );
         $user           = $this->returnTr($Users);
 
-        return response()->json(['select' => $select,'user'=>$user]);    
+        return response()->json(['select' => $select,'user'=>$user,'CountSchool'=>$CountSchool]);    
     }
     
     public function hanldingSchool(Request $req)

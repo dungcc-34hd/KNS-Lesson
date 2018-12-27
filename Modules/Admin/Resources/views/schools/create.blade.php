@@ -95,5 +95,4 @@
 @push('scripts')
     <script src="{{ asset('modules/admin/school/school-validation.js')}}"></script>
     <script src="{{ asset('modules/admin/school/custom.js') }}"></script>
-    {{-- <script src="{{ asset('modules/admin/school/custom.js') }}"></script> --}}
 @endpush

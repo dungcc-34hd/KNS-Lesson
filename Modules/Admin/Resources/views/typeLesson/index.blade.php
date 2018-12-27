@@ -128,6 +128,9 @@
 @endsection
 
 @push('scripts')
+     <script>
+         activeMenu('lesson','type', true);
+    </script>
     {{--    <script src="{{ asset('assets/admin/plugins/iCheck/icheck.min.js') }}"></script>--}}
     <script src="{{ asset('common/pagination-search.js') }}"></script>
     <script src="{{ asset('modules/admin/typeLesson/typeLesson.js') }}"></script>

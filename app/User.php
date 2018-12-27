@@ -38,7 +38,8 @@ class User extends Authenticatable
         'grade_id',
         'class_id',
         'role_id',
-        'quantity_student'
+        'quantity_student',
+        'class_name',
     ];
 
     /**

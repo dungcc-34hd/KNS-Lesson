@@ -11,7 +11,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Tạo bài học</h4>
                     <div class="form-group">
-                        <label>Chọn khối/chuyên đề @include('common.require')</label>
+                        <label>Chọn khối/chuyên đề</label>
                         <div class="clearfix">
                             <select class="form-control " name="grade_thematic">
                                 <option value="1" id="grade">Chọn khối</option>
@@ -27,11 +27,7 @@
                             <select class="form-control grade" name="grade" >
                                 <option value="">Chọn khối</option>
                                 @foreach ($grades as $grade)
-                                    @if(isset($lesson))
-                                        <option value="{{$grade->id}}" {{$grade->id == $lesson->grade_id ? "selected" : ''}}>{{$grade->name}}</option>
-                                    @else
                                         <option value="{{$grade->id}}">{{$grade->name}}</option>
-                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -41,12 +37,9 @@
                         <div class="clearfix">
                             <select class="form-control thematic" name="thematic" >
                                 <option value="">Chọn chuyên đề</option>
-                                {{--@foreach ($thematics as $thematic)--}}
-                                        {{--<option value="{{$thematic->id}}">{{$thematic->name}}</option>--}}
-                                        <option value="1">Chuyên đề 1</option>
-                                        <option value="2">Chuyên đề 2</option>
-                                        <option value="3">Chuyên đề 3</option>
-                                {{--@endforeach--}}
+                                @foreach ($thematics as $thematic)
+                                        <option value="{{$thematic->id}}">{{$thematic->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

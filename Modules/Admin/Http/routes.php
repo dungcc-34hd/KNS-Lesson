@@ -186,7 +186,6 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete-lesson-detail/{id}', 'ManagerLessonController@deleteLessonDetail')->name('admin.managerLesson.deleteLessonDetail');
         Route::get('/pagination/{records}/{search?}', 'ManagerLessonController@pagination')->name('admin.managerLesson.pagination');
         Route::get('public/{id}','ManagerLessonController@publicObject')->name('admin.managerLesson.public');
-        Route::get('test/{id}','ManagerLessonController@testObject')->name('admin.managerLesson.test');
         Route::get('zip/{id}','ManagerLessonController@zip')->name('admin.managerLesson.zip');
     });
 
@@ -208,7 +207,19 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/hanlding-school','StatisticController@hanldingSchool')->name('admin.statistic.hanldingSchool');
 
     });
+    // type-lesson
      Route::group(['prefix'=>'type-lesson'],function(){
+        Route::get('/','LessonTypeController@index')->name('admin.typeLesson.index');
+        Route::get('/pagination/{records}/{search?}', 'LessonTypeController@pagination')->name('admin.typeLesson.pagination');
+        Route::get('/create','LessonTypeController@create')->name('admin.typeLesson.create');
+        Route::post('/store','LessonTypeController@store')->name('admin.typeLesson.store');
+        Route::get('/edit/{id}','LessonTypeController@edit')->name('admin.typeLesson.edit');
+        Route::post('/update/{id}','LessonTypeController@update')->name('admin.typeLesson.update');
+        Route::get('/delete/{id}','LessonTypeController@destroy')->name('admin.typeLesson.delete');
+        Route::get('/checkName/{id?}','LessonTypeController@checkName')->name('admin.typeLesson.checkName');
+    });
+
+    Route::group(['prefix'=>'type-lesson'],function(){
         Route::get('/','LessonTypeController@index')->name('admin.typeLesson.index');
         Route::get('/pagination/{records}/{search?}', 'LessonTypeController@pagination')->name('admin.typeLesson.pagination');
         Route::get('/create','LessonTypeController@create')->name('admin.typeLesson.create');
