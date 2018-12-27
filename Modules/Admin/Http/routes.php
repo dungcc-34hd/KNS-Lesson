@@ -256,6 +256,10 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
          Route::get('/checkNameArea/{id?}','ManagerAreaController@checkNameArea')->name('admin.managerArea.checkNameArea');
          Route::get('/checkNameProvince/{id?}','ManagerAreaController@checkNameProvince')->name('admin.managerArea.checkNameProvince');
          Route::get('/checkNameDistrict/{id?}','ManagerAreaController@checkNameDistrict')->name('admin.managerArea.checkNameDistrict');
+         // select option
+         Route::get('change-area/{areaId}', 'ManagerAreaController@changeArea')->name('admin.managerArea.changeArea');
+
+
     });
 
     // thematic

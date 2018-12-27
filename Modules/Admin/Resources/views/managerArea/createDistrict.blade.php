@@ -65,4 +65,5 @@
     </form>
 </div>
 </div>
+    <script src="{{ asset('modules/admin/managerArea/custom.js') }}"></script>
 <script src="{{ asset('modules/admin/managerArea/district-validation.js')}}"></script>

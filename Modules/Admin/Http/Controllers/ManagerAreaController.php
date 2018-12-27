@@ -113,7 +113,8 @@ class ManagerAreaController extends Controller
     public function createDistrict()
     {
         $areas = Area::all();
-        $provinces = Province::all();
+        $areaId=0;
+        $provinces=Province::where('area_id','=',$areaId)->get();
         return view('admin::managerArea.createDistrict', compact('areas', 'provinces'));
     }
 
@@ -307,6 +308,12 @@ class ManagerAreaController extends Controller
             
         } 
          return response()->json(!$name);
+    }
+
+    //change select option Areas 
+     public function changeArea($areaId){
+        $array=Province::where('area_id','=',$areaId)->get();;
+        return response()->json($array);
     }
 
 }
