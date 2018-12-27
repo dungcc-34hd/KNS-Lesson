@@ -76,7 +76,7 @@ class ManagerAreaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->validation($request, $id);
+      
         $area = Area::findOrFail($id);
 
         $area->name = $request->name;
@@ -125,7 +125,7 @@ class ManagerAreaController extends Controller
      */
     public function storeArea(Request $request)
     {
-        // $this->validation($request, $id = null);
+        
         $area = new Area();
         $area->name = $request->name;
         $area->description = $request->description;
@@ -142,7 +142,7 @@ class ManagerAreaController extends Controller
      */
     public function storeProvince(Request $request)
     {
-        // $this->validation($request, $id = null);
+      
         $provincial = new Province();
         $provincial->name = $request->name;
         $provincial->area_id = $request->input('area_id');
@@ -159,7 +159,7 @@ class ManagerAreaController extends Controller
      */
     public function storeDistrict(Request $request)
     {
-        // $this->validation($request, $id = null);
+        
         $district = new District();
         $district->name = $request->name;
         $district->province_id = $request->input('province_id');
@@ -200,10 +200,10 @@ class ManagerAreaController extends Controller
     public function editDistrict($id)
     {
         $district =  District::findOrFail($id);
-        $provinces =  Province::all();
         $provinceId= Province::where('id','=',$district->province_id)->first();
-        $areaId =Area::where('id','=',$provinceId->area_id)->get();
         $areas = Area::all();
+        $areaId =Area::where('id','=',$provinceId->area_id)->first()->id;
+        $provinces=Province::where('area_id','=',$areaId)->get();
         return view('admin::managerArea.createDistrict', compact('district','provinces','areas','areaId','provinceId'));
     }
 
@@ -213,7 +213,7 @@ class ManagerAreaController extends Controller
      */
     public function updateArea(Request $request, $id)
     {
-        // $this->validation($request, $id);
+    
         $area = Area::findOrFail($id);
 
         $area->name = $request->name;
@@ -231,7 +231,7 @@ class ManagerAreaController extends Controller
     public function updateProvince(Request $request, $id)
     {
 
-        $this->validation($request,$id);
+     
         $provincial = Province::findOrFail($id);
 
         $provincial->name        = $request->name;
@@ -247,7 +247,7 @@ class ManagerAreaController extends Controller
      */
     public function updateDistrict(Request $request, $id)
     {
-        $this->validation($request,$id);
+       
         $district = District::findOrFail($id);
         $district->name        = $request->name;
         $district->province_id        = $request->input('province_id');

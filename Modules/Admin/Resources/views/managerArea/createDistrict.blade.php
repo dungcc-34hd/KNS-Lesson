@@ -19,9 +19,6 @@
                     <label>Quận/Huyện @include('common.require')</label>
                     <div class="clearfix">
                         <input type="text" class="form-control" name="name" value="@isset($district){{$district->name}}@endisset">
-                        @if($errors)
-                            <span style="color: #dd4b39;">{{$errors->first('name')}}</span>
-                        @endif
                     </div>
                 </div>
 
@@ -33,9 +30,6 @@
                             <option value="{{$area->id}}"@isset($provinceId) {{$provinceId->area_id == $area->id ? "selected" : '' }}@endisset>{{$area->name}}</option>
                         @endforeach
                     </select>
-                    @if($errors)
-                        <span style="color: #dd4b39;">{{$errors->first('area_id')}}</span>
-                    @endif
                 </div>
 
                 <div class="form-group">
@@ -46,9 +40,6 @@
                             <option value="{{$province->id}}" @isset($district){{$district->province_id == $province->id ? "selected" : '' }}@endisset>{{$province->name}}</option>
                         @endforeach
                     </select>
-                    @if($errors)
-                        <span style="color: #dd4b39;">{{$errors->first('province_id')}}</span>
-                    @endif
                 </div>
             </div>
             <div class="modal-footer">
