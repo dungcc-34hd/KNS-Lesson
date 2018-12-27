@@ -15,6 +15,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete/{id}', 'RoleController@delete')->name('admin.role.delete');
         Route::get('/checkName/{id?}', 'RoleController@checkName')->name('admin.role.checkName');
 
+
     });
 
     //Permission
@@ -218,6 +219,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::post('/update/{id}','LessonTypeController@update')->name('admin.typeLesson.update');
         Route::get('/delete/{id}','LessonTypeController@destroy')->name('admin.typeLesson.delete');
         Route::get('/checkName/{id?}','LessonTypeController@checkName')->name('admin.typeLesson.checkName');
+        Route::get('/checkId/{id?}', 'LessonTypeController@checkId')->name('admin.typeLesson.checkId');
     });
 
     Route::group(['prefix'=>'manager-area'],function(){
