@@ -19,10 +19,9 @@ $('.validation-form').validate({
         },
         email: {
             required: true,
-            minlength: 3,
             remote:"/admin/user/checkEmail/"+id,
             Vemail:true
-        },
+        }, 
         password: {
             required: true,
             minlength: 6
@@ -31,6 +30,7 @@ $('.validation-form').validate({
         tel: {
             required: true,
             maxlength:10,
+            minlength:10,
             number:true,
             Vphone:true,
         },
@@ -52,19 +52,20 @@ $('.validation-form').validate({
             required: true,
 
         },
-        grade_id:{
-            required: true,
-        },
-        // class_id:{
-        //     required: true,
-        // },
         quantity_student:{
             digits:true,
             number:true,
         },
-        'thematics[]':{
-             required: true,
-        },
+        // grade_id:{
+        //     required: true,
+        // },
+        // class_id:{
+        //     required: true,
+        // },
+        
+        // 'thematics[]':{
+        //      required: true,
+        // },
       
     },
 
@@ -86,7 +87,8 @@ $('.validation-form').validate({
 
         tel:{
             maxlength: "Số điện thoại không quá 10 kí tự .",
-            required: "Xin vui lòng nhập số điện thoại."
+            required: "Xin vui lòng nhập số điện thoại.",
+            minlength:"Số điện thoại tối thiểu 10 kí tự."
         },
         role_id:{
             required: "Xin vui lòng chọn quyền ."
@@ -103,18 +105,18 @@ $('.validation-form').validate({
         school_id:{
             required: "Xin vui lòng chọn trường."
         },
-        grade_id:{
-            required: "Xin vui lòng chọn khối."
-        },
+        // grade_id:{
+        //     required: "Xin vui lòng chọn khối."
+        // },
         // class_id:{
         //     required: "Xin vui lòng chọn lớp."
         // },
         quantity_student:{
             digits:"Sĩ số không được nhập số âm hoặc số thập phân."
         },
-         'thematics[]':{
-              required: "Xin vui lòng chọn chuyên đề."
-        },
+        // 'thematics[]':{
+        //       required: "Xin vui lòng chọn chuyên đề."
+        // },
     },
 
 

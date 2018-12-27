@@ -10,6 +10,15 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Sửa bài học</h4>
+                 <div class="form-group">
+                    <label>Chọn khối/chuyên đề @include('common.require')</label>
+                    <div class="clearfix">
+                        <select class="form-control grade-thematic" id="">
+                            <option value="1" id="grade">Chọn khối</option>
+                            <option value="2" id="thematic">Chọn chuyên đề</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="modal-body ">
                 @if($lesson && !is_null($lesson->grade_id))

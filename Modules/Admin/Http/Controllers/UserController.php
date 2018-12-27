@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash; 
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -129,8 +130,13 @@ class UserController extends Controller
         try {
             $array = $request->all();
             $array['password'] = Hash::make($request->password);
-            $this->repository->update($request->id, $array);
-            $this->repository->addUserThematic($request->id,$array['thematics']);
+           
+             if(isset($array['thematics'])){
+                $this->repository->update($request->id, $array);
+                $this->repository->addUserThematic($request->id,$array['thematics']);
+            }else{
+                $this->repository->update($request->id, $array);
+            }
             message($request, 'success', 'Cập nhật thành công.');
         }
         catch (QueryException $exception)
@@ -212,8 +218,12 @@ class UserController extends Controller
         {
             $array = $request->all();
             $array['password'] = Hash::make($request->password);
-            $id=$this->repository->create($array)->id;
-            $this->repository->addUserThematic($id,$array['thematics']);
+            if(isset($array['thematics'])){
+                 $id=$this->repository->create($array)->id;
+                $this->repository->addUserThematic($id,$array['thematics']);
+            }else{
+                $this->repository->create($array);
+            }
             message($request, 'success', 'Thêm mới thành công.');
         }
         catch (QueryException $exception)
@@ -237,9 +247,9 @@ class UserController extends Controller
         try
         {
             $this->repository->delete($id);
-            $this->respository->DeleleUserThematic($id);
-           Session::flash('flash_level', 'success');
-          Session::flash('flash_message', 'Xoá thành công');
+            $this->repository->DeleleUserThematic($id);
+            Session::flash('flash_level', 'success');
+            Session::flash('flash_message', 'Xoá thành công');
         }
         catch (QueryException $exception)
         {

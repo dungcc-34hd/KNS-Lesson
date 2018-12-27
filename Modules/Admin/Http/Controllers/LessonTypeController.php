@@ -151,4 +151,12 @@ class LessonTypeController extends Controller
         }
         return response()->json(!$name);
     }
+     public function checkId(Request $rq){
+        if($rq->id <=0){
+            $id_type= LessonType::where('id_type',$rq->id_type)->exists();
+        }else{
+            $id_type = LessonType::where('id_type',$rq->id_type)->whereNotIn('id',[$rq->id])->exists();
+        }
+        return response()->json(!$id_type);
+    }
 }
