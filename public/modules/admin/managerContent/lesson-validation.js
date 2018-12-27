@@ -7,7 +7,7 @@ $('.validation-form-lesson').validate({
     focusInvalid: false,
     ignore: "grade_thematic,grade",
     rules: {
-        grade_thematic: {
+        thematic: {
             required: true,
         },
         grade: {
@@ -24,7 +24,7 @@ $('.validation-form-lesson').validate({
         grade: {
             required: "Mời bạn nhập vào trường này."
         },
-        grade_thematic: {
+        thematic: {
             required: "Mời bạn chọn vào trường này",
         },
         name: {
