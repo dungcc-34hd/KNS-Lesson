@@ -117,4 +117,6 @@ class ThematicController extends Controller
             return response()->json(!$name);
         }
     }
+
+   
 }

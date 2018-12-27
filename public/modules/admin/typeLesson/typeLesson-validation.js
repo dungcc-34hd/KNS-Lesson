@@ -11,7 +11,9 @@ $('.validation-form').validate({
                
         },
         id_type:{
+
             remote:"/admin/type-lesson/checkId/"+id,
+
         }
          
 
