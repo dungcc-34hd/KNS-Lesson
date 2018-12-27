@@ -232,7 +232,6 @@ class ManagerAreaController extends Controller
     public function updateProvince(Request $request, $id)
     {
 
-     
         $provincial = Province::findOrFail($id);
 
         $provincial->name        = $request->name;
