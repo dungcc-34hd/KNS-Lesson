@@ -7,19 +7,19 @@
         method="post" class="validation-form-lesson">
             {{csrf_field()}}
             <div class="modal-content">
-                {{--<div class="modal-header">--}}
-                    {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
-                    {{--<h4 class="modal-title">Tạo bài học</h4>--}}
-                    {{--<div class="form-group">--}}
-                        {{--<label>Chọn khối/chuyên đề @include('common.require')</label>--}}
-                        {{--<div class="clearfix">--}}
-                            {{--<select class="form-control grade-thematic" id="">--}}
-                                {{--<option value="1" id="grade">Chọn khối</option>--}}
-                                {{--<option value="2" id="thematic">Chọn chuyên đề</option>--}}
-                            {{--</select>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Tạo bài học</h4>
+                    <div class="form-group">
+                        <label>Chọn khối/chuyên đề @include('common.require')</label>
+                        <div class="clearfix">
+                            <select class="form-control " name="grade_thematic">
+                                <option value="1" id="grade">Chọn khối</option>
+                                <option value="2" id="thematic">Chọn chuyên đề</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="modal-body ">
                     <div class="form-group form-grade">
                         <label>Chọn khối @include('common.require')</label>
@@ -36,7 +36,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group form-thematic" id="#hidden" hidden>
+                    <div class="form-group form-thematic" hidden>
                         <label>Chọn chuyên đề @include('common.require')</label>
                         <div class="clearfix">
                             <select class="form-control thematic" name="thematic" >
@@ -71,20 +71,5 @@
         </form>
 </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $('#grade').click(function(){
-            $('.form-grade').show();
-            $('.form-thematic').hide();
-            $('.form-grade').remove(id);
-            $('.form-thematic').attr('id','hidden');
-        });
-        $('#thematic').click(function(){
-            $('.form-thematic').show();
-            $('.form-grade').hide();
-            $('.form-thematic').remove(id);
-            $('.form-grade').attr('id','hidden');
-        });
-    });
-</script>
     <script src="{{ asset('modules/admin/managerContent/lesson-validation.js')}}"></script>
+    <script src="{{ asset('modules/admin/managerContent/lessonCustom.js')}}"></script>

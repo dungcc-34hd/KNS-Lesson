@@ -1,14 +1,12 @@
 var lessonDetailId = $('#detail-lesson-id').val();
 var lessonId = $('.lesson-id').val();
 
-console.log(lessonId,lessonDetailId);
 $('.validation-form').validate({
     errorElement: 'div',
     errorClass: 'help-block',
     focusInvalid: false,
     ignore: "",
     rules: {
-
         'detail-lesson': {
             required: true,
             remote: '/admin/manager-lesson/check-lesson-detail-name/' + lessonId + '/' + lessonDetailId ,

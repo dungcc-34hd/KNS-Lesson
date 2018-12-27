@@ -5,8 +5,11 @@ $('.validation-form-lesson').validate({
     errorElement: 'div',
     errorClass: 'help-block',
     focusInvalid: false,
-    ignore: "hidden",
+    ignore: "grade_thematic,grade",
     rules: {
+        grade_thematic: {
+            required: true,
+        },
         grade: {
             required: true,
         },
@@ -20,6 +23,9 @@ $('.validation-form-lesson').validate({
     messages: {
         grade: {
             required: "Mời bạn nhập vào trường này."
+        },
+        grade_thematic: {
+            required: "Mời bạn chọn vào trường này",
         },
         name: {
             required: "Mời bạn nhập vào trường này.",
