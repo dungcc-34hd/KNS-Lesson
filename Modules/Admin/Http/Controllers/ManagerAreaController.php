@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 
 class ManagerAreaController extends Controller
 {
