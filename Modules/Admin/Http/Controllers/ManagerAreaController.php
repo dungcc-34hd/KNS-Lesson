@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 
 class ManagerAreaController extends Controller
 {
@@ -261,18 +262,27 @@ class ManagerAreaController extends Controller
         $area = Area::find($id);
         $area->delete();
 
+        Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
+
     }
 
     public function deleteProvince($id)
     {
         $province = Province::find($id);
         $province->delete();
+
+        Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
     }
 
     public function deleteDistrict($id)
     {
         $district = District::find($id);
         $district->delete();
+
+        Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
     }
 
     // check validate
