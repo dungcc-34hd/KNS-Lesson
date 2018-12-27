@@ -13,7 +13,7 @@
             </div>
             <div class="modal-body">
                  @isset($province)
-                    <input type="hidden" value="{{$area->id}}" id="id">
+                    <input type="hidden" value="{{$province->id}}" id="id">
                 @endisset
                 <div class="form-group">
                     <label>Tỉnh/Thành phố @include('common.require')</label>
