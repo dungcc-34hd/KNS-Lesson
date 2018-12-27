@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class LsClass extends Model
 {
     public $table='class';
-    public $fillable =['name','grade_id'];
+    public $fillable =['id','name','grade_id'];
 
     public function grade()
     {

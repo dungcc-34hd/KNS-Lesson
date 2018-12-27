@@ -12,8 +12,8 @@ class ProvinceController extends Controller
 	{
 		$size = $request->size;
 	    $area_id = $request->area_id;
-		if(!id_null($size)){
-			if(!id_null($area_id)){
+		if(!is_null($size)){
+			if(!is_null($area_id)){
 				return response()->json([
 		    		'code' => 0, 
 		    		'data' => Province::select(['id', 'name','area_id'])
