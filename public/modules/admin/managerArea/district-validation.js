@@ -6,9 +6,15 @@ $('.validation-form').validate({
     ignore: "",
     rules: {
         name: {
-            remote:"/admin/manager-area/checkNameArea/"+id,
+            remote:"/admin/manager-area/checkNameDistrict/"+id,
             required: true,
                
+        },
+        area_id:{
+             required: true,
+        },
+        province_id:{
+            required: true,
         },
 
     },
@@ -16,7 +22,13 @@ $('.validation-form').validate({
     messages: {
         name: {
             remote: "Tên đã tồn tại",
-            required: "Xin vui lòng nhập tên .",
+            required: "Xin vui lòng nhập tên.",
+        },
+         area_id:{
+             required: "Xin vui lòng chọn khu  vực.",
+        },
+          province_id:{
+            required: "Xin vui lòng chọn tỉnh/thành phố.",
         },
 
     },

@@ -4,7 +4,7 @@
           @else
           action="{{route('admin.managerArea.storeProvince')}}"
           @endif
-          method="post" class="validation-form-lesson">
+          method="post" class="validation-form">
         {{csrf_field()}}
         <div class="modal-content">
             <div class="modal-header">
@@ -12,6 +12,9 @@
                 <h4 class="modal-title">Tạo tỉnh/thành phố</h4>
             </div>
             <div class="modal-body">
+                 @isset($province)
+                    <input type="hidden" value="{{$area->id}}" id="id">
+                @endisset
                 <div class="form-group">
                     <label>Tỉnh/Thành phố @include('common.require')</label>
                     <div class="clearfix">
@@ -42,5 +45,5 @@
     </form>
 </div>
 </div>
-<script src="{{ asset('modules/admin/managerContent/lesson-validation.js')}}"></script>
+<script src="{{ asset('modules/admin/managerArea/province-validation.js')}}"></script>
 <script src="{{ asset('modules/admin/school/school.js')}}"></script>

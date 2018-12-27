@@ -137,4 +137,15 @@ class GradeController extends Controller
 
         $class->delete();
     }
+     public function checkName(Request $rq,$id){
+        if($id<=0){
+            $name = Grade::where('name','=',$rq->name)->exists();
+        }
+        else{
+            $name = Grade::where('name','=',$rq->name)->whereNotIn('id',[$rq->id])->exists();
+            
+        }
+        return response()->json(!$name);
+       
+    }
 }
