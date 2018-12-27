@@ -4,7 +4,7 @@
           @else
           action="{{route('admin.managerArea.storeDistrict')}}"
           @endif
-          method="post" class="validation-form-lesson">
+          method="post" class="validation-form">
         {{csrf_field()}}
         <div class="modal-content">
             <div class="modal-header">
@@ -12,6 +12,9 @@
                 <h4 class="modal-title">Tạo quận/huyện</h4>
             </div>
             <div class="modal-body">
+                  @isset($district)
+                    <input type="hidden" value="{{$district->id}}" id="id">
+                @endisset
                 <div class="form-group">
                     <label>Quận/Huyện @include('common.require')</label>
                     <div class="clearfix">
@@ -62,4 +65,5 @@
     </form>
 </div>
 </div>
-<script src="{{ asset('modules/admin/managerContent/lesson-validation.js')}}"></script>
+    <script src="{{ asset('modules/admin/managerArea/custom.js') }}"></script>
+<script src="{{ asset('modules/admin/managerArea/district-validation.js')}}"></script>

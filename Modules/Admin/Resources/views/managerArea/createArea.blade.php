@@ -4,7 +4,7 @@
           @else
           action="{{route('admin.managerArea.storeArea')}}"
           @endif
-          method="post" class="validation-form-lesson">
+          method="post" class="validation-form">
         {{csrf_field()}}
         <div class="modal-content">
             <div class="modal-header">
@@ -12,24 +12,21 @@
                 <h4 class="modal-title">Tạo khu vực</h4>
             </div>
             <div class="modal-body">
+                @isset($area)
+                    <input type="hidden" value="{{$area->id}}" id="id">
+                @endisset
                 <div class="form-group">
                     <label>Tên khu vực @include('common.require')</label>
                     <div class="clearfix">
                         <input type="text" class="form-control" name="name"
-                               value="@isset($area){{$area->name}}@endisset">
-                        @if($errors)
-                            <span style="color: #dd4b39;" class="text-danger">{{$errors->first('name')}}</span>
-                        @endif
+                               value="@isset($area){{$area->name}}@endisset">                  
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Mô tả @include('common.require')</label>
+                    <label>Mô tả </label>
                     <div class="clearfix">
                         <input type="text" class="form-control" name="description"
                                value="@isset($area){{$area->description}}@endisset">
-                        @if($errors)
-                            <span style="color: #dd4b39;" class="text-danger">{{$errors->first('name')}}</span>
-                        @endif
                     </div>
                 </div>
             </div>
@@ -47,4 +44,4 @@
     </form>
 </div>
 </div>
-<script src="{{ asset('modules/admin/managerContent/lesson-validation.js')}}"></script>
+<script src="{{ asset('modules/admin/managerArea/managerArea-validate.js')}}"></script>

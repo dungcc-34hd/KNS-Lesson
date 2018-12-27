@@ -154,6 +154,10 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::post('/update/{id}', 'GradeController@update')->name('admin.grade.update');
         Route::get('/delete/{id}', 'GradeController@delete')->name('admin.grade.delete');
         Route::get('/pagination/{records}/{search?}', 'GradeController@pagination')->name('admin.grade.pagination');
+        Route::get('/checkName/{id?}', 'GradeController@checkName')->name('admin.grade.checkName');
+
+
+
     });
 
     // manager lesson
@@ -248,6 +252,14 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete-area/{id}','ManagerAreaController@deleteArea')->name('admin.managerArea.deleteArea');
         Route::get('/delete-province/{id}','ManagerAreaController@deleteProvince')->name('admin.managerArea.deleteProvince');
         Route::get('/delete-district/{id}','ManagerAreaController@deleteDistrict')->name('admin.managerArea.deleteDistrict');
+        // validation
+         Route::get('/checkNameArea/{id?}','ManagerAreaController@checkNameArea')->name('admin.managerArea.checkNameArea');
+         Route::get('/checkNameProvince/{id?}','ManagerAreaController@checkNameProvince')->name('admin.managerArea.checkNameProvince');
+         Route::get('/checkNameDistrict/{id?}','ManagerAreaController@checkNameDistrict')->name('admin.managerArea.checkNameDistrict');
+         // select option
+         Route::get('change-area/{areaId}', 'ManagerAreaController@changeArea')->name('admin.managerArea.changeArea');
+
+
     });
 
     // thematic

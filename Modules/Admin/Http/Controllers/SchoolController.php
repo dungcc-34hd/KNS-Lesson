@@ -182,19 +182,7 @@ class SchoolController extends Controller
 
 
 
-    public function changeArea($areaId){
-       session([$this->areaId => $areaId]);
-        $array=$this->repository->changeArea($areaId);
-        return response()->json($array);
-    }
-    public function changeProvince($provinceId){
-        $array=$this->repository->changeProvince($provinceId);
-        return response()->json($array);
-    }
-    public function changeDistrict($districtId){
-        $array=$this->repository->changeDistrict($districtId);
-        return response()->json($array);
-    }
+   
 
 
     /**
@@ -251,6 +239,7 @@ class SchoolController extends Controller
         $areas    =  Area::all();
         $areaId=0;
         $array=$this->repository->changeArea($areaId);
+        // dd($array);
         return view('admin::schools.create',[
             'areas'=> $areas,
             'provinces'=>$array['provinces'],
@@ -303,6 +292,19 @@ class SchoolController extends Controller
 
 
         
+    }
+
+     public function changeArea($areaId){
+        $array=$this->repository->changeArea($areaId);
+        return response()->json($array);
+    }
+    public function changeProvince($provinceId){
+        $array=$this->repository->changeProvince($provinceId);
+        return response()->json($array);
+    }
+    public function changeDistrict($districtId){
+        $array=$this->repository->changeDistrict($districtId);
+        return response()->json($array);
     }
 
     public function SimpleRandString($length=32, $list="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"){

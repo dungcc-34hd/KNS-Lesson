@@ -60,3 +60,4 @@ $('#tree2').treed({openedClass:'fas fa-chart-area', closedClass:'fas fa-chart-ar
 
 $('#tree3').treed({openedClass:'fas fa-chart-area', closedClass:'fas fa-chart-area'});
 
+

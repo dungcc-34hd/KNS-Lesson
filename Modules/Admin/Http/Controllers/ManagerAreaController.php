@@ -76,7 +76,7 @@ class ManagerAreaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validation($request, $id);
+        // $this->validation($request, $id);
         $area = Area::findOrFail($id);
 
         $area->name = $request->name;
@@ -113,7 +113,8 @@ class ManagerAreaController extends Controller
     public function createDistrict()
     {
         $areas = Area::all();
-        $provinces = Province::all();
+        $areaId=0;
+        $provinces=Province::where('area_id','=',$areaId)->get();
         return view('admin::managerArea.createDistrict', compact('areas', 'provinces'));
     }
 
@@ -124,7 +125,7 @@ class ManagerAreaController extends Controller
      */
     public function storeArea(Request $request)
     {
-        $this->validation($request, $id = null);
+        // $this->validation($request, $id = null);
         $area = new Area();
         $area->name = $request->name;
         $area->description = $request->description;
@@ -141,7 +142,7 @@ class ManagerAreaController extends Controller
      */
     public function storeProvince(Request $request)
     {
-        $this->validation($request, $id = null);
+        // $this->validation($request, $id = null);
         $provincial = new Province();
         $provincial->name = $request->name;
         $provincial->area_id = $request->input('area_id');
@@ -158,7 +159,7 @@ class ManagerAreaController extends Controller
      */
     public function storeDistrict(Request $request)
     {
-        $this->validation($request, $id = null);
+        // $this->validation($request, $id = null);
         $district = new District();
         $district->name = $request->name;
         $district->province_id = $request->input('province_id');
@@ -212,7 +213,7 @@ class ManagerAreaController extends Controller
      */
     public function updateArea(Request $request, $id)
     {
-        $this->validation($request, $id);
+        // $this->validation($request, $id);
         $area = Area::findOrFail($id);
 
         $area->name = $request->name;
@@ -283,15 +284,45 @@ class ManagerAreaController extends Controller
         Session::flash('flash_message', 'Xoá thành công');
     }
 
-    public function validation($request, $id = null)
-    {
-        $message = [
-            'unique' => 'Trường này đã tồn tại.',
-            'required' => 'Trường này không được để trống.',
-        ];
-        $validatedData = $request->validate([
-            'name' => 'required|unique:areas,name,' . $id,
-        ], $message);
+    // check validate
+    public function checkNameArea(Request $rq ,$id){
+        if($id<=0){
+            $name = Area::where('name',$rq->name)->exists();
+          
+        }else{
+            $name = Area::where('name',$rq->name)->whereNotIn('id',[$rq->id])->exists();
+            
+        } 
+         return response()->json(!$name);
+    }
+
+    public function checkNameProvince(Request $rq ,$id){
+        if($id<=0){
+            $name = Province::where('name',$rq->name)->exists();
+          
+        }else{
+            $name = Province::where('name',$rq->name)->whereNotIn('id',[$rq->id])->exists();
+            
+        } 
+         return response()->json(!$name);
+    }
+
+    public function checkNameDistrict(Request $rq ,$id){
+        
+        if($id<=0){
+            $name = District::where('name',$rq->name)->exists();
+          
+        }else{
+            $name = District::where('name',$rq->name)->whereNotIn('id',[$rq->id])->exists();
+            
+        } 
+         return response()->json(!$name);
+    }
+
+    //change select option Areas 
+     public function changeArea($areaId){
+        $array=Province::where('area_id','=',$areaId)->get();;
+        return response()->json($array);
     }
 
 }

@@ -2,23 +2,13 @@ $(document).ready(function () {
 
     $(function () {
         $('#selectArea').change(function () {
-            if ($('#selectArea').val() != '') {
                 process($(this).val());
-            } else {
-                $('#selectProvince').html("<option value=''>Chọn Tỉnh</option>");
-                $('#selectDistrict').html("<option value=''>Chọn Quận/Huyện</option>");
-            }
-
-
 
         });
         $('#selectProvince').change(function () {
             
-            if ($('#selectProvince').val() != '') {
-                changeProvince($(this).val());
-            } else {
-                $('#selectDistrict').html("<option value=''>Chọn Quận/Huyện</option>");
-            }
+                           changeProvince($(this).val());
+        
 
         });
         $('#selectDistrict').change(function () {
@@ -48,17 +38,15 @@ $(document).ready(function () {
             }
             $('#selectDistrict').empty();
             if ($.isEmptyObject(data['districts'])) {
-
                 var option = "<option value=''>Không có dữ liệu</option>"
-                $('#selectDistrict').html(option)
+                $('#selectDistrict').append(option)
 
             }
             else {
 
                 $.each(data['districts'], function (i, value) {
                     var option = '<option value=' + value.id + '>' + value.name + '</option>'
-
-                    $('#selectDistrict').html(option)
+                    $('#selectDistrict').append(option)
                 });
             }
 
@@ -76,7 +64,7 @@ $(document).ready(function () {
             if ($.isEmptyObject(data['districts'])) {
 
                 var option = '<option>Không có dữ liệu</option>';
-                $('#selectDistrict').html(option);
+                $('#selectDistrict').append(option);
 
             }
             else {
@@ -84,7 +72,7 @@ $(document).ready(function () {
                 $.each(data['districts'], function (i, value) {
                     var option = '<option value=' + value.id + '>' + value.name + '</option>';
 
-                    $('#selectDistrict').html(option);
+                    $('#selectDistrict').append(option);
                 });
             }
             // ajaxLoadData($('#show-records').val(), $('#pages-current').val(), $('#nav-search-input').val());
