@@ -15,8 +15,10 @@ $('#add-lesson-content').validate({
         },
         'answer[]': {
             required: true
+        },
+        'background-image[]':{
+            required:true
         }
-    
     },
 
     messages: {
@@ -32,7 +34,9 @@ $('#add-lesson-content').validate({
         'answer[]': {
             required: "Mời bạn nhập vào trường này."
         },
-     
+        'background-image[]':{
+            required: "Mời bạn chọn file vào trường này."
+        }
     },
 
 

@@ -260,18 +260,27 @@ class ManagerAreaController extends Controller
         $area = Area::find($id);
         $area->delete();
 
+        Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
+
     }
 
     public function deleteProvince($id)
     {
         $province = Province::find($id);
         $province->delete();
+
+        Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
     }
 
     public function deleteDistrict($id)
     {
         $district = District::find($id);
         $district->delete();
+
+        Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
     }
 
     public function validation($request, $id = null)
