@@ -21,7 +21,7 @@ $('.validation-form').validate({
             required: true,
             remote:"/admin/user/checkEmail/"+id,
             Vemail:true
-        },
+        }, 
         password: {
             required: true,
             minlength: 6

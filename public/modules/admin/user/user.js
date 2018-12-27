@@ -25,8 +25,9 @@ $(function () {
                             else {
                                 $('.alert-success').hide();
                                 $('.alert-danger').show();
+                                window.location.href = '/admin/user';
                             }
-                             window.location.href = '/admin/user/';
+                             
                         }
                     });
                 },

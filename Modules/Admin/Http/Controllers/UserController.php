@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash; 
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -246,9 +247,9 @@ class UserController extends Controller
         try
         {
             $this->repository->delete($id);
-            $this->respository->DeleleUserThematic($id);
-           Session::flash('flash_level', 'success');
-          Session::flash('flash_message', 'Xoá thành công');
+            $this->repository->DeleleUserThematic($id);
+            Session::flash('flash_level', 'success');
+            Session::flash('flash_message', 'Xoá thành công');
         }
         catch (QueryException $exception)
         {
