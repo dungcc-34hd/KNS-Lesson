@@ -17,6 +17,7 @@ $('.validation-form').validate({
             
         },
         
+        
 
     },
 
