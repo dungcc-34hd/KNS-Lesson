@@ -18,7 +18,7 @@ $('.validation-form-lesson').validate({
             required: true,
         },
         stt : {
-            reuired:true,
+            required:true,
         }
 
     },
@@ -35,7 +35,7 @@ $('.validation-form-lesson').validate({
             required: "Mời bạn chọn vào trường này.",
         },
         stt :{
-            reuired : "Mời bạn chọn vào trường này.",
+            required : "Mời bạn chọn vào trường này.",
         }
     },
 
