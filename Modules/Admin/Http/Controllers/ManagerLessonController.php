@@ -9,6 +9,7 @@ use App\Models\LessonAnswer;
 use App\Models\LessonContent;
 use App\Models\LessonDetail;
 use App\Models\School;
+use App\Models\Thematic;
 use App\Repositories\ManagerLesson\ManagerLessonEloquentRepository;
 use Faker\Provider\Image;
 use function GuzzleHttp\Promise\all;
@@ -69,14 +70,16 @@ class ManagerLessonController extends Controller
     public function addLesson()
     {
         $grades = Grade::all();
-        return view('admin::managerLesson.addLesson', compact('grades', 'lesson'));
+        $thematics = Thematic::all();
+        return view('admin::managerLesson.addLesson', compact('grades', 'lesson','thematics'));
     }
 
     public function editLesson($id)
     {
         $lesson = Lesson::findorfail($id);
         $grades = Grade::all();
-        return view('admin::managerLesson.editLesson', compact('grades', 'lesson'));
+        $thematics = Thematic::all();
+        return view('admin::managerLesson.editLesson', compact('grades', 'lesson','thematics'));
     }
 
     /**
