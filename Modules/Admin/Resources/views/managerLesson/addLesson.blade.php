@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label>Chọn khối/chuyên đề @include('common.require')</label>
                     <div class="clearfix">
-                        <select class="form-control grade-thematic" id="">
+                        <select class="form-control grade-thematic" id="select-lesson">
                             <option value="1" id="grade">Chọn khối</option>
                             <option value="2" id="thematic">Chọn chuyên đề</option>
                         </select>
@@ -43,7 +43,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group form-thematic" id="#hidden" hidden>
+                <div class="form-group form-thematic hidden">
                     <label>Chọn chuyên đề @include('common.require')</label>
                     <div class="clearfix">
                         <select class="form-control thematic" name="">
