@@ -19,7 +19,7 @@ class AreaController extends Controller
     	}else{
     		return response()->json([
 	    		'code' => 0, 
-	    		'data' => Area::select(['id', 'name'])->paginate()
+	    		'data' => Area::all()
 			], 200);
     	}
     }

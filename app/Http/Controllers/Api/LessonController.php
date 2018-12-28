@@ -16,14 +16,12 @@ class LessonController extends Controller
     	if(!is_null($size)){
     		return response()->json([
 	    		'code' => 0,
-	    		'data' => Lesson::select(['id', 'name'])
-							->paginate($size)
+	    		'data' => Lesson::paginate($size)
 			], 200);
     	}else{
     		return response()->json([
 	    		'code' => 0,
-	    		'data' => Lesson::select(['id', 'name'])
-							->paginate()
+	    		'data' => Lesson::all()
 			], 200);
     	}
     }
