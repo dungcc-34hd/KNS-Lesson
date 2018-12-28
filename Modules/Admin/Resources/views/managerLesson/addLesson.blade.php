@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Chọn khối/chuyên đề @include('common.require')</label>
+                    <label>Chọn khối/chuyên đề </label>
                     <div class="clearfix">
                         <select class="form-control grade-thematic" id="select-lesson">
                             <option value="1" id="grade">Chọn khối</option>
