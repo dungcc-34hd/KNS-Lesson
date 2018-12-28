@@ -4,7 +4,7 @@ $(document).ready(function () {
         $('.form-thematic').hide();
         $('.thematic').attr('name','');
         $('.grade').attr('name','grade');
-        alert(1);
+        alert(1); 
 
     });
     $('#thematic').click(function(){

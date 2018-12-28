@@ -16,6 +16,9 @@ $('.validation-form-lesson').validate({
         },
         thematic : {
             required: true,
+        },
+        stt : {
+            reuired:true,
         }
 
     },
@@ -30,6 +33,9 @@ $('.validation-form-lesson').validate({
         },
         thematic : {
             required: "Mời bạn chọn vào trường này.",
+        },
+        stt :{
+            reuired : "Mời bạn chọn vào trường này.",
         }
     },
 
