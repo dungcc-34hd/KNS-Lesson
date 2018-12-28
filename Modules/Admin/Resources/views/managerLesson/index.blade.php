@@ -37,7 +37,11 @@
                 </div>
             </div>
             <div style="clear: both"></div>
-
+            <ol class='data_lesson'>
+                <li>First</li>
+                <li>Second</li>
+                <li>Third</li>
+            </ol>
             <div id="changeLessonName" class="displayFull">
                 @foreach($lessons as $lesson)
                     <div class="box box-default">
@@ -47,7 +51,8 @@
                             <button type="button" class="btn btn-info btn-sm modalDetailLesson modal-show"
                                     data-url="/admin/manager-lesson/get-value-lesson-detail/{{$lesson->id}}"
                                     data-value="{{$lesson->id}}" data-text="{{$lesson->name}}">Thêm nội
-                                dung {{$lesson->name}}</button>
+                                dung {{$lesson->name}}
+                            </button>
                             <div class="box-tools pull-right">
                                 <div class="btn-group btn-group-sm">
                                     <a href="{{ route('admin.managerLesson.zip',$lesson->id) }}" class="btn btn-info test-object  "
@@ -82,7 +87,7 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body" style="">
-                            <table class="table table-hover results-table">
+                            <table class="table table-hover results-table data_lesson">
                                 <tbody>
                                 <tr>
                                     <th class="order-number" style="width: 5px;">Id.</th>
@@ -186,7 +191,7 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body" style="">
-                            <table class="table table-hover results-table">
+                            <table class="table table-hover results-table ">
                                 <tbody>
                                 <tr>
                                     <th class="order-number" style="width: 5px;">Id.</th>
@@ -256,6 +261,7 @@
     <script src="{{ asset('modules/admin/managerContent/lessonPublic.js') }}"></script>
     <script src="{{ asset('modules/admin/managerContent/lessonDetailDelete.js') }}"></script>
     <script src="{{ asset('common/pagination-search.js') }}"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-sortable/0.9.13/jquery-sortable-min.js'></script>
     <script>
         $(document).ready(function () {
             $("#nav-search-input").change(function(event){
@@ -287,6 +293,9 @@
                     }
                 });
             });
+        });
+        $(function  () {
+            $("table.data_lesson").sortable();
         });
     </script>
 @endpush

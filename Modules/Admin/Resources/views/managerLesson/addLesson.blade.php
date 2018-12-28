@@ -39,7 +39,7 @@
                 <div class="form-group form-thematic" id="#hidden" hidden>
                     <label>Chọn chuyên đề @include('common.require')</label>
                     <div class="clearfix">
-                        <select class="form-control thematic" name="thematic">
+                        <select class="form-control thematic" name="">
                             <option value="">Chọn chuyên đề</option>
                             @foreach ($thematics as $thematic)
                                 <option value="{{$thematic->id}}">{{$thematic->name}}</option>
@@ -69,20 +69,5 @@
     </form>
 </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $('#grade').click(function () {
-            $('.form-grade').show();
-            $('.form-thematic').hide();
-            $('.form-grade').remove(id);
-            $('.form-thematic').attr('id', 'hidden');
-        });
-        $('#thematic').click(function () {
-            $('.form-thematic').show();
-            $('.form-grade').hide();
-            $('.form-thematic').remove(id);
-            $('.form-grade').attr('id', 'hidden');
-        });
-    });
-</script>
 <script src="{{ asset('modules/admin/managerContent/lesson-validation.js')}}"></script>
+<script src="{{ asset('modules/admin/managerContent/lessonCustom.js')}}"></script>
