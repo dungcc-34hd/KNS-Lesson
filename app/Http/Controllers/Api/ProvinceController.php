@@ -16,22 +16,18 @@ class ProvinceController extends Controller
 			if(!is_null($area_id)){
 				return response()->json([
 		    		'code' => 0, 
-		    		'data' => Province::select(['id', 'name','area_id'])
-		    					->where('area_id',$area_id)
-								->paginate($size)
+		    		'data' => Province::where('area_id',$area_id)->paginate($size)
 				], 200);
 			}else{
 				return response()->json([
 		    		'code' => 0, 
-		    		'data' =>Province::select(['id', 'name','area_id'])
-								->paginate($size)
+		    		'data' => Province::paginate($size)
 				], 200);
 			}
 		}else{
 			return response()->json([
 	    		'code' => 0, 
-	    		'data' => Province::select(['id', 'name','area_id'])
-							->paginate()
+	    		'data' => Province::all()
 			], 200);
 		}
 	}

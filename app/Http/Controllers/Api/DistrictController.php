@@ -16,22 +16,18 @@ class DistrictController extends Controller
 			if($province_id){
 				return response()->json([
 		    		'code' => 0, 
-		    		'data' => District::select(['id', 'name','province_id'])
-		    					->where('province_id',$province_id)
-								->paginate($size)
+		    		'data' => District::where('province_id',$province_id)->paginate($size)
 				], 200);
 			}else{
 				return response()->json([
 		    		'code' => 0, 
-		    		'data' => District::select(['id', 'name','province_id'])
-								->paginate($size)
+		    		'data' => District::paginate($size)
 				], 200);
 			}
 		}else{
 			return response()->json([
 	    		'code' => 0, 
-	    		'data' => District::select(['id', 'name','province_id'])
-							->paginate()
+	    		'data' => District::all()
 			], 200);
 		}
 	}
