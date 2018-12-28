@@ -25,7 +25,6 @@
                             <label>Stt @include('common.require')</label>
                             <div class="clearfix">
                                 <input type="text" class="form-control" name="stt" value="{{$lesson->stt}}">
-        
                             </div>
                     </div>
                 @if($lesson && !is_null($lesson->grade_id))
