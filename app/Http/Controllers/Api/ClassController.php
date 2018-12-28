@@ -16,6 +16,9 @@ class ClassController extends Controller
 			if(!is_null($grade_id)){
 				return response()->json([
 		    		'code' => 0, 
+		    		'data' => LsClass::select(['id', 'name','grade_id'])
+		    					->where('grade_id',$grade_id)
+								->paginate($size)
 		    		'data' => LsClass::where('grade_id',$grade_id)->paginate($size)
 				], 200);
 			}else{
