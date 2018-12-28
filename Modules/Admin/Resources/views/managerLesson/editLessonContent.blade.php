@@ -76,9 +76,8 @@
                                        for="action_id">{{\App\Models\LessonType::TYPE[$lessonType->type]}}</label>
                                 <h6>(Chọn nhiều {{\App\Models\LessonType::TYPE[$lessonType->type]}})</h6><br>
                                 <div class="col-md-12 clearfix">
-                                    @if(isset($audios))
                                         @foreach($audios as $audio)
-                                            {{$audio}}
+                                            {{$audio}}<br>
                                         @endforeach
                                         @if($lessonType->type == 1)
                                             <input type="file" accept="image/*" class="add_field_button form-control "
@@ -89,17 +88,6 @@
                                                    name="background-image[]"
                                                    id="background-image" multiple>
                                         @endif
-                                    @else
-                                        @if($lessonType->type == 1)
-                                            <input type="file" accept="image/*" class="add_field_button form-control "
-                                                   name="background-image[]"
-                                                   id="background-image" multiple>
-                                        @elseif($lessonType->type == 2)
-                                            <input type="file" accept="video/*" class="add_field_button form-control "
-                                                   name="background-image[]"
-                                                   id="background-image" multiple>
-                                        @endif
-                                    @endif
                                 </div>
                                 <br><br>
                             </div>

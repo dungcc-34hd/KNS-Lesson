@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 
 class ManagerAreaController extends Controller
 {
@@ -76,7 +77,7 @@ class ManagerAreaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->validation($request, $id);
+      
         $area = Area::findOrFail($id);
 
         $area->name = $request->name;
@@ -113,7 +114,8 @@ class ManagerAreaController extends Controller
     public function createDistrict()
     {
         $areas = Area::all();
-        $provinces = Province::all();
+        $areaId=0;
+        $provinces=Province::where('area_id','=',$areaId)->get();
         return view('admin::managerArea.createDistrict', compact('areas', 'provinces'));
     }
 
@@ -124,7 +126,7 @@ class ManagerAreaController extends Controller
      */
     public function storeArea(Request $request)
     {
-        // $this->validation($request, $id = null);
+        
         $area = new Area();
         $area->name = $request->name;
         $area->description = $request->description;
@@ -141,7 +143,7 @@ class ManagerAreaController extends Controller
      */
     public function storeProvince(Request $request)
     {
-        // $this->validation($request, $id = null);
+      
         $provincial = new Province();
         $provincial->name = $request->name;
         $provincial->area_id = $request->input('area_id');
@@ -158,7 +160,7 @@ class ManagerAreaController extends Controller
      */
     public function storeDistrict(Request $request)
     {
-        // $this->validation($request, $id = null);
+        
         $district = new District();
         $district->name = $request->name;
         $district->province_id = $request->input('province_id');
@@ -199,10 +201,10 @@ class ManagerAreaController extends Controller
     public function editDistrict($id)
     {
         $district =  District::findOrFail($id);
-        $provinces =  Province::all();
         $provinceId= Province::where('id','=',$district->province_id)->first();
-        $areaId =Area::where('id','=',$provinceId->area_id)->get();
         $areas = Area::all();
+        $areaId =Area::where('id','=',$provinceId->area_id)->first()->id;
+        $provinces=Province::where('area_id','=',$areaId)->get();
         return view('admin::managerArea.createDistrict', compact('district','provinces','areas','areaId','provinceId'));
     }
 
@@ -212,7 +214,7 @@ class ManagerAreaController extends Controller
      */
     public function updateArea(Request $request, $id)
     {
-        // $this->validation($request, $id);
+    
         $area = Area::findOrFail($id);
 
         $area->name = $request->name;
@@ -230,7 +232,6 @@ class ManagerAreaController extends Controller
     public function updateProvince(Request $request, $id)
     {
 
-        $this->validation($request,$id);
         $provincial = Province::findOrFail($id);
 
         $provincial->name        = $request->name;
@@ -246,7 +247,7 @@ class ManagerAreaController extends Controller
      */
     public function updateDistrict(Request $request, $id)
     {
-        $this->validation($request,$id);
+       
         $district = District::findOrFail($id);
         $district->name        = $request->name;
         $district->province_id        = $request->input('province_id');
@@ -260,18 +261,27 @@ class ManagerAreaController extends Controller
         $area = Area::find($id);
         $area->delete();
 
+        Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
+
     }
 
     public function deleteProvince($id)
     {
         $province = Province::find($id);
         $province->delete();
+
+        Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
     }
 
     public function deleteDistrict($id)
     {
         $district = District::find($id);
         $district->delete();
+
+        Session::flash('flash_level', 'success');
+        Session::flash('flash_message', 'Xoá thành công');
     }
 
     // check validate
@@ -307,6 +317,12 @@ class ManagerAreaController extends Controller
             
         } 
          return response()->json(!$name);
+    }
+
+    //change select option Areas 
+     public function changeArea($areaId){
+        $array=Province::where('area_id','=',$areaId)->get();;
+        return response()->json($array);
     }
 
 }

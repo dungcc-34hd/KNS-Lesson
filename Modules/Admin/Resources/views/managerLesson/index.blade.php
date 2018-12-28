@@ -21,6 +21,9 @@
             </div>
             <br>
             <div class="col-md-12">
+                   
+                @include('common.message')
+                       
                 <div class="col-md-8">
                     <h4>Danh sách bài học</h4>
                 </div>
