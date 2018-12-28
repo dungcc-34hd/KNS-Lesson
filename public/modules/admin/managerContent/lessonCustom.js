@@ -1,17 +1,17 @@
 $(document).ready(function () {
-    $('#grade').click(function(){
-        $('.form-grade').show();
-        $('.form-thematic').hide();
-        $('.thematic').attr('name','');
-        $('.grade').attr('name','grade');
-        alert(1);
-
-    });
-    $('#thematic').click(function(){
-        $('.form-thematic').show();
-        $('.form-grade').hide();
-        $('.grade').attr('name','');
-        $('.thematic').attr('name','thematic');
-        alert(1);
+    $('#select-lesson').on('change',function () {
+        var check = $(this).val();
+        if (check == 1){
+            $('.thematic').attr('name','')
+            $('.grade').attr('name','grade')
+            $('.form-thematic').addClass('hidden');
+            $('.form-grade').removeClass('hidden');
+        } else{
+            $('.grade').attr('name','')
+            $('.thematic').attr('name','thematic')
+            $('.form-thematic').removeClass('hidden');
+            $('.form-grade').addClass('hidden');
+        }
     });
 });
+
