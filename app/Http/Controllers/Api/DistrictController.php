@@ -12,7 +12,7 @@ class DistrictController extends Controller
 	{
 		$size = $request->size;
 	    $province_id = $request->province_id;
-		if(!id_null($size)){
+		if(!is_null($size)){
 			if($province_id){
 				return response()->json([
 		    		'code' => 0, 
