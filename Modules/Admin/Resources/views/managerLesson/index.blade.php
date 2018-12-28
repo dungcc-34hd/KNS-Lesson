@@ -81,8 +81,8 @@
                             </div>
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body" style="">
-                            <table class="table table-hover results-table data_lesson">
+                        <div class="box-body data_lesson" style="">
+                            <table class="table table-hover results-table">
                                 <tbody>
                                 <tr>
                                     <th class="order-number" style="width: 5px;">Id.</th>
@@ -256,7 +256,7 @@
     <script src="{{ asset('modules/admin/managerContent/lessonPublic.js') }}"></script>
     <script src="{{ asset('modules/admin/managerContent/lessonDetailDelete.js') }}"></script>
     <script src="{{ asset('common/pagination-search.js') }}"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-sortable/0.9.13/jquery-sortable-min.js'></script>
+    {{--<script src='js/jquery-sortable.js'></script>--}}
     <script>
         $(document).ready(function () {
             $("#nav-search-input").change(function(event){
@@ -290,7 +290,7 @@
             });
         });
         $(function  () {
-            $("table.data_lesson").sortable();
+            $("div.data_lesson").sortable();
         });
     </script>
 @endpush
