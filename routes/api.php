@@ -29,17 +29,18 @@ Route::group([
     Route::get('/lessons/{page?}/{size?}', 'Api\LessonController@getlesson');
     //download
     Route::get('download-zip/{lessonId?}','Api\LessonController@downloadZip');
-    //get areas
-    Route::get('/areas/{page?}/{size?}', 'Api\AreaController@getarea');
-    //get provinces
-    Route::get('/provinces/{page?}/{size?}/{area_id?}', 'Api\ProvinceController@getprovince');
-    //get districts
-    Route::get('/districts/{page?}/{size?}/{province_id?}', 'Api\DistrictController@getdistrict');
     //get schools
     Route::get('/schools/{page?}/{size?}/{district_id?}', 'Api\SchoolController@getschool');
     //get list grades
     Route::get('/grades/{page?}/{size?}', 'Api\GradeController@getgrade');
+    //get list thematic
+    Route::get('/thematic/{page?}/{size?}', 'Api\ThematicController@getThematic');
     //get classes
     Route::get('/class/{page?}/{size?}/{grade_id?}', 'Api\ClassController@getclass');
 });
-
+ //get areas
+Route::get('/areas/{page?}/{size?}', 'Api\AreaController@getarea');
+//get provinces
+Route::get('/provinces/{page?}/{size?}/{area_id?}', 'Api\ProvinceController@getprovince');
+//get districts
+Route::get('/districts/{page?}/{size?}/{province_id?}', 'Api\DistrictController@getdistrict');

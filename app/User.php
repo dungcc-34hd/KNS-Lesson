@@ -8,6 +8,7 @@ use App\Models\District;
 use App\Models\School;
 use App\Models\Grade;
 use App\Models\LsClass;
+use App\Models\Thematic;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -84,6 +85,11 @@ class User extends Authenticatable
     public function lsClass()
     {
         return $this->belongsTo(LsClass::class,'class_id','id');
+    }
+
+    public function thematic()
+    {
+        return $this->belongsToMany(Thematic::class,'user_thematics');
     }
 
 }
