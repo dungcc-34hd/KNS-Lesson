@@ -24,7 +24,7 @@
                     <div class="form-group">
                             <label>Stt @include('common.require')</label>
                             <div class="clearfix">
-                                <input type="text" class="form-control" name="stt" value="{{$lesson->name}}">
+                                <input type="text" class="form-control" name="stt" value="{{$lesson->stt}}">
         
                             </div>
                     </div>
