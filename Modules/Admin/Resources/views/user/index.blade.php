@@ -171,7 +171,7 @@
                                                 <td>{{$user->grade['name']}}</td>
                                                 <td>{{$user->class_name}}</td>
                                                 <td>{{$user->quantity_student}}</td>
-                                                <td>{{$user->role->name}}</td>
+                                                <td>{{$user->role['name']}}</td>
                                                 
                                                 <td>{{$user->IP}}</td>
                                                 <td>{{$user->download}}</td>
