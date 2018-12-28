@@ -11,6 +11,13 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Tạo bài học</h4>
                 <div class="form-group">
+                    <label>STT @include('common.require')</label>
+                    <div class="clearfix">
+                        <input type="text" class="form-control" name="stt" id="stt"
+                               value="@isset($lesson){{$lesson->stt}}@endisset">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label>Chọn khối/chuyên đề @include('common.require')</label>
                     <div class="clearfix">
                         <select class="form-control grade-thematic" id="select-lesson">

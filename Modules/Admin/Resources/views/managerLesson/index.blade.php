@@ -41,7 +41,7 @@
                 @foreach($lessons as $lesson)
                     <div class="box box-default">
                         <div class="box-header with-border">
-                            <h5 class="box-title" style="margin-right: 15px;"> Bài học {{$lesson->name}}</h5>
+                            <h5 class="box-title" style="margin-right: 15px;">{{$lesson->stt}} Bài học {{$lesson->name}}</h5>
 
                             <button type="button" class="btn btn-info btn-sm modalDetailLesson modal-show"
                                     data-url="/admin/manager-lesson/get-value-lesson-detail/{{$lesson->id}}"

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $('#select-lesson').on('change',function () {
         var check = $(this).val();
         if (check == 1){
@@ -12,6 +13,7 @@ $(document).ready(function () {
             $('.form-thematic').removeClass('hidden');
             $('.form-grade').addClass('hidden');
         }
+
     });
 });
 
