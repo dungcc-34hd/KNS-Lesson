@@ -4,7 +4,7 @@
           @else
           action="{{route('admin.managerArea.storeDistrict')}}"
           @endif
-          method="post" class="validation-form-lesson">
+          method="post" class="validation-form">
         {{csrf_field()}}
         <div class="modal-content">
             <div class="modal-header">
@@ -12,13 +12,13 @@
                 <h4 class="modal-title">Tạo quận/huyện</h4>
             </div>
             <div class="modal-body">
+                  @isset($district)
+                    <input type="hidden" value="{{$district->id}}" id="id">
+                @endisset
                 <div class="form-group">
                     <label>Quận/Huyện @include('common.require')</label>
                     <div class="clearfix">
                         <input type="text" class="form-control" name="name" value="@isset($district){{$district->name}}@endisset">
-                        @if($errors)
-                            <span style="color: #dd4b39;">{{$errors->first('name')}}</span>
-                        @endif
                     </div>
                 </div>
 
@@ -30,9 +30,6 @@
                             <option value="{{$area->id}}"@isset($provinceId) {{$provinceId->area_id == $area->id ? "selected" : '' }}@endisset>{{$area->name}}</option>
                         @endforeach
                     </select>
-                    @if($errors)
-                        <span style="color: #dd4b39;">{{$errors->first('area_id')}}</span>
-                    @endif
                 </div>
 
                 <div class="form-group">
@@ -43,9 +40,6 @@
                             <option value="{{$province->id}}" @isset($district){{$district->province_id == $province->id ? "selected" : '' }}@endisset>{{$province->name}}</option>
                         @endforeach
                     </select>
-                    @if($errors)
-                        <span style="color: #dd4b39;">{{$errors->first('province_id')}}</span>
-                    @endif
                 </div>
             </div>
             <div class="modal-footer">
@@ -62,4 +56,5 @@
     </form>
 </div>
 </div>
-<script src="{{ asset('modules/admin/managerContent/lesson-validation.js')}}"></script>
+    <script src="{{ asset('modules/admin/managerArea/custom.js') }}"></script>
+<script src="{{ asset('modules/admin/managerArea/district-validation.js')}}"></script>

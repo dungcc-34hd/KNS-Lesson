@@ -82,8 +82,10 @@ class SchoolController extends Controller
     public function select(){
         $records=10;
         $data        = $this->repository->getObjects($records);
-         $user           = $this->returnTr($data);
-         return response()->json(['user'=>$user]); 
+        $user           = $this->returnTr($data);
+        $area        = Area::all();
+        $select         = $this->returnOption($area,"Chọn khu vực" );
+         return response()->json(['user'=>$user,'select' =>$select]); 
     }
    public function hanldingArea(Request $req)
     {
@@ -182,19 +184,7 @@ class SchoolController extends Controller
 
 
 
-    public function changeArea($areaId){
-       session([$this->areaId => $areaId]);
-        $array=$this->repository->changeArea($areaId);
-        return response()->json($array);
-    }
-    public function changeProvince($provinceId){
-        $array=$this->repository->changeProvince($provinceId);
-        return response()->json($array);
-    }
-    public function changeDistrict($districtId){
-        $array=$this->repository->changeDistrict($districtId);
-        return response()->json($array);
-    }
+   
 
 
     /**
@@ -251,6 +241,7 @@ class SchoolController extends Controller
         $areas    =  Area::all();
         $areaId=0;
         $array=$this->repository->changeArea($areaId);
+        // dd($array);
         return view('admin::schools.create',[
             'areas'=> $areas,
             'provinces'=>$array['provinces'],
@@ -271,7 +262,7 @@ class SchoolController extends Controller
         try {
             $array = $request->all();
             $array['quantity_account']=99;
-            $array['license_key']=$this->SimpleRandString();
+            $array['license_key']=$this->simpleRandString();
             $this->repository->create( $array);
             message($request, 'success', 'Tạo mới thành công.');
         }
@@ -305,7 +296,20 @@ class SchoolController extends Controller
         
     }
 
-    public function SimpleRandString($length=32, $list="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"){
+     public function changeArea($areaId){
+        $array=$this->repository->changeArea($areaId);
+        return response()->json($array);
+    }
+    public function changeProvince($provinceId){
+        $array=$this->repository->changeProvince($provinceId);
+        return response()->json($array);
+    }
+    public function changeDistrict($districtId){
+        $array=$this->repository->changeDistrict($districtId);
+        return response()->json($array);
+    }
+
+    public function simpleRandString($length=8, $list="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"){
 
         mt_srand((double)microtime()*1000000);
         $newstring="";

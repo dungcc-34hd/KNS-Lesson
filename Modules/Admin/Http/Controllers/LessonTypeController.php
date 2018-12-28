@@ -130,11 +130,11 @@ class LessonTypeController extends Controller
      */
     public function destroy($id)
     {
-         try
+        try
         {
             $this->repository->delete($id);
             Session::flash('flash_level', 'success');
-        Session::flash('flash_message', 'Xoá thành công');       
+            Session::flash('flash_message', 'Xoá thành công');       
         }
         catch (QueryException $exception)
         {
@@ -150,5 +150,13 @@ class LessonTypeController extends Controller
             $name = LessonType::where('name',$rq->name)->whereNotIn('id',[$rq->id])->exists();
         }
         return response()->json(!$name);
+    }
+     public function checkId(Request $rq){
+        if($rq->id <=0){
+            $id_type= LessonType::where('id_type',$rq->id_type)->exists();
+        }else{
+            $id_type = LessonType::where('id_type',$rq->id_type)->whereNotIn('id',[$rq->id])->exists();
+        }
+        return response()->json(!$id_type);
     }
 }

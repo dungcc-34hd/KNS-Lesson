@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash; 
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -129,8 +130,13 @@ class UserController extends Controller
         try {
             $array = $request->all();
             $array['password'] = Hash::make($request->password);
-            $this->repository->update($request->id, $array);
-            $this->repository->addUserThematic($request->id,$array['thematics']);
+           
+             if(isset($array['thematics'])){
+                $this->repository->update($request->id, $array);
+                $this->repository->addUserThematic($request->id,$array['thematics']);
+            }else{
+                $this->repository->update($request->id, $array);
+            }
             message($request, 'success', 'Cập nhật thành công.');
         }
         catch (QueryException $exception)
@@ -212,8 +218,12 @@ class UserController extends Controller
         {
             $array = $request->all();
             $array['password'] = Hash::make($request->password);
-            $id=$this->repository->create($array)->id;
-            $this->repository->addUserThematic($id,$array['thematics']);
+            if(isset($array['thematics'])){
+                 $id=$this->repository->create($array)->id;
+                $this->repository->addUserThematic($id,$array['thematics']);
+            }else{
+                $this->repository->create($array);
+            }
             message($request, 'success', 'Thêm mới thành công.');
         }
         catch (QueryException $exception)
@@ -237,9 +247,9 @@ class UserController extends Controller
         try
         {
             $this->repository->delete($id);
-            $this->respository->DeleleUserThematic($id);
-           Session::flash('flash_level', 'success');
-          Session::flash('flash_message', 'Xoá thành công');
+            $this->repository->DeleleUserThematic($id);
+            Session::flash('flash_level', 'success');
+            Session::flash('flash_message', 'Xoá thành công');
         }
         catch (QueryException $exception)
         {
@@ -320,8 +330,8 @@ class UserController extends Controller
         $title          = "Chọn Quận/Huyện";
         $records        =10;
         $province_id    = $req->province;
-        $Users          = $this->repository->getAreaObjects($records,$province_id ,'users.province_id');
-        $page           = $this->repository->getAreaPages($records,$province_id ,'users.province_id');
+        $Users          = $this->repository->getAreaObjects($records,$province_id ,'province_id');
+        $page           = $this->repository->getAreaPages($records,$province_id ,'province_id');
         $districts      = District::where('province_id',$province_id )->get();
 
         $CountDistrict      = count(District::where('province_id',$province_id )->get());
@@ -344,15 +354,17 @@ class UserController extends Controller
         $records            =10;
         $data               = $this->repository->getObjects($records);
         $user               = $this->returnTr($data);
-        return response()->json(['user'=>$user]); 
+        $area        = Area::all();
+        $select         = $this->returnOption($area,"Chọn khu vực" );
+        return response()->json(['user'=>$user,'select'=>$select]); 
     }
     public function hanldingDistrict(Request $req)
     {
         $title          = "Chọn Trường";
         $records        = 10;
         $district_id    = $req->district;
-        $Users          = $this->repository->getAreaObjects($records,$district_id ,'users.district_id');
-        $page           = $this->repository->getAreaPages($records,$district_id ,'users.district_id');
+        $Users          = $this->repository->getAreaObjects($records,$district_id ,'district_id');
+        $page           = $this->repository->getAreaPages($records,$district_id ,'district_id');
         $school         = School::where('district_id',$district_id)->get();
 
         $CountSchool        = count(School::where('district_id',$district_id)->get());

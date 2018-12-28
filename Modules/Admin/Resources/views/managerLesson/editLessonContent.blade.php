@@ -38,7 +38,7 @@
                         <label>Nội dung @include('common.require')</label>
                         <textarea type="text" class="md-textarea form-control " rows="2"
                                   name="content[]" style="margin-top: 15px;" value="{{$content}}"
-                            >{{$content}}</textarea>
+                        >{{$content}}</textarea>
                         <a href="javascript:void(0);" style="margin-top: 1em"
                            class="btn btn-danger remove_content">Xóa</a>
                     </div>
@@ -76,29 +76,17 @@
                                        for="action_id">{{\App\Models\LessonType::TYPE[$lessonType->type]}}</label>
                                 <h6>(Chọn nhiều {{\App\Models\LessonType::TYPE[$lessonType->type]}})</h6><br>
                                 <div class="col-md-12 clearfix">
-                                    @if(isset($audios))
-                                        @foreach($audios as $audio)
-                                            {{$audio}}
-                                        @endforeach
-                                        @if($lessonType->type == 1)
-                                            <input type="file" accept="image/*" class="add_field_button form-control "
-                                                   name="background-image[]"
-                                                   id="background-image" multiple>
-                                        @elseif($lessonType->type == 2)
-                                            <input type="file" accept="video/*" class="add_field_button form-control "
-                                                   name="background-image[]"
-                                                   id="background-image" multiple>
-                                        @endif
-                                    @else
-                                        @if($lessonType->type == 1)
-                                            <input type="file" accept="image/*" class="add_field_button form-control "
-                                                   name="background-image[]"
-                                                   id="background-image" multiple>
-                                        @elseif($lessonType->type == 2)
-                                            <input type="file" accept="video/*" class="add_field_button form-control "
-                                                   name="background-image[]"
-                                                   id="background-image" multiple>
-                                        @endif
+                                    @foreach($audios as $audio)
+                                        {{$audio}}<br>
+                                    @endforeach
+                                    @if($lessonType->type == 1)
+                                        <input type="file" accept="image/*" class="add_field_button form-control "
+                                               name="background-image[]"
+                                               id="background-image" multiple>
+                                    @elseif($lessonType->type == 2)
+                                        <input type="file" accept="video/*" class="add_field_button form-control "
+                                               name="background-image[]"
+                                               id="background-image" multiple>
                                     @endif
                                 </div>
                                 <br><br>
@@ -186,7 +174,7 @@
             <br/>
             <div class="modal-footer" style="margin-top: 25px;">
                 <button type="submit" class="btn btn-primary create-content-lesson " id="create-content-lesson">
-                        Cập nhật nội dung
+                    Cập nhật nội dung
                 </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>

@@ -21,6 +21,9 @@
             </div>
             <br>
             <div class="col-md-12">
+                   
+                @include('common.message')
+                       
                 <div class="col-md-8">
                     <h4>Danh sách bài học</h4>
                 </div>
@@ -34,17 +37,17 @@
                 </div>
             </div>
             <div style="clear: both"></div>
-
             <div id="changeLessonName" class="displayFull">
                 @foreach($lessons as $lesson)
                     <div class="box box-default">
                         <div class="box-header with-border">
-                            <h5 class="box-title" style="margin-right: 15px;"> Bài học {{$lesson->name}}</h5>
+                            <h5 class="box-title" style="margin-right: 15px;">{{$lesson->stt}} Bài học {{$lesson->name}}</h5>
 
                             <button type="button" class="btn btn-info btn-sm modalDetailLesson modal-show"
                                     data-url="/admin/manager-lesson/get-value-lesson-detail/{{$lesson->id}}"
                                     data-value="{{$lesson->id}}" data-text="{{$lesson->name}}">Thêm nội
-                                dung {{$lesson->name}}</button>
+                                dung {{$lesson->name}}
+                            </button>
                             <div class="box-tools pull-right">
                                 <div class="btn-group btn-group-sm">
                                     <a href="{{ route('admin.managerLesson.zip',$lesson->id) }}" class="btn btn-info test-object  "
@@ -78,7 +81,7 @@
                             </div>
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body" style="">
+                        <div class="box-body data_lesson" style="">
                             <table class="table table-hover results-table">
                                 <tbody>
                                 <tr>
@@ -183,7 +186,7 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body" style="">
-                            <table class="table table-hover results-table">
+                            <table class="table table-hover results-table ">
                                 <tbody>
                                 <tr>
                                     <th class="order-number" style="width: 5px;">Id.</th>
@@ -253,6 +256,7 @@
     <script src="{{ asset('modules/admin/managerContent/lessonPublic.js') }}"></script>
     <script src="{{ asset('modules/admin/managerContent/lessonDetailDelete.js') }}"></script>
     <script src="{{ asset('common/pagination-search.js') }}"></script>
+    {{--<script src='js/jquery-sortable.js'></script>--}}
     <script>
         $(document).ready(function () {
             $("#nav-search-input").change(function(event){
@@ -284,6 +288,9 @@
                     }
                 });
             });
+        });
+        $(function  () {
+            $("div.data_lesson").sortable();
         });
     </script>
 @endpush

@@ -92,21 +92,19 @@
         </div>
     </div>
      <div class="form-group">
-        <label>Chuyên đề(chọn nhiều chuyên đề)@include('common.require')</label>
+        <label>Chuyên đề(chọn nhiều chuyên đề)</label>
         <div class="clearfix">
           <select class="form-control select-option select2" multiple="multiple"  name="thematics[]"
                     style="width: 100%;">       
                 @foreach($thematics as $key => $thematic)
                     <option @if(isset($user) && in_array($thematic->id,$findThematics)) selected @endif  value="{{$thematic->id}}">{{$thematic->name}}</option>
                 @endforeach
-               
-
             </select>
         </div>
     </div>  
 
     <div class="form-group">
-        <label>Khối @include('common.require')</label>
+        <label>Khối</label>
         <div class="clearfix">
             <select  name="grade_id" id="selectGrade" class="select-option form-control">
                 <option value="">Chọn khối</option>

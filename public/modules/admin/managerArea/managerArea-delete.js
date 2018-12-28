@@ -24,8 +24,9 @@ $(function () {
 
                                 $('.alert-success').hide();
                                 $('.alert-danger').show();
-                                // window.location.href = '/admin/manager-lesson/index';
+                               
                             }
+                             window.location.href = '/admin/manager-area/';
                         }
                     });
                 },
@@ -63,8 +64,9 @@ $(function () {
 
                                 $('.alert-success').hide();
                                 $('.alert-danger').show();
-                                // window.location.href = '/admin/manager-lesson/index';
+                                
                             }
+                             window.location.href = '/admin/manager-area/';
                         }
                     });
                 },
@@ -102,8 +104,9 @@ $(function () {
 
                                 $('.alert-success').hide();
                                 $('.alert-danger').show();
-                                // window.location.href = '/admin/manager-lesson/index';
+                              
                             }
+                             window.location.href = '/admin/manager-area/';
                         }
                     });
                 },
