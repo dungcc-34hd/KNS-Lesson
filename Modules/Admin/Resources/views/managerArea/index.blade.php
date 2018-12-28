@@ -44,47 +44,56 @@
                 <section class="col-lg-12 connectedSortable">
                     <!-- TO DO List -->
                     <div class="box box-primary">
-                        <div class="col-md-12 col-sm-12">
+                        <div class="col-md-6 col-sm-6">
                             <ul id="tree2" style="font-size: 20px">
                                 @foreach($areas as $area)
                                     <li>
                                         <a href="#">{{$area->name}}</a>
-                                        <button type="button" class="btn btn-primary modal-show custom-edit"
-                                                data-url="/admin/manager-area/edit-area/{{$area->id}}"><i class="ace-icon fa fa-pencil"></i>
-                                        </button>
-                                        <a href="#" class="btn-danger delete-area custom-delete"
-                                           title="Delete"
-                                           object_id="{{$area->id}}"
-                                           object_name="{{$area->name}}">
-                                            <i class="fa fa-trash-o"></i>
-                                        </a>
+                                        <div class="action pull-right">
+                                            <a class="modal-show custom-edit" data-url="/admin/manager-area/edit-area/{{$area->id}}">
+                                                <i class="ace-icon fa fa-pencil"></i>
+                                            </a>
+                                            <a href="#" class="delete-area custom-delete"
+                                               title="Delete"
+                                               object_id="{{$area->id}}"
+                                               object_name="{{$area->name}}">
+                                                <i class="fa fa-trash fa-sm"></i>
+                                            </a>
+                                        </div>
+                                        
 
                                         @foreach($area->province as $key=>$province)
                                             <ul>
                                                 <li>
                                                     <a href="#">{{$province->name}}</a>
-                                                    <button type="button" class="btn btn-primary modal-show custom-edit"
+                                                    <div class="action pull-right">
+                                                        <a class="modal-show custom-edit"
                                                             data-url="/admin/manager-area/edit-province/{{$province->id}}"><i class="ace-icon fa fa-pencil"></i>
-                                                    </button>
-                                                    <a href="#" class="btn-danger delete-province custom-delete"
-                                                       title="Delete"
-                                                       object_id="{{$province->id}}"
-                                                       object_name="{{$province->name}}">
-                                                        <i class="fa fa-trash-o"></i>
-                                                    </a>
+                                                        </a>
+                                                        <a href="#" class="delete-province custom-delete"
+                                                           title="Delete"
+                                                           object_id="{{$province->id}}"
+                                                           object_name="{{$province->name}}">
+                                                            <i class="fa fa-trash fa-sm"></i>
+                                                        </a>
+                                                    </div>
+                                                    
                                                     @foreach($province->district as $key=>$district)
                                                         <ul>
                                                             <li>
                                                                 <a href="#">{{$district->name}}</a>
-                                                                <button type="button" class="btn btn-primary modal-show custom-edit"
+                                                                <div class="action pull-right">
+                                                                    <a  class="modal-show custom-edit"
                                                                         data-url="/admin/manager-area/edit-district/{{$district->id}}"><i class="ace-icon fa fa-pencil"></i>
-                                                                </button>
-                                                                <a href="#" class="btn-danger delete-district custom-delete"
-                                                                   title="Delete"
-                                                                   object_id="{{$district->id}}"
-                                                                   object_name="{{$district->name}}">
-                                                                    <i class="fa fa-trash-o"></i>
-                                                                </a>
+                                                                    </a>
+                                                                    <a href="#" class="delete-district custom-delete"
+                                                                       title="Delete"
+                                                                       object_id="{{$district->id}}"
+                                                                       object_name="{{$district->name}}">
+                                                                        <i class="fa fa-trash fa-sm"></i>
+                                                                    </a>
+                                                                </div>
+                                                                
                                                             </li>
                                                         </ul>
                                                     @endforeach
