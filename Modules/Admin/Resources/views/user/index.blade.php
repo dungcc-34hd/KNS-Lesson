@@ -58,7 +58,7 @@
                                 <div class="col-md-9">
                                         <select class="select-option form-control provinces_S"  name="provinces" id="provinces"
                                         style="width: 200px;" data-table="province_id">
-                                        <option value="">Chọn Tỉnh</option>
+                                        <option value="">Chọn Tỉnh/thành phố</option>
                                   
        
                                        </select>
