@@ -260,7 +260,7 @@ class SchoolController extends Controller
         try {
             $array = $request->all();
             $array['quantity_account']=99;
-            $array['license_key']=$this->SimpleRandString();
+            $array['license_key']=$this->simpleRandString();
             $this->repository->create( $array);
             message($request, 'success', 'Tạo mới thành công.');
         }
@@ -307,7 +307,7 @@ class SchoolController extends Controller
         return response()->json($array);
     }
 
-    public function SimpleRandString($length=32, $list="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"){
+    public function simpleRandString($length=8, $list="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"){
 
         mt_srand((double)microtime()*1000000);
         $newstring="";
