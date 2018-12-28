@@ -37,11 +37,6 @@
                 </div>
             </div>
             <div style="clear: both"></div>
-            <ol class='data_lesson'>
-                <li>First</li>
-                <li>Second</li>
-                <li>Third</li>
-            </ol>
             <div id="changeLessonName" class="displayFull">
                 @foreach($lessons as $lesson)
                     <div class="box box-default">
