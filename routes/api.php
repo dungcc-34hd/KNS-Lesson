@@ -44,3 +44,5 @@ Route::get('/areas/{page?}/{size?}', 'Api\AreaController@getarea');
 Route::get('/provinces/{page?}/{size?}/{area_id?}', 'Api\ProvinceController@getprovince');
 //get districts
 Route::get('/districts/{page?}/{size?}/{province_id?}', 'Api\DistrictController@getdistrict');
+//create school
+Route::post('/schools/add', 'Api\SchoolController@createschool');

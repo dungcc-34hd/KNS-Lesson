@@ -90,6 +90,8 @@ class AuthController extends Controller
                     $license_key = '';
                 }
                 $user->ip = request()->ip();
+                $user->license_key = $license_key;
+                $user->last_login = Carbon::now()->toDateTimeString();
                 $user->save();
                 $tokenResult = $user->createToken('Personal Access Token');
                 $token = $tokenResult->token;
