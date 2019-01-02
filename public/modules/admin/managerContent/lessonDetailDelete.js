@@ -1,5 +1,5 @@
 $(function () {
-    activeMenu('data','managerLesson', true);
+    // activeMenu('data','managerLesson', true);
     $(document).on('click', '.delete-lesson-detail', function (e) {
         e.preventDefault();
         var object_name = $(this).attr('object_name');
