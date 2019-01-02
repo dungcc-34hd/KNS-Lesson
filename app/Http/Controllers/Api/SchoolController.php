@@ -36,10 +36,11 @@ class SchoolController extends Controller
 	public function createschool(Request $request){
         $arr = $request->all();
         $arr['license_key'] = $this->simpleRandString();
+        $arr['quantity_account'] = 9999;
         $validator = Validator::make($arr, [
             'email' => 'required|string|email|max:190|unique:schools',
             'name'  =>  'string|min:8|max:190|unique:schools',
-            'phone' => 'required|min:6|string',
+            'phone' => 'required|min:6|string|unique:schools',
             'area_id'  => 'required',
             'province_id'  => 'required',
             'district_id'  => 'required',
@@ -55,16 +56,20 @@ class SchoolController extends Controller
             'name.unique'   => 'Tên trường đã tồn tại',
             'phone.min'   => 'Số điện thoại phải có ít nhất 6 ký tự',
             'phone.required'   => 'Số điện thoại không được để trống',
+            'phone.unique'   => 'Số điện thoại đã tồn tại',
             'area_id.required'   => 'Khu vực không được để trống',
             'province_id.required'   => 'Tỉnh thành không được để trống',
             'district_id.required'   => 'Quận huyện không được để trống',
             'school_level_id.required'   => 'Cấp không được để trống'
         ]);
 
+
         if(!$validator->fails()){
             School::create($arr);
+            unset($arr['license_key']);
             return response()->json([
-                'data' => ['message'=>'Tạo thành công'],
+                'data' => $arr,
+                'message' => 'Tạo thành công',
                 'code'  => '0'
             ],200);
         }else{
