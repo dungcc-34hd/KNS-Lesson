@@ -1,5 +1,3 @@
-
-
 $(function () {
    activeMenu('users','user', true);
 
@@ -127,10 +125,10 @@ $(function () {
                 },
                 success:function(data) {
                     $('#tbody').html(data.user);
-                    $('#areas').html(data.select);
+                    // $('#areas').html(data.select);
                     $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
                     $("#schools").html('<option value="">Chọn Trường </option>');
-                    $('#provinces').html('<option value="">Chọn Tỉnh/thành phố</option>');
+                    // $('#provinces').html('<option value="">Chọn Tỉnh/thành phố</option>');
 
                     $("#CountProvince").val("");
                     $("#CountDistrict").val("");

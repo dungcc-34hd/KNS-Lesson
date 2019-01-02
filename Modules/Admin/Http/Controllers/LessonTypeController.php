@@ -130,11 +130,11 @@ class LessonTypeController extends Controller
      */
     public function destroy($id)
     {
-         try
+        try
         {
             $this->repository->delete($id);
             Session::flash('flash_level', 'success');
-        Session::flash('flash_message', 'Xoá thành công');       
+            Session::flash('flash_message', 'Xoá thành công');       
         }
         catch (QueryException $exception)
         {

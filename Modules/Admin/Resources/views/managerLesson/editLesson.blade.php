@@ -21,32 +21,41 @@
                 </div> --}}
             </div>
             <div class="modal-body ">
-                <div class="form-group form-grade">
-                    <label>Chọn khối @include('common.require')</label>
-                    <div class="clearfix">
-                        <select class="form-control grade" name="grade" >
-                            <option value="">Chọn khối</option>
-                            @foreach ($grades as $grade)
-                                @if(isset($lesson))
-                                    <option value="{{$grade->id}}" {{$grade->id == $lesson->grade_id ? "selected" : ''}}>{{$grade->name}}</option>
-                                @else
-                                    <option value="{{$grade->id}}">{{$grade->name}}</option>
-                                @endif
-                            @endforeach
-                        </select>
+                    <div class="form-group">
+                            <label>Stt @include('common.require')</label>
+                            <div class="clearfix">
+                                <input type="text" class="form-control" name="stt" value="{{$lesson->stt}}">
+                            </div>
                     </div>
-                </div>
-                <div class="form-group form-thematic" hidden>
-                    <label>Chọn chuyên đề @include('common.require')</label>
-                    <div class="clearfix">
-                        <select class="form-control thematic" name="thematic" >
-                            <option value="">Chọn chuyên đề</option>
-                            {{--@foreach ($thematics as $thematic)--}}
-                            {{--<option value="{{$thematic->id}}">{{$thematic->name}}</option>--}}
-                            {{--@endforeach--}}
-                        </select>
+                @if($lesson && !is_null($lesson->grade_id))
+                    <div class="form-group form-grade">
+                        <label>Chọn khối @include('common.require')</label>
+                        <div class="clearfix">
+                            <select class="form-control grade" name="grade" >
+                                <option value="">Chọn khối</option>
+                                @foreach ($grades as $grade)
+                                    @if(isset($lesson))
+                                        <option value="{{$grade->id}}" {{$grade->id == $lesson->grade_id ? "selected" : ''}}>{{$grade->name}}</option>
+                                    @else
+                                        <option value="{{$grade->id}}">{{$grade->name}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div class="form-group form-thematic">
+                        <label>Chọn chuyên đề @include('common.require')</label>
+                        <div class="clearfix">
+                            <select class="form-control thematic" name="thematic" >
+                                <option value="">Chọn chuyên đề</option>
+                                @foreach ($thematics as $thematic)
+                                    <option value="{{$thematic->id}}" {{$thematic->id == $lesson->thematic_id ? "selected" : ''}}>{{$thematic->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                @endif
                 <div class="form-group">
                     <label>Tên bài học @include('common.require')</label>
                     <div class="clearfix">

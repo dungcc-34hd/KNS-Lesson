@@ -14,6 +14,12 @@ $('.validation-form-lesson').validate({
             required: true,
             remote: '/admin/manager-lesson/check-lesson-name/' + lessonId,
         },
+        thematic : {
+            required: true,
+        },
+        stt : {
+            required:true,
+        }
 
     },
 
@@ -24,6 +30,12 @@ $('.validation-form-lesson').validate({
         name: {
             required: "Mời bạn nhập vào trường này.",
             remote: "Bài học đã tồn tại"
+        },
+        thematic : {
+            required: "Mời bạn chọn vào trường này.",
+        },
+        stt :{
+            required : "Mời bạn chọn vào trường này.",
         }
     },
 

@@ -127,7 +127,7 @@ $(document).ready(function () {
                         $('#tbody').html(data.user);
                         $("#provinces").html('<option>Chọn Tỉnh/thành phố</option>');
                         $("#districts").html('<option>Chọn Quận/Huyện</option>');
-                        $('#areas').html(data.select);
+                        // $('#areas').html(data.select);
 
 
                         // ajaxLoadDataForSelect(records, 1, province,table);
