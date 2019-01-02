@@ -15,12 +15,6 @@ use Illuminate\Http\Request;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-//register
-Route::post('/register', 'Api\AuthController@register');
-//login
-Route::post('/login', 'Api\AuthController@login');
-//logout
-Route::get('/logout', 'Api\AuthController@logout');
 
 Route::group([
     'middleware' => 'auth:api'
@@ -29,15 +23,22 @@ Route::group([
     Route::get('/lessons/{page?}/{size?}', 'Api\LessonController@getlesson');
     //download
     Route::get('download-zip/{lessonId?}','Api\LessonController@downloadZip');
-    //get schools
-    Route::get('/schools/{page?}/{size?}/{district_id?}', 'Api\SchoolController@getschool');
-    //get list grades
-    Route::get('/grades/{page?}/{size?}', 'Api\GradeController@getgrade');
-    //get list thematic
-    Route::get('/thematic/{page?}/{size?}', 'Api\ThematicController@getThematic');
-    //get classes
-    Route::get('/class/{page?}/{size?}/{grade_id?}', 'Api\ClassController@getclass');
 });
+//register
+Route::post('/register', 'Api\AuthController@register');
+//login
+Route::post('/login', 'Api\AuthController@login');
+//logout
+Route::get('/logout', 'Api\AuthController@logout');
+
+//get schools
+Route::get('/schools/{page?}/{size?}/{district_id?}', 'Api\SchoolController@getschool');
+//get list grades
+Route::get('/grades/{page?}/{size?}', 'Api\GradeController@getgrade');
+//get list thematic
+Route::get('/thematic/{page?}/{size?}', 'Api\ThematicController@getThematic');
+//get classes
+Route::get('/class/{page?}/{size?}/{grade_id?}', 'Api\ClassController@getclass');
  //get areas
 Route::get('/areas/{page?}/{size?}', 'Api\AreaController@getarea');
 //get provinces
