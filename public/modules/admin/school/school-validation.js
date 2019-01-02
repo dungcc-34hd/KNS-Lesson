@@ -1,15 +1,14 @@
 $(document).ready(function () {
 
-    jQuery.validator.addMethod("VldHtml", function(value, element) {
-        // allow any non-whitespace characters as the host part
-        return this.optional( element ) || /<(.|\n)*?>/g.test( value )==true?false:true;
-      }, 'Không được nhập kí tự đặc biệt');
 
     jQuery.validator.addMethod("biggerO", function(value, element) {
         // allow any non-whitespace characters as the host part
         return this.optional( element ) || value==""?false:true;
       }, 'Bạn chưa chọn.');
-      
+    jQuery.validator.addMethod("VldHtml", function(value, element) {
+    // allow any non-whitespace characters as the host part
+    return this.optional( element ) ||  /[^a-zA-Z0-9\s]/.test( value )==true?false:true;
+  }, 'Không được nhập kí tự đặc biệt');
     
     $('.validation-form').validate({
         errorElement: 'div',

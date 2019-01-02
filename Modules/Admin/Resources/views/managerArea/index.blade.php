@@ -120,7 +120,11 @@
 
 @push('scripts')
     {{--    <script src="{{ asset('assets/admin/plugins/iCheck/icheck.min.js') }}"></script>--}}
+    <script>
+         activeMenu('data','managerArea', true);
+    </script>
     <script src="{{ asset('common/pagination-search.js') }}"></script>
     <script src="{{ asset('modules/admin/managerArea/manager.js') }}"></script>
     <script src="{{ asset('modules/admin/managerArea/managerArea-delete.js') }}"></script>
+  
 @endpush

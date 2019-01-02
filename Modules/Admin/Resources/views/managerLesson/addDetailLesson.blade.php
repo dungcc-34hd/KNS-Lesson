@@ -69,7 +69,7 @@
 
 </div>
 </div>
-<script src="{{ asset('modules/admin/managerContent/lessonDetail-validation.js')}}"></script>
+  <script src="{{ asset('modules/admin/managerContent/lessonDetail-validation.js')}}"></script>
 <script>
     $('.modalDetailLesson').on('click', function () {
         var id = $(this).data('value');

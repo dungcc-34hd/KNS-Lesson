@@ -1,3 +1,9 @@
+jQuery.validator.addMethod("VldHtml", function(value, element) {
+    // allow any non-whitespace characters as the host part
+    return this.optional( element ) ||  /[^a-zA-Z0-9\s]/.test( value )==true?false:true;
+  }, 'Không được nhập kí tự đặc biệt');
+
+
    var id= $('#id').val();
 $('.validation-form').validate({
     errorElement: 'div',
@@ -8,6 +14,7 @@ $('.validation-form').validate({
         name: {
             remote:"/admin/manager-area/checkNameDistrict/"+id,
             required: true,
+            VldHtml: true,
                
         },
         area_id:{
@@ -25,7 +32,7 @@ $('.validation-form').validate({
             required: "Xin vui lòng nhập tên.",
         },
          area_id:{
-             required: "Xin vui lòng chọn khu  vực.",
+             required: "Xin vui lòng chọn khu vực.",
         },
           province_id:{
             required: "Xin vui lòng chọn tỉnh/thành phố.",

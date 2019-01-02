@@ -1,6 +1,9 @@
+$(document).ready(function () {
+
+  
 jQuery.validator.addMethod("VldHtml", function(value, element) {
     // allow any non-whitespace characters as the host part
-    return this.optional( element ) || /<(.|\n)*?>/g.test( value )==true?false:true;
+    return this.optional( element ) ||  /[^a-zA-Z0-9\s]/.test( value )==true?false:true;
   }, 'Không được nhập kí tự đặc biệt');
   
   var id= $('#id').val();
@@ -14,7 +17,7 @@ $('.validation-form').validate({
             remote:"/admin/role/checkName/"+id,
             required: true,
             minlength: 3,
-            VldHtml :true
+            VldHtml :true,
             
         },
         display_name: {
@@ -32,6 +35,7 @@ $('.validation-form').validate({
             remote: "Tên đã tồn tại",
             required: "Xin vui lòng nhập tên .",
             minlength: "Độ dài tối thiểu là 3",
+            VldHtml:"Không được nhập kí tự đặc biệt",
             
         },
         display_name: {
@@ -69,4 +73,5 @@ else if(element.is('.chosen-select')) {
 }
 else error.insertAfter(element.parent());
 }
+});
 });

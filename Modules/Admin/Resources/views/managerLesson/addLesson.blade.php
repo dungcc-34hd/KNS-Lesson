@@ -76,5 +76,5 @@
     </form>
 </div>
 </div>
-<script src="{{ asset('modules/admin/managerContent/lesson-validation.js')}}"></script>
+   <script src="{{ asset('modules/admin/managerContent/lesson-validation.js')}}"></script>
 <script src="{{ asset('modules/admin/managerContent/lessonCustom.js')}}"></script>

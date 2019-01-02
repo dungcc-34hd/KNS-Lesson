@@ -1,8 +1,8 @@
 jQuery.validator.addMethod("VldHtml", function(value, element) {
     // allow any non-whitespace characters as the host part
-    return this.optional( element ) || /<(.|\n)*?>/g.test( value )==true?false:true;
+    return this.optional( element ) ||  /[^a-zA-Z0-9]/.test( value )==true?false:true;
   }, 'Không được nhập kí tự đặc biệt');
-  
+
 var id = $('#id').val();
 $('.validation-form').validate({
     errorElement: 'div',
@@ -14,7 +14,7 @@ $('.validation-form').validate({
             required: true,
             remote:"/admin/grade/checkName/"+id,
             // minlength: 3
-            // VldHtml:true
+            VldHtml:true
         },
         // quantity: {
         //     required: true,
