@@ -18,7 +18,8 @@ $('#add-lesson-content').validate({
         },
         'background-image[]':{
             required:true
-        }
+        },
+       
     },
 
     messages: {
@@ -36,8 +37,12 @@ $('#add-lesson-content').validate({
         },
         'background-image[]':{
             required: "Mời bạn chọn file vào trường này."
-        }
+        },
+          
+
     },
+
+
 
 
     highlight: function (e) {
@@ -64,3 +69,4 @@ $('#add-lesson-content').validate({
         else error.insertAfter(element.parent());
     }
 });
+

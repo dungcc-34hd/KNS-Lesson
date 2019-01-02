@@ -99,7 +99,7 @@
                                    value="">
                         </div>
                     </div>
-                    <div class="answer-wrapper">
+                    <div class="answer-wrapper form-group">
                         <label>Câu trả lời đúng @include('common.require') </label>
                         <input type="text" id="answer" class="form-control"
                                placeholder="Nhập câu trả lời đúng"
@@ -109,10 +109,10 @@
                                value="5"><label>Câu trả lời đúng ở cuối</label>
                     </div>
                     <br/>
-                    <div class="answer-wrapper">
+                    <div class="answer-wrapper form-group">
                         <label>Câu trả lời Sai @include('common.require') </label>
                         <div class="input-group control-group after-add-more" style="width: 100%">
-                            <input type="text" name="answer[]" class="form-control"
+                            <input type="text" name="answer[]" class="form-control" 
                                    placeholder="Nhập câu trả lời sai">
                         </div>
                         <div id="form_answer_false">

@@ -4,6 +4,11 @@ $("#id_type").on("keypress keyup blur",function (event) {
         event.preventDefault();
     }
 });
+jQuery.validator.addMethod("VldHtml", function(value, element) {
+    // allow any non-whitespace characters as the host part
+    return this.optional( element ) ||  /[^a-zA-Z0-9\s]/.test( value )==true?false:true;
+  }, 'Không được nhập kí tự đặc biệt');
+
    var id= $('#type-id').val();
 $('.validation-form').validate({
     errorElement: 'div',
@@ -14,6 +19,7 @@ $('.validation-form').validate({
         name: {
             remote:"/admin/type-lesson/checkName/"+id,
             required: true,
+            VldHtml: true,
                
         },
         id_type:{

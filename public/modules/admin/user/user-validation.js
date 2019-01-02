@@ -4,6 +4,12 @@ jQuery.validator.addMethod("Vemail", function(value, element) {
 jQuery.validator.addMethod("Vphone", function(value, element) {
     return this.optional( element ) || /^0/.test( value );
 }, 'Số điện thoại bắt đầu bằng 0 ');
+
+jQuery.validator.addMethod("VldHtml", function(value, element) {
+    // allow any non-whitespace characters as the host part
+    return this.optional( element ) ||  /[^a-zA-Z0-9\s]/.test( value )==true?false:true;
+  }, 'Không được nhập kí tự đặc biệt');
+
 $("#quantity_student").on("keypress keyup blur",function (event) {
     $(this).val($(this).val().replace(/[^\d].+/,''));
         if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
@@ -20,6 +26,7 @@ $('.validation-form').validate({
         name: {
             required: true,
             minlength: 3,
+            VldHtml:true,
             
         },
         email: {
@@ -56,6 +63,9 @@ $('.validation-form').validate({
         school_id:{
             required: true,
 
+        },
+        class_name:{
+            VldHtml:true,
         },
         quantity_student:{
             // digits: true,
