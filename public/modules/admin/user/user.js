@@ -67,26 +67,17 @@ $(function () {
                 }
              });
         }else{
-            $.ajax({
-                type:'GET',
-                url:'/admin/user/select/',
-                'data': {
-                    'area' : area,
-                },
-                success:function(data) {
-
+         
                     $('#provinces').html('<option value="">Chọn Tỉnh/thành phố</option>');
 
-                    $('#tbody').html(data.user);
                     $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
                     $("#schools").html('<option value="">Chọn Trường </option>');
 
                     $("#CountProvince").val("");
                     $("#CountDistrict").val("");
                     $("#CountSchool").val("");
-                }
-             });
-            ajaxLoadData(records,1,$('#nav-search-input').val());
+            
+                    ajaxLoadData(records,1,$('#nav-search-input').val());
         }
             
     });
@@ -117,14 +108,14 @@ $(function () {
             }
          });
         }else{
-            $.ajax({
-                type:'GET',
-                url:'/admin/user/select/',
-                'data': {
-                    'province' : province,
-                },
-                success:function(data) {
-                    $('#tbody').html(data.user);
+            // $.ajax({
+            //     type:'GET',
+            //     url:'/admin/user/select/',
+            //     'data': {
+            //         'province' : province,
+            //     },
+            //     success:function(data) {
+                    // $('#tbody').html(data.user);
                     // $('#areas').html(data.select);
                     $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
                     $("#schools").html('<option value="">Chọn Trường </option>');
@@ -133,8 +124,8 @@ $(function () {
                     $("#CountProvince").val("");
                     $("#CountDistrict").val("");
                     $("#CountSchool").val("");
-                }
-             });
+            //     }
+            //  });
             ajaxLoadDataForSelect(records, 1, $(".areas_S").val(),$(".areas_S").data('table'));
         }
 
@@ -167,25 +158,15 @@ $(function () {
             }
          });
         }else{
-            $.ajax({
-                type:'GET',
-                url:'/admin/user/select/',
-                'data': {
-                    'district' : district,
-                },
-                success:function(data) {
-                    $('#tbody').html(data.user);
+            
+                    // $('#tbody').html(data.user);
                     // $('#areas').html(data.select);
-                    $('#provinces').html('<option value="">Chọn Tỉnh/thành phố</option>');
-                    $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
-                    $("#schools").html('<option  value="">Chọn Trường </option>');
+                    // $('#provinces').html('<option value="">Chọn Tỉnh/thành phố</option>');
+                    // $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
+            $("#schools").html('<option  value="">Chọn Trường </option>');
 
-                    $("#CountSchool").val("");
-                    $("#CountDistrict").val("");
-                    $("#CountProvince").val("");
-                
-                }
-             });
+            $("#CountSchool").val("");
+         
             ajaxLoadDataForSelect(records, 1, $(".provinces_S").val(),$(".provinces_S").data('table'));
         }
        
@@ -197,39 +178,18 @@ $(function () {
         var records = $('#show-records').val();
 
         if(school!=''){
-            $.ajax({
-            type:'GET',
-            url:'/admin/user/hanlding-school',
-            'data': {
-                'school' : school,
-            },
-            success:function(data) {
-                $('#tbody').html(data.user);
-
+           
                 $("#CountProvince").val("");
                 $("#CountDistrict").val("");
                 $("#CountSchool").val("");
-
                 ajaxLoadDataForSelect(records, 1, school,table);
-            }
-         });
+         
         }else{
-            $.ajax({
-                type:'GET',
-                url:'/admin/user/select/',
-                'data': {
-                    'school' : school,
-                },
-                success:function(data) {
-                    $('#tbody').html(data.user);
-                    // $('#areas').html(data.select);
-                    $('#provinces').html('<option value="">Chọn Tỉnh/thành phố</option>');
-                    $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
-                    $("#schools").html('<option  value="">Chọn Trường </option>');
-                }
-             });
-            // ajaxLoadDataForSelect(records, 1, $(".district_S").val(),$(".district_S").data('table'));
-             ajaxLoadDataForSelect(records, 1, $(".districts_S").val(),$(".districts_S").data('table'));
+           
+            // $('#provinces').html('<option value="">Chọn Tỉnh/thành phố</option>');
+            // $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
+            // $("#schools").html('<option  value="">Chọn Trường </option>');
+            ajaxLoadDataForSelect(records, 1, $(".districts_S").val(),$(".districts_S").data('table'));
         }
        
         

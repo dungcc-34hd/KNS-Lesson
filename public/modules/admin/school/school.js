@@ -64,7 +64,7 @@ $(document).ready(function () {
                     success: function (data) {
                        
                         $('#provinces').html(data.select);
-                        $('#tbody').html(data.user);
+                        // $('#tbody').html(data.user);
                         $("#districts").html('<option value="" >Chọn Quận/Huyện</option>');
                       
                         ajaxLoadDataForSelect(records, 1, area,table);
@@ -81,7 +81,7 @@ $(document).ready(function () {
                     },
                     success: function (data) {
                         console.log(data.user);
-                        $('#tbody').html(data.user);
+                        // $('#tbody').html(data.user);
                         $("#provinces").html('<option>Chọn Tỉnh/thành phố</option>');
                         $("#districts").html('<option>Chọn Quận/Huyện</option>');
                         
@@ -108,7 +108,7 @@ $(document).ready(function () {
                     },
                     success: function (data) {
                         $('#districts').html(data.select);
-                        $('#tbody').html(data.user);
+                        // $('#tbody').html(data.user);
 
                         $("#schools").html('<option>Chọn Trường </option>');
                         // ajaxLoadData(records,1,$('#nav-search-input').val());
@@ -116,23 +116,9 @@ $(document).ready(function () {
                     }
                 });
             } else {
-                $.ajax({
-                    type: 'GET',
-                    url: '/admin/school/select/',
-                    'data': {
-                        'province': province,
-                    },
-                    success: function (data) {
-                        // console.log(data.select);
-                        $('#tbody').html(data.user);
-                         $('#areas').html(data.select);
-                        $("#districts").html('<option>Chọn Quận/Huyện</option>');
-                        // $('#areas').html(data.select);
-
-
-                        // ajaxLoadDataForSelect(records, 1, province,table);
-                    }
-                });
+               
+                $("#districts").html('<option>Chọn Quận/Huyện</option>');
+             
                 ajaxLoadDataForSelect(records, 1, $(".areas_S").val(),$(".areas_S").data('table'));
 
             }
@@ -144,32 +130,11 @@ $(document).ready(function () {
             var table = $(this).data('table');
             var records = $('#show-records').val();
             if (district != '') {
-                $.ajax({
-                    type: 'GET',
-                    url: '/admin/school/hanlding-district',
-                    'data': {
-                        'district': district,
-                    },
-                    success: function (data) {
-                        $('#tbody').html(data.user);
-                        $('#schools').html(data.select);
+               
                         ajaxLoadDataForSelect(records, 1, district,table);
-                    }
-                });
+              
             } else {
-                $.ajax({
-                    type: 'GET',
-                    url: '/admin/school/select/',
-                    'data': {
-                        'district': district,
-                    },
-                    success: function (data) {
-                        $('#tbody').html(data.user);
-                        $('#areas').html(data.select);
-                         $("#provinces").html('<option>Chọn Tỉnh</option>');
-                         $("#districts").html('<option>Chọn Quận/Huyện</option>');
-                    }
-                });
+              
                 ajaxLoadDataForSelect(records, 1, $(".provinces_S").val(),$(".provinces_S").data('table'));
             }
 
