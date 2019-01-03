@@ -64,9 +64,6 @@ $('.validation-form').validate({
             required: true,
 
         },
-        class_name:{
-            VldHtml:true,
-        },
         quantity_student:{
             // digits: true,
             // number:true,

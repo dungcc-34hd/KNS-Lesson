@@ -21,7 +21,7 @@ $('.validation-form').validate({
     messages: {
         name: {
             remote: "Tên đã tồn tại",
-            required: "Xin vui lòng nhập tên gg.",
+            required: "Xin vui lòng nhập tên.",
         },
 
     },
