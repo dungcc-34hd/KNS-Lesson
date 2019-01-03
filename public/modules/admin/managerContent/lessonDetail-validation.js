@@ -26,9 +26,9 @@ $('.validation-form').validate({
         type: {
             required: true,
         },
-        outline: {
-            required: true,
-        },
+        // outline: {
+        //     required: true,
+        // },
     },
 
     messages: {
@@ -43,9 +43,9 @@ $('.validation-form').validate({
         type: {
             required: "Mời bạn chọn kiểu."
         },
-        outline: {
-            required: "Mời bạn nhập vào trường này."
-        }
+        // outline: {
+        //     required: "Mời bạn nhập vào trường này."
+        // }
     },
 
 

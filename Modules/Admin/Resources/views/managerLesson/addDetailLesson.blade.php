@@ -18,7 +18,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Tên bài học @include('common.require')</label>
+                    <label>Tên thư mục chứa nội dung @include('common.require')</label>
                     <div class="clearfix">
                         <input type="text" class="form-control" name="detail-lesson" id="detail-lesson"
                                value="@isset($lessonDetail) {{$lessonDetail->title}} @endisset">
@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Tên tiêu đề bài học @include('common.require')</label>
+                    <label>Tiêu đề nội dung bài học @include('common.require')</label>
                     <div class="clearfix">
                         <input type="text" class="form-control" name="name" id="name"
                                value="@isset($lessonDetail) {{$lessonDetail->name}} @endisset">
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Outline @include('common.require')</label>
+                    <label>Outline </label>
                     <div class="clearfix">
                         <input type="text" class="form-control" name="outline" id="outline"
                                value="@isset($lessonDetail) {{$lessonDetail->outline}} @endisset">
@@ -58,7 +58,7 @@
                     @if(isset($lessonDetail))
                         Sửa nội dung
                     @else
-                        Tạo bài học
+                        Tạo nội dung
                     @endif
                 </button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
@@ -69,7 +69,7 @@
 
 </div>
 </div>
-  <script src="{{ asset('modules/admin/managerContent/lessonDetail-validation.js')}}"></script>
+    <script src="{{ asset('modules/admin/managerContent/lessonDetail-validation.js')}}"></script>
 <script>
     $('.modalDetailLesson').on('click', function () {
         var id = $(this).data('value');
