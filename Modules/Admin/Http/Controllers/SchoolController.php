@@ -16,8 +16,8 @@ use Illuminate\Routing\Controller;
 
 class SchoolController extends Controller
 {
-    protected $repository;
-    protected $areaId;
+    protected $repository; 
+    protected $areaId; 
     public function __construct(SchoolEloquentRepository $repository)
     {
         $this->repository       = $repository;
@@ -238,9 +238,9 @@ class SchoolController extends Controller
     
     public function create()
     {  
-        $areas    =  Area::all();
-        $areaId=0;
-        $array=$this->repository->changeArea($areaId);
+        $areas      =  Area::all();
+        $areaId     =  0;
+        $array      =  $this->repository->changeArea($areaId);
         // dd($array);
         return view('admin::schools.create',[
             'areas'=> $areas,

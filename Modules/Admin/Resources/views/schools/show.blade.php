@@ -38,6 +38,19 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td>Email</td>
+                                            <td>
+                                                {{$school->email}}
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>Số điện thoại</td>
+                                            <td>
+                                                {{$school->phone}}
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td>Cấp trường</td>
                                             <td>
                                                 {{!empty($school->schoolLevel) ? $school->schoolLevel->name : ''}}
