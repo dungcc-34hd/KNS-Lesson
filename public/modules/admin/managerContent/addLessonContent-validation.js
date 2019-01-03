@@ -43,8 +43,6 @@ $('#add-lesson-content').validate({
     },
 
 
-
-
     highlight: function (e) {
         $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
     },

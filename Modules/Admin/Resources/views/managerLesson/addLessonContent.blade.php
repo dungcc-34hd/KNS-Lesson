@@ -29,7 +29,7 @@
 
         <div class="modal-body">
             <div class="form-group">
-                <label>Tiêu đề@include('common.require')</label>
+                <label>Tiêu đề hướng dẫn giáo viên @include('common.require')</label>
                 <div class="clearfix">
                     <input type="text" id="title" class="form-control" name="title"
                            value="@isset($lessonContent){{$lessonContent->title}}@endisset">
@@ -38,13 +38,13 @@
 
             <div class="form-group field_wrapper" id="form-content">
                 <div class="form-group">
-                    <label>Nội dung @include('common.require')</label>
+                    <label>Nội dung hướng dẫn giáo viên @include('common.require')</label>
                     <div class="clearfix">
                             <textarea type="text" class="md-textarea form-control " rows="2"
                                       name="content[]"></textarea>
                     </div>
                     <div style="margin-top: 1em ; display:none" id="content">
-                        <label>Nội dung @include('common.require')</label>
+                        <label>Nội dung hướng dẫn giáo viên @include('common.require')</label>
                         <textarea type="text" class="md-textarea form-control " rows="2"
                                   name="content[]" style="margin-top: 15px;"></textarea>
                         <a href="javascript:void(0);" style="margin-top: 1em"
@@ -146,7 +146,7 @@
         </div>
     </form>
 </div>
-<script src="{{asset('modules/admin/managerContent/addLessonContent-validation.js')}}"></script>
+  <script src="{{asset('modules/admin/managerContent/addLessonContent-validation.js')}}"></script>
 <script>
     $(document).ready(function () {
 

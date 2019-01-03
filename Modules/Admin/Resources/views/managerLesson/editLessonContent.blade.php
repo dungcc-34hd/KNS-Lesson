@@ -25,7 +25,7 @@
 
         <div class="modal-body">
             <div class="form-group">
-                <label>Tiêu đề@include('common.require')</label>
+                <label>Tiêu đề hướng dẫn giáo viên @include('common.require')</label>
                 <div class="clearfix">
                     <input type="text" id="title" class="form-control" name="title"
                            value="@isset($lessonContent){{$lessonContent->title}}@endisset">
@@ -35,7 +35,7 @@
             <div class="form-group field_wrapper" id="form-content">
                 @foreach($contents as  $content)
                     <div style="margin-top: 1em ">
-                        <label>Nội dung @include('common.require')</label>
+                        <label>Nội dung hướng dẫn giáo viên @include('common.require')</label>
                         <textarea type="text" class="md-textarea form-control " rows="2"
                                   name="content[]" style="margin-top: 15px;" value="{{$content}}"
                         >{{$content}}</textarea>
@@ -45,7 +45,7 @@
                 @endforeach
                 <div class="form-group">
                     <div style="margin-top: 1em ; display:none" id="content">
-                        <label>Nội dung @include('common.require')</label>
+                        <label>Nội dung hướng dẫn giáo viên @include('common.require')</label>
                         <textarea type="text" class="md-textarea form-control " rows="2"
                                   name="content[]" style="margin-top: 15px;"></textarea>
                         <a href="javascript:void(0);" style="margin-top: 1em"
