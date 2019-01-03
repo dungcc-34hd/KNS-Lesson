@@ -148,7 +148,7 @@ class ManagerLessonController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * add tiêu đề theo khối (create folder + lưu db)
      */
-    public function storeLessonDetail(Request $request)
+    public function storeLessonDetail(Request $request )
     {
         $detailLesson = new LessonDetail();
         $detailLesson->title = $request['detail-lesson'];
@@ -156,6 +156,8 @@ class ManagerLessonController extends Controller
         $detailLesson->type = $request['type'];
         $detailLesson->outline = $request['outline'];
         $detailLesson->name = $request['name'];
+        $countLessonDetail = LessonDetail::where('lesson_id',$request['lesson-id'])->count();
+        $detailLesson->order = $countLessonDetail + 1;
 
         //make directory
         $directory = public_path() . "/modules/managerContent/" . $request['lesson-detail'] . '/' . $request['detail-lesson'];
@@ -611,5 +613,24 @@ class ManagerLessonController extends Controller
             $lessonDetailName = LessonDetail::where('lesson_id', '=', $lessonId)->where('title', '=', Input::get('detail-lesson'))->whereNotIn('id', [$lessonDetailId])->exists();
         }
         return response()->json(!$lessonDetailName);
+    }
+
+    public function updateOrderLesson($id, $start, $stop)
+    {
+        $lsds = LessonDetail::where([['order', '>=', $start],['order', '<=', $stop]], ['lesson_id', '=', $id])->orderBy('order')->get();
+        foreach ($lsds as $key=>$item)
+        {
+            if($item->order == $start)
+            {
+                $item->order = $stop;
+            }
+            else
+            {
+                $item->order--;
+            }
+            $item->save();
+
+        }
+
     }
 }

@@ -192,6 +192,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/pagination/{records}/{search?}', 'ManagerLessonController@pagination')->name('admin.managerLesson.pagination');
         Route::get('public/{id}','ManagerLessonController@publicObject')->name('admin.managerLesson.public');
         Route::get('zip/{id}','ManagerLessonController@zip')->name('admin.managerLesson.zip');
+        Route::get('update-order-lesson/{id}/{start}/{stop}','ManagerLessonController@updateOrderLesson')->name('admin.managerLesson.updateOrderLesson');
     });
 
     // statistic
@@ -235,6 +236,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'admin', 'namespace' 
         Route::get('/delete/{id}','LessonTypeController@destroy')->name('admin.typeLesson.delete');
     });
 
+    // manager area
     Route::group(['prefix'=>'manager-area'],function(){
         Route::get('/','ManagerAreaController@index')->name('admin.managerArea.index');
         Route::get('/create-area','ManagerAreaController@createArea')->name('admin.managerArea.createArea');
