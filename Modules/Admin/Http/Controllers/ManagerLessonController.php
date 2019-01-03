@@ -100,6 +100,7 @@ class ManagerLessonController extends Controller
     public function storeLesson(Request $request)
     {
         $lesson = new Lesson();
+        $lesson->stt = $request->stt;
         $lesson->name = $request->name;
         $lesson->grade_id = $request->grade;
         $lesson->thematic_id = $request->thematic;
@@ -132,6 +133,7 @@ class ManagerLessonController extends Controller
         if (File::exists($directoryOld)) {
             rename($directoryOld, $newDirectory);
         }
+        $lesson->stt = $request->stt;
         $lesson->name = $request->name;
         $lesson->grade_id = $request->grade;
         $lesson->save();

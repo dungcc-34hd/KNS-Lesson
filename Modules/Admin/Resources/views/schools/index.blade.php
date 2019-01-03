@@ -37,10 +37,10 @@
                         </div>     
                     </div>
                     <div class="form-group col-md-4">
-                        <label>Tỉnh </label>
+                        <label>Tỉnh/thành phố </label>
                         <div class="clearfix">
                             <select  class="form-control provinces_S" name="province_id" id="provinces" data-table="province_id" >
-                                <option value="">Chọn Tỉnh</option>
+                                <option value="">Chọn Tỉnh/thành phố</option>
                                 @foreach ($provinces as $key => $province)
                                     <option value="{{$province->id}}">{{$province->name}}</option>
                                 @endforeach

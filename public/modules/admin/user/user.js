@@ -1,5 +1,3 @@
-
-
 $(function () {
    activeMenu('users','user', true);
 
@@ -77,7 +75,7 @@ $(function () {
                 },
                 success:function(data) {
 
-                    $('#provinces').html('<option value="">Chọn Tỉnh</option>');
+                    $('#provinces').html('<option value="">Chọn Tỉnh/thành phố</option>');
 
                     $('#tbody').html(data.user);
                     $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
@@ -127,8 +125,10 @@ $(function () {
                 },
                 success:function(data) {
                     $('#tbody').html(data.user);
+                    // $('#areas').html(data.select);
                     $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
                     $("#schools").html('<option value="">Chọn Trường </option>');
+                    // $('#provinces').html('<option value="">Chọn Tỉnh/thành phố</option>');
 
                     $("#CountProvince").val("");
                     $("#CountDistrict").val("");
@@ -175,6 +175,9 @@ $(function () {
                 },
                 success:function(data) {
                     $('#tbody').html(data.user);
+                    $('#areas').html(data.select);
+                    $('#provinces').html('<option value="">Chọn Tỉnh/thành phố</option>');
+                    $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
                     $("#schools").html('<option  value="">Chọn Trường </option>');
 
                     $("#CountSchool").val("");
@@ -219,9 +222,14 @@ $(function () {
                 },
                 success:function(data) {
                     $('#tbody').html(data.user);
+                    $('#areas').html(data.select);
+                    $('#provinces').html('<option value="">Chọn Tỉnh/thành phố</option>');
+                    $("#districts").html('<option value="">Chọn Quận/Huyện</option>');
+                    $("#schools").html('<option  value="">Chọn Trường </option>');
                 }
              });
-            ajaxLoadDataForSelect(records, 1, $(".district_S").val(),$(".district_S").data('table'));
+            // ajaxLoadDataForSelect(records, 1, $(".district_S").val(),$(".district_S").data('table'));
+             ajaxLoadDataForSelect(records, 1, $(".districts_S").val(),$(".districts_S").data('table'));
         }
        
         

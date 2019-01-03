@@ -31,8 +31,8 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
      public function getPages($records, $search = null)
     {
       if(!is_null($search)){
-            $total=count(User::where('users.name', 'like', '%' . $search . '%')
-                          ->orWhere('users.email', 'like', '%' . $search . '%')
+            $total=count(User::where('name', 'like', '%' . $search . '%')
+                          // ->Where('email', 'like', '%' . $search . '%')
                            ->whereNotNull('role_id')->get());
 
         }else{
@@ -45,8 +45,8 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         if(is_null($search)){
             $result = User::whereNotNull('role_id')->paginate($records)->items();
         }else{
-            $result = User::where('users.name', 'like', '%' . $search . '%')
-                          ->orWhere('users.email', 'like', '%' . $search . '%')
+            $result = User::where('name', 'like', '%' . $search . '%')
+                          // ->Where('email', 'like', '%' . $search . '%')
                            ->whereNotNull('role_id')->paginate($records)->items();
         }
          return $result;
@@ -116,8 +116,8 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
     public function getAreaPages($records,$id,$tableID, $search = null)
     {
        if(!is_null($search)){
-            $total=count(User::where('users.name', 'like', '%' . $search . '%')
-                          ->orWhere('users.email', 'like', '%' . $search . '%')
+            $total=count(User::where('name', 'like', '%' . $search . '%')
+                          ->Where('email', 'like', '%' . $search . '%')
                            ->whereNotNull('role_id')->where($tableID,$id)->get());
 
         }else{
@@ -141,8 +141,8 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
                     ->where($tableID,$id)
                     ->paginate($records)->items();
         }else{
-            $User = User::where('users.name', 'like', '%' . $search . '%')
-                          ->orWhere('users.email', 'like', '%' . $search . '%')
+            $User = User::where('name', 'like', '%' . $search . '%')
+                          ->Where('email', 'like', '%' . $search . '%')
                           ->whereNotNull('role_id')
                           ->where($tableID,$id)
                           ->paginate($records)->items();

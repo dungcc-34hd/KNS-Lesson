@@ -1,12 +1,20 @@
 $(function ()
 {
    $('#selectArea').change(function () {
-        process($(this).val());
+      var value = $('#selectArea').val();
+      if(value == ''){
+          $('#selectProvince').html('<option value="">Chọn Tỉnh/thành phố</option>');
+          $("#selectDistrict").html('<option value="">Chọn Quận/Huyện</option>');
+          $("#selectSchool").html('<option  value="">Chọn Trường </option>');
+      }else{
+         process($(this).val());
+      }
          
 
    });
    $('#selectProvince').change(function ()
     {
+
         changeProvince($(this).val());
          
    });

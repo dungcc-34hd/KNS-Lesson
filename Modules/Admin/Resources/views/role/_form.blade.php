@@ -2,28 +2,26 @@
     <input type="hidden" name="id" value="{{$role->role_id}}" id="id">
 @endisset
 <div class="col-md-6">
-    <div class="form-group">
+    <div class="form-group" style="height: 70px;">
         <label>Tên @include('common.require')</label>
         <div class="clearfix">
             <input type="text" class="form-control" name="name"
-                   value="@isset($role) {{ $role->name_role }} @endisset">
-            
+                   value="@isset($role) {{ $role->name_role }} @endisset">    
         </div>
     </div>
     <!-- /.form-group -->
-    <div class="form-group">
+    <div class="form-group" >
         <label>Tên hiển thị @include('common.require')</label>
         <div class="clearfix">
             <input type="text" class="form-control name" name="display_name"
                    value="@isset($role) {{ $role->display_role }} @endisset">
-           
         </div>
     </div>
     <!-- /.form-group -->
 </div>
 <!-- /.col -->
 <div class="col-md-6">
-    <div class="form-group">
+    <div class="form-group" style="height: 70px;">
         <label>Quyền @include('common.require')</label>
         <div class="clearfix">   
             <select  class="select-option form-control" name="permission_id" id="">

@@ -44,4 +44,7 @@
     </form>
 </div>
 </div>
+<script>
+     activeMenu('data','managerArea', true);
+</script>
 <script src="{{ asset('modules/admin/managerArea/managerArea-validate.js')}}"></script>

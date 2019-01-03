@@ -8,7 +8,7 @@
         <div class="form-group">
             <label>Id </label>
             <div class="clearfix">
-                <input type="number" class="form-control" name="id_type" id="id_type" 
+                <input type="text" class="form-control" name="id_type" id="id_type" 
                        value="@isset($type){{$type->id_type}}@endisset">
                 @if($errors)
                     <span style="color: #dd4b39;" class="text-danger">{{$errors->first('id_qualify')}}</span> 

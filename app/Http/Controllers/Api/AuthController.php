@@ -79,10 +79,8 @@ class AuthController extends Controller
     {
 
 //        try {
-            $email = $request->email;
-            $password = Hash::make($request->password);
             $credentials = $request->only('email', 'password');
-            $user = User::where('email',$email)->first();
+            $user = User::where('email',$request->email)->first();
 
             if (Auth::attempt($credentials)) {
                 $query = !is_null($user->school_id) ? School::where('id',$user->school_id)->first() : "";
@@ -92,6 +90,8 @@ class AuthController extends Controller
                     $license_key = '';
                 }
                 $user->ip = request()->ip();
+                $user->license_key = $license_key;
+                $user->last_login = Carbon::now()->toDateTimeString();
                 $user->save();
                 $tokenResult = $user->createToken('Personal Access Token');
                 $token = $tokenResult->token;

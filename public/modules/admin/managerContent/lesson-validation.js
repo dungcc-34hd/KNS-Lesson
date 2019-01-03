@@ -1,4 +1,13 @@
-
+$("#stt").on("keypress keyup blur",function (event) {
+    $(this).val($(this).val().replace(/[^\d].+/,''));
+        if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+        event.preventDefault();
+    }
+});
+jQuery.validator.addMethod("VldHtml", function(value, element) {
+    // allow any non-whitespace characters as the host part
+    return this.optional( element ) ||  /[^a-zA-Z0-9\s]/.test( value )==true?false:true;
+  }, 'Không được nhập kí tự đặc biệt');
 var lessonId = $('#lesson-name').val();
 
 $('.validation-form-lesson').validate({
@@ -13,9 +22,13 @@ $('.validation-form-lesson').validate({
         name: {
             required: true,
             remote: '/admin/manager-lesson/check-lesson-name/' + lessonId,
+            VldHtml: true,
         },
         thematic : {
             required: true,
+        },
+        stt : {
+            required:true,
         }
 
     },
@@ -30,6 +43,9 @@ $('.validation-form-lesson').validate({
         },
         thematic : {
             required: "Mời bạn chọn vào trường này.",
+        },
+        stt :{
+            required : "Mời bạn chọn vào trường này.",
         }
     },
 

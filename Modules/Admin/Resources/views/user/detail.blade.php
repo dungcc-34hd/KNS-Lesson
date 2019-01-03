@@ -112,7 +112,7 @@
                                         <tr>
                                             <td>Quyền</td>
                                             <td>
-                                                {{$user->role->name}}
+                                                {{$user->role['name']}}
                                             </td>
                                         </tr>
                                         <tr>

@@ -82,8 +82,10 @@ class SchoolController extends Controller
     public function select(){
         $records=10;
         $data        = $this->repository->getObjects($records);
-         $user           = $this->returnTr($data);
-         return response()->json(['user'=>$user]); 
+        $user           = $this->returnTr($data);
+        $area        = Area::all();
+        $select         = $this->returnOption($area,"Chọn khu vực" );
+         return response()->json(['user'=>$user,'select' =>$select]); 
     }
    public function hanldingArea(Request $req)
     {

@@ -4,26 +4,26 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Grade;
 use Auth;
+use App\User;
 
-class GradeController extends Controller
+class ThematicController extends Controller
 {
-	public function getgrade(Request $request)
+	public function getThematic(Request $request)
 	{
 		$size = $request->size;
-
+		$query = User::find(Auth::user()->id);
     	if(!is_null($size)){
     		return response()->json([
 	    		'code' => 0, 
-	    		'data' => Grade::where('id',Auth::user()->grade_id)->paginate($size)
+	    		'data' => $query->thematic
+							->paginate($size)
 			], 200);
     	}else{
     		return response()->json([
 	    		'code' => 0, 
-	    		'data' => Grade::where('id',Auth::user()->grade_id)->get()
+	    		'data' => $query->thematic
 			], 200);
     	}
 	}
-    	
 }

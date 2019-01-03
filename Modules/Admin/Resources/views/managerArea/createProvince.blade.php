@@ -45,5 +45,8 @@
     </form>
 </div>
 </div>
+<script>
+     activeMenu('data','managerArea', true);
+</script>
 <script src="{{ asset('modules/admin/managerArea/province-validation.js')}}"></script>
 <script src="{{ asset('modules/admin/school/school.js')}}"></script>
