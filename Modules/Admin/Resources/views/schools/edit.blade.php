@@ -28,6 +28,21 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <label>Email @include('common.require')</label>
+                                    <div class="clearfix">
+                                        <input type="email" class="form-control" name="email"
+                                               value="@isset($school){{$school->email}}@endisset">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Số điện thoại @include('common.require')</label>
+                                    <div class="clearfix">
+                                        <input type="text" class="form-control" name="phone"
+                                               value="@isset($school){{$school->phone}}@endisset">
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
                                     <label>Cấp @include('common.require')</label>
@@ -37,7 +52,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
                                
                                 <div class="form-group">
                                     <label>Khu vực @include('common.require')</label>

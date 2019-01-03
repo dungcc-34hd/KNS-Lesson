@@ -7,7 +7,7 @@ $(document).ready(function () {
       }, 'Bạn chưa chọn.');
     jQuery.validator.addMethod("VldHtml", function(value, element) {
     // allow any non-whitespace characters as the host part
-    return this.optional( element ) ||  /[^a-zA-Z0-9\s]/.test( value )==true?false:true;
+    return this.optional( element ) ||  /[@#$%^&*~/\|<>]/.test( value )==true?false:true;
   }, 'Không được nhập kí tự đặc biệt');
     
     $('.validation-form').validate({
@@ -20,6 +20,12 @@ $(document).ready(function () {
                 required: true,
                 minlength: 3,
                 VldHtml:true,
+            },
+            phone: {
+                required: true,
+            },
+            email:  {
+                required: true,
             },
             school_level_id: {
                 required: true,
@@ -36,10 +42,17 @@ $(document).ready(function () {
         },
     
         messages: {
+
             name: {
                 required: "Xin vui lòng nhập tên trường.",
 
                 minlength: "Độ dài tối thiểu là 3."
+            },
+            phone: {
+                required: "Xin vui lòng nhập số điện thoại",
+            },
+            email: {
+                required: "Xin vui nhập email",
             },
             school_level_id:{
                 required: "Xin vui lòng chọn cấp.",

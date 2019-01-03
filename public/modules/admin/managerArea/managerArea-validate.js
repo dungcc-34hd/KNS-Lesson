@@ -1,6 +1,6 @@
 jQuery.validator.addMethod("VldHtml", function(value, element) {
     // allow any non-whitespace characters as the host part
-    return this.optional( element ) ||  /[^a-zA-Z0-9\s]/.test( value )==true?false:true;
+    return this.optional( element ) ||  /[@#$%^&*~/\|<>]/.test( value )==true?false:true;
   }, 'Không được nhập kí tự đặc biệt');
    var id= $('#id').val();
 $('.validation-form').validate({
@@ -21,7 +21,7 @@ $('.validation-form').validate({
     messages: {
         name: {
             remote: "Tên đã tồn tại",
-            required: "Xin vui lòng nhập tên .",
+            required: "Xin vui lòng nhập tên gg.",
         },
 
     },

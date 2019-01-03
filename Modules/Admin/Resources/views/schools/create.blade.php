@@ -28,6 +28,23 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>Email @include('common.require')</label>
+                                    <div class="clearfix">
+                                        <input type="text" class="form-control" name="email" id="email">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Số điện thoại @include('common.require')</label>
+                                    <div class="clearfix">
+                                        <input type="text" class="form-control" name="phone" id="phone">
+                                    </div>
+                                </div>
+
+
+                                
+                             
+                                <div class="form-group">
                                     <label>Cấp @include('common.require')</label>
                                     <div class="clearfix">
                                         <select  class="form-control" name="school_level_id">

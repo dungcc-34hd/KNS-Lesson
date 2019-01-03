@@ -92,6 +92,8 @@
                                 <tr>
                                     <th class="order-number">STT</th>
                                     <th>Tên</th>
+                                    <th>Emial</th>
+                                    <th>SĐT</th>
                                     <th>Cấp</th>
                                     <th>Khu vực</th>
                                     <th>Tỉnh</th>
@@ -106,6 +108,8 @@
                                         <tr>
                                             <td class="text-center">{{$key + 1}}</td>
                                             <td>{{$school->name}}</td>
+                                            <td>{{$school->email}}</td>
+                                            <td>{{$school->phone}}</td>
                                             <td>{{!empty($school->schoolLevel) ? $school->schoolLevel->name: ''}}</td>
                                              <td>{{!empty($school->area) ? $school->area->name: ''}}</td>
                                              <td>{{!empty($school->province) ? $school->province->name: ''}}</td>
