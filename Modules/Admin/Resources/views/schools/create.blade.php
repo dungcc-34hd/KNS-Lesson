@@ -110,6 +110,9 @@
     </div>
 @endsection
 @push('scripts')
+    <script>
+        activeMenu('data', 'school', true);
+    </script>
     <script src="{{ asset('modules/admin/school/school-validation.js')}}"></script>
     <script src="{{ asset('modules/admin/school/custom.js') }}"></script>
 @endpush

@@ -22,5 +22,8 @@
     </div>
 </div>
 @push('scripts')
+      <script>
+         activeMenu('lesson','thematic', true);
+    </script>
     <script src="{{ asset('modules/admin/thematic/thematic-validation.js') }}"></script>
 @endpush

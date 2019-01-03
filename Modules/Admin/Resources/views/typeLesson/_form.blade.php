@@ -45,5 +45,8 @@
     </div>
 </div>
 @push('scripts')
+    <script>
+         activeMenu('lesson','type', true);
+    </script>
     <script src="{{ asset('modules/admin/typeLesson/typeLesson-validation.js') }}"></script>
 @endpush
