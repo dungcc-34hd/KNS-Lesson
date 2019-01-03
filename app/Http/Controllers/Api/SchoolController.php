@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\School;
 use Validator;
+use App\Mail\Schools;
+use Illuminate\Support\Facades\Mail;
 
 class SchoolController extends Controller
 {
@@ -67,6 +69,7 @@ class SchoolController extends Controller
         if(!$validator->fails()){
             School::create($arr);
             unset($arr['license_key']);
+            Mail::to($arr['email'])->send(new Schools($arr));
             return response()->json([
                 'data' => $arr,
                 'message' => 'Tạo thành công',

@@ -10,6 +10,8 @@ use App\User;
 use App\Models\School;
 use Validator;
 use Carbon\Carbon;
+use App\Mail\Register;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -22,7 +24,9 @@ class AuthController extends Controller
             $validator = Validator::make($arr, [
                 'email' => 'required|string|email|max:190|unique:users',
                 'name'  =>  'string|min:8|max:190',
-                'password' => 'required|min:6|string'
+                'password' => 'required|min:6|string',
+                'school_id' => 'required|integer|exists:schools,id',
+                'license_key' => 'required|exists:schools,license_key'
             ],[
                 'email.required'    => 'email không được để trống',
                 'email.string'   => 'email sai định dạng',
@@ -32,9 +36,15 @@ class AuthController extends Controller
                 'name.min'   => 'Tên phải có ít nhất 6 ký tự',
                 'name.max'   => 'Tên chỉ được phép nhiều nhất 190 ký tự',
                 'password.min'   => 'Mật khẩu phải có ít nhất 6 ký tự',
-                'password.required'   => 'Mật khẩu không được để trống'
+                'password.required'   => 'Mật khẩu không được để trống',
+                'school_id.required'    => 'ID trường không được để trống',
+                'school_id.integer' =>  'ID trường không đúng định dạng',
+                'school_id.exists'  => 'ID trường không tồn tại',
+                'license_key.required'  => 'License_key của trường không được để trống',
+                'license_key.exists'  => 'License_key của trường không tồn tại',
             ]);
 
+            die('sent');
             if(!$validator->fails()){
                 $arr['password'] = Hash::make($arr['password']);
                 $user = User::create($arr);
@@ -42,6 +52,11 @@ class AuthController extends Controller
                 $token = $tokenResult->token;
                 $token->expires_at = Carbon::now()->addHours(4);
                 $token->save();
+                Mail::to($user->email)->send(new Register());
+                Mail::send('emails.register', [], function($message) use ($user)
+                {
+                    $message->to($user->email)->subject('This is test e-mail');
+                });
                 return response()->json([
                     'data' => [
                         'name' => $user->name,
