@@ -92,7 +92,7 @@
                                 <tr>
                                     <th class="order-number">STT</th>
                                     <th>Tên</th>
-                                    <th>Emial</th>
+                                    <th>Email</th>
                                     <th>SĐT</th>
                                     <th>Cấp</th>
                                     <th>Khu vực</th>
