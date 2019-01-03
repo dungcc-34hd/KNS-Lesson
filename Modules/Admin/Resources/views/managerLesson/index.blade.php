@@ -21,9 +21,9 @@
             </div>
             <br>
             <div class="col-md-12">
-                   
+
                 @include('common.message')
-                       
+
                 <div class="col-md-8">
                     <h4>Danh sách bài học</h4>
                 </div>
@@ -62,7 +62,7 @@
                                        is_public="{{$lesson->is_public}}"
                                        object_id="{{$lesson->id}}"
                                        object_name="{{$lesson->name}}">
-                                       Public  
+                                       Public
                                     </a>
 
                                     <button type="button" class="btn btn-primary  modal-show"
@@ -81,18 +81,18 @@
                             </div>
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body data_lesson" style="">
-                            <table class="table table-hover results-table">
-                                <tbody>
+                        <div class="box-body" style="">
+                            <table class="table table-hover results-table" >
                                 <tr>
-                                    <th class="order-number" style="width: 5px;">Id.</th>
+                                    <th class="order-number" style="width: 5px;">STT.</th>
                                     <th>Nội dung</th>
                                     <th class="item-action-3 pull-right">Status</th>
                                 </tr>
+                                <tbody class="sortable ui-sortable">
                                 @if(!empty($lesson->lessonDetail))
                                     @foreach($lesson->lessonDetail as $key=>$lessonDetail)
-                                        <tr>
-                                            <td class="">{{$key + 1}}</td>
+                                        <tr data-id="{{$lessonDetail->id}}" class="order_lesson">
+                                            <td class="">{{$key+1}}</td>
                                             <td>
                                             <span data-url="/admin/manager-lesson/get-value-type/{{$lessonDetail->id}}"
                                                   value="{{$lessonDetail->id}}"> {{$lessonDetail->title}}</span>
@@ -250,7 +250,8 @@
     </div>
 @endsection
 @push('scripts')
-    {{--<script src="{{ asset('modules/admin/managerContent/managerContent.js') }}"></script>--}}
+    <script src="{{ asset('modules/admin/managerContent/managerContent.js') }}"></script>
+
    <script>
        activeMenu('lesson','manager-lesson', true);
    </script>
@@ -258,44 +259,7 @@
     <script src="{{ asset('modules/admin/managerContent/lessonDelete.js') }}"></script>
     <script src="{{ asset('modules/admin/managerContent/lessonPublic.js') }}"></script>
     <script src="{{ asset('modules/admin/managerContent/lessonDetailDelete.js') }}"></script>
-    <script src="{{ asset('common/pagination-search.js') }}"></script>
-    {{--<script src='js/jquery-sortable.js'></script>--}}
-    <script>
-        $(document).ready(function () {
-            $("#nav-search-input").change(function(event){
-                var gradeId = $(this).val();
-                $.ajax({
-                    type: "GET",
-                    url: '/admin/manager-lesson/pagination/1000/'+gradeId ,
-                    data: {'gradeId': gradeId},
-                    success: function( data ) {
-                       if(data != ''){
-                           $('#changeLessonName').html(data);
-                           $('.displayLesson').addClass('hidden');
-                           $('.displayFull').removeClass('hidden');
-                       }else{
-                           $('.displayFull').addClass('hidden');
-                           $('.displayLesson').removeClass('hidden');
-                       }
-                    }
-                });
-            });
-            $(".add-json-lesson").click(function(event){
-                var lessonId = $(this).val();
-                $.ajax({
-                    type: "GET",
-                    url: '/admin/manager-lesson/add-lesson-json/'+ lessonId ,
-                    data: {'gradeId': lessonId},
-                    success: function( data ) {
-
-                    }
-                });
-            });
-        });
-        $(function  () {
-            $("div.data_lesson").sortable();
-        });
-    </script>
+    <script src="{{ asset('common/pagination-search.js')}}"></script>
 @endpush
 
 
